@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _directory_group SET _oid=".$record->getFieldValue("oid","DB","NULL").",_group_name=".$record->getFieldValue("group_name","DB","NULL")." WHERE _group_type='pole'"; ?>

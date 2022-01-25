@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<nxl 
+	version				= "1.0" 
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl"
+	package				= "recruitment">
+
+	<include file = "../datamodel/all.data.nxl"/>
+	<include file = "components/dashboard.comp.nxl"/>
+
+	<main 
+	
+		xmlns					= "http://www.presencemedia.com/recruitment/dashboards/components/dashboard.comp"
+	
+		name					= "integrations_synthesis"
+		path					= "/recruitment/dashboards/"
+		strings					= "recruitment.dashboards.integrations_synthesis"
+		skin					= "#global:SALESFORCE_SKIN:generis#"
+
+		ds_search				= "rct_vacancy.dashboards.integrations_synthesis.search"
+		ds_list					= "rct_vacancy.dashboards.integrations_synthesis.list"
+		ds_export_list			= "rct_vacancy.dashboards.integrations_synthesis.list"
+
+		template_list			= "recruitment.dashboards.list_integrations"
+		template_xls_export		= "recruitment.dashboards.list_excel">
+
+		<i8n:strings 
+			name		= "recruitment.dashboards.integrations_synthesis"
+			lang		= "fr" 
+			xmlns		= "http://www.w3.org/1999/xhtml"
+			xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+			<i8n:string id="page_title_list" value="Synthèse des recrutements" />
+							
+			<i8n:string id="page_message_list" value="Ce tableau de bord contient un récapitulatif des ventes réalisées et le budget consommé par gamme" />
+			<i8n:string id="page_message_list_details" value="Vous pouvez effectuer des recherches sur le tableau pour affiner vos résultats et les exporter au format Excel" />
+
+			<i8n:string id="dlg_wait_title" value="Veuillez patienter ..." />
+			<i8n:string id="dlg_wait_content" value="Enregistrement des informations est en cours" />
+			<i8n:string id="dlg_edit_wait_title" value="Veuillez patienter ..." />
+			<i8n:string id="dlg_edit_wait_content" value="Enregistrement des informations est en cours" />
+			<i8n:string id="dlg_success_title" value="Enregistrement réussi" />
+			<i8n:string id="dlg_success_content" value="L'enregistrement des informations a été effectué avec succès" />
+	
+			<i8n:string id="dlg_edit_success_title" value="Modification réussie" />
+			<i8n:string id="dlg_edit_success_content" value="La modification des informations a été effectuée avec succès" />
+	
+			<i8n:string id="dlg_back_title" value="Annulation de la saisie en cours" />
+			<i8n:string id="dlg_back_content" value="Toute votre saisie va être perdue. Souhaitez-vous continuer ?" />
+			<i8n:string id="dlg_failure_title" value="Erreur" />
+			<i8n:string id="dlg_delete_title" value="Suppression du montant" />
+			<i8n:string id="dlg_delete_content" value="Etes vous sûr de vouloir supprimer cette entrée ?" />
+	
+			<i8n:string id="dlg_success" value="Valider" />
+			<i8n:string id="dlg_cancel" value="Annuler" />
+			<i8n:string id="dlg_ok" value="Ok" />
+	
+			<i8n:string id="empty_list" value="Aucun candidat à afficher" />
+			
+			<i8n:string id="details" value="Détails" />
+			<i8n:string id="edit" value="Modifier" />
+			<i8n:string id="delete" value="Supprimer" />
+	
+			<i8n:string id="Next"		value="Suivant" />
+			<i8n:string id="Previous"	value="Précédent" />
+			<i8n:string id="Results"	value="Résultats" />
+			
+			<i8n:string id="list"				value="Grille des montants" />
+			<i8n:string id="refresh"			value="Rafraîchir la liste" />
+			<i8n:string id="search"				value="Rechercher" />
+			<i8n:string id="add"				value="Ajouter" />
+			<i8n:string id="back"				value="Retour" />
+			<i8n:string id="accept"				value="Accepter" />
+			<i8n:string id="refuse"				value="Refuser" />
+			<i8n:string id="submit"				value="Envoyer" />
+			<i8n:string id="xls_export"			value="Exporter au format Excel" />
+			<i8n:string id="all_letters"		value="Tous" />
+			<i8n:string id="cancel"				value="Annuler"/>
+	
+			<i8n:string id="edit_helper"		value="Modifier le montant" />
+			<i8n:string id="delete_helper"		value="Supprimer le montant"/>
+	
+
+
+			<i8n:string id="candidate_id"					value="Identifiant"/>
+			<i8n:string id="administrative_tracking"		value="Suivi administratif"/>
+			<i8n:string id="integration"					value="Intégration"/>
+			<i8n:string id="recruitment_evaluation"			value="Evaluation du recrutement"/>
+			<i8n:string id="training"						value="Stages"/>
+
+			<i8n:string id="field:first_name" value="Nom" />
+			<i8n:string id="field:last_name" value="Prénom" />
+			<i8n:string id="field:category" value="Catégorie" />
+			<i8n:string id="field:contract_type" value="Contrat" />
+			<i8n:string id="field:subsidiary" value="Filiale" />
+			<i8n:string id="field:contrat_signing" value="Contrat signé" />
+			<i8n:string id="field:hire_date" value="Date d'embauche" />
+			
+			<i8n:string id="field:hire_date_3_month" value="Période d'essai 3 mois" />
+			
+			
+			<i8n:string id="field:hire_date_6_month" value="Période d'essai 6 mois" />
+			<i8n:string id="field:integration_plan" value="Plan d'intégration" />
+			<i8n:string id="field.prompt:integration_plan" value="Sélectionnez un état ..." />
+			<i8n:string id="field:integration_note" value="Note d'intégration" />
+			<i8n:string id="field.prompt:integration_note" value="Sélectionnez un état ..." />
+			<i8n:string id="field:instant_feedback" value="Evaluation processus" />
+			<i8n:string id="field.prompt:instant_feedback" value="Sélectionnez un état ..." />
+			<i8n:string id="field:delayed_feedback" value="Evaluation à froid" />
+			<i8n:string id="field.prompt:delayed_feedback" value="Sélectionnez un état ..." />
+			<i8n:string id="field:internship_title" value="Stage" />
+			<i8n:string id="field:internship_start" value="Début du stage" />
+			<i8n:string id="field:internship_end" value="Fin du stage" />
+			<i8n:string id="field:executive_committee_presentation" value="Présentation COMDIR" />
+			<i8n:string id="field.prompt:executive_committee_presentation" value="Sélectionnez un état ..." />
+			
+				
+			<i8n:string id="field:category_oid" value="Catégorie" />
+			<i8n:string id="field.prompt:category_oid" value="Sélectionnez une catégorie ..." />
+			<i8n:string id="field:contract_type_oid" value="Type de contrat" />
+			<i8n:string id="field.prompt:contract_type_oid" value="Sélectionnez un type de contrat ..." />
+			
+			<i8n:string id="field:subsidiary_oid" value="Filiale" />
+			<i8n:string id="field.prompt:subsidiary_oid" value="Sélectionnez une filiale ..." />
+			
+			<i8n:string id="field:hire_date_start" value="Date d'embauche (Début)" />
+			<i8n:string id="field:hire_date_end" value="Date d'embauche (Fin)" />
+			<i8n:string id="field:hire_date_6_month_start" value="Période d'essai 6 mois (Début)" />
+			<i8n:string id="field:hire_date_6_month_end" value="Période d'essai 6 mois (Fin)" />
+			
+			<i8n:string id="field:hire_date_3_month_start" value="Période d'essai 3 mois (Début)" />
+			<i8n:string id="field:hire_date_3_month_end" value="Période d'essai 3 mois (Fin)" />
+				
+			<i8n:string id="field:internship_start_start" value="Début de stage (Début)" />
+			<i8n:string id="field:internship_start_end" value="Début de stage (Fin)" />
+			
+			<i8n:string id="field:internship_end_start" value="Fin de stage (Début)" />
+			<i8n:string id="field:internship_end_end" value="Fin de stage (Fin)" />
+	
+			<i8n:string id="items_search" value="Personne(s) recrutée(s)" />
+			
+		     <i8n:string id="statistics"	value="Statistiques" />
+
+
+
+		</i8n:strings>
+		
+	</main>
+</nxl>

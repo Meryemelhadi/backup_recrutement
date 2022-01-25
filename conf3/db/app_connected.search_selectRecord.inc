@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _name,_url,_key FROM _rct_app_connected"; ?>

@@ -1,0 +1,548 @@
+<?xml version="1.0"?> 
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "candidate">
+
+<lists xmlns="http://www.nxfrontier.com/nxl/lists" xmlns:lists="http://www.nxfrontier.com/nxl/lists">
+	<list name="rct.civility">
+		<option value="0">M.</option>
+		<option value="0">Mlle</option>
+		<option value="0">Mme</option>
+	</list>
+	<list name="rct.sex">
+		<option value="0">Homme</option>
+		<option value="1">Femme</option>
+	</list>
+	
+	<list name="rct.read_state">
+		<option value="0">Lu</option>
+		<option value="1">Non lu</option>
+	</list>
+	
+	<list name="rct.validation_state">
+		<option value="0">En attente</option>
+		<option value="1">Validé</option>
+		<option value="2">Non validé</option>
+	</list>
+	
+	<list name="rct.archive_state">
+		<option value="0">Archivé</option>
+		<option value="1">Non archivé</option>
+	</list>
+	
+	<list name="rct.application_type">
+		<option value="0">spontanée</option>
+		<option value="1">Via cabinet de recrutement</option>
+	</list>
+	
+	<list name="rct.employment_type">
+		<option value="0">Stage</option>
+		<option value="1">Expérience professionnelle</option>
+	</list>
+	
+	<list name="rct.langage_level">
+		<option value="0">Sans objet</option>
+		<option value="1">Minimal</option>
+		<option value="2">Débutant</option>
+		<option value="3">Intermédiaire</option>
+		<option value="4">Avancé</option>
+	</list>
+	
+	<list name="rct.vacancy_step">
+		<option value="0">vacancy en cours</option>
+		<option value="1">vacancy suspendu</option>
+		<option value="2">vacancy clôture</option>
+	</list>
+	
+	<list name="rct.rating">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+	</list>
+	
+	<list name="rct.boolean_list">
+		<option value="0">Non</option>
+		<option value="1">Oui</option>
+	</list>
+	
+	<list name="rct.candidate_action_sent_to">
+		<option value="0">Client interne</option>
+		<option value="1">Candidat</option>
+	</list>
+	
+	<list name="rct.email_type">
+		<option value="0">Email</option>
+		<option value="1">Proposition</option>
+	</list>
+	
+	<list name="rct.candidate_validation">
+		<option value="0">En attente</option>
+		<option value="1">Accepté</option>
+		<option value="2">Refusé</option>
+	</list>
+	
+	<list name="rct.candidate_vacancy_action">
+		<option value="0">Associé au vacancy par</option>
+		<option value="1">Mis en short-list par</option>
+		<option value="2">Fiche envoyée au CI par</option>
+		<option value="3">Contacté par email par</option>
+		<option value="4">Entretien planifié par</option>
+		<option value="5">Entretien validé par</option>
+		<option value="6">Accepté par</option>
+		<option value="7">Refusé par</option>
+		<option value="8">Proposition envoyée par</option>
+		<option value="9">Proposition acceptée par le candidat</option>
+		<option value="10">Proposition refusée par le candidat</option>
+		<option value="11">Sélectionné pour le poste par</option>
+		<option value="12">Noté par</option>
+	</list>
+	
+	<list name="rct.vacancy_action">
+		<option value="0">vacancy ouvert par</option>
+		<option value="1">vacancy validé par</option>
+		<option value="2">vacancy modifié par</option>
+		<option value="3">Fichier ajouté par</option>
+		<option value="4">Fichier supprimé par</option>
+		<option value="5">candidate associé par</option>
+		<option value="6">candidate dissocié par</option>
+		<option value="7">Cabinet sollicité par</option>
+		<option value="8">Short-list envoyée au client interne par</option>
+		<option value="9">candidate envoyé au client interne par</option>
+		<option value="10">Entretien programmé par</option>
+		<option value="11">Proposition envoyée par</option>
+		<option value="12">Clôture du vacancy par</option>
+		<option value="13">Suspension du vacancy par</option>
+		<option value="14">Evaluation saisie par</option>
+		<option value="15">Evaluation complétée par</option>
+		<option value="16">Evaluation à froid saisie par</option>
+	</list>
+		
+</lists>
+
+<!-- data -->
+<data xmlns="http://www.nxfrontier.com/dml/dml">
+
+	<tables>
+
+		<!-- Table des candidate -->
+		
+		<table name="rct_candidate">
+			<fields>
+				<field name="oid" alias="oid" label="oid" type="oid" isKey="primary" />
+				<field name="first_name" label="first_name"  type="line" />
+				<field name="first_name" label="first_name"  type="line" />
+				<field name="civility" label="civility" type="text-choice" list="rct.civility" control="select" sqlType="integer" />
+				<field name="sex" label="sex" type="text-choice" list="rct.sex" control="select" sqlType="integer" />
+				<field name="date_of_birth" label="date_of_birth" type="date" />
+				<field name="age" label="age" type="integer" />
+				<field name="nationality" label="nationality" type="line" />
+				<field name="email" label="email" type="line" />
+				<field name="phone_1" label="phone_1" type="line" />
+				<field name="phone_2" label="phone_2" type="line" />
+				<field name="mobile" label="mobile" type="line" />
+				<field name="address" label="address" type="text" />
+				<field name="zip" label="zip" type="line" />
+
+				<field name="city" label="city" sqlType="integer" /> <!-- todo: dynamic type -->
+				<field name="country" label="country" sqlType="integer" /> <!-- todo: dynamic type -->
+				<field name="years_of_practice" label="years_of_practice" type="integer" />
+				<field name="application_type" label="application_type" type="text-choice" list="rct.application_type" control="select" sqlType="integer" />
+								
+				<field name="category_oid" label="category_oid" type="text-choice" control="select" multiple="false" ds="db:candidate_cateory.ds_list" ds_format="{field:name}" ds_field_value="oid" />
+				
+				
+				
+				
+				<field name="keywords" label="keywords" type="text" />
+				<field name="bachelor_title" label="bachelor_title" type="line" />
+				<field name="bachelor_secondary_school" label="bachelor_secondary_school" type="line" />
+				<field name="bachelor_year" label="bachelor_year" type="date" control="date_Y" onSubmitCheck="" />
+				
+				<field name="candidate_path" label="candidate_path" type="file" />
+				<field name="cover_letter_path" label="cover_letter_path" type="file" />
+				
+				<field name="creation_date" label="creation_date" type="date" />
+				<field name="update_date" label="update_date" type="date" />
+				
+				<field name="reading_state" label="reading_state" type="text-choice" list="rct.read_state" control="select" sqlType="integer" />
+				<field name="archive_state" label="archive_state" type="text-choice" list="rct.archive_state" control="select" sqlType="integer" />
+				
+			</fields>
+		</table>
+		
+		<!-- Table des candidate : Expérience professionnelle -->
+		<table name="rct_employment">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="end_date" label="end_date" type="date" />
+				<field name="start_date" label="start_date" type="date" />
+				<field name="content" label="content" type="text" />
+				<field name="type" label="type" type="text-choice" list="rct.employment_type" control="select" sqlType="integer" />
+			</fields>
+		</table>
+		
+		<table name="rct_education">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="title" label="title" type="line" />
+				<field name="institution" label="institution" type="line" />
+				<field name="year" label="year" type="date" control="date_Y" onSubmitCheck="" />
+			</fields>
+		</table>
+		
+		<table name="rct_candidate_langage">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="langage_oid" label="langage_oid" sqlType="integer" /> <!-- todo : dynamic type (rct_langage) -->
+				<field name="level" label="level" type="text-choice" list="rct.langage_level" control="select" sqlType="integer" />
+			</fields>
+		</table>
+		
+		
+			
+		<table name="rct_vacancy">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="name" label="name" type="line" />
+				<field name="number" label="number" type="integer" />
+				<field name="code" label="code" type="line" />
+				<field name="category_oid" label="category_oid" sqlType="integer" /> <!-- todo dynamic type -->
+				<field name="contract_type_oid" label="contract_type_oid" sqlType="integer" /> <!-- todo dynamic type -->				
+				<field name="client_oid" label="client_oid" type="line" /> <!-- todo dynamic type -->
+				<field name="current_step" label="current_step" type="text-choice" list="rct.vacancy_step" control="select" sqlType="integer" />
+				<field name="progress_level" label="progress_level" sqlType="integer" /> <!-- todo dynamic type -->
+				<field name="validation_state" label="validation_state" type="text-choice" list="rct.validation_state" control="select" sqlType="integer" />
+				<field name="archive_state" label="archive_state" type="text-choice" list="rct.archive_state" control="select" sqlType="integer" />
+				<field name="subsidiary_oid" label="subsidiary_oid" type="line" /> <!-- todo dynamic type (filière) -->
+				<field name="service_oid" label="service_oid" type="line" /> <!-- todo dynamic type -->
+				<field name="duty_station" label="duty_station" type="line" /> <!-- todo dynamic type -->
+				<field name="work_schedule" label="work_schedule" type="line" />
+				<field name="years_of_practice" label="years_of_practice" type="integer" />
+				<field name="suited_diplomas" label="suited_diplomas" type="text" />
+				<field name="Companies_having_same_profile" label="Companies_having_same_profile" type="text" />
+				<field name="recruitment_reasons" label="recruitment_reasons" type="text" />
+				<field name="technical_qualifications" label="technical_qualifications" type="text" />
+				<field name="behavioral_qualifications" label="behavioral_qualifications" type="text" />
+				<field name="mission_definitions" label="mission_definitions" type="text" />
+				<field name="mission_means" label="mission_means" type="text" />
+				<field name="mission_start_date" label="mission_start_date" type="date" />
+				<field name="suited_recruitment_date" label="suited_recruitment_date" type="date" />
+				<field name="taking_office_date" label="taking_office_date" type="date" />
+				<field name="proposal_acceptance_date" label="proposal_acceptance_date" type="date" />
+				<field name="closing_date" label="closing_date" type="date" />
+				<field name="synthesis_writing_state" label="synthesis_writing_state" type="date" />
+				<field name="announcement_broadcasting_state" label="announcement_broadcasting_state" type="date" />				
+			</fields>
+		</table>
+		
+		<!-- -------------------------------------------------------- -->
+		<!-- Table d'historique des actions effectuées sur un vacancy -->
+		<!-- -------------------------------------------------------- -->
+		
+		<table name="rct_vacancy_action">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+				<field name="performed_by" label="performed_by" type="ref-oid" />
+				<field name="action_date" label="history_date" type="timestamp" />
+				<field name="action" label="action" type="text-choice" list="rct.vacancy_action" control="select" sqlType="integer" />
+				<field name="ref-oid" label="ref-oid" type="ref-oid" /> <!-- Fichier / candidate / Sollicitation cabinet / Envoi à un CI -->
+				<field name="additional_infos" label="additional_infos" type="line" /> <!-- Peut stocker : Le nom du candidat/fichier dissocié -->
+			</fields>
+		</table>				
+		
+		<!-- ----------------------------------- -->
+		<!-- Table de sollicitations des agences -->
+		<!-- ----------------------------------- -->
+		
+		<table name="rct_vacancy_agency">
+			<field name="oid" label="oid" type="oid" isKey="primary" />
+			<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+			<field name="agency_oid" label="agency_oid" type="ref-oid" isKey="secondary" />
+			<field name="created_by" label="created_by" type="ref-oid" />
+			<field name="date" label="date" type="datetime" />
+			<field name="title" label="title" type="line" />
+			<field name="content" label="content" type="text" />
+		</table>
+
+		<!-- ---------------------------- -->
+		<!-- Fichiers associés au vacancy -->
+		<!-- ---------------------------- -->
+		
+		<table name="rct_vacancy_file">
+			<field name="oid" label="oid" type="oid" isKey="primary" />
+			<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+			<field name="path" label="path" type="line" />
+		</table>
+		
+		<!-- ------------------------ -->
+		<!-- Commentaires sur vacancy -->
+		<!-- ------------------------ -->
+		
+		<table name="rct_vacancy_comment">
+			<field name="oid" label="oid" type="oid" isKey="primary" />
+			<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+			<field name="user_oid" label="user_oid" type="ref-oid" />
+			<field name="date" label="date" type="datetime" />
+			<field name="comment" label="comment" type="text" />		
+		</table>
+		
+		<!-- -------------------------------------------- -->
+		<!-- Association candidate / vacancy & actions possibles -->
+		<!-- -------------------------------------------- -->
+		
+		<table name="rct_candidate_vacancy">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+				<field name="add_date" label="add_date" type="date" />
+				<field name="rating" label="rating" type="text-choice" list="rct.rating" control="select" sqlType="integer" />
+			</fields>
+		</table>
+		
+		<table name="rct_candidate_vacancy_action">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+				<field name="performed_by" label="performed_by" type="ref-oid" />
+				<field name="action_date" label="history_date" type="timestamp" />
+				<field name="action" label="action" type="text-choice" list="rct.candidate_vacancy_action" control="select" sqlType="integer" />
+				<field name="ref-oid" label="ref-oid" type="ref-oid" /> <!-- Entretien / Email / Envoi pour un client interne, etc. -->
+			</fields>
+		</table>
+		
+		<!-- -------------------------- -->
+		<!-- Gestion des envois d'email -->
+		<!-- -------------------------- -->
+		
+		<table name="rct_email">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+				<field name="created_by" label="created_by" type="ref-oid" /> <!-- type dynamique -->
+				<field name="date" label="date" type="datetime" />
+				<field name="title" label="title" type="line" />
+				<field name="content" label="content" type="line" />
+				<field name="type" label="type" type="text-choice" list="rct.email_type" control="select" sqlType="integer" />
+				
+			</fields>
+		</table>
+		
+		<table name="rct_email_attached_file">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="rct_email_oid" label="rct_email_oid" type="ref-oid" isKey="secondary" />
+				<field name="file_path" label="file_path" type="line" />
+			</fields>
+		</table>
+		
+		<!-- -------------------------------------------- -->
+		<!-- Gestion des envois pour les clients internes -->
+		<!-- -------------------------------------------- -->
+		
+		<table name="rct_candidate_to_internal_customer">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+				<field name="sender" label="sender" type="ref-oid" /> <!-- type dynamique -->
+				<field name="mailing_date" label="mailing_date" type="datetime" />
+				<field name="receiver" label="sender" type="ref-oid" /> <!-- type dynamique -->
+				<field name="sender_comment" label="sender_comment" type="text" />
+				<field name="receiver_comment" label="receiver_comment" type="text" />
+				<field name="validation_state" label="validation_state" type="text-choice" list="rct.candidate_validation" control="select" sqlType="integer" />
+				<field name="email_notification" label="email_notification" type="text-choice" list="rct.boolean_list" control="select" sqlType="integer" />
+			</fields>
+		</table>
+		
+		<!-- ---------- -->
+		<!-- Entretiens -->
+		<!-- ---------- -->
+		
+		<table name="rct_interview">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+				<field name="created_by" label="created_by" type="ref-oid" /> <!-- type dynamique -->
+				<field name="creation_date" label="creation_date" type="datetime" />
+				<field name="validated_by" label="validated_by" type="ref-oid" /> <!-- type dynamique -->
+				<field name="validation_date" label="validation_date" type="datetime" />
+				<field name="date" label="date" type="datetime" />
+				<field name="title" label="title" type="line" />
+				<field name="content" label="content" type="line" />
+				<field name="email_notification" label="email_notification" type="text-choice" list="rct.boolean_list" control="select" sqlType="integer" />
+			</fields>
+		</table>
+		
+		<table name="rct_interview_synthesis">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="rct_interview_oid" label="rct_interview_oid" type="ref-oid" isKey="secondary" />
+				<field name="education" label="education" type="text" />
+				<field name="motivations" label="motivations" type="text" />
+				<field name="experiences" label="experiences" type="text" />
+				<field name="qualifications" label="qualifications" type="text" />
+				<field name="current_salary" label="current_salary" type="text" />
+				<field name="desired_salary" label="desired_salary" type="text" />
+				<field name="leaving_period" label="leaving_period" type="text" />
+				<field name="hobbies" label="hobbies" type="text" />
+				<field name="best_professional_moment" label="best_professional_moment" type="text" />
+				<field name="worst_professional_moment" label="worst_professional_moment" type="text" />
+				<field name="person_who_marked_me_posivively" label="person_who_marked_me_posivively" type="text" />
+				<field name="person_who_marked_me_negatively" label="person_who_marked_me_negatively" type="text" />
+				<field name="parents_jobs" label="parents_jobs" type="text" />
+				<field name="spouse_job" label="spouse_job" type="text" />
+				<field name="best_quality" label="best_quality" type="text" />
+				<field name="worst_lack" label="worst_lack" type="text" />
+				<field name="lucky_or_brave" label="lucky_or_brave" type="text" />
+				<field name="last_making_authority" label="last_making_authority" type="text" />
+			</fields>
+		</table>
+		
+		<table name="rct_interview_synthesis_criterias">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="interview_synthesis_oid" label="interview_synthesis_oid" type="ref-oid" isKey="secondary" />
+				<field name="name" label="name" type="line" />
+				<field name="level" label="level" type="text-choice" list="rct.rating" control="select" sqlType="integer" />
+			</fields>
+		</table>
+		
+		<!-- ----------------------- -->
+		<!-- Gestion des évaluations -->
+		<!-- ----------------------- -->
+		
+		<table name="rct_evaluation">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+				<field name="planified_by" label="planified_by" type="ref-oid" />
+				<field name="planified_by_date" label="planified_by_date" type="datetime" />
+				<field name="filled_by" label="filled_by" type="ref-oid" />
+				<field name="filled_by_date" label="filled_by_date" type="datetime" />
+				<field name="completed_by" label="completed_by" type="ref-oid" />
+				<field name="completed_by_date" label="completed_by_date" type="datetime" />
+				<field name="date" label="date" type="date" />
+				<field name="initial_sl_period" label="initial_sl_period" type="text" />
+				<field name="sl_size" label="sl_size" type="text" />
+				<field name="left_candidates_for_interview_pc" label="left_candidates_for_interview_pc" type="text" />
+				<field name="suitable_interviewed_candidates_pc" label="suitable_interviewed_candidates_pc" type="text" />
+				<field name="before_agreement_period" label="before_agreement_period" type="text" />
+				<field name="recruitment_cost" label="recruitment_cost" type="text" />
+				<field name="rh_staff_efficiency" label="rh_staff_efficiency" type="text" />
+				<field name="candidates_quality_in_sl" label="candidates_quality_in_sl" type="text" />
+				<field name="candidates_quality_in_interview" label="candidates_quality_in_interview" type="text" />
+				<field name="satisfaction_regarding_recruit" label="satisfaction_regarding_recruit" type="text-choice" list="rct.rating" control="select" sqlType="integer" />
+				<field name="within_budget" label="within_budget" type="text" />
+				<field name="comment" label="comment" type="text" />
+			</fields>
+		</table>
+		
+		<table name="rct_post_evaluation">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" />
+				<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" />
+				<field name="planified_by" label="planified_by" type="ref-oid" />
+				<field name="planified_by_date" label="planified_by_date" type="datetime" />
+				<field name="filled_by" label="filled_by" type="ref-oid" />
+				<field name="filled_by_date" label="filled_by_date" type="datetime" />
+				<field name="date" label="date" type="date" />
+				<field name="integration" label="integration" type="text-choice" list="rct.rating" control="select" sqlType="integer" />
+				<field name="job_ownership" label="job_ownership" type="text-choice" list="rct.rating" control="select" sqlType="integer" />
+				<field name="learning_curve" label="learning_curve" type="text-choice" list="rct.rating" control="select" sqlType="integer" />
+				<field name="autonomy" label="autonomy" type="text-choice" list="rct.rating" control="select" sqlType="integer" />
+				<field name="satisfaction" label="satisfaction" type="text-choice" list="rct.rating" control="select" sqlType="integer" />
+			</fields>
+		</table>
+		
+		<!-- ---------- -->
+		<!-- Short-list -->
+		<!-- ---------- -->
+		
+		<table name="rct_sl">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" sqlType="integer" />	
+				<field name="name" label="name" type="line" />
+				<field name="created_by" label="created_by" type="ref-oid" sqlType="integer" />
+				<field name="creation_date" label="creation_date" type="datetime" />
+				<field name="sent_to" label="sent_to" type="ref-oid" sqlType="integer" />
+			</fields>
+		</table>
+		
+		<table name="rct_sl_candidate">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="sl_oid" label="sl_oid" type="ref-oid" isKey="secondary" sqlType="integer" />
+				<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" sqlType="integer" />
+				<field name="validated_by" label="validated_by" type="ref-oid" />
+				<field name="comment" label="comment" type="text" />
+				<field name="validation_state" label="validation_state" type="text-choice" list="rct.candidate_validation" control="select" sqlType="integer" />
+			</fields>
+		</table>	
+			
+		<!-- -------------- -->
+		<!-- Tables de CRUD -->
+		<!-- -------------- -->
+			
+		<table name="rct_vacancy_category">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="name" label="name" type="line" />
+			</fields>
+		</table>
+		
+		<table name="rct_contract_type">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="name" label="name" type="line" />
+			</fields>
+		</table>
+		
+		<table name="rct_interview_synthesis_default_criterias">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="name" label="name" type="line" />
+			</fields>
+		</table>
+		
+		<table name="rct_email_sample">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="title" label="title" type="line" />
+				<field name="content" label="content" type="text" />
+			</fields>
+		</table>
+		
+		<table name="rct_agency">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="name" label="name" type="line" />
+				<field name="contact_name" label="contact_name" type="line" />
+				<field name="email" label="email" type="line" />
+				<field name="adress" label="adress" type="text" />
+				<field name="notes" label="notes" type="text" />
+			</fields>
+		</table>
+		
+	</tables>	
+
+</data>
+
+
+
+</nxl>

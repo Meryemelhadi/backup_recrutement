@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_interview_synthesis_criterias WHERE _interview_synthesis_oid='".$props->getProperty("synthesis_oid","0",true)."'"; ?>

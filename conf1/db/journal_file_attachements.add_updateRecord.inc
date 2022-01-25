@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _journal_file_attachements SET _article_id='".$props->getProperty("object_oid","",true)."',_file_name='".$props->getProperty("file_name","",true)."'"; ?>

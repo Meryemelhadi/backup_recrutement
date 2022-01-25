@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_country_name FROM _directory_country WHERE _oid=".$this->getFieldParam("oid","null",",",$record,"")." ORDER BY _country_name ASC "; ?>

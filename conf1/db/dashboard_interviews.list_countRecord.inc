@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_interview WHERE _date=".$this->getFieldParam("date","null",",",$record,""); ?>

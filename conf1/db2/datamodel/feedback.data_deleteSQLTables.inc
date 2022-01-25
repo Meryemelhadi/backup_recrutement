@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("DROP TABLE IF EXISTS _rct_instant_feedback","DROP TABLE IF EXISTS _rct_delayed_feedback",); ?>

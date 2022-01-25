@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_key,_val FROM _rct_candidate_keywords WHERE _key='".$props->getProperty("candidate_oid","",true)."'"; ?>

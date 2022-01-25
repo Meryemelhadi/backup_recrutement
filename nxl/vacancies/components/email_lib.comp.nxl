@@ -1,0 +1,241 @@
+<?xml version="1.0"?> 
+
+<include file = "vacancy_lib.comp.nxl"/>
+
+<xo:taglib 
+	uri					= "http://www.presencemedia.com/recruitment/vacancies/components/email_lib.comp"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/vacancies/components/email_lib.comp"
+	xmlns:vacancy_lib	= "http://www.presencemedia.com/recruitment/vacancies/components/vacancy_lib.comp"
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:ds			= "http://www.nxfrontier.com/nxl/ds"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<xo:tag name="add">
+		
+		<xo:param name="ds_email_add" value="rct_email.add@recruitment" />
+		<xo:param name="property_record" value="page.record" />
+		<xo:param name="previous_operation" value="candidates" />
+		<xo:param name="submit_operation" value="add_email_process" />
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		<xo:param name="candidate_oid_param" value="#request:candidate_oid#" />
+		
+		<xo:param name="previous_op_label" value="#string:back_to_candidates#" />
+		<block>
+
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<set name="property:candidate_oid" value="#{$candidate_oid_param}#" />
+			
+			<ds:load media="empty" ds="#{$ds_email_add}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+			<set name="property:previous_op_label" value="#{$previous_op_label}#" />
+			
+			<button:set name="get_email_sample" operation="get_email_sample" />
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="oid" value="#property:vacancy_oid#" />
+			</button:set>
+			<button:set name="submit" operation="#{$submit_operation}#">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+					
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="add_process">
+
+		<xo:param name="ds_email_add" value="rct_email.add@recruitment" />
+		<xo:param name="ds_email_attached_files_add" value="rct_email_attached_file.add_record@recruitment" />
+		<xo:param name="emails_path" value="emails" />
+		<xo:param name="service_class" value="lib.recruitment.vacancies.services.directory" />
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		<xo:param name="candidate_oid_param" value="#request:candidate_oid#" />
+		
+		
+		<xo:param name="template_email" value="recruitment.emails.tpl_email" />
+				
+		<block>
+		
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />	
+			<set name="property:candidate_oid" value="#{$candidate_oid_param}#" />
+			
+			<script language="php">
+				$candidates_oids = explode('|', $this->getProperty("candidate_oid",""));
+				$lastOids = array();
+			</script>
+			
+			<set name="var:action_oid" value="3" />
+			<if condition="#request:email_type# == '2'">
+				<set name="var:action_oid" value="9" />
+			</if>
+
+			<foreach sequence="#var:candidates_oids#" index="i" item="value">
+				
+				<set name="property:candidate_oid" value="#var:value#" />
+					
+				<ds:store ds="#{$ds_email_add}#" media="db" mode="insert">
+					<ds:load media="post" ds="#{$ds_email_add}#" multiple="no" addProperties="no"/>
+				</ds:store>
+				
+				<set name="var:lastOid">
+					<ds:insert_id media="db" />
+				</set>
+				
+				<script language="php">
+					$lastOids[] = array($lastOid, $value);
+				</script>
+				
+				<vacancy_lib:add_candidate_vacancy_log
+					candidate_oid 		= "#property:candidate_oid#"
+					vacancy_oid			= "#property:vacancy_oid#"
+					ref_oid				= "#var:lastOid#"
+					action_oid			= "#var:action_oid#" />
+				
+			</foreach>
+			
+			<set name="var:path" value="#{$emails_path}#" />
+			<set name="var:handler" value="#{$ds_email_attached_files_add}#" />
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "uploadNCopy"
+					params		= "#var:lastOids#,#var:handler#,#var:path#"
+				/>
+			</load>
+		
+			
+		
+		
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<tpl:screen 
+				xmlns		= "http://www.nxfrontier.com/tpl/tpml"  
+				xmlns:tpl	= "http://www.nxfrontier.com/tpl/tpml"
+				name		= "email_view" 
+				trace		= "yes">
+				<load view="#{$template_email}#" />
+			</tpl:screen>
+			
+			<bean:call
+				xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+				class		= "lib.recruitment.vacancies.services.message"
+				method		= "sendEmail"
+				params		= "#var:lastOids#"
+			/>
+		
+		
+		
+		
+		
+		
+		<!--
+
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />	
+			<set name="property:candidate_oid" value="#{$candidate_oid_param}#" />
+			
+				
+			<ds:store ds="#{$ds_email_add}#" media="db" mode="insert">
+				<ds:load media="post" ds="#{$ds_email_add}#" multiple="no" addProperties="no"/>
+			</ds:store>
+			
+			<set name="var:oid">
+				<ds:insert_id media="db" />
+			</set>
+			
+			<set name="var:path" value="#{$emails_path}#" />
+			<set name="var:handler" value="#{$ds_email_attached_files_add}#" />
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "uploadFiles"
+					params		= "#var:oid#,#var:handler#,#var:path#"
+				/>
+			</load>
+			
+		-->	
+					
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="view">
+			
+		<xo:param name="ds_email_view" value="rct_email.view@recruitment" />
+		<xo:param name="property_record" value="page.record" />
+		
+		<xo:param name="previous_op_label" value="#string:back_to_candidates#" />
+		<xo:param name="previous_operation" value="candidates" />
+		<xo:param name="download_operation" value="email_download" />
+		<xo:param name="po_param_name" value="oid" />
+		<xo:param name="po_param" value="#property:vacancy_oid#" />
+		<xo:param name="mail_param" value="#request:ref_oid#" />
+		
+		<xo:param name="ds_email_attached_files" value="rct_email_attached_file.by_email@recruitment" />
+		<xo:param name="attached_files_records" value="attached_files.records"/>
+		
+		<block>
+
+			<set name="property:previous_operation_label" value="#{$previous_op_label}#" />
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:email_oid" value="#{$mail_param}#" />
+			
+			<ds:load media="db" ds="#{$ds_email_view}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+			<ds:load media="db" ds="#{$ds_email_attached_files}#" property="#{$attached_files_records}#" multiple="yes" addProperties="no" />
+			
+			<button:set name="download" operation="#{$download_operation}#" />
+			
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="#{$po_param_name}#" value="#{$po_param}#" />
+			</button:set>
+			
+		</block>
+		
+	</xo:tag>
+		
+	
+	<xo:tag name="download">
+		
+		<xo:param name="ds_email_attached_files_download" value="rct_email_attached_file.get_record@recruitment" />
+		<xo:param name="emails_path" value="emails" />	
+		<xo:param name="service_class" value="lib.recruitment.vacancies.services.directory" />
+		<xo:param name="file_oid_param" value="#request:oid#" />
+		<xo:param name="email_oid_param" value="#request:email_oid#" />
+		
+		<block>
+
+			<set name="var:path" value="#{$emails_path}#" />
+			<set name="var:handler" value="#{$ds_email_attached_files_download}#" />
+			<set name="var:oidField" value="email_oid" />
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "download"
+					params		= "#{$file_oid_param}#,#{$email_oid_param}#,#var:path#,#var:handler#,#var:oidField#"
+				/>
+			</load>
+					
+		</block>
+	</xo:tag>
+
+</xo:taglib>

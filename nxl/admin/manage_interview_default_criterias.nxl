@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../datamodel/all.data.nxl"/>
+<include file = "components/table.comp.nxl"/>
+
+<composant 
+	xmlns				= "http://www.nxfrontier.com/admin/table.comp" 
+
+	name				= "manage_interview_default_criterias"
+	path				= "/recruitment/admin/"
+	skin				= "#global:RECRUITMENT_SKIN:generis#"
+	strings				= "recruitment_manage_interview_default_criterias"
+
+	ds_search			= "rct_interview_default_criteria.search"
+	ds_list				= "rct_interview_default_criteria.list"
+	ds_edit				= "rct_interview_default_criteria.record"
+	ds_view				= "rct_interview_default_criteria.record"
+	ds_add				= "rct_interview_default_criteria.record"
+	ds_add_process		= "rct_interview_default_criteria.record"
+	ds_delete			= "rct_interview_default_criteria.record"
+	
+	template_list			= "configuration.list"
+	template_add_record		= "configuration.add"
+	template_edit_record	= "configuration.edit"
+	template_email			= "directory.configuration.directory_mail"
+	template_view_record	= "directory.configuration.directory_config_view">
+	
+	<i8n:strings 
+		name		= "recruitment_manage_interview_default_criterias" 
+		lang		= "fr" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Gestion des critères d'évaluation" />
+		
+		<i8n:string id="add" value="Ajouter un critère d'évaluation" />
+		<i8n:string id="search" value="Rechercher un critère d'évaluation" />
+		<i8n:string id="page_title_list" value="Gestion des critères d'évaluation" />
+		<i8n:string id="page_title_add" value="Ajout d'un nouvel critère d'évaluation" />
+		<i8n:string id="page_title_edit" value="Edition du critère d'évaluation sélectionné" />
+		<i8n:string id="page_title_view" value="Libellé du critère d'évaluation sélectionné" />
+		<i8n:string id="page_title_validation" value="Validation du critère d'évaluation sélectionné" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des critères d'évaluation" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d'ajouter un nouveau critère d'évaluation dans la base de données" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier l'intitulé critère sélectionné" />
+		<i8n:string id="page_message_view" value="critère d'évaluation sélectionné" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Cliquer sur un critère d'évaluation de recrutement pour modifier son intitulé" />
+		<i8n:string id="page_message_add_details" 
+		value="Après avoir rempli le formulaire, cliquez sur le bouton 'Enregistrer' afin de valider et d'enregistrer l'intitulé du critère d'évaluation" />
+		<i8n:string id="page_message_edit_details" 
+		value="Cliquer sur 'Enregistrer' pour valider les modifications et revenir à la liste des critères d'évaluation, ou sur 'Liste des critères d'évaluation' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" 
+		value="Cliquer sur 'Liste des critères d'évaluation' pour revenir à la liste des critères d'évaluation" />
+		
+		<i8n:string id="field:name" value ="Intitulé" />
+
+		<i8n:string id="legend" value="Légende" />
+		<i8n:string id="empty_list" value="Aucun critère d'évaluation n'est référencé dans la base de données" />
+
+		<i8n:string id="edit_helper" value="Modifier l'intitulé du critère" />
+		<i8n:string id="delete_helper" value="Supprimer le critère d'évaluation" />
+
+		<i8n:string id="back" value="Liste des critères d'évaluation" />
+		<i8n:string id="items_search" value="critère(s) trouvé(s)" />
+
+	</i8n:strings>
+
+</composant>
+
+</nxl>

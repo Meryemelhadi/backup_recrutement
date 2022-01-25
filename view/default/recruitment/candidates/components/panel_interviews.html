@@ -1,0 +1,90 @@
+<button type="button" class="btn btn-default right" onclick="document.location.href='{=add_interview.url}'">
+	 <span class="glyphicon glyphicon-calendar interview-orange-font" aria-hidden="true"></span>&nbsp;&nbsp;
+	 {string:"schedule_an_interview"}
+</button>
+<br><br>
+<strong>Entretiens planifiés</strong>
+<br>
+<div class="pm-bxm-box-content">
+	{records:candidate_interviews.records}
+	<div class="table-list-wrapper">
+		<table class="table-list" id="candidate_interviews_table">
+			{record}
+			<tr class="{if:record.is_last}last{/if}" style="font-size: 12px;">
+				<td class="entry">{field:date} {if:#field.object:interview_by_oid# != '' && #field.object:interview_by_oid# != 0}{string:"with"}: <strong>{field.html:interview_by_oid}</strong>{/if} </td>
+				{if:#field.object:vacancy_oid# == '' || #field.object:vacancy_oid# == 0}
+				<!--<td class="action plus-action"><a href="{=edit_interview.url}&vacancy_oid={field.object:vacancy_oid}&mode=page{record.url_key}" ><span>{string:"edit"}</span></a></td>-->
+				<td class="action plus-action">
+					<button type="button" style="margin-bottom: 5px;" class="btn btn-xs btn-default right" onclick="document.location.href='{=edit_interview.url}&vacancy_oid={field.object:vacancy_oid}&mode=page{record.url_key}'"><span class="glyphicon glyphicon-calendar interview-orange-font" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit"}</button>
+				</td>
+				{else}
+				<td></td>
+				{/if}
+			</tr>
+			{if:#field.object:vacancy_oid# != '' && #field.object:vacancy_oid# != 0}
+			<tr>
+				<td>Poste: {if:!#property:from_new_cvt#}<a href="/recruitment/vacancies/admin/directory.php?nxo=edit&mode=page&oid={field.object:vacancy_oid}">{field:vacancy_oid}</a> {/if} {if:#property:from_new_cvt#}<p>{field:vacancy_oid}</p>{/if}</td>
+				<td class="action plus-action">
+					<button type="button" style="margin-bottom: 5px;" class="btn btn-xs btn-default right" onclick="document.location.href='{=edit_interview.url}&vacancy_oid={field.object:vacancy_oid}&mode=page{record.url_key}'"><span class="glyphicon glyphicon-calendar interview-orange-font" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit"}</button>
+				</td>
+			</tr>
+			{/if}
+			{/record}
+		</table>
+	</div>
+	{/records}
+    {no_record}
+    <div class="tab_empty">
+        <?php
+            echo __('empty_list_interview_planified');
+        ?>
+    </div>
+    {/no_record}
+	<br>
+	<strong>Entretiens réalisés</strong>
+	<br>
+	{records:candidate_interviews_realised.records}
+	<div class="table-list-wrapper">
+		<table class="table-list" id="candidate_interviews_table">
+			{record}
+			<tr class="{if:record.is_last}last{/if}" style="font-size: 12px;">
+				<td class="entry">{field:date} {if:#field.object:interview_by_oid# != '' && #field.object:interview_by_oid# != 0}{string:"with"}: <strong>{field.html:interview_by_oid}</strong>{/if} </td>
+				{if:#field.object:vacancy_oid# == '' || #field.object:vacancy_oid# == 0}
+				<td class="action plus-action">
+					<button type="button" style="margin-bottom: 5px;" class="btn btn-xs btn-default right" onclick="document.location.href='{=edit_interview.url}&vacancy_oid={field.object:vacancy_oid}&mode=page{record.url_key}'"><span class="glyphicon glyphicon-calendar interview-orange-font" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit"}</button>
+				</td>
+				{else}
+				<td></td>
+				{/if}
+			</tr>
+			{if:#field.object:vacancy_oid# != '' && #field.object:vacancy_oid# != 0}
+			<tr>
+				<td>Poste: {if:!#property:from_new_cvt#}<a href="/recruitment/vacancies/admin/directory.php?nxo=edit&mode=page&oid={field.object:vacancy_oid}">{field:vacancy_oid}</a> {/if} {if:#property:from_new_cvt#}<p>{field:vacancy_oid}</p>{/if}</td>
+
+				<td class="action plus-action">
+					<button type="button" style="margin-bottom: 5px;" class="btn btn-xs btn-default right" onclick="document.location.href='{=edit_interview.url}&vacancy_oid={field.object:vacancy_oid}&mode=page{record.url_key}'"><span class="glyphicon glyphicon-calendar interview-orange-font" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit"}</button>
+				</td>
+			</tr>
+			{/if}
+			{/record}
+		</table>
+	</div>
+	{/records}
+    {no_record}
+    <div class="tab_empty">
+        <?php
+            echo __('empty_list_interview_realised');
+        ?>
+    </div>
+    {/no_record}
+</div>
+
+<!--<div class="pm-button-wrapper clear-both">
+	<!--<a class="pm-button btn-with-icon" href="javascript:void(0);" Xonclick="ajax_navigate(event,'{=add_interview.url}','content'); this.blur(); return false;" href="{=add_interview.url}" style="float:right">
+		<span class="btn-bg"><span class="s-icon si-calendar">{string:"schedule_an_interview"}</span></span>
+	</a>-->
+	<!--<button type="button" class="btn btn-default right" onclick="document.location.href='{=add_interview.url}'">
+		 <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;
+		 {string:"schedule_an_interview"}
+	</button>
+</div>-->

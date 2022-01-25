@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_vacancy_provider WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

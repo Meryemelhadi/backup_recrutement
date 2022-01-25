@@ -1,0 +1,19 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+<include_once file = "/strings/all.nxl"/>
+<application
+	name		= "directory"
+	path		= "/recruitment/interview/"
+	protected	= "user"
+	permissions = "default"
+	cache		= "no"
+	lang		= "fr"
+	skin		= "lightsky"
+	application = "interview"
+	table		= "rct_interview"
+	strings		= "interview"
+	role = "editor"
+		xmlns="http://www.nxfrontier.com/nxl/page"
+	/>
+
+<include_once file="/all.nxl" />
+</nxl>

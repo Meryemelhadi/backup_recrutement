@@ -1,0 +1,378 @@
+input.s-icon {
+    width: 15px;
+    height: 15px;
+}
+
+.pm-bxm-box {
+    background-color: #f0f0f0;
+}
+
+.tab .pm-bxm-box-content-panel
+{
+    min-height: 500px;
+}
+
+#historique_div .pm-bxm-box-content-panel
+{
+    min-height: 0px !important;
+}
+
+#general_infos_div .pm-bxm-box-content-panel
+{
+    min-height: 100px;
+}
+
+#group_test_cand fieldset {
+    background-color:#E0EEF5;
+}
+
+#panel_title-green .box-title-wrapper{
+    background: url(/nx/skins/lightsky/img/rct/green-bg-left.png) no-repeat 0 0 !important;
+}
+#panel_title-green .box-title {
+    background: url(/nx/skins/lightsky/img/rct/green-bg-right.png) no-repeat 100% 0;
+}
+#panel_title-green .box-title h3 {
+    background: url(/nx/skins/lightsky/img/rct/green-bg.png) repeat-x 0 0;
+}
+#page_title br{
+    margin-bottom:5px;
+}
+#panel_toolbox{
+    position: absolute;
+    top: 45px;
+    width: 280px;
+    padding: 0px;
+	margin-top: 10px;
+	margin-left: 5px;
+}
+#panel_toolbox .box-title h3{
+	margin-top: 10px;
+	padding-left: 12px;
+}
+#content_form{
+    width: 100%;
+    position: initial;
+}
+#content{
+    overflow:hidden;
+    min-height:700px !important;
+}
+.btns_row{
+    padding:5px !important;
+    border-radius: 8px 8px 0px 0px;
+}
+.btns_row a{
+    margin-bottom:5px;
+}
+#vacancies_div table tr:nth-child(2) td:first-child{
+    border-radius: 0px 0px 0px 8px;
+}
+#vacancies_div table tr:nth-child(2) td:last-child{
+    border-radius: 0px 0px 8px 0px;
+}
+#vacancies_div table{
+    border:none !important;
+}
+#vacancies_div .directory-grid{
+    margin:0 0 10px;
+}
+
+#field_available_delai{
+    width: auto;
+}
+
+
+#field_available_delai select {
+    width: 80px;
+	padding-left:0;
+	padding-right:0;
+}
+#field_available_delai .control-label-wrapper-bs 
+{
+    width:auto;
+}
+
+#field_available_from {
+    width: 50%;
+}
+
+#field_available_from .input-group.field-date {
+    width: auto;
+	padding-left:0;
+	padding-right:0;
+}
+#field_available_from .input-group.field-date input {
+	padding-left:0;
+	padding-right:0;
+}
+
+
+#field_salary_min{
+}
+
+#salary_min-control-wrapper{
+    margin:0px;
+}
+
+#field_available_delai .datepicker_wrapper input, #field_salary_min input{
+    padding-right: 0px;
+}
+
+#field_salary_min .control-label, 
+#field_salary_min input{
+}
+
+#field_salary_min{
+
+}
+#field_profile .control-label-wrapper{
+}
+
+#field_category_oid .control-label-wrapper{
+    float:none;
+}
+#field_category_oid .control-wrapper select {
+}
+
+#vacancies_div .section-title-wrapper:first-child{
+    display:none;
+}
+
+#vacancies_div .pm-bx-form{
+    border: 1px solid rgba(128, 128, 128, 0.24);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: rgba(128, 128, 128, 0.03);
+
+}
+.test_fieldset{
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 255, 0.03);
+    padding-right: 10px;
+    padding-left: 10px;
+}
+#field_available_from .control-label,  #field_salary_max .control-label{
+    display:none;
+}
+#available-tests-control{
+    float: left;
+    margin-right: 10px;
+}
+#field_category_oid .control-label{
+    width:160px;
+}
+#field_years_of_practice .control-label{
+    width: 130px;
+}
+#years_of_practice-control-wrapper{
+    float: right;
+    margin-left: 0px;
+    margin-right: 40px;
+}
+
+#association_button {
+    float:left;
+	margin-top: 5px;
+}
+
+#add_vacancy_wrapper {
+    height: 30px;
+}
+#add_vacancy_wrapper2 {
+    height: 30px;
+    float: right;
+}
+
+#field_available_vacancies{
+    float:left;
+    margin-left:10px;
+	width: 325px;
+}
+
+#field_available_vacancies .control-label-wrapper-bs{
+	float:left;
+	margin-right: 10px;
+}
+
+#field_available_vacancies .control-label-wrapper {
+    width:90px;
+}
+
+.historique-row{
+	margin-top:15px;
+}
+.history-vacancy-row{
+	padding:15px;
+}
+.historique-row h3{
+	font-size: 18px;
+}
+.historique-row .box-title-wrapper{
+	margin-bottom: 15px;
+}
+
+#field_available_vacancies select{
+    width:200px !important;
+}
+.td-toolbox{
+    width: 280px;
+    position: relative;
+}
+.table-edit{
+    width:100%;
+}
+
+#vacancies_div .vancancies_wrapper {
+    background-color:white;
+    margin:5px;
+}
+
+.directory-grid tr.row_odd td {
+    background-color: #ddd;
+    width:20% !important;
+}
+
+#association_button{
+    visibility:hidden;
+}
+
+/*	.control-wrapper input,
+	.control-wrapper select {
+		border-radius: 3px;
+		border:solid 1px #ccc;
+	}
+
+	.control-wrapper select {
+		border-radius: 7px;
+		background-color: #3792BA;
+		color: white;
+		height: 27px;
+	}
+*/
+
+#general_infos_div .pm-bx-form textarea {
+    height:auto !important;
+    border-radius: 4px;
+}
+
+.pm-bxm-box .pm-bx-subform-wrapper {
+    border-radius: 8px;
+    background-color: #E8E8E8;
+    margin: 15px 0;
+}
+
+.pm-bxm-box .pm-bx-subform-wrapper .record-actions {
+    border-top: #E3E8EE 0px solid;
+    padding: 0px 0 4px 0;
+    text-align: right;
+}
+.section-title-wrapper h3.section-title{
+    background:#F0F0F0 !important;
+}
+a.pm-button{
+    padding-right:8px;
+}
+.log-table{
+    background-color: #FFF;
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+.provider-tr td:first-child {
+	width: 360px !important;
+    background: none !important;
+}
+.provider-tr td:second-child {
+	text-align:center !important;
+}
+#cv_div, #recruitement_card_div, #general_infos_div , #emails_div , #vacancies_div , #historique_div{
+	min-height:945px;
+}
+#candidate_interviews_table tr{
+	font-size:12px;
+}
+#candidate_interviews_table td{
+	padding-right: 0px;
+}
+#candidate_interviews_table td a span{
+	color:rgb(104, 104, 187);
+}
+#candidate_evaluations_table tr{
+	font-size:12px;
+}
+#candidate_evaluations_table td a span{
+	color:rgb(104, 104, 187);
+}
+.right{
+	float:right;
+}
+.marginRight{
+	margin-right:10px;
+}
+#add_vacancy_wrapper .input-group{
+    width: 440px;
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.title_candidate{
+	margin-top : 0px !important;
+}
+.title_candidate a{
+	font-size : 36px !important;
+}
+.log-table td {
+	padding-top: 5px;
+}
+.history_row_panel > :first-child{
+	margin: 0px;
+}
+#ok_log{
+	width: 70%;
+    background-color: rgba(0, 128, 0, 0.31);
+    padding: 5px;
+    border-radius: 5px;
+	margin-bottom: 5px;
+}
+#ok_log .label , #error_log .label{
+	font-size: 15px !important;
+}
+#ok_log .x , #error_log .x{
+	margin: 0px !important;
+}
+#error_log{
+    width: 70%;
+    background-color: rgba(236, 127, 127, 0.57);
+    padding: 5px;
+    border-radius: 5px;
+	margin-bottom: 5px;
+}
+.menu_separator{
+	margin-bottom: 5px;
+    border-bottom: 2px solid gray;
+	padding-bottom: 5px;
+}
+.div_center{
+	text-align: center;
+}
+#panel_Informations{
+	background-color:#fff;
+}
+#panel_Informations #nav{
+	background: transparent;
+}
+#panel_Informations #email_content-control{
+	background-color: rgba(193, 193, 193, 0.12);
+}
+.vacancy_history_icon{
+	width: 25px;
+    margin: 0 5px;
+}
+#candidate_interviews_table{
+	width:100%;
+	margin-top:8px;
+}
+#form_rct_candidate_edit .panel{
+	min-height: 1300px;
+}

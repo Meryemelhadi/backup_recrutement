@@ -1,0 +1,12 @@
+<?php $properties["fprops"]=array(
+array('name'=>'name','label'=>'name','type'=>'text','srcName'=>'name','ufname'=>'_name','qname'=>'rct_vacancy_readonly_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'manager_oid','type'=>'text','label'=>'manager_oid','srcName'=>'manager_oid','ufname'=>'_manager_oid','qname'=>'rct_vacancy_readonly_manager_oid','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'requested_by','label'=>'requested_by','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:user.ds_list@recruitment','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','srcName'=>'requested_by','ufname'=>'_requested_by','qname'=>'rct_vacancy_readonly_requested_by','list'=>'requested_by','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'to','label'=>'to','type'=>'text','is_transient'=>true,'srcName'=>'to','ufname'=>'_to','qname'=>'rct_vacancy_readonly_to','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'first_name','label'=>'first_name','type'=>'text','is_transient'=>true,'srcName'=>'first_name','ufname'=>'_first_name','qname'=>'rct_vacancy_readonly_first_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'subject','label'=>'subject','type'=>'text','is_transient'=>true,'srcName'=>'subject','ufname'=>'_subject','qname'=>'rct_vacancy_readonly_subject','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'body','label'=>'body','type'=>'text','is_transient'=>true,'srcName'=>'body','ufname'=>'_body','qname'=>'rct_vacancy_readonly_body','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('name'=>'name','_name'=>'name','manager_oid'=>'manager_oid','_manager_oid'=>'manager_oid','requested_by'=>'requested_by','_requested_by'=>'requested_by','to'=>'to','_to'=>'to','first_name'=>'first_name','_first_name'=>'first_name','subject'=>'subject','_subject'=>'subject','body'=>'body','_body'=>'body',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_vacancy_readonly.request_email_data','table'=>'_rct_vacancy_readonly');
+ ?>

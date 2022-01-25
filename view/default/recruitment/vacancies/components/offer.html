@@ -1,0 +1,69 @@
+{records:page.records}
+{record}
+<div class="pm-bx-subform-wrapper layout-2-columns">									
+	<div class="pm-bx-form">
+		<div class="record_wrapper">
+			<div class="record clear-both">
+	
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper-bs">
+						<label for="provider_oid" class="control-label-bs control-label">{field.label:provider_oid} :</label>
+					</div>
+					<div class="control-wrapper-bs">
+						<div class="control">
+							{field.form:provider_oid}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper-bs">
+						<label for="ref" class="control-label-bs control-label">{string:"name"} :</label>
+					</div>
+					<div class="control-wrapper-bs">
+						<div class="control">
+							{field.form:offer_name}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper-bs">
+						<label for="ref" class="control-label-bs control-label">{string:"code-offre"} :</label>
+					</div>
+					<div class="control-wrapper-bs">
+						<div class="control">
+							{field.form:ref}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-wrapper-bs">
+						<div class="control">
+							{field.form:active}
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<div class="record-actions">
+			<a href="javascript:void(0);" onclick="(
+				function(aElement) {
+					PMDH.getNextSibling(aElement).checked=true;
+					PMDH.getParentElementByClassName(aElement,'pm-bx-subform-wrapper').style.display='none';
+				})(this);" class="action delete-action s-icon si-cross"><span>{string:"delete_offer"}</span></a>
+			<input type="checkbox" class="delete-control-checkbox" name="{record.id}__delete__" value="delete" style="display:none" />
+		</div>
+		
+	</div>
+</div>
+{fields:all}
+{if:field.hidden}
+	{field.form}
+{/if}
+{/fields}
+{/record}
+{/records}

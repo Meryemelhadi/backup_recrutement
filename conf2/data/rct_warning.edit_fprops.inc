@@ -1,0 +1,10 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_warning_oid','show'=>false,'isEdit'=>false,'onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'date','label'=>'date','type'=>'date','srcName'=>'date','ufname'=>'_date','qname'=>'rct_warning_date','onSubmitCheck'=>"checkDate('%3\$s',%1\$s.%2\$s_day,%1\$s.%2\$s_month,%1\$s.%2\$s_year,%4\$s)",),
+array('name'=>'subject','label'=>'subject','type'=>'text','srcName'=>'subject','ufname'=>'_subject','qname'=>'rct_warning_subject','onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'notification_content','label'=>'notification_content','type'=>'text','multiLines'=>'auto','size'=>'255','srcName'=>'notification_content','ufname'=>'_notification_content','qname'=>'rct_warning_notification_content','onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'concerned_people','label'=>'concerned_people','type'=>'text_choice_table','list'=>'concerned_people','prompt'=>'concerned_people...','multiple'=>true,'control'=>'facebook_list','ds'=>'db:user.ds_list_all@recruitment','ds_link'=>'rct_warning_concerned_people','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','srcName'=>'concerned_people','ufname'=>'_concerned_people','qname'=>'rct_warning_concerned_people','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','date'=>'date','_date'=>'date','subject'=>'subject','_subject'=>'subject','notification_content'=>'notification_content','_notification_content'=>'notification_content','concerned_people'=>'concerned_people','_concerned_people'=>'concerned_people',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_warning.edit','table'=>'_rct_warning');
+ ?>

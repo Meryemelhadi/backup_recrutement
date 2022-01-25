@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_announcement(_oid INT AUTO_INCREMENT NOT NULL,_vacancy_oid integer,_created_by integer,_creation_date DATETIME,_ann_title TEXT,_ann_content TEXT,_ref_oid TEXT,_provider_oid TEXT,_type TEXT,PRIMARY KEY(_oid))"; ?>

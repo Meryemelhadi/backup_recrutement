@@ -1,0 +1,531 @@
+{content:page.content}
+<!-- config css du module -->
+{include:common.page_css}
+<link href="/nx/controls/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"  media="all" />
+<link href="/nx/controls/font-awesome/css/font-awesome-bs.min.css" rel="stylesheet" type="text/css"  media="all" />
+<link href="/nx/skins/lightsky/css/recruitment3/screen.css" rel="stylesheet" type="text/css"  media="all" />
+<link href="/nx/skins/lightsky/css/recruitment/interview.css" rel="stylesheet" type="text/css"  media="all" />
+<link href="/nx/skins/default/css/recruitment/cvtheque_bs.css" rel="stylesheet" type="text/css"  media="all" />
+<?php
+$workflow = $this->getProperty('workflow');
+$search = $this->getProperty('page.search');
+$candidate_list = $search->candidate_oid->list;
+$vacancy_list = $search->vacancy_oid->list;
+$type_list = $search->interview_type->list;
+$search_candidate = $this->getProperty('search_candidate');
+$search_vacancy = $this->getProperty('search_vacancy');
+$synthesis_r = $this->getProperty('synthesis_r');
+
+?>
+
+<style>
+    {=app.list.css}
+</style>
+
+
+<script>
+    {=app.list.js}
+	function toogleClass(ele, class1) {
+	  ele = document.getElementById(ele);
+	  var classes = ele.className;
+	  var regex = new RegExp('\\b' + class1 + '\\b');
+	  var hasOne = classes.match(regex);
+	  class1 = class1.replace(/\s+/g, '');
+	  if (hasOne){
+		ele.className = classes.replace(regex, '');
+		return false;
+	  }else{
+		ele.className = classes +' '+class1;
+		return true;
+	  }
+	};
+	
+	function toogleSearch(ele, class1){
+		var c = toogleClass(ele, class1);
+		if(c) x = '-280px';
+		else x = '0';
+		setTimeout(function ()
+		{
+			element = document.getElementsByClassName('pull-right')[0];
+			element.style.webkitTransitionDuration = "0.6s";
+			element.style.webkitTransitionTimingFunction = "ease-out";
+			element.style.webkitTransform = "translate3d("+x+", 0, 0)";
+		}, 0);
+	};
+</script>
+<style>
+.div-tag {
+    padding: 5px;
+    border-radius: 10px;
+}
+.btn-tag {
+    border: 0px;
+    font-weight: bold;
+    padding: 5px;
+    color: #888 !important;
+    margin: 0 5px 5px 0;
+	background-color : #ddd;
+}
+.btn-tag span {
+    color: #888;
+    padding: 5px;
+    font-weight: bold;
+    padding-right: 0px;
+}
+#title-wrapper-h1 a{
+	color: #bf6000 !important;
+    border-bottom: 0px;
+    font-size: inherit !important;
+    cursor: pointer;
+	text-decoration: underline;
+}
+</style>
+
+<div class="pm-page-title-wrapper" id="title-wrapper">
+    <div class="pm-page-title-inner-wrapper">
+        <div class="pm-title" style="color:#bf6000 !important;"><h1 class="no-margin" id="title-wrapper-h1"><?php echo __($workflow->title); ?></h1></div>
+    </div>
+</div>
+
+{if:%property:from_vacancy%}
+<script>
+
+if (typeof document.getElementById('page-bread-crumb') != "undefined") {
+	document.getElementById('page-bread-crumb').innerHTML = '<span class="png_bg home"><a href="/homepage/" class="png_bg">Accueil</a></span>&nbsp;&gt;&nbsp;<span class="png_bg home"><a href="{=vacancy.url}" class="png_bg">Fiche de poste</a></span>&nbsp;&gt;&nbsp;<span class="png_bg home"><a href="#" class="png_bg">Entretiens</a></span>';
+	document.getElementById('title-wrapper-h1').innerHTML += ' pour: <a href="{=vacancy.url}">{=vacancy_name}</a>';
+}
+</script>
+{/if}
+
+{include:common.messages_log}
+{include:common.message_help}
+
+            <div class="pm-grid-outer-wrapper bs">
+				<!--<div class="search-panel" id="search-panel">
+					<div class="search-panel-inner-wrapper">
+						<!--! {form:page.search} -->
+						<!--<div class="form-inline" style="margin:5px">
+							<span <?php if(($search_candidate =='?' || $search_candidate =='') && ($search_vacancy =='?' || $search_vacancy =='')){?>style="display:none"<?php } ?>>
+								<button onclick="document.location.href='{=l.url}'" class="btn btn-secondary" type="button"><i class="icon-remove-sign icon-2" title='{string:"Annuler la recherche"}'></i></button>
+						    </span>
+							<div class="form-group" id="candidate_oid-control-wrapper">
+								<select type="select" class="form-control" name="candidate_oid">
+									<option value="?">Candidat ... </option>
+									<?php foreach($candidate_list as $oid => $name){
+									print '<option value="'.$oid.'"';
+									if($oid == $search_candidate) print " selected";
+									print " >".$name."</option>";
+									 } ?>
+								</select>
+							</div>
+							<div class="form-group">
+								<select type="select" class="form-control" name="vacancy_oid">
+									<option value="?">Poste ... </option>
+									<?php foreach($vacancy_list as $oid => $name){
+									print '<option value="'.$oid.'"';
+									if($oid == $search_vacancy) print " selected";
+									print " >".$name."</option>";
+									 } ?>
+								</select>
+							</div>
+						   <span>
+							
+							<button onclick="document.getElementById('{=submit.id}').submit();" class="btn btn-secondary" type="button"><i class="icon-search icon-2" title='{string:"search"}'></i></button>
+						   </span>
+						   <button type="button" class="btn btn-default right" onclick="document.location.href='{=new_interview.url}'"><span class="glyphicon glyphicon-calendar interview-orange-font" aria-hidden="true"></span>&nbsp;&nbsp;{string:"new_interview"}</button>
+						 </div>
+	
+						<!--! {/form} -->
+					<!--</div>
+					
+					
+				</div>-->
+				<div class="container-fluid">
+					<div class="pull-right">
+						<div class="round_button blue" style="background:#ff8834 !important" title="{string:'add_fiche_without_cv'}"  onclick="document.location='{=new_interview.url}';Event.stop(event);return false;" >+</div>
+					</div>
+				</div>
+				<div class="div-tag" id="search-tags"></div>
+                <div class="tab_panel candidate-list">
+				{if:%property:show_config%}
+					<div class="btn-group button_bs_right">
+				<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin-left: 5px;
+		height: 34px;" title='{string:"configuration"} > {string:"interviews"}'><span class="glyphicon glyphicon-cog" style="font-size: 18px; margin-right:5px;" aria-hidden="true"></span></button>
+				<ul class="dropdown-menu" role="menu" style="right: 0px;left: initial;">
+					<li><a href="{=manage_email_samples.url}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;{string:"manage_email_samples"}</a></li>
+					<li><a href="{=email_docs.url}"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>&nbsp;&nbsp;{string:"email_docs"}</a></li>
+					<li><a href="{=manage_interview_default_criterias.url}"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;&nbsp;{string:"manage_interview_default_criterias"}</a></li>
+					<li><a href="{=meeting_rooms.url}"><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span>&nbsp;&nbsp;{string:"meeting_rooms"}</a></li>
+				
+				</ul>
+			</div>
+			{/if}
+			
+                    
+                    <div class="tab_content {tab_id} interviews">
+                        <!--! {records:futurInterviews.records} -->
+						<h4>{string:"page_title_my_interviews_futur"}</h4>
+						<!--! {record} -->
+						<div class="panel panel-default" style="margin: 25px 0;">
+							
+							<div class="panel-heading candidate-panel poste-panel"  onclick="document.location.href='{=edit.url}{field:oid}&candidate_oid={field.object:candidate_oid}'">
+							
+								<i class="glyphicon glyphicon-calendar interview-orange-font" {if:#field.object:created_by# == #user:oid#}style="color:gray;float:left;margin-right: 5px;font-size: 15px;" title="Planifié par vous"{else} title="{string:'you_participate'}" style="float:left;margin-right: 10px;font-size: 20px;"{/if} ></i>
+								<div class="panel-content">
+									<span title="De {field:time_start} à {field:time_end}"><span id="{field.object:oid}" style="font-size:1.1em"><script>ShortDate("{field:date}","{field.object:oid}")</script></span><span> à {field:time_start} </span>  {if:%field:location%!=null}à <span> {field:location}</span>{/if} : {field:interview_etat}<!--<span class="right" style="margin-right: 10px;"><i class="glyphicon glyphicon-user" style="color:gray;margin-right: 5px;font-size: 15px;"></i>{field.label:interview_by_oid} {field:interview_by_oid}</span>-->
+								</div>
+							</div>
+							<div class="row" style="padding:10px;" >
+					<div class="col-md-11" onclick="document.location.href='{=edit.url}{field:oid}&candidate_oid={field.object:candidate_oid}'">
+						<div class="row">
+							<div class="col-md-4 card" >
+								<ul class="list-item-infos-right">
+									<li class="text-left item-info" title="{string:'number_candidates'} : {field:candidates_count}">
+										<i class="glyphicon glyphicon-user font-green-cvt-icon" aria-hidden="true"></i>
+										<strong class="field-content font-green-cvt" >{field:candidate_name}</strong>
+									</li>
+									{if:(%field.object:mobile%!=null && %field.object:mobile%!="") || (%field.object:phone_1%!=null && %field.object:phone_1%!="") || (%field.object:phone_2%!=null && %field.object:phone_2%!="")}
+									<li class="text-left item-info font-green-cvt" >
+										<span class="glyphicon glyphicon-phone font-green-cvt-icon" aria-hidden="true"></span>
+										{if:%field.object:mobile%!=null && %field.object:mobile%!=""}{field.label:mobile}:<span class="font-green-cvt" >{field:mobile}</span>
+										{/if}
+										{if:%field.object:phone_1%!=null && %field.object:phone_1%!=""}{field.label:mobile}:<span class="font-green-cvt">{field:phone_1}</span>
+										{/if}
+										{if:%field.object:phone_2%!=null && %field.object:phone_2%!=""}{field.label:mobile}:<span class="font-green-cvt">{field:phone_2}</span>
+										{/if}
+									</li>
+									{/if}
+								</ul>
+							</div>
+			
+							<div class="col-md-4" >
+								<ul class="list-item-infos-right">
+									{if:%field.object:vacancy_oid%!=null && %field.object:vacancy_oid%!= 0}
+									<li class="text-left item-info" title="{string:'recruited'} : {field:rekrute_count}/{field:number} {string:'to recruit'}">
+										<i class="glyphicon glyphicon-folder-open font-blue-vacancy"></i>
+										<span class="font-blue-vacancy">{field.label:vacancy_oid}:<span class="font-blue-vacancy">    {field:vacancy_name}</span></span>
+									</li>
+									{/if}
+									<script language="php">
+										$etat_color = $_nx_record->etat_color->object;
+										if($etat_color == null ){
+											$fontColor = "#000000";
+										}else{
+											if((0.2125*intval(substr($etat_color,1,2), 16) + 0.7154*intval(substr($etat_color,3,2), 16) + 0.0721*intval(substr($etat_color,5,2), 16)) <= 128)
+												$fontColor  = "#FFFFFF";
+											else
+												$fontColor = "#000000";
+										}
+									</script>
+									{if:#field.object:etat_oid# !=null && #field.object:etat_oid# !=0 && #field:etat_oid# != ""}
+										<li class="text-left item-info" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor} !important; {if:#field.object:vacancy_name# != ''}margin-top:20px{/if}" title="{field.label:etat_oid}: {field:etat_oid}">
+
+											<i class="fa fa-sitemap" style="background-color: transparent;"></i>
+											<span class="field-label" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor} !important">{field.label:etat_oid}:</span> 
+											<span class="field-content" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor} !important">{field:etat_oid}</span>
+										</li>
+									{/if}
+							
+								</ul>
+							</div>
+							<div class="col-md-4" >
+								<div class="text-left">
+									<ul class="list-item-infos-right">
+										{if:#field.object:interview_by_oid# !=null && #field.object:interview_by_oid# !=0}
+										<li class="text-left item-info" title="{field.label:interview_by_oid} : {field:interview_by_oid}">
+											<i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+											<span class="field-label">{field.label:interview_by_oid} :</span> <span class="field-content">{field:interview_by_oid}</span>
+										</li>
+										{/if}
+										{if:#field.object:created_by# != #field.object:interview_by_oid# && #field.object:created_by# !=null && #field.object:created_by# !=0}
+										<li class="text-left item-info" title="{string:'created_by'} : {field:created_by}">
+											<i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+											<span class="field-label">{string:"created_by"} :</span> <span class="field-content">{field:created_by}</span>
+										</li>
+										{/if}
+										<script language="php">
+											$name = '&name='.urlencode(str_replace(' ', '_', $_nx_record->candidate_oid->string));
+										</script>
+										<?php foreach ($synthesis_r[$_nx_record->oid->object] as $s){?>
+											<br><br>
+											<a href="{=eval.url}{field:oid}&synthesis_oid={var:s[1]}{var:name}&mode=page" class="right" style="background: #96BF02 none repeat scroll 0% 0%; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;">Voir fiche d'évaluation de <?php print $s[0]; ?></a>
+										<?php } ?>
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+						
+						<div class="btn-group button_bs_right" role="group"  >
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+						
+							<ul class="dropdown-menu" style="right:0px;left:initial;" id="interview-actions">
+								<li>
+									<a href="{=edit.url}{field:oid}&candidate_oid={field.object:candidate_oid}'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit_interview"}</a>
+								</li>
+								<li>
+									<a href="{=edit_candidate.url}{field.object:candidate_oid}&coid={field.object:candidate_oid}&candidate_oid={field.object:candidate_oid}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;{string:"cv_candidate"}</a>
+								</li>
+								<script language="php">
+									$name = '&name='.urlencode(str_replace(' ', '_', $_nx_record->candidate_oid->string));
+								</script>
+								{if:%field:synthesis_oid% != 0}
+								<li>
+									<a href="{=eval.url}{field:oid}{var:name}&mode=page"><img src="/nx/skins/lightsky/img/eval-noir.png" style="width: 20px;float: left;">&nbsp;&nbsp;Voir fiche d'évaluation</a>
+								</li>
+								{else}
+								<li>
+									<a href="{=eval.url}{field:oid}&mode=page"><img src="/nx/skins/lightsky/img/eval-noir.png" style="width: 20px;float: left; margin-left: -5px;">&nbsp;&nbsp;Créer fiche d'évaluation</a>
+								</li>
+								{/if}
+								
+								{if:#field.string:cv_path:url# != ""}
+								<li>
+									<a href="{field.string:cv_path:url}" target="_blanck" onclick="event.stopPropagation()" ><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;{string:"show_cv"}</a>
+								</li>
+								{/if}
+							
+								{if:#field.object:interview_type# == 3 && #field.object:video_link# != null}
+								<li class="text-left item-info" title="Téléconférence">
+									<a href="{field.object:video_link}" target="_blanck">
+										<span class="glyphicon glyphicon-facetime-video" aria-hidden="true" style="font-size: 15px;margin-right: 6px;"></span> Téléconférence
+									</a>
+								</li>
+								{/if}
+							</ul>
+						</div>
+					</div>
+				</div>
+				</div>
+						
+                        <!--! {/record} -->
+						<?php
+                        $items_search = __('items_search_interview_futur');
+						$pageAlias = "page_interview_f";
+                        ?>
+                        {include:common/r_pagination}
+                       
+                        <!--! {/records} -->
+					
+                        {no_record}
+                        <div class="panel panel-default tab_empty tab_empty_interview_futur"><strong><?php
+					$msg = $this->getProperty('tab_empty_list_msg');
+                            if(!$msg)
+                            $msg = __('empty_list_interview_futur');
+                            echo $msg;
+                            ?></strong>
+                        </div>
+                        {/no_record}
+                        
+                    </div>
+                </div>
+                <div class="tab_panel candidate-list">
+                    {if: %property:tab_title%}
+                    <div class="tab_header">
+                        <div class="tab_title">{=tab_title}</div>
+                        <div class="tab_help">{=tab_help}</div>
+                    </div>
+                    {/if}
+
+                    <div class="tab_content {tab_id} interviews">
+                        <!--! {records:lastInterviews.records} -->
+						
+                        {if:records.count>0}
+                        
+                            <h4>{string:"page_title_my_interviews_realised"}</h4>
+                            <!--! {record} -->
+							<div class="panel panel-default" style="margin: 25px 0;">
+								<div class="panel-heading candidate-panel poste-panel"  onclick="document.location.href='{=edit.url}{field:oid}&candidate_oid={field.object:candidate_oid}'">
+							
+								<i class="glyphicon glyphicon-calendar interview-orange-font" {if:#field.object:created_by# == #user:oid#}style="color:gray;float:left;margin-right: 5px;font-size: 15px;" title="Planifié par vous"{else} title="{string:'you_participate'}" style="float:left;margin-right: 10px;font-size: 20px;"{/if} ></i>
+								<div class="panel-content">
+									<span title="De {field:time_start} à {field:time_end}"><span id="{field.object:oid}" style="font-size:1.1em"><script>ShortDate("{field:date}","{field.object:oid}")</script></span><span> à {field:time_start} </span>  {if:%field:location%!=null}à <span> {field:location}</span>{/if} : {field:interview_etat}<!--<span class="right" style="margin-right: 10px;"><i class="glyphicon glyphicon-user" style="color:gray;margin-right: 5px;font-size: 15px;"></i>{field.label:interview_by_oid} {field:interview_by_oid}</span>-->
+								</div>
+							</div>
+				<div class="row" style="padding:10px;" >
+					<div class="col-md-11" onclick="document.location.href='{=edit.url}{field:oid}&candidate_oid={field.object:candidate_oid}'">
+						<div class="row">
+							<div class="col-md-4 card" >
+								<ul class="list-item-infos-right">
+									<li class="text-left item-info" title="{string:'number_candidates'} : {field:candidates_count}">
+										<i class="glyphicon glyphicon-user font-green-cvt-icon" aria-hidden="true"></i>
+										<strong class="field-content font-green-cvt" >{field:candidate_name}</strong>
+									</li>
+									{if:(%field.object:mobile%!=null && %field.object:mobile%!="") || (%field.object:phone_1%!=null && %field.object:phone_1%!="") || (%field.object:phone_2%!=null && %field.object:phone_2%!="")}
+									<li class="text-left item-info font-green-cvt" >
+										<span class="glyphicon glyphicon-phone font-green-cvt-icon" aria-hidden="true"></span>
+										{if:%field.object:mobile%!=null && %field.object:mobile%!=""}{field.label:mobile}:<span class="font-green-cvt" >{field:mobile}</span>
+										{/if}
+										{if:%field.object:phone_1%!=null && %field.object:phone_1%!=""}{field.label:mobile}:<span class="font-green-cvt">{field:phone_1}</span>
+										{/if}
+										{if:%field.object:phone_2%!=null && %field.object:phone_2%!=""}{field.label:mobile}:<span class="font-green-cvt">{field:phone_2}</span>
+										{/if}
+									</li>
+									{/if}
+								</ul>
+							</div>
+			
+							<div class="col-md-4" >
+								<ul class="list-item-infos-right">
+									{if:%field.object:vacancy_oid%!=null && %field.object:vacancy_oid%!= 0}
+									<li class="text-left item-info" title="{string:'recruited'} : {field:rekrute_count}/{field:number} {string:'to recruit'}">
+										<i class="glyphicon glyphicon-folder-open font-blue-vacancy"></i>
+										<span class="font-blue-vacancy">{field.label:vacancy_oid}:<span class="font-blue-vacancy">    {field:vacancy_name}</span></span>
+									</li>
+									{/if}
+									<script language="php">
+										$etat_color = $_nx_record->etat_color->object;
+										if($etat_color == null ){
+											$fontColor = "#000000";
+										}else{
+											if((0.2125*intval(substr($etat_color,1,2), 16) + 0.7154*intval(substr($etat_color,3,2), 16) + 0.0721*intval(substr($etat_color,5,2), 16)) <= 128)
+												$fontColor  = "#FFFFFF";
+											else
+												$fontColor = "#000000";
+										}
+									</script>
+									{if:#field.object:etat_oid# !=null && #field.object:etat_oid# !=0 && #field:etat_oid# != ""}
+										<li class="text-left item-info" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor} !important; {if:#field.object:vacancy_name# != ''}margin-top:20px{/if}" title="{field.label:etat_oid}: {field:etat_oid}">
+
+											<i class="fa fa-sitemap" style="background-color: transparent;"></i>
+											<span class="field-label" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor} !important">{field.label:etat_oid}:</span> 
+											<span class="field-content" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor} !important">{field:etat_oid}</span>
+										</li>
+									{/if}
+							
+								</ul>
+							</div>
+							<div class="col-md-4" >
+								<div class="text-left">
+									<ul class="list-item-infos-right">
+										
+										{if:#field.object:interview_by_oid# !=null && #field.object:interview_by_oid# !=0}
+										<li class="text-left item-info" title="{field.label:interview_by_oid} : {field:interview_by_oid}">
+											<i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+											<span class="field-label">{field.label:interview_by_oid} :</span> <span class="field-content">{field:interview_by_oid}</span>
+										</li>
+										{/if}
+										{if:#field.object:created_by# != #field.object:interview_by_oid# && #field.object:created_by# !=null && #field.object:created_by# !=0}
+										<li class="text-left item-info" title="{string:'created_by'} : {field:created_by}">
+											<i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+											<span class="field-label">{string:"created_by"} :</span> <span class="field-content">{field:created_by}</span>
+										</li>
+										{/if}
+										<script language="php">
+											$name = '&name='.urlencode(str_replace(' ', '_', $_nx_record->candidate_oid->string));
+										</script>
+										<?php foreach ($synthesis_r[$_nx_record->oid->object] as $s){?>
+											<br><br>
+											<a href="{=eval.url}{field:oid}&synthesis_oid={var:s[1]}{var:name}&mode=page" class="right" style="background: #96BF02 none repeat scroll 0% 0%; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;">Voir fiche d'évaluation de <?php print $s[0]; ?></a>
+										<?php } ?>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+						
+						<div class="btn-group button_bs_right" role="group" >
+							<button type="button" class="btn btn-default dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+						
+							<ul class="dropdown-menu" style="right:0px;left:initial;" id="interview-actions">
+								<li>
+									<a href="{=edit.url}{field:oid}&candidate_oid={field.object:candidate_oid}'"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit_interview"}</a>
+								</li>
+								<li>
+									<a href="{=edit_candidate.url}{field.object:candidate_oid}&coid={field.object:candidate_oid}&candidate_oid={field.object:candidate_oid}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;{string:"cv_candidate"}</a>
+								</li>
+								<script language="php">
+									$name = '&name='.urlencode(str_replace(' ', '_', $_nx_record->candidate_oid->string));
+								</script>
+								{if:%field:synthesis_oid% != 0}
+								<li>
+									<a href="{=eval.url}{field:oid}{var:name}&mode=page"><img src="/nx/skins/lightsky/img/eval-noir.png" style="width: 20px;float: left;">&nbsp;&nbsp;Voir fiche d'évaluation</a>
+								</li>
+								{else}
+								<li>
+									<a href="{=eval.url}{field:oid}{var:name}&mode=page"><img src="/nx/skins/lightsky/img/eval-noir.png" style="width: 20px;float: left; margin-left: -5px;">&nbsp;&nbsp;Créer fiche d'évaluation</a>
+								</li>
+								{/if}
+								
+								{if:#field.string:cv_path:url# != ""}
+								<li>
+									<a href="{field.string:cv_path:url}" target="_blanck" onclick="event.stopPropagation()" ><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;&nbsp;{string:"show_cv"}</a>
+								</li>
+								{/if}
+						
+								{if:#field.object:interview_type# == 3 && #field.object:video_link# != null}
+								<li class="text-left item-info" title="Téléconférence">
+									<a href="{field.object:video_link}" target="_blanck">
+										<span class="glyphicon glyphicon-facetime-video" aria-hidden="true" style="font-size: 15px;margin-right: 6px;"></span> Téléconférence
+									</a>
+								{/if}
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+							
+                           
+                            <!--! {/record} -->
+                        
+						<?php
+							$items_search = __('items_search_interview_realised');
+							$pageAlias = "page_interview_r";
+						?>
+                        {include:common/r_pagination}
+                        {/if}
+                        <!--! {/records} -->
+
+                        {no_record}
+                        <div class="tab_empty"><?php
+					$msg = $this->getProperty('tab_empty_list_msg');
+                            if(!$msg)
+                            $msg = __('empty_list_interview_realised');
+                            echo $msg;
+                            ?>
+                        </div>
+                        {/no_record}
+
+                        
+                    </div>
+                </div>
+            </div>
+
+<script>
+    if(PMDH && PMDH.Skin)
+        PMDH.Skin.LightSky.Grid.init();
+</script>
+
+<div class="theme-config" style="width:auto">
+    <div class="theme-config-box" id="config-box">
+        <div id="spin-icon" onclick="toogleSearch('config-box', 'show');" style="background:rgb(255, 136, 52) !important;">
+			<span class="glyphicon glyphicon-search" id="" style="color: white;" aria-hidden="true"></span>
+        </div>
+        <div class="skin-setttings" >
+            <div class="title orange-interview-background" onclick="toogleSearch('config-box', 'show');">Recherche</div>
+            <div class="setings-item">
+					<div class="widget">
+						{include:recruitment/vacancies/components/search/search_get_bs_interview}
+					</div>
+            </div>
+        </div>
+    </div>
+</div>
+{/content}
+
+<script language="php">
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=='ajax') {
+</script>
+{=page.content}
+
+{else}
+{include:page_bs}
+{/if}

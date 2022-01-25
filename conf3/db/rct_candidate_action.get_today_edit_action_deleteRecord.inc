@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_candidate_action WHERE _action_oid='1' AND _date>='".$props->getProperty("tonight","",true)."' AND _date<=NOW() AND _user_oid='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."' AND _candidate_oid='".$props->getProperty("candidate_oid","",true)."'"; ?>

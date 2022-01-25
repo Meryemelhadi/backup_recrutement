@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_email SET _oid=".$record->getFieldValue("oid","DB","NULL").",_candidate_oid=".$record->getFieldValue("candidate_oid","DB","NULL").",_vacancy_oid=".$record->getFieldValue("vacancy_oid","DB","NULL").",_creation_date=".$record->getFieldValue("creation_date","DB","NOW()")." WHERE _oid in('".$props->getProperty("cat.enum","",true)."')"; ?>

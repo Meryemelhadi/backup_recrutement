@@ -1,0 +1,104 @@
+{records:page.records}
+<ul class="candidate-history-content">
+{record}
+
+{if:#field.object:action_oid# == '0'}
+<li><b>{string:"action_title_associated_to_vacancy"}</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '1'}
+<li><b>{string:"action_title_added_to_sl"} </b><strong>{field:short_list_name}</strong>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '2'}
+<li><b>{string:"action_title_proposed_to_ic"}</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '3'}
+<li><b>{string:"action_title_contact_by_mail"}</b> (<a href="javascript:void(0);" onclick="ajax_navigate(event,'?nxo=view_mail{record.url_key}','content');">{string:"email_view"}</a>)
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '4'}
+<li><b>{string:"action_title_interview_scheduled"} {string:"date_prefix_lc"} </b><strong>{field:interview_date}</strong> {string:"at"} <strong>{field:interview_time_start}</strong> {string:"with"} <strong>{field:interviewer_full_name}</strong>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '5'}
+<li><b>{string:"action_title_accepted_by_ic"} {field:user_full_name}</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '6'}
+<li><b>{string:"action_title_refused_by_ic"} {field:user_full_name}</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '7'}
+<li><b>{string:"action_title_accepted_for_job"}	</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '8'}
+<li><b>{string:"action_title_rejected"}</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '9'}
+<li><b>{string:"action_title_sent_proposal"} </b>(<a href="javascript:void(0);" onclick="ajax_navigate(event,'?nxo=view_mail{record.url_key}','content');">{string:"proposal_view"}</a>)
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '10'}
+<li><b>{string:"action_title_accepted_proposal"} {string:"date_prefix_lc"} {field:additional_infos}</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '11'}
+<li><b>{string:"action_title_refused_proposal"} {string:"date_prefix_lc"} {field:additional_infos}</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '12'}
+<li><b>{string:"action_title_rated"} </b><strong>{field:additional_infos}/5</strong>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '13'}
+<li><b>{string:"interview_scheduled"} </b><strong>{field:interview_date}</strong> {string:"at"} <strong>{field:interview_time_start}</strong> {string:"validated"}
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '14'}
+<li><b>{string:"action_title_vacancy_unlink"}</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '15'}
+<li><b>{string:"action_title_short_list_unlink"} </b><strong>{field:short_list_name}</strong>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '16'}
+<li><b>{string:"action_title_ic_unlink"}</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '17'}
+<li><b>{string:"interview_scheduled"} </b><strong>{field:interview_date}</strong> {string:"at"} <strong>{field:interview_time_start}</strong> {string:"refused"}
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+
+{if:#field.object:action_oid# == '18'}
+<li><b>{string:"action_title_deselected_from_job"}	</b>
+	<br/><span class="log-author">{string:"date_prefix"} {field:date} {string:"by"} {field:user_full_name}</span></li>
+{/if}
+{/record}
+</ul>
+{/records}
+{no_record}
+<div class="empty-records">{string:"empty_log_list"}</div>
+{/no_record}

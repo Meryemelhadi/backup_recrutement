@@ -1,0 +1,55 @@
+<!--! {records:page.records} -->
+<div class="sub-edit-grid-wrapper">
+	<table class="sub-edit-grid">
+		{record}
+		<tr class="grid-row row_{record.even_odd}">
+			{fields}
+			<td style="{if:field.style_width}width:{field.style_width}px{/if}" class="form-cell cell-{field.type}-type cell-{field.control}-ctrl"><div class="simple-wrapper"><div class="field-{field.type}">{field.form}</div></div></td>
+			{/fields}
+			<td class="operations">
+				<div  class="simple-wrapper">
+					<a href="javascript:void(0);" onclick="(
+						function(aElement) {
+							PMDH.getNextSibling(aElement).checked=true;
+							var parent		= PMDH.getParentElementByTagName(aElement,'tr');
+							var preceding	= PMDH.getPrecedings(parent);
+							var next		= PMDH.getNextSiblings(parent);
+							var vNexts		= false;
+							var vPrecedings	= false;
+							
+							for(var i=0; i<next.length; i++) {
+								if( next[i].style.display != 'none' ) {
+									vNexts = true;
+									break;
+								}
+							}
+
+							for(var i=0; i<preceding.length; i++) {
+								if( preceding[i].style.display != 'none' && PMDH.hasClassName(preceding[i], 'sub-grid-header') !== true  ) {
+									vPrecedings = true;
+									break;
+								}
+							}
+
+							if( vNexts === true || vPrecedings === true ) {
+								parent.style.display='none';
+							} else {
+								PMDH.getParentElementByClassName(parent,'sub-edit-grid-wrapper').style.display='none';
+							}
+						})(this);" class="s-icon si-delete"><span>{string:"delete"}</span></a>
+					<input type="checkbox" class="delete-control-checkbox" name="{record.id}__delete__" value="delete" style="display:none" />
+				</div>
+				{fields:all}
+				{if:field.hidden}
+					{field.form}
+				{/if}
+				{/fields}
+			</td>
+			
+		</tr>
+		
+		{/record}
+	</table>
+</div>
+{include:common/grid_empty}
+{/records}

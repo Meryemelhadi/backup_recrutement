@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_email_docs(_oid INT AUTO_INCREMENT NOT NULL,_name VARCHAR(200),_file TEXT,_index VARCHAR(200),_dest varchar(5),PRIMARY KEY(_oid))"; ?>

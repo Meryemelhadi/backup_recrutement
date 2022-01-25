@@ -1,0 +1,20 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+    <application
+            name		= "vacancy_project"
+            path		= "/recruitment/admin/"
+            protected	= "user"
+            permissions = "default"
+            cache		= "no"
+            lang		= "fr"
+            skin		= "lightsky"
+            application = "vacancy_project"
+            table		= "rct_vacancy_project"
+            base_data	= "vacancy_project"
+            string_base = "vacancy_project"
+            role = "editor"
+            xmlns="http://www.nxfrontier.com/nxl/page"
+            />
+
+    <include_once file="/all.nxl" />
+</nxl>

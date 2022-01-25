@@ -1,0 +1,41 @@
+<div class="pm-grid-outer-wrapper">
+	<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="ajax_navigate(event,'{=candidates_list.url}','content'); return false;">
+			<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_candidates"}</span></span>
+		</a>
+		<span class="pm-button-sep"></span>
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="PMDH.toggle('search-panel', 'appear'); return false;">
+			<span class="btn-bg"><span class="s-icon si-zoom">{string:"search"}</span></span>
+		</a>
+	</div>
+	{include:common/search_displayed}
+
+	<!--! {records:page.records} -->
+	<div class="directory-grid-wrapper" id="candidates_list_grid">
+
+		<h3 class="grid-header">{string:"candidates_search_results"}</h3>
+		
+		<!--! {record} -->
+		{include:recruitment/vacancies_client/components/candidates_list}
+		<!--! {/record} -->
+		
+	</div>
+	<script>
+		PMDH.Skin.LightSky.Grid.init('', {
+			wrapperClass	: 'directory-grid-wrapper',
+			gridClass		: 'directory-grid',
+			gridRowClass	: 'directory-grid-row'
+		});
+	</script>
+	<!--! {/records} -->
+	{no_record}
+	<div class="empty-records">{string:"empty_candidate_search_list"}</div>
+	{/no_record}
+	
+</div>

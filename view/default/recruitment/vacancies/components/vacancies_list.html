@@ -1,0 +1,417 @@
+<?php
+	$currentGroup = uniqid('sub_form_');
+?>
+<style>
+    #vacancies_div{
+        padding: 5px 0;
+    }
+    .history_row{
+        border-top: solid 4px #fff;
+    }
+</style>
+
+{content:etats_ddlist}
+	{records:candidate_etats_all.records}
+		{record}
+		<option value="{field:oid}" >{field:name}</option>
+		{/record}
+	{/records}
+{/content}
+
+<script language="php"><![CDATA[
+		$logs = $this->getProperty('logs');
+		$index = 0;
+		]]></script>
+{records:candidates_vacancies_list.records}
+
+    {record}
+<table class="directory-grid">
+    <script language="php">
+            $oid = $_nx_record->oid->object;
+            $editUrl = $editUrlDir.'void-'.$oid.'/'.$editUrlBase.$_nx_record->getUrlKey();
+            $candidateUrl = $editUrlDir.'void-'.$oid.'/'.$candidatesUrlBase.$_nx_record->getUrlKey();
+			$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+			$log = $logs[$index];
+			$index ++;
+    </script>
+    <script>
+        window.chargeArrow =function(event,url,content) {
+            //ajax_navigate(event,url,content);
+            PMDH.toggle(content,'appear');
+            return false;
+        };
+		
+    </script>
+    <tr>
+        <td colspan="5" class="btns_row">
+            {if:#field:key_readonly# == 0 or #field:key_recrute# != 0 or #field:key_total_control# !=0}
+            <div class="dg-cell-wrapper">
+                <script>
+
+                    window.dlg_unlinkConfig_{$currentGroup}_{field.object:oid}= {
+                        title: "{string:'dlg_unlink_candidate_title'}",
+                        message: "{string:'dlg_unlink_candidate_content'}",
+                        viewMode: "okCancel",
+                        url: "{=unlink_candidate.url}{field.object:oid}{record.url_key}",
+                        target: "content",
+                        labels: {
+                            ok: "{string:'dlg_ok'}",
+                            cancel: "{string:'dlg_cancel'}"
+                        }
+                    };
+
+                    window.dlg_confirmForJobConfig_{$currentGroup}_{field.object:oid}= {
+                        title: "{string:'dlg_confirm_for_job_title'}",
+                        message: "{string:'dlg_confirm_for_job_content'}",
+                        viewMode: "okCancel",
+                        url: "{=accepted_for_job.url}{field.object:oid}{record.url_key}",
+                        target: "content",
+						labels: {
+                            ok: "{string:'dlg_ok'}", cancel: "{string:'dlg_cancel'}"
+                        }
+                    };
+
+                    window.dlg_cancelForJobConfig_{$currentGroup}_{field.object:oid}= {
+                        title: "{string:'dlg_cancel_for_job_title'}",
+                        message: "{string:'dlg_cancel_for_job_content'}",
+                        viewMode: "okCancel",
+                        url: "{=cancel_accepted_for_job.url}{field.object:oid}{record.url_key}",
+                        target: "content", labels: {
+                            ok: "{string:'dlg_ok'}", cancel: "{string:'dlg_cancel'}"
+                        }
+                    };
+
+                    window.dlg_refuseConfig_{$currentGroup}_{field.object:oid}= {
+                        title: "{string:'dlg_refuse_candidate_title'}",
+                        message: "{string:'dlg_refuse_candidate_content'}",
+                        viewMode: "okCancel",
+                        url: "{=refuse_candidate.url}{field.object:oid}{record.url_key}",
+                        target: "content", labels: {
+                            ok: "{string:'dlg_ok'}", cancel: "{string:'dlg_cancel'}"
+                        }
+                    };
+
+                    window.dlg_accepted_proposal_{$currentGroup}_{field.object:oid}= {
+                        title: "{string:'accepted_proposal_title'}",
+                        url: "{=accepted_proposal.url}{field.object:oid}{record.url_key}",
+                        width: 550
+                    }
+                    window.dlg_refused_proposal_{$currentGroup}_{field.object:oid}= {
+                        title: "{string:'refused_proposal_title'}",
+                        url: "{=refused_proposal.url}{field.object:oid}{record.url_key}",
+                        width: 550
+                    }
+                    window.dlg_send_to_client_{$currentGroup}_{field.object:oid}= {
+                        title: "{string:'send_to_client_title'}",
+                        url: "{=send_to_ic.url}{field.object:oid}{record.url_key}",
+                        width: 550
+                    };
+					window.dlg_edit_integration_date_{$currentGroup}_{field.object:oid}= {
+                        title: "{string:'edit_integration_date_title'}",
+                        url: "{=edit_integration_date.url}{field.object:oid}{record.url_key}",
+                        width: 550
+                    };
+					/*window.dlg_update_state_{$currentGroup}_{field.object:oid}= {
+                        title: "{string:'edit_state_title'}",
+                        url: "{=edit_state.url}{field.object:oid}{record.url_key}",
+                        width: 550
+                    };*/
+					function onchangeCandiatesEtat(select , vacancy_oid){
+						// on récupére la selection
+						var etatOid = select.value;
+						var url = "{=associate_to_etat_process.url}";
+						url += "&etat_oid="+etatOid;
+						url += "&candidate_oid={field.object:candidate_oid}";
+						url += "&oid={field.object:candidate_oid}";
+						url += "&vacancy_oid="+vacancy_oid;
+						select.style.background = '#ffff006b';	
+						new Ajax.Request(url,{
+							method		: 'get',
+							asynchronous: true,
+							contentType	: 'application/x-www-form-urlencoded',
+							encoding	: 'UTF-8',
+							onSuccess	: function(transport) {
+								select.style.background = '#fff';
+							}
+						});
+						
+						
+			
+						
+					}
+					
+                </script>
+				
+				
+				<!--<button type="button" class="btn btn-default" onclick="PMModalbox.loadFromUrl(window.dlg_send_to_client_{$currentGroup}_{field.object:oid}, event); return false;">
+					<span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;&nbsp;{string:"send_to_client_helper"}
+				</button>
+				 {if:#field.object:job_acceptance_state# == '1'}
+				 <button type="button" class="btn btn-default" onclick="PMModalbox.display(window.dlg_cancelForJobConfig_{$currentGroup}_{field.object:oid}, event); return false;">
+					<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"unselect_for_job_helper"}
+				 </button>
+                {else}
+				<button type="button" class="btn btn-default" onclick="PMModalbox.display(window.dlg_confirmForJobConfig_{$currentGroup}_{field.object:oid}, event); return false;">
+					<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"selected_for_job_helper"}
+				</button>
+                {/if}
+				{if:trim(#field.object:status#) == '8'}
+				<button type="button" class="btn btn-default" onclick="ajax_navigate(event,'{=reinit_status.url}{field.object:oid}{record.url_key}','content'); return false;">
+					<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"accept_candidate_helper"}
+				</button>
+                {else}
+				<button type="button" class="btn btn-default" onclick="PMModalbox.display(window.dlg_refuseConfig_{$currentGroup}_{field.object:oid}, event); return false;">
+					<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"refuse_candidate_helper"}
+				</button>
+                {/if}
+				<button type="button" class="btn btn-default" onclick="PMModalbox.loadFromUrl(window.dlg_accepted_proposal_{$currentGroup}_{field.object:oid}, event); return false;">
+					<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;&nbsp;{string:"accepted_proposal_helper"}
+				</button>
+				<button type="button" class="btn btn-default" onclick="PMModalbox.loadFromUrl(window.dlg_refused_proposal_{$currentGroup}_{field.object:oid}, event); return false;">
+					<span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;&nbsp;{string:"refused_proposal_helper"}
+				</button>
+				<button type="button" class="btn btn-default" onclick="window.chargeArrow(event,'{=candidate_record.url}{field.object:oid}','candidate_history_{$currentGroup}_{field.object:oid}','idButton_{$currentGroup}_{field.object:oid}'); return false;">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"poste_historique"}
+				</button>-->
+				
+                <!--<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.loadFromUrl(window.dlg_send_to_client_{$currentGroup}_{field.object:oid}, event); return false;">
+                    <span class="btn-bg"><span class="s-icon si-page-white-go">{string:"send_to_client_helper"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>
+
+                {if:#field.object:job_acceptance_state# == '1'}
+                <a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_cancelForJobConfig_{$currentGroup}_{field.object:oid}, event); return false;">
+                    <span class="btn-bg"><span class="s-icon si-user-delete">{string:"unselect_for_job_helper"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>
+                {else}
+                <a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_confirmForJobConfig_{$currentGroup}_{field.object:oid}, event); return false;">
+                    <span class="btn-bg"><span class="s-icon si-user-add">{string:"selected_for_job_helper"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>
+                {/if}
+                {if:trim(#field.object:status#) == '8'}
+                <a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=reinit_status.url}{field.object:oid}{record.url_key}','content'); return false;">
+                    <span class="btn-bg"><span class="s-icon si-tick">{string:"accept_candidate_helper"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>
+                {else}
+                <a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_refuseConfig_{$currentGroup}_{field.object:oid}, event); return false;">
+                    <span class="btn-bg"><span class="s-icon si-cross">{string:"refuse_candidate_helper"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>
+                {/if}
+
+                <a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.loadFromUrl(window.dlg_accepted_proposal_{$currentGroup}_{field.object:oid}, event); return false;">
+                    <span class="btn-bg"><span class="s-icon si-thumb-up">{string:"accepted_proposal_helper"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>
+
+                <a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.loadFromUrl(window.dlg_refused_proposal_{$currentGroup}_{field.object:oid}, event); return false;">
+                    <span class="btn-bg"><span class="s-icon si-thumb-down">{string:"refused_proposal_helper"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>
+                <a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="window.chargeArrow(event,'{=candidate_record.url}{field.object:oid}','candidate_history_{$currentGroup}_{field.object:oid}','idButton_{$currentGroup}_{field.object:oid}'); return false;">
+                    <span class="btn-bg"><span class="s-icon si-information">{string:"poste_historique"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>-->
+            </div>
+            {/if}
+        </td>
+    </tr>
+
+    <tr class="directory-grid-row columns-layout columns-layout-4 width-padding width-white-border row_odd"
+        title="{string:'poste_details'}">
+        <td class="dg-column" onclick="window.chargeArrow(event,'{=candidate_record.url}{field.object:oid}','candidate_history_{$currentGroup}_{field.object:oid}','idButton_{$currentGroup}_{field.object:oid}'); return false;">
+            {if:%field.object:manager_oid% == %user:oid%}
+            <div class="star-five yellow" style="float:right;position:relative;top:-10px;"
+                 title="{string:'Poste dont je suis le recruteur'}"></div>
+            {/if}
+            {if:%field.html:contract_type_oid% == 'Stage'}
+            <span style="font-weight:bold;color:#7FBA00;float:right;position:relative;top:-10px;font-size:16px;"
+                  title="Stage">S</span>
+            {/if}
+
+            <div class="dg-cell-wrapper">
+                <span class="field-content"><strong>{field:name}</strong></span>
+                {if:#field.object:number# != ''}
+                <span class="field-content">({field:number})</span>
+                {/if}
+                <br/>
+                <span class="field-content">{field:category_oid}{if:#field.object:category_oid# != '' && #field.object:contract_type_oid#}, {/if}{field:contract_type_oid}</span>
+                {if:#field.object:code# != ""}
+                <br/>
+                <span class="field-content">{string:"code_no"} {field:code}</span>
+                {/if}
+                <br/>
+                <span class="field-content">{string:"manager_oid"} : {field:manager_oid}</span>
+
+            </div>
+
+        </td>
+
+        <!--<td class="dg-column elastic" onclick="window.chargeArrow(event,'{=candidate_record.url}{field.object:oid}','candidate_history_{$currentGroup}_{field.object:oid}','idButton_{$currentGroup}_{field.object:oid}'); return false;">
+            <div class="dg-cell-wrapper">
+                <span class="field-label">{field.label:subsidiary_oid} :</span> <span class="field-content">{field:subsidiary_oid}</span>
+                <br/>
+                <span class="field-label">{field.label:service_oid} :</span> <span class="field-content">{field:service_oid}</span>
+                <br/>
+                <span class="field-label">{field.label:duty_station_oid} :</span> <span class="field-content">{field:duty_station_oid}</span>
+                <br/>
+                <span class="field-label">{field.label:establishment} :</span> <span class="field-content">{field:establishment}</span>
+            </div>
+        </td>-->
+        <td class="dg-column elastic" onclickX="window.chargeArrow(event,'{=candidate_record.url}{field.object:oid}','candidate_history_{$currentGroup}_{field.object:oid}','idButton_{$currentGroup}_{field.object:oid}'); return false;">
+            <div class="dg-cell-wrapper">
+                <!--<span class="field-label">{field.label:progress_level} :</span> <span class="field-content">{field:current_step}</span>
+                <br/>
+                <span class="field-label">{field.label:current_step} :</span> <span class="field-content">{field:progress_level}{if:#field:progress_level_meta# != ''} ({field:progress_level_meta}){/if}</span>
+                <br/>
+                <span class="field-label">{string:"application_type"} :</span> <span class="field-content">{field:application_type}</span>
+                <br/>-->
+
+                <div style="float:right">
+                    <span class="field-label" style='float: left;margin-right: 5px;margin-top: 5px;'>{field.label:etat_oid} :</span> 
+					<!-- {if:#field:etat_oid# != ''} -->
+					<!-- <span class="field-content candidate_count">{field:etat_oid}</span> -->
+					<!-- {else} -->
+					<!-- <span class="field-content candidate_count">{string:"undefined"}</span> -->
+					<!-- {/if} -->
+					
+					<select style='width: 85%;' class="select form-control" name="grid-selection-candidate_etas" id="grid-candidate_etats-list" onchange="onchangeCandiatesEtat(this , {field.object:oid})">
+						{if:#field:etat_oid# == ''}
+						<option value="?">{string:"associate_to_etat_helper"}...</option>
+						{else}
+						<option value="{field:etat_oid}" >{field.string:etat_oid}</option>
+						<option value="0" >{string:"undefined"}</option>
+						{/if}
+						{=etats_ddlist}			
+					</select>
+					{if:#field.object:cv_source_oid# != ""}
+					<br/>
+					<span class="field-content">{string:"provider"}: {field.string:cv_source_oid}</span>
+					{/if}
+					
+					
+                </div>
+            </div>
+        </td>
+
+        <!-- <td class="dg-column elastic" onclick="window.chargeArrow(event,'{=candidate_record.url}{field.object:oid}','candidate_history_{$currentGroup}_{field.object:oid}','idButton_{$currentGroup}_{field.object:oid}'); return false;"> -->
+            <!-- <div class="dg-cell-wrapper"> -->
+                <!-- <span class="field-label">{field.label:opening_date} :</span> -->
+									<!-- <span class="field-content"> -->
+									<!-- {if:#field:opening_date# != '-/-/-'}{field:opening_date}{else}-{/if} -->
+									<!-- </span> -->
+                <!-- <br/> -->
+                <!-- <span class="field-label">{field.label:closing_date} :</span> -->
+									<!-- <span class="field-content"> -->
+									<!-- {if:#field:closing_date# != '-/-/-'}{field:closing_date}{else}-{/if} -->
+									<!-- </span> -->
+                <!-- <br/> -->
+                <!-- <span class="field-content">&nbsp;</span> -->
+            <!-- </div> -->
+        <!-- </td> -->
+        <td class="dg-column elastic">
+            <div class="dg-cell-wrapper">
+				<div class="btn-group button_bs_right" role="group">
+					<!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="glyphicon glyphicon-menu-hamburger"></span>
+					</button>-->
+					{if:!%property:from_new_cvt%}
+						<button type="button" style="width: 239px; margin-bottom: 5px;" class="btn btn-default dropdown-toggle" onclick="document.location.href='{var:PORTAL_URL_PREFIX}/recruitment/vacancies/admin/void-{field.object:oid}/directory.php?nxo=edit&mode=page&oid={field.object:oid}'" >
+						<span class="glyphicon glyphicon-share-alt" style="float: left;"></span>
+						&nbsp;&nbsp;{string:"go_to_vacancy"}
+						</button>
+					{/if}
+					<br/>
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="glyphicon glyphicon-menu-hamburger"></span>
+					&nbsp;{string:"action_candidate_vacancy"}</button>
+					
+					<ul class="dropdown-menu">
+						<!-- <li><a onclick="PMModalbox.loadFromUrl(window.dlg_update_state_{$currentGroup}_{field.object:oid}, event); return false;"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;&nbsp;{string:"update_state_helper"}</a></li> -->
+						<li><a onclick="PMModalbox.loadFromUrl(window.dlg_send_to_client_{$currentGroup}_{field.object:oid}, event); return false;"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;&nbsp;{string:"send_to_client_helper"}</a></li>
+						<li><a onclick="PMModalbox.loadFromUrl(window.dlg_edit_integration_date_{$currentGroup}_{field.object:oid}, event); return false;"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit_integration_date"}</a></li>
+						
+						{if:#field.object:job_acceptance_state# == '1'}
+						<li><a href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_cancelForJobConfig_{$currentGroup}_{field.object:oid}, event); return false;"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"unselect_for_job_helper"}</a></li>
+						{else}
+						<li><a href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_confirmForJobConfig_{$currentGroup}_{field.object:oid}, event); return false;"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"selected_for_job_helper"}</a></li>
+						{/if}
+						{if:trim(#field.object:status#) == '8'}
+						<li><a href="javascript:void(0);" onclick="ajax_navigate(event,'{=reinit_status.url}{field.object:oid}{record.url_key}','content'); return false;"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"accept_candidate_helper"}</a></li>
+						{else}
+						<li><a href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_refuseConfig_{$currentGroup}_{field.object:oid}, event); return false;"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"refuse_candidate_helper"}</a></li>
+						{/if}
+						<li><a href="javascript:void(0);" onclick="PMModalbox.loadFromUrl(window.dlg_accepted_proposal_{$currentGroup}_{field.object:oid}, event); return false;"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>&nbsp;&nbsp;{string:"accepted_proposal_helper"}</a></li>
+						<li><a href="javascript:void(0);" onclick="PMModalbox.loadFromUrl(window.dlg_refused_proposal_{$currentGroup}_{field.object:oid}, event); return false;"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>&nbsp;&nbsp;{string:"refused_proposal_helper"}</a></li>
+						<li><a href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_unlinkConfig_{$currentGroup}_{field.object:oid}, event); return false;"><span class="glyphicon glyphicon-resize-full" aria-hidden="true"></span>&nbsp;&nbsp;{string:"unlink_candidate"}</a></li>
+						<!--<li><a href="javascript:void(0);" onclick="window.chargeArrow(event,'{=candidate_record.url}{field.object:oid}','candidate_history_{$currentGroup}_{field.object:oid}','idButton_{$currentGroup}_{field.object:oid}'); return false;"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"poste_historique"}</a></li>-->
+					
+					</ul>
+				</div>
+                <!--<a class="pm-button btn-with-icon" style="margin-bottom:5px" href="javascript:void(0);" onclick="document.location.href='{var:PORTAL_URL_PREFIX}/recruitment/vacancies/admin/directory.php?nxo=candidates&mode=page&oid={field.object:oid}#candidate_{field.object:candidate_oid}'">
+                    <span class="btn-bg"><span class="s-icon si-arrow-redo">{string:"go_to_vacancy"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>-->
+
+                <!--<a class="pm-button btn-with-icon" style="width:140px" href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_unlinkConfig_{$currentGroup}_{field.object:oid}, event); return false;">
+                    <span class="btn-bg"><span class="s-icon si-disconnect">{string:"unlink_candidate"}</span></span>
+                </a>
+                <span class="pm-button-sep"></span>-->
+
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <div class="candidate-history-wrapper history_row" id="candidate_history_{$currentGroup}_{field.object:oid}">
+				<!--<div class="col-md-6">
+					<div class="column-inner">
+						<div class="candidate-history-title title-first">{string:"title_candidate_log"}</div>
+						{field:candidate_log}
+						{field:candidate_vacancies}
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="column-inner">
+						<div class="candidate-history-title title-first">{string:"title_candidate_summary"}</div>
+						<ul class="candidate-history-content">					
+							<li>{field.label:ci_acceptance_state}: <strong>{field:ci_acceptance_state}</strong></li>
+							<li>{field.label:job_acceptance_state}: <strong>{field:job_acceptance_state}</strong></li>
+							<li>{field.label:proposal_acceptance_state}: <strong>{field:proposal_acceptance_state}</strong>{if:#field.object:proposal_acceptance_state# != '0'}, {string:'date_prefix_lc'} <strong>{field:proposal_acceptance_date}</strong>{/if}</li>
+						</ul>
+					</div>
+				</div>-->
+				<div class="history_row_panel">
+					<form:columns>
+						<form:column index="1">
+							<form:group title="{string:'title_candidate_log'}">
+								{var:log}
+								
+							</form:group>
+						</form:column>
+						<form:column index="2">
+							<form:group title="{string:'title_candidate_summary'}">
+								<ul class="candidate-history-content">					
+									<li>{field.label:ci_acceptance_state}: <strong>{field:ci_acceptance_state}</strong></li>
+									<li>{field.label:job_acceptance_state}: <strong>{field:job_acceptance_state}</strong></li>
+									<li>{field.label:proposal_acceptance_state}: <strong>{field:proposal_acceptance_state}</strong>{if:#field.object:proposal_acceptance_state# != '0'}, {string:'date_prefix_lc'} <strong>{field:proposal_acceptance_date}</strong>{/if}</li>
+								</ul>
+							</form:group>
+						</form:column>
+					</form:columns>
+				</div>
+			</div>
+        </td>
+    </tr>
+</table>
+    {/record}
+
+
+{/records}
+
+{no_record}
+<div class="empty-records">{string:"empty_vacancies_list"}</div>
+{/no_record}

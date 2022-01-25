@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_index,_name,_taskType,_in_home,_vacancy_status,_color FROM _rct_candidate_etat WHERE ".$this->getWhereClause("_name",$this->getFieldParam("name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false')." ORDER BY _index ASC,_oid ASC "; ?>

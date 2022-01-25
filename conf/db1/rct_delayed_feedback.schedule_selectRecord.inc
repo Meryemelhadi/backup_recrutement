@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _candidate_oid,_filled_by,_launch_date,_scheduled_by,_scheduled_on,_vacancy_oid,_fill_state,_notification_state FROM _rct_delayed_feedback"; ?>

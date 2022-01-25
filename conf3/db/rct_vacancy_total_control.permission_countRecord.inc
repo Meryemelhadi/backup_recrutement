@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_vacancy_total_control WHERE _key='".$props->getProperty("vacancy_id","",true)."' AND _val='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."'"; ?>

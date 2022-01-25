@@ -1,0 +1,309 @@
+	<cont:nav_section 
+	title		= "CVThèque" 
+	permission	= "$isRH || $isRHClient || $isAdmin"
+	iconCls		= "icon-chart-pie"
+	xmlns:cont	= "http://www.presencemedia.ma/container/container">
+		<cont:nav_branch 
+			title		= "CVThèque"
+			app-title	= "CVThèque"
+			iconCls		= "icon-config">
+			<cont:permission permission="$isRH || $isAdmin">
+				<cont:nav_link 
+					title		= "CVThèque" 
+					app-title	= "CVThèque" 
+					icon-class	= "icon-addressbook" 
+					url			= "/recruitment/candidates/directory.php"
+					target		= "document"
+					qtip-title	= "CVThèque" 
+					qtip-text	= "Le vivivier des candidats"
+				/>
+			</cont:permission>
+			<cont:permission permission="$isRHClient"> 
+				<cont:nav_link 
+					title		= "CVThèque (services)" 
+					app-title	= "CVThèque (services)" 
+					icon-class	= "icon-addressbook" 
+					url			= "/recruitment/candidates/directory_client.php"
+					target		= "document"
+					qtip-title	= "CVThèque (services)" 
+					qtip-text	= "Gestion des fiches CV"
+				/>
+			</cont:permission>
+		</cont:nav_branch>
+	</cont:nav_section>
+		
+	<cont:nav_section 
+		title		= "Postes à Pourvoir" 
+		permission	= "$isRH || $isRHClient || $isAdmin"
+		iconCls		= "icon-chart-pie"
+		xmlns:cont	= "http://www.presencemedia.ma/container/container">
+		<cont:nav_branch 
+			title		= "Postes à Pourvoir"
+			app-title	= "Postes à Pourvoir"
+			iconCls		= "icon-config">
+			<cont:permission permission="$isRH || $isAdmin">
+				<cont:nav_link 
+						title		= "Postes à Pourvoir" 
+						app-title	= "Postes à Pourvoir" 
+						icon-class	= "icon-folder" 
+						url			= "/recruitment/vacancies/admin/directory.php"
+						target		= "document"
+						qtip-title	= "Gestion des dossiers"
+						qtip-text	= "Gestion des dossiers des postes à pourvoir."
+					/>
+			</cont:permission>
+			<cont:permission permission="$isRHClient"> 
+				<cont:nav_link 
+					title		= "Gestion des Postes à Pourvoir (services)" 
+					app-title	= "Gestion des Postes à Pourvoir (services)" 
+					icon-class	= "icon-folder" 
+					url			= "/recruitment/vacancies/client/directory.php"
+					target		= "document"
+					qtip-title	= "Gestion des dossiers (services)"
+					qtip-text	= "Gestion des dossiers de recrutement au niveau des services"
+				/>
+			</cont:permission>
+		</cont:nav_branch>
+	</cont:nav_section>
+
+	<cont:nav_section 
+		title		= "Tableaux de bord" 
+		permission	= "$isRH || $isRHClient || $isAdmin"
+		iconCls		= "icon-chart-pie"
+		xmlns:cont	= "http://www.presencemedia.ma/container/container">
+		
+			<cont:nav_link 
+				title		= "Synthèse des intégrations" 
+				app-title	= "Langues" 
+				icon-class	= "icon-app" 
+				url			= "/recruitment/dashboards/integrations_synthesis.php"
+				target		= "document"
+				qtip-title	= "Synthèse des intégrations"
+				qtip-text	= "Synthèse des intégrations"
+			/>
+			
+			<cont:nav_link 
+				title		= "Check-list recrutement" 
+				app-title	= "Check-list recrutement" 
+				icon-class	= "icon-app" 
+				url			= "/recruitment/dashboards/recruitments_checklist.php"
+				target		= "document"
+				qtip-title	= "Check-list recrutement"
+				qtip-text	= "Check-list recrutement"
+			/>
+			
+			<cont:nav_link 
+				title		= "Synthèse des recrutements" 
+				app-title	= "Synthèse des recrutements" 
+				icon-class	= "icon-app" 
+				url			= "/recruitment/dashboards/recruitments_synthesis.php"
+				target		= "document"
+				qtip-title	= "Synthèse des recrutements"
+				qtip-text	= "Synthèse des recrutements"
+			/>
+
+	</cont:nav_section>
+	
+	<cont:nav_section 
+		title		= "Configuration" 
+		permission	= "$isRH || $isRHClient || $isAdmin"
+		iconCls		= "icon-chart-pie"
+		xmlns:cont	= "http://www.presencemedia.ma/container/container">
+		
+		<cont:permission permission="$isRH || $isAdmin">
+			<cont:nav_branch 
+				title		= "Configuration Recrutement"
+				app-title	= "Configuration"
+				iconCls		= "icon-config">
+				
+				<cont:nav_link 
+					title		= "Agences de recrutement" 
+					app-title	= "Agences de recrutement" 
+					icon-class	= "icon-categ" 
+					url			= "/recruitment/admin/manage_providers.php"
+					target		= "document"
+					qtip-title	= "Prestataires de recrutement"
+					qtip-text	= "Gestion des prestataires de recrutement"
+				/>
+				
+				<cont:nav_link 
+					title		= "Catégories de candidats" 
+					app-title	= "Catégories de candidats" 
+					icon-class	= "icon-categ" 
+					url			= "/recruitment/admin/manage_candidate_categories.php"
+					target		= "document"
+					qtip-title	= "Catégories de candidats"
+					qtip-text	= "Gestion des catégories de candidats"
+				/>
+				
+				<cont:nav_link 
+					title		= "Types de contrat" 
+					app-title	= "Types de contrat" 
+					icon-class	= "icon-categ" 
+					url			= "/recruitment/admin/manage_contract_types.php"
+					target		= "document"
+					qtip-title	= "Types de contrat"
+					qtip-text	= "Gestion des types de contrat"
+				/>
+				
+				<cont:nav_link 
+					title		= "Lieux d\'affectation" 
+					app-title	= "Lieux d\'affectation" 
+					icon-class	= "icon-categ" 
+					url			= "/recruitment/admin/manage_duty_stations.php"
+					target		= "document"
+					qtip-title	= "Lieux d\'affectation"
+					qtip-text	= "Gestion des lieux d\'affectation"
+				/>
+				
+				<cont:nav_link 
+					title		= "Emails types" 
+					app-title	= "Emails types" 
+					icon-class	= "icon-categ" 
+					url			= "/recruitment/admin/manage_email_samples.php"
+					target		= "document"
+					qtip-title	= "Emails types"
+					qtip-text	= "Gestion des emails types"
+				/>
+				
+				<cont:nav_link 
+					title		= "Filiales" 
+					app-title	= "Filiales" 
+					icon-class	= "icon-categ" 
+					url			= "/recruitment/admin/manage_subsidiaries.php"
+					target		= "document"
+					qtip-title	= "Filiales"
+					qtip-text	= "Gestion des filiales"
+				/>
+				
+				<cont:nav_link 
+					title		= "Services" 
+					app-title	= "Services" 
+					icon-class	= "icon-categ" 
+					url			= "/recruitment/admin/manage_services.php"
+					target		= "document"
+					qtip-title	= "Services"
+					qtip-text	= "Gestion des services"
+				/>
+				
+				<cont:nav_link 
+					title		= "Critères d\'interview" 
+					app-title	= "Critères d\'interview" 
+					icon-class	= "icon-categ" 
+					url			= "/recruitment/admin/manage_interview_default_criterias.php"
+					target		= "document"
+					qtip-title	= "Critères d\'interview"
+					qtip-text	= "Gestion des critères d\'interview"
+				/>
+				
+				<cont:nav_link 
+					title		= "Catégories de dossier" 
+					app-title	= "Catégories de dossier" 
+					icon-class	= "icon-categ" 
+					url			= "/recruitment/admin/manage_vacancy_categories.php"
+					target		= "document"
+					qtip-title	= "Catégories de dossier"
+					qtip-text	= "Gestion des catégories de dossier"
+				/>
+						
+			</cont:nav_branch>
+		</cont:permission>
+
+		<cont:permission permission="$isRH || $isAdmin">
+			<cont:nav_branch 
+				title		= "Configuration Application"
+				app-title	= "Configuration Application"
+				iconCls		= "icon-config">
+				<cont:nav_link
+					title="Annuaire"
+					app-title="Annuaires &gt; Utilisateurs"
+					url="/admin/users_directory_limited.php?pagemode=minimal"
+					icon-class="icon-addressbook"
+					qtip-title="Annuaire des utilisateurs"
+					qtip-text="Annuaire des utilisateurs"
+				/>
+				
+				<cont:permission permission="$isDirection || $isRHAdminPers || $isAdmin">
+				
+					<cont:nav_link  
+						title="Gérer Annuaire RH"
+						app-title="Annuaires &gt; Gérer Annuaire RH"
+						url="/admin/users_directory.php?pagemode=minimal"
+						icon-class="icon-addressbook"
+						qtip-title="Annuaire des collaborateurs de DLM"
+						qtip-text="Annuaire des collaborateurs de DLM"		
+					/>	
+				</cont:permission>
+				<cont:nav_link 
+					title="Diplômes"
+					app-title="Administration &gt; Diplômes"
+					url="/admin/directory_diploma.php?pagemode=minimal"
+					iconCls="icon-categ"
+					qtip-title="Gestion des diplômes"
+					qtip-text="Gestion des diplômes" 	
+				/> 
+				<cont:nav_link 
+					title="Rôles"
+					app-title="Administration &gt; Rôles"
+					url="/admin/directory_role.php?pagemode=minimal"
+					iconCls="icon-categ"
+					qtip-title="Gestion des rôles"
+					qtip-text="Gestion des rôles"
+				/> 
+				<cont:nav_link 
+					title="Contrats collaborateurs"
+					app-title="Administration &gt; Contrats Collaborateurs"
+					url="/admin/directory_contract.php?pagemode=minimal"
+					iconCls="icon-categ"
+					qtip-title="Gestion des contrats collaborateurs"
+					qtip-text="Gestion des contrats collaborateurs"
+				/> 
+				<cont:nav_link 
+					title="Villes"
+					app-title="Administration &gt; Villes"
+					url="/admin/directory_town.php?pagemode=minimal"
+					iconCls="icon-categ"
+					qtip-title="Gestion des villes"
+					qtip-text="Gestion des villes" 	
+				/> 
+				<cont:nav_link 
+					title="CSP"
+					app-title="Administration &gt; CSP"
+					url="/admin/directory_csp.php?pagemode=minimal"
+					iconCls="icon-categ"
+					qtip-title="Gestion des CSP"
+					qtip-text="Gestion des Catégories Socio Professionnelles"
+				/> 
+				<cont:nav_link 
+					title="Localisations"
+					app-title="Administration &gt; Localisations"
+					url="/admin/directory_localisation.php?pagemode=minimal"
+					iconCls="icon-categ"
+					qtip-title="Gestion des localisations"
+					qtip-text="Gestion des localisations" 	
+				/>	
+			</cont:nav_branch>
+		</cont:permission>
+	</cont:nav_section>
+
+	<cont:nav_section 
+		title		= "Agenda" 
+		permission	= "$isRH || $isRHClient || $isAdmin"
+		iconCls		= "icon-chart-pie"
+		xmlns:cont	= "http://www.presencemedia.ma/container/container">
+		<cont:nav_branch 
+			title		= "Agenda"
+			app-title	= "Agenda"
+			iconCls		= "icon-config">
+			<cont:permission permission="$isRH || $isAdmin">
+				<cont:nav_link 
+						title="Agenda"
+						url="/recruitment/vacancies/admin/directory_2.php?nxo=my_calendar"
+						app-title="Agenda"
+						iconCls="icon-user"
+						qtip-title="Mon calendrier"
+						qtip-text="Mon calendrier avec les entretiens qui me sont affectés."
+					/>
+			</cont:permission>
+		</cont:nav_branch>
+	</cont:nav_section>

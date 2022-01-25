@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_delayed_feedback SET _notification_state='1' WHERE _notification_state='0' AND _launch_date<=NOW()"; ?>

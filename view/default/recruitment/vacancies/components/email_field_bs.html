@@ -1,0 +1,40 @@
+<?php
+$oid = $_nx_record->oid->object;
+$channelOid = $_nx_record->cand_channel->object;
+if($channelOid && $channelOid!='?')
+	$suffix = str_pad($channelOid, 2, '0', STR_PAD_LEFT);
+else
+	$suffix='';
+
+$code_client = $this->getProperty('recruitment.code_client');
+if(!$code_client)
+{
+	$a = explode('.',strtolower($_SERVER['SERVER_NAME']));
+	if($a[1]=='presencesoft'||$a[1]=='presencerecrute')
+		// editialis.presencerecrute.com
+		$code_client = $a[0];
+	else
+		// xx.editialis.fr
+		$code_client = $a[1];
+}
+
+if($code_client)
+{
+	$year = '15';
+	$oidpad = str_pad($oid, 3, '0', STR_PAD_LEFT);
+	$check = ($year * $oid)%100;
+	if($check < 10){
+		$check = '0'.$check;
+	}
+	$email = $code_client.'_'.$year.$oidpad.$check.$suffix.'@pourcandidature.com';
+}
+else
+	$email = '';
+?>
+<form:field-wrapper>
+	<form:field-label>{string:'Email du poste'}</form:field-label>
+	<form:field-control>
+		<p class="form-control-static">{$email}</p>
+		<input type='hidden' name="email" value="{var:email}"/>
+	</form:field-control>
+</form:field-wrapper>

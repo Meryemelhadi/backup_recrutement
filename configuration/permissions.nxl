@@ -1,0 +1,16 @@
+<?xml version="1.0"?> 
+
+<xo:taglib 
+	uri="http://www.recruitment.ma/configuration/permissions" 
+	xmlns:this="http://www.nxfrontier.com/xo/this"
+	xmlns:xo="http://www.nxfrontier.com/xo/core"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl="http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl="http://www.nxfrontier.com/tpl/tpml">
+
+	<xo:tag name="permissions" xmlns="http://www.nxfrontier.com/nxl/lists">
+		<option value="?-rh">Recrutement: Manager</option>
+		<option value="?-rhclient">Recrutement: Client interne</option>
+	</xo:tag>
+
+</xo:taglib>

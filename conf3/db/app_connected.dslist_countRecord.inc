@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_app_connected WHERE _active_app='1'"; ?>

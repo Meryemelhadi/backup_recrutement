@@ -1,0 +1,124 @@
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_feedback"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-disk">{string:"save"}</span></span>
+</a>
+{/content}
+
+<script>
+	window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=previous_operation.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+
+{form:page.record}
+<div class="pm-grid-outer-wrapper">
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	
+	<div class="form-notification">{string:"delayed_feedback_concerning"} <strong>{field.html:candidate_oid}</strong></div>
+	
+	<div class="record_wrapper">
+		<div class="record">
+
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:still_in_office} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:still_in_office}</div>
+				</div>
+			</div>
+			
+			
+			
+			<div id="still_in_office_true" {if:#field.object:still_in_office#=='0'}style="display:none"{/if}>
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:integration_degree} :</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">{field:integration_degree}</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:job_ownership_degree} :</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">{field:job_ownership_degree}</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:learning_ease} :</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">{field:learning_ease}</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:autonomy_degree} :</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">{field:autonomy_degree}</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:recruit_satisfaction} :</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">{field:recruit_satisfaction}</div>
+					</div>
+				</div>
+			</div>
+			<div id="still_in_office_false" {if:#field.object:still_in_office#=='1'}style="display:none"{/if}>			
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:comment} :</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">{field:comment}</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+</div>
+
+<script>
+	(function(){ 
+		var form = PMDH.getParentElementByTagName(document.getElementById('still_in_office_true'),'form');
+		var elements = form.elements['still_in_office'];
+		elements[0].onclick=function() {
+			document.getElementById('still_in_office_true').style.display = "none";
+			document.getElementById('still_in_office_false').style.display = "block";
+		}
+		
+		elements[1].onclick=function() {
+			document.getElementById('still_in_office_true').style.display = "block";
+			document.getElementById('still_in_office_false').style.display = "none";
+		}
+	
+	})();
+</script>
+
+{/form}

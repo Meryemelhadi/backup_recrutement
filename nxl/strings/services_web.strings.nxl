@@ -1,0 +1,95 @@
+
+<nxl version="1.0"
+	xmlns="http://www.nxfrontier.com/nxl/nxl" 
+	package="recruitment"
+>
+
+	<!-- French Strings -->
+	<i8n:strings name="services_web" lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:i8n="http://www.nxfrontier.com/nxl/i8n">
+
+		<i8n:string id="page_title" value="La liste des services web externes" />
+		
+		<i8n:string id="create record" value="Création service web externe" />
+
+		<i8n:string id="list records" value="Liste des services web" />
+		<i8n:string id="add record" value="Ajout d\'un nouveau service web" />
+		<i8n:string id="edit record" value="Configuration service web externe" />
+		<i8n:string id="exec action" value="Configuration service web externe" />
+		<i8n:string id="page_title_view" value="Détails du service web externe" />
+		
+		<i8n:string id="items_search" value="service(s) web trouvé(s)" />	
+		<i8n:string id="edit_helper" value="Editer" />	
+		<i8n:string id="delete_helper" value="Supprimer" />	
+		<i8n:string id="legend" value="Légende" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des services web externes" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d\'ajouter un nouveau service web" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier le service web sélectionné" />
+		<i8n:string id="page_message_view" value="Détails du service web sélectionné" />
+		
+		<i8n:string id="page_message_list_details" value="Cliquer sur un service web pour en visualiser les détails" />
+		<i8n:string id="page_message_add_details" value="Après avoir remplis les champs de l' formulaire, cliquer sur envoyer pour ajouter l' nouveau service web" />
+		<i8n:string id="page_message_edit_details" value="Cliquer sur \'Envoyer\' pour valider les modifications et revenir à la liste des services web, ou sur \'Retour\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" value="Cliquer sur \'Retour\' pour revenir à la liste des services web" />
+
+		<i8n:string id="dlg_wait_title" value="Veuillez patienter" />
+		<i8n:string id="dlg_wait_content" value="En cours d\'ajout des nouvelles données" />
+
+		<i8n:string id="dlg_success_title" value="Action réussie" />
+		<i8n:string id="dlg_success_content" value="Opération effectuée avec succès" />
+
+		<i8n:string id="dlg_back_title" value="Annulation de la saisie en cours" />
+		<i8n:string id="dlg_back_content" value="Cette action va supprimer les données en cours de saisie. Souhaitez-vous continuer ?" />
+
+		<i8n:string id="dlg_delete_title" value="Suppression d\'un service web" />
+		<i8n:string id="dlg_delete_content" value="Etes vous sûr de vouloir supprimer ce service web ?" />
+
+		<i8n:string id="dlg_success" value="Valider" />
+		<i8n:string id="dlg_cancel" value="Annuler" />
+		<i8n:string id="dlg_ok" value="Ok" />
+
+		<i8n:string id="empty_list" value="Aucun service web n\'est enregistré" />
+		
+		<i8n:string id="details" value="Détails" />
+		<i8n:string id="edit" value="Modifier" />
+		<i8n:string id="delete" value="Supprimer" />
+
+		<i8n:string id="Next" value="Suivant" />
+		<i8n:string id="Previous" value="Précédent" />
+		<i8n:string id="Results" value="Résultats" />		
+
+		<i8n:string id="Success" value="Opération réussie" />
+		<i8n:string id="Error" value="Erreur" />
+		<i8n:string id="Warning" value="Attention" />
+
+		<i8n:string id="search" value="Rechercher" />
+		<i8n:string id="add" value="Ajouter" />
+		<i8n:string id="export_excel" value="Export Excel" />
+		<i8n:string id="save" value="Enregistrer" />
+		<i8n:string id="save and continue" value="Enregistrer et continuer" />
+		<i8n:string id="back" value="Retour" />
+		<i8n:string id="submit" value="Envoyer" />
+		<i8n:string id="attached_files_title" value="Fichiers attachés" />
+	
+		<!-- les labels des champs de données -->
+		<fields xmlns="http://www.nxfrontier.com/nxl/i8n">
+
+			<field name="name" label="Nom"  />
+			<field name="url" label="Lien"/>
+			<field name="identifiant" label="Identifiant"/>
+			<field name="key" label="Clé" />
+			<field name="login" label="Login"  />
+			<field name="password" label="Mot de passe"  />
+			<field name="active_app" label="Active"  />
+			<field name="data_type" label="Type de donnée"  />
+			<field name="auth_type" label="Type d'authentification"  />
+			<field name="type" label="Type"  />
+			<field name="comment" label="Commentaire"  />
+			<field name="notification" label="Notification"  />
+			
+		</fields>
+			
+	</i8n:strings>
+	
+</nxl>

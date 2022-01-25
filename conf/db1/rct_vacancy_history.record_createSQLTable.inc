@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_vacancy_history_record(_oid INT AUTO_INCREMENT NOT NULL,_date DATETIME,_vacancy_oid integer,_progress_level integer,_progress_level_meta TEXT,PRIMARY KEY(_oid))"; ?>

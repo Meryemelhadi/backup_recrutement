@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_vacancy_oid,_user_oid,_date,_comment FROM _rct_vacancy_comment WHERE _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."' ORDER BY _date ASC "; ?>

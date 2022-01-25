@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_saved_search(_oid) VALUES(".$record->getFieldValue("oid","DB","NULL").")"; ?>

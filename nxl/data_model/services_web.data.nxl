@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+	<!-- tables definitions -->
+	<tables  init="create">
+		<table name="rct_services_web">
+			<fields>
+			
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="url" label="url"  type="line" size="200" />
+				<field name="key" label="key"  type="line" size="200" />
+				<field name="login" label="login"  type="line" size="200" />
+                <field name="password" label="password"  type="password" size="200" />
+                <field name="active_app" label="active_app" type="boolean" control="checkbox_boolean" />
+				<field name="type" label="type"  type="line" size="200" />
+				<field name="notification" label="notification"  type="line" size="200" />
+                <field name="comment" label="comment"  type="line" size="200" />
+				<field name="auth_type" alias="auth_type" label="auth_type" type="text-choice" multiple="false" control="checkbox" controlLayout="table" list="recruitment.auth_type" default='2'/>
+				<field name="data_type" alias="data_type" label="data_type" type="text-choice" multiple="false" control="checkbox" controlLayout="table" list="recruitment.data_type" />
+ 
+			</fields>
+		</table>
+
+	</tables>
+		
+	<!-- DML Views (gernerating SQL requests)-->
+	<views>
+		<view name="services_web.list" table="rct_services_web">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+				<field name="url" label="url"  type="line" size="200" relation="like" />
+				<field name="identifiant" label="identifiant"  type="line" size="200" relation="like" />
+				<field name="key" label="key"  type="line" size="200" relation="like" />
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="15" />				
+		
+			<sort>
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" isRequired = "true"/>
+				<field name="url" label="url"  type="line" size="200" />
+				<!--<field name="identifiant" label="identifiant"  type="line" size="200" />-->
+				<field name="key" label="key"  type="line" size="200" />
+				<field name="comment" label="comment"  type="line" size="200" />
+				<field name="auth_type" alias="auth_type" label="auth_type" type="text-choice" multiple="false" control="checkbox" controlLayout="table" list="recruitment.auth_type" default='2' />
+				
+			</fields>			
+		</view>
+		
+		<view name="services_web.dslist" table="rct_services_web">
+			<key>
+				<field name="active_app" type="boolean" relation ="EQ" value="1" />
+			</key>			
+			<sort>
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" isRequired = "true"/>
+			</fields>		
+		</view>
+
+		<view name="services_web.excel" table="rct_services_web">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+				<field name="url" label="url"  type="line" size="200" relation="like"/>
+				<field name="key" label="key"  type="line" size="200" relation="like" />
+			</key>
+			<sort>
+				<field name="name" direction="asc"/>
+			</sort>
+			<fields>
+				<field name="oid" label="object_id" type="oid" isKey="primary" show="hidden" isEdit="no" />
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="url" label="url"  type="line" size="200" />
+				<field name="key" label="key"  type="line" size="200" />
+				<field name="type" label="type"  type="line" size="200" />
+			</fields>
+		</view>
+		
+		<view name="services_web.search" table="rct_services_web">
+			<fields>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="url" label="url"  type="line" size="200" />
+				<field name="key" label="key"  type="line" size="200" />
+			</fields>
+			</fields>
+		</view>
+
+		<view name="services_web.record" table="rct_services_web">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" isRequired = "true"/>
+				<field name="url" label="url"  type="line" size="200" />
+				<field name="key" label="key"  type="line" size="200"/>
+				<field name="login" label="login"  type="line" size="200" />
+                <field name="password" label="password"  type="password" size="200" />
+                <field name="active_app" label="active_app" type="boolean" control="checkbox_boolean" />
+				<field name="type" label="type"  type="line" size="200" />
+				<field name="auth_type" alias="auth_type" label="auth_type" type="text-choice" multiple="false" control="checkbox" controlLayout="table" list="recruitment.auth_type" default='2' />
+				<field name="data_type" alias="data_type" label="data_type" type="text-choice" multiple="false" control="checkbox" controlLayout="table" list="recruitment.data_type" />
+				<field name="notification" label="notification"  type="line" size="200" />
+				<field name="comment" label="comment"  type="line" size="200" />
+			</fields>		
+		</view>				
+
+		<view name="services_web.add" table="rct_services_web">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" isRequired = "true"/>
+				<field name="url" label="url"  type="line" size="200" />
+				<field name="key" label="key"  type="line" size="200"/>
+				<field name="login" label="login"  type="line" size="200" />
+                <field name="password" label="password"  type="password" size="200" />
+				<field name="type" label="type"  type="line" size="200" />
+                <field name="active_app" label="active_app" type="boolean" control="checkbox_boolean" />
+				<field name="auth_type" alias="auth_type" label="auth_type" type="text-choice" multiple="false" control="checkbox" controlLayout="table" list="recruitment.auth_type" default='2'/>
+				<field name="data_type" alias="data_type" label="data_type" type="text-choice" multiple="false" control="checkbox" controlLayout="table" list="recruitment.data_type" />
+				<field name="notification" label="notification"  type="line" size="200" />
+				<field name="comment" label="comment"  type="line" size="200" />
+			</fields>		
+		</view>				
+	</views>
+	
+</data>
+</nxl>

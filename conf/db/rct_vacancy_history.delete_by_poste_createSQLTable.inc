@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_vacancy_history_delete_by_poste(_oid INT AUTO_INCREMENT NOT NULL,PRIMARY KEY(_oid))"; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy SET _email=".$record->getFieldValue("email","DB","NULL"); ?>

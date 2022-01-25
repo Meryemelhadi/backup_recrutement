@@ -1,0 +1,26 @@
+{records:page.records}
+{record}
+<table class="directory-grid">
+	<tr class="directory-grid-row columns-layout columns-layout-3 width-padding read-only">
+		{include:recruitment/vacancies/components/candidate_data}
+		<td class="dg-operations rating-operation">
+			<div id="candidate-rating-{$currentGroup}-{record.index}"></div>
+			<script>
+				if (typeof ajax_require != "undefined")
+				{
+					ajax_require("/nx/controls/starry/rating-stars.js","starry");
+
+					ajax_onload(function(){
+						new Starry('candidate-rating-{$currentGroup}-{record.index}', {showNull:true, startAt:{field:rating}, readOnly: true });
+					},"starry");
+				}
+
+			</script>
+		</td>
+	</tr>
+</table>
+{/record}
+{/records}
+{no_record}
+<div class="empty-records">{string:"empty_provider_candidates_list"}</div>
+{/no_record}

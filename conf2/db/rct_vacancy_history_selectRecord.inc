@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_date,_vacancy_oid,_progress_level,_progress_level_meta FROM _rct_vacancy_history"; ?>

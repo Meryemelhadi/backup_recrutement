@@ -1,0 +1,78 @@
+<?php
+$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+?>
+<td class="dg-flag-wrapper" onclick="Generis.Recruitment.changeReadingState(this, {readState:{field.object:read_state}, userReadState:{field.object:user_read_state}, url:'{=change_reading_state.url}{record.url_key}'});">
+    {if:#field.object:user_read_state# == '1'}
+    <div class="dg-flag dg-flag-gray" title="{string:'already_read_helper'}"></div>
+    {elseif:#field.object:read_state# == '1'}
+    <div class="dg-flag dg-flag-yellow" title="{string:'read_by_someone_helper'}"></div>
+    {elseif:#field.object:read_state# == '0'}
+    <div class="dg-flag dg-flag-blue" title="{string:'not_read_helper'}"></div>
+    {/if}
+</td>
+
+<td class="dg-column" onclick="document.location.href='{var:PORTAL_URL_PREFIX}/recruitment/candidates/coid-{field.object:oid}/directory.php?nxo=edit&oid={field.object:oid}&from_void={=vacancy_oid}&candidate_oid={field.object:oid}&mode=page'">
+	<div class="dg-cell-wrapper">
+		<span class="field-content title-color"><strong>{field:first_name} {field:last_name}</strong></span>
+		<br/>
+		<span class="field-content">{if:#field.object:age# != '0'}{field:age} {string:'years_old'},{/if} {field:town_name}</span>
+		<br/>
+		{if:#field:add_date#==#field:update_date#}
+		<span class="field-label">Ajout:</span> <span class="field-content">{field:add_date}</span>
+		{else}
+		<span class="field-label">Ajout:</span> <span class="field-content">{field:add_date}</span><span class="field-label">, MàJ:</span> <span class="field-content">{field:update_date}</span>{/if}							
+											
+	</div>
+</td>
+		
+<td class="dg-column"  style="width:23%" onclick="document.location.href='{var:PORTAL_URL_PREFIX}/recruitment/candidates/coid-{field.object:oid}/directory.php?nxo=edit&oid={field.object:oid}&from_void={=vacancy_oid}&candidate_oid={field.object:oid}&mode=page'">
+	<div class="dg-cell-wrapper">
+		<span class="field-content">
+			{if:#field:studies_level# != ''}{field:studies_level}{/if}{if:trim(#field.object:studies_level#) != '' && trim(#field.object:diploma_type#) != ''},{/if} {field.string:diploma_type}								
+			
+			{if:#field.object:years_of_practice# != ''},
+				{if:#field.object:years_of_practice# != '0'}
+				<strong>
+				{field:years_of_practice} 
+				{string:'year'}{if:#field.object:years_of_practice# > '1'}s{/if}
+				</strong> {string:'experience_grid_label'}
+				{else}Aucune expérience{/if}
+			{/if}
+		</span>
+		{if:#field.object:institution# != ''}
+		<br/>
+		<span class="field-content">{field:institution}</span>
+		{/if}
+
+		{if:trim(#field.object:last_employment#) != ''}
+		<br/>
+		<span class="field-content"><!--{if:#field:last_employment_start_date#==#field:last_employment_end_date#}{field:last_employment_start_date}{else}{field:last_employment_start_date} au {field:last_employment_end_date}{/if}: -->{field:last_employment_summary}</span>
+		{elseif:trim(#field.object:last_employment#) == '' && trim(#field.object:last_training#) != ''}
+		<br/>
+		<span class="field-content"><!--{if:#field:last_training_start_date#==#field:last_training_end_date#}{field:last_training_start_date}{else}{field:last_training_start_date} au {field:last_training_end_date}{/if}: -->{field:last_training_summary}</span>
+		{/if}
+	</div>
+</td>
+
+<td class="dg-column"  style="width:23%" onclick="document.location.href='{var:PORTAL_URL_PREFIX}/recruitment/candidates/coid-{field.object:oid}/directory.php?nxo=edit&oid={field.object:oid}&from_void={=vacancy_oid}&candidate_oid={field.object:oid}&mode=page'">
+	<div class="dg-cell-wrapper">
+		{if:trim(#field.object:profile#) != ''}
+		<span class="field-label">{field.label:profile}:</span> <span class="field-content">{field:summary_keywords}</span>
+		<br/>
+		{/if}
+		{if:#field.object:relevance# != '' && #field.object:relevance# != '0'}
+		<span class="field-label">{field.label:relevance}:</span> <span class="field-content">{field:relevance}</span>
+		<br/>
+		{/if}
+		{if:trim(#field.object:provider#)!=''}
+		<span class="field-label">{field.label:provider}:</span> <span class="field-content">{field:provider}</span>
+		{/if}
+		<br/>
+		{if:trim(#field.object:etat_oid#)!=''}
+		<span class="field-label">{field.label:etat_oid}:</span> <span class="field-content">{field.object:etat_oid}</span>
+		{/if}
+		<br/>
+		<span class="field-label">{string:'status'}:</span>
+		<span class="field-content">{field:status}</span>
+	</div>
+</td>

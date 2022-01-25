@@ -1,0 +1,24 @@
+{records:page.records}
+<ul>
+{record}
+	{if:#field.object:action_oid# == '1'}
+	<li>{field:action_oid} <strong>{field:additional_infos}</strong><span class="log-author">, {string:"date_prefix_lc"} {field:date} {string:"by"} <u>{field:user_oid}</u></span></li>
+	{/if}
+	{if:#field.object:action_oid# == '2'}
+	<li>{field:action_oid} <strong>{field:additional_infos}</strong><span class="log-author">, {string:"date_prefix_lc"} {field:date} {string:"by"} <u>{field:user_oid}</u></span></li>
+	{/if}
+	{if:#field.object:action_oid# == '3'}
+	<li>{field:action_oid}<span class="log-author">, {string:"date_prefix_lc"} {field:date} {string:"by"} <u>{field:user_oid}</u></span></li>
+	{/if}
+	{if:#field.object:action_oid# == '4'}
+	<li>{field:action_oid} ({field:ref_oid})<span class="log-author">, {string:"date_prefix_lc"} {field:date} {string:"by"} <u>{field:user_oid}</u></span></li>
+	{/if}
+	{if:#field.object:action_oid# == '5'}
+	<li>{field:action_oid} ({field:ref_oid})<span class="log-author">, {string:"date_prefix_lc"} {field:date} {string:"by"} <u>{field:user_oid}</u></span></li>
+	{/if}
+{/record}
+</ul>
+{/records}
+{no_record}
+<div class="empty-records">{string:"empty_log_list"}</div>
+{/no_record}

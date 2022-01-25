@@ -1,0 +1,305 @@
+{content:page.content}
+
+<!-- config css du module -->
+{include:common.page_css}
+<?php
+$workflow = $this->getProperty('workflow');
+?>
+
+<script>
+
+    window.updateTask = function(elt,record_id) {
+        var value = ''+elt.value;	// 'change_state:state(state)'
+        var reg = /([^:]+)(?::([^\(]+)\(([^)]+)\)(?:,([^\(]+)\(([^)]+)\))?(?:,([^\(]+)\(([^)]+)\))?(?:,([^\(]+)\(([^)]+)\))?(?:,([^\(]+)\(([^)]+)\))?(?:,([^\(]+)\(([^)]+)\))?(?:,([^\(]+)\(([^)]+)\))?)?/
+
+        var res = reg.exec(value);
+        var type = 'sel_none';
+        if(res[2])
+        {
+            type='sel_'+res[2];
+        }
+        if(res[4])
+        {
+            type+=' sel_'+res[4];
+        }
+        if(res[6])
+        {
+            type+=' sel_'+res[6];
+        }
+        if(res[8])
+        {
+            type+=' sel_'+res[8];
+        }
+        if(res[10])
+        {
+            type+=' sel_'+res[10];
+        }
+        if(res[12])
+        {
+            type+=' sel_'+res[12];
+        }
+        if(res[14])
+        {
+            type+=' sel_'+res[14];
+        }
+        var selector = record_id+'__param__';
+        $(selector).className = type;
+    }
+
+</script>
+
+
+{form:page.record}
+{content:buttons}
+{if:%property:previous_operation_link.url%}
+<a class="pm-button btn-with-icon" href="{=previous_operation_link.url}">
+    <span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+</a>
+{else}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="Generis.Recruitment.hide_cv_menu();PMFormSubmit.validate(this, dlg_backConfig, event); this.blur(); return false;">
+    <span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+</a>
+{/if}
+
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+    <span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+</a>
+
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="Generis.Recruitment.hide_cv_menu();PMModalbox.loadFromUrl({ title:'{string:'send_to_client_title'}',width:550,url: '{=send_to_client.url}{record.url_key}'}, event); return false;" style="float:right">
+    <span class="btn-bg"><span class="s-icon si-send">{string:"send_to_collab"}</span></span>
+</a>
+
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=add_interview.url}','content'); this.blur(); return false;" style="float:right">
+    <span class="btn-bg"><span class="s-icon si-calendar">{string:"schedule_an_interview"}</span></span>
+</a>
+
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="{=download_cv.url}"  style="float:right">
+    <span class="btn-bg"><span class="s-icon si-page-white-acrobat">{string:"download_cv"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+
+<!-- DROP BOX-->
+<!-- <?php
+		require_once(NX_LIB."login/NxLogin_key.inc");
+		$login=new NxLogin_key($_NX_site);
+		$pKey='&amp;'.$login->getCurrentParamKey();
+?>
+<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="zcicjckcw76pcwq"></script>
+<a href="{=download_cv.url}{$pKey}" data-filename="CV_candidat.pdf" style="float:right" class="dropbox-saver">{string:"Save to DropBox"}</a>
+ -->
+{/content}
+{content:buttons_old}
+
+{if:%property:back.url%}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=back.url}{=filterKeyUrl}&mode=ajax','content'); return false;">
+    <span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+</a>
+{/if}
+
+<?php
+
+$actions=$this->getProperty('actions');
+foreach($actions as $actionId=>$action)
+{
+$title = __($action['name']);
+$iconCls = $action['iconCls'];
+
+if(isset($action['nxo']))
+$url='?nxo='.$action['nxo'];
+else
+$url='?action='.$actionId;
+
+if(isset($action['action']))
+$url.='&amp;action='.$action['action'];
+?>
+<script>
+    window.dlg_waitConfig_{$actionId} = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait", url:"{var:url}&mode=ajax" };
+
+    window.dlg_successConfig_{$actionId} = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=back.url}&mode=ajax", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+    window.dlg_failureConfig_{$actionId} = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+
+
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig_{$actionId}, dlg_successConfig_{$actionId}, dlg_failureConfig_{$actionId}); this.blur(); return false;">
+    <span class="btn-bg"><span class="s-icon {$iconCls}">{var:title}</span></span>
+</a>
+<?php
+}
+?>
+{/content}
+
+
+{fields}
+<?php
+
+	/* build tabs (by class assigned in DML) */
+
+	$class = $_nx_field->desc->getProperty('class','main');
+ob_start();
+?>
+
+{if:#field.type# == 'records'}
+<div class="control-main-wrapper {if:#field.type# == 'records' || #field.csslayout# == 'normal-layout'}normal-layout-control{/if}">
+    <div class="control-label-wrapper">
+        <div class="control-label">{field.label} {if:field.isRequired} <span class="required-field">*</span>{/if} :</div>
+    </div>
+</div>
+{field}
+{else}
+<div class="control-main-wrapper {if:#field.type# == 'records' || #field.csslayout# == 'normal-layout'}normal-layout-control{/if}">
+    <div class="control-label-wrapper">
+        <div class="control-label">{field.label} {if:field.isRequired} <span class="required-field">*</span>{/if} :</div>
+    </div>
+    <div class="control-wrapper" id="{field.name}-control-wrapper">
+        <div class="control" id="{field.name}-control">{field}</div>
+        {if:field.is_help}
+        <div class="tooltip">{field.help}</div>
+        {/if}
+    </div>
+</div>
+{/if}
+
+<?php
+	$s = ob_get_contents();
+	if(!isset($tab_src[$class]))
+		$tab_src[$class] = $s;
+	else
+		$tab_src[$class] .= $s;
+	ob_end_clean();
+?>
+{/fields}
+
+{content:menu}
+<div id="nav">
+    <ul>
+        <li id="cv">
+            <a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('cv','cv_div');" xx="ajax_navigate(event,'{=preview_cv.url}','cv_div');">
+                <b>{string:"cv"}</b>
+            </a>
+        </li>
+        <li id="manage">
+            <a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('manage','manage_div')">
+                <b>{string:"recruitement card"}</b>
+            </a>
+        </li>
+        <li id="general_infos">
+            <a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('general_infos','general_infos_div')">
+                <b>{string:"general_infos"}</b>
+            </a>
+        </li>
+        <li class="" id="education_infos">
+            <a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('education_infos','education_infos_div')">
+                <b>{string:"education_infos"}</b>
+            </a>
+        </li>
+        <li class="" id="experiences">
+            <a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('experiences','experiences_div')">
+                <b>{string:"experiences"}</b>
+            </a>
+        </li>
+        <li class="" id="emails">
+            <a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('emails','emails_div')">
+                <b>{string:"emails"}</b>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<?php
+	$tab = isset($_GET['tab']) ? $_GET['tab'] : 'cv';
+?>
+
+{/content}
+{content:menu_old}
+<div id="nav">
+    <ul>
+        <?php
+		$firstTab='';
+		foreach($tab_src as $tabN=>$tabV)
+        {
+        if(!$firstTab)
+        $firstTab = $tabN;
+        ?>
+        <li id="{var:tabN}">
+            <a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('{var:tabN}','{var:tabN}_div')">
+                <b><?php echo __($tabN); ?></b>
+            </a>
+        </li>
+        <?php
+		}
+		?>
+    </ul>
+</div>
+<?php
+	$tab = isset($_GET['tab']) ? $_GET['tab'] : $firstTab;
+?>
+{/content}
+
+<div class="pm-page-title-wrapper">
+    <div class="pm-page-title-inner-wrapper">
+        <div class="pm-title"><?php echo __($workflow->title); ?></div>
+    </div>
+</div>
+
+<table class="columns-viewer">
+    <tr>
+        <td class="left-column">
+
+            <div class="pm-grid-outer-wrapper">
+
+                <div class="pm-button-wrapper clear-both">
+                    {=buttons}
+                    </br>
+                    {=menu}
+                </div>
+
+
+                <?php
+		/* display tabs content */
+		foreach($tab_src as $tabN=>$tabV)
+                {
+                ?>
+                <div id="{var:tabN}_div" style="display:none">
+
+                    <div class="record_wrapper">
+                        <div class="record">
+                            {var:tabV}
+                        </div>
+                    </div>
+                </div>
+                <?php
+		}
+		?>
+                <div class="clear-both"></div>
+
+                <div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">
+                    {=buttons}
+                </div>
+
+            </div>
+        </td>
+
+        <!-- <td class="right-column">{include:common/page_message_edit}</td>
+ -->	</tr>
+</table>
+{/form}
+
+<script>
+    Generis.Recruitment.current_menu('{$tab}','{$tab}_div');
+</script>
+
+{/content}
+
+<script language="php">
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=='ajax') {
+</script>
+{=page.content}
+{else}
+{include:page}
+{/if}

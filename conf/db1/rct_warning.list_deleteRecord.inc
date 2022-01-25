@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_warning WHERE _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."'"; ?>

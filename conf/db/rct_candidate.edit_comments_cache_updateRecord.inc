@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate SET _comments_cache='".$props->getProperty("comments_cache","",true)."' WHERE _oid='".$props->getProperty("oid","",true)."'"; ?>

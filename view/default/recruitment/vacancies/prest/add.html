@@ -1,0 +1,50 @@
+{form:page.record}
+<script>
+	window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{=back.url}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+
+	window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=back.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_add_prest"}</div>
+	</div>
+</div>
+
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			
+			<div class="pm-grid-outer-wrapper">
+
+				<div class="pm-button-wrapper clear-both">					
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.validate(this, dlg_backConfig, event); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_prest"}</span></span>
+					</a>
+					<span class="pm-button-sep"></span>
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+					</a>
+				</div>
+
+				{include:common/record}
+
+				<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.display(dlg_backConfig, event); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_prest"}</span></span>
+					</a>
+					<span class="pm-button-sep"></span>
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+					</a>
+				</div>
+
+			</div>
+		</td>
+	</tr>
+</table>
+{/form}

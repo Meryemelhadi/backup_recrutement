@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_vacancy_readonly WHERE _oid in('".$props->getProperty("cat.enum","",true)."')"; ?>

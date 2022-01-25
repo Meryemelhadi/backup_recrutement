@@ -1,0 +1,11 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_vacancy_provider_oid','isEdit'=>false,'show'=>false,'onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'provider_oid','label'=>'provider_oid','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:rct_provider.ds_list','ds_format'=>'{field:name}','prompt'=>'select provider ...','ds_field_value'=>'oid','sqltype'=>'integer','srcName'=>'provider_oid','ufname'=>'_provider_oid','qname'=>'rct_vacancy_provider_provider_oid','list'=>'provider_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'active','label'=>'active','type'=>'text_choice','srcName'=>'active','ufname'=>'_active','qname'=>'rct_vacancy_provider_active','control'=>'radio','list'=>'yes-no','onSubmitCheck'=>"checkSelect('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'date','label'=>'date','type'=>'date','format'=>'%d/%m/%Y','value'=>'now','srcName'=>'date','ufname'=>'_date','qname'=>'rct_vacancy_provider_date','onSubmitCheck'=>"checkDate('%3\$s',%1\$s.%2\$s_day,%1\$s.%2\$s_month,%1\$s.%2\$s_year,%4\$s)",),
+array('name'=>'vacancy_oid','label'=>'vacancy_oid','type'=>'text','sqltype'=>'integer','isKey'=>'secondary','srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_vacancy_provider_vacancy_oid','show'=>false,'onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'ref','label'=>'ref','type'=>'text','srcName'=>'ref','ufname'=>'_ref','qname'=>'rct_vacancy_provider_ref','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','provider_oid'=>'provider_oid','_provider_oid'=>'provider_oid','active'=>'active','_active'=>'active','date'=>'date','_date'=>'date','vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid','ref'=>'ref','_ref'=>'ref',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'recruitment.vacancy.offers.record','table'=>'_rct_vacancy_provider');
+ ?>

@@ -1,0 +1,20 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+    <application
+            name		= "saved_search"
+            path		= "/recruitment/admin/"
+            protected	= "user"
+            permissions = "default"
+            cache		= "no"
+            lang		= "fr"
+            skin		= "lightsky"
+            application = "saved_search"
+            table		= "rct_saved_search"
+            base_data	= "saved_search"
+            string_base = "saved_search"
+            role = "editor"
+            xmlns="http://www.nxfrontier.com/nxl/page"
+            />
+
+    <include_once file="/all.nxl" />
+</nxl>

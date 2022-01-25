@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_candidate(_cv_path) VALUES(".$record->getFieldValue("cv_path","DB","NULL").")"; ?>

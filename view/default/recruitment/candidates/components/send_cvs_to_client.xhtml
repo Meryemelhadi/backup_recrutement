@@ -1,0 +1,35 @@
+{form:page.record}
+<script>	
+	window.dlg_vma_w_cfg = { title : "{string:'dlg_wait_title'}", disableCheckForm: true, message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_vma_s_cfg = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_vma_f_cfg = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+
+<div class="modalbox-form">
+	{include:common/record}	
+	<div class="pm-button-wrapper clear-both">
+		<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.hide(); this.blur(); return false;">
+			<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"cancel"}</span></span>
+		</a>
+		<span class="pm-button-sep"></span>
+		<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, window.dlg_vma_w_cfg, window.dlg_vma_s_cfg, window.dlg_vma_f_cfg); this.blur(); return false;">
+			<span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+		</a>
+	</div>	
+</div>
+{/form}	
+<script>
+
+	// Generis.Recruitment.appendAssocFilesHandlers('assoc-files-control');
+	Generis.Recruitment.emailSampleHandler({
+		fieldname: 'default_email', 
+		element: 'field_email_title',
+		emailTitleField: 'email_title',
+		emailContentField:'email_content',
+		emailDocs: 'docs',
+		formHandler: true,
+		url: '?nxo=emails:get_email_sample'});
+
+</script>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _user WHERE _oid in('".$props->getProperty("user_oid","",true)."')"; ?>

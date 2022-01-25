@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_candidate_test_assoc(_oid INT AUTO_INCREMENT NOT NULL,_candidate_oid integer,_test_oid integer,_pourcentage INT,_comment TEXT,PRIMARY KEY(_oid))"; ?>

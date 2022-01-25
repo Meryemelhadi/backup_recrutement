@@ -1,0 +1,9 @@
+<?php $properties["fprops"]=array(
+array('name'=>'provider_oid','label'=>'provider_oid','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:rct_provider.ds_list','ds_format'=>'{field:name}','prompt'=>'select provider ...','ds_field_value'=>'oid','sqltype'=>'integer','srcName'=>'provider_oid','ufname'=>'_provider_oid','qname'=>'rct_vacancy_provider_provider_oid','list'=>'provider_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'default_email','label'=>'default_email','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:rct_email_sample.ds_list','ds_format'=>'{field:name}','ds_field_value'=>'oid','sqltype'=>'integer','prompt'=>'select an email...','is_transient'=>true,'srcName'=>'default_email','ufname'=>'_default_email','qname'=>'rct_vacancy_provider_default_email','list'=>'default_email','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'vacancy_oid','label'=>'vacancy_oid','type'=>'text','show'=>false,'value'=>$props->getProperty("vacancy_oid","",true),'srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_vacancy_provider_vacancy_oid','sqltype'=>'integer','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'request_date','label'=>'request_date','type'=>'datetime','value'=>'now','show'=>false,'srcName'=>'request_date','ufname'=>'_request_date','qname'=>'rct_vacancy_provider_request_date',),);
+$properties["falias"]=array('provider_oid'=>'provider_oid','_provider_oid'=>'provider_oid','default_email'=>'default_email','_default_email'=>'default_email','vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid','request_date'=>'request_date','_request_date'=>'request_date',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_vacancy_provider.cron_add','table'=>'_rct_vacancy_provider');
+ ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_short_list_vacancy_client WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

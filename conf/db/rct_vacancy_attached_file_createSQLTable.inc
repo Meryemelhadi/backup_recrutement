@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_vacancy_attached_file(_oid INT AUTO_INCREMENT NOT NULL,_vacancy_oid integer,_file_name TEXT,PRIMARY KEY(_oid))"; ?>

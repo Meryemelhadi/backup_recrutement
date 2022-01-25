@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_vacancy(_application_type) VALUES('".$props->getProperty("application_type","",true)."')"; ?>

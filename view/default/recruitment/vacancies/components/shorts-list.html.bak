@@ -1,0 +1,69 @@
+<div class="pm-grid-outer-wrapper">
+	<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="PMDH.toggle('search-panel', 'appear'); return false;">
+			<span class="btn-bg"><span class="s-icon si-zoom">{string:"search"}</span></span>
+		</a>
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="ajax_navigate(event,'{=shorts_list.url}','content'); return false;">
+			<span class="btn-bg"><span class="s-icon si-application-view-list">{string:"title_short_lists"}</span></span>
+		</a>
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="PMDH.toggle('search-panel', 'appear'); return false;">
+			<span class="btn-bg"><span class="s-icon si-user-add">{string:"title_selected_candidates"}</span></span>
+		</a>
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="PMDH.toggle('search-panel', 'appear'); return false;">
+			<span class="btn-bg"><span class="s-icon si-award-star-gold-1">{string:"title_rated_candidates"}</span></span>
+		</a>
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="PMDH.toggle('search-panel', 'appear'); return false;">
+			<span class="btn-bg"><span class="s-icon si-user-delete">{string:"title_refused_candidates"}</span></span>
+		</a>
+	</div>
+	{include:common/search}	
+
+		{$disableCheckbox = ''}
+		<script>
+			window.dlg_addSLCfg = { title:"{string:'add_short_list_title'}", url: "{=add_short_list.url}", width:550 }
+		</script>
+		<h3 class="grid-header">{string:"title_short_lists"}</h3>
+		<div class="grid-links-toolbar"><a 
+			class="action s-icon si-add" 
+			onclick="PMModalbox.loadFromUrl(window.dlg_addSLCfg, event); return false;"
+			href="javascript:void(0);"><span>{string:"add_short_list"}</span></a></div>
+		
+		{if:#=short_lists.records#}
+			<!--! {records:short_lists.records} -->
+			{if:records.count>0}
+			<?php $currentGroup = 'short_lists'; ?>
+			<!--! {record} -->
+			{include:recruitment/vacancies/components/short_lists}
+			<!--! {/record} -->
+			{/if}
+			<!--! {/records} -->
+		{/if}
+
+	</div>
+	<script>
+		PMDH.Skin.LightSky.Grid.init('', {
+			wrapperClass	: 'directory-grid-wrapper',
+			gridClass		: 'directory-grid',
+			gridRowClass	: 'directory-grid-row'
+		});
+	</script>
+	{else}
+	<div class="empty-records">{string:"empty_candidates_list"}</div>
+	{/if}
+	
+</div>

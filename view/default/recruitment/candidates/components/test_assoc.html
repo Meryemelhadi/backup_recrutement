@@ -1,0 +1,20 @@
+{record:page.record}
+<table class="table-list">
+	<tr class="test_{field.object:test_oid}">
+		<td class="entry_{field.object:test_oid}" id="entry_{field.object:test_oid}"><strong>Test:</strong> {field.html:test_oid}</td>
+		<td class="entry_prct_{field.object:test_oid}" id="entry_prct_{field.object:test_oid}"><strong>Pourcentage:</strong> {field.html:pourcentage}%</td>
+		<td class="" style="width:2%,align:right"><input type="button" class="s-icon si-cross" href="javascript:void(0);" onclick="Generis.Recruitment.deleteTest('{field.object:test_oid}', '{=delete_test.url}', 'test'); this.blur(); return false;" value="" style="cursor: pointer; background-color:transparent; border:solid 0px"/></td>
+	</tr>
+
+	<tr class="test_{field.object:test_oid}_comment">
+		<td>&nbsp;</td><td colspan="2" >{field.html:comment}</td>
+	</tr>
+</table>
+{/record}
+
+
+
+
+
+
+

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _directory_town SET _town_name=".$record->getFieldValue("town_name","DB","NULL"); ?>

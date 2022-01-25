@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_education WHERE _candidate_oid='".$props->getProperty("oid","0",true)."' AND (_diploma='' OR _diploma='?' OR _diploma is null )  GROUP BY _date,_institution "; ?>

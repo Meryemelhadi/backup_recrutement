@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_vacancy_oid,_scheduled_by,_scheduled_on,_date,_subject,_notification_content,_concerned_people FROM _rct_warning WHERE _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."'"; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _directory_country WHERE ".$this->getWhereClause("_country_name",$this->getFieldParam("country_name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|'); ?>

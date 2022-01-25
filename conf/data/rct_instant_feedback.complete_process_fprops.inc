@@ -1,0 +1,10 @@
+<?php $properties["fprops"]=array(
+array('name'=>'completed_by','label'=>'completed_by','type'=>'text_choice','value'=>$GLOBALS["_NX_user"]->getProperty("oid","",true),'srcName'=>'completed_by','ufname'=>'_completed_by','qname'=>'rct_instant_feedback_completed_by','sqltype'=>'integer','list'=>'completed_by','control'=>'select','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'completed_on','label'=>'completed_on','type'=>'datetime','value'=>'now','srcName'=>'completed_on','ufname'=>'_completed_on','qname'=>'rct_instant_feedback_completed_on',),
+array('name'=>'complete_state','label'=>'complete_state','type'=>'text_choice','value'=>'1','srcName'=>'complete_state','ufname'=>'_complete_state','qname'=>'rct_instant_feedback_complete_state','sqltype'=>'integer','list'=>'complete_state','control'=>'select','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'recruitment_cost','label'=>'recruitment_cost','type'=>'text','srcName'=>'recruitment_cost','ufname'=>'_recruitment_cost','qname'=>'rct_instant_feedback_recruitment_cost','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'recruitment_budget_followed','label'=>'recruitment_budget_followed','type'=>'text','srcName'=>'recruitment_budget_followed','ufname'=>'_recruitment_budget_followed','qname'=>'rct_instant_feedback_recruitment_budget_followed','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('completed_by'=>'completed_by','_completed_by'=>'completed_by','completed_on'=>'completed_on','_completed_on'=>'completed_on','complete_state'=>'complete_state','_complete_state'=>'complete_state','recruitment_cost'=>'recruitment_cost','_recruitment_cost'=>'recruitment_cost','recruitment_budget_followed'=>'recruitment_budget_followed','_recruitment_budget_followed'=>'recruitment_budget_followed',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_instant_feedback.complete_process','table'=>'_rct_instant_feedback');
+ ?>

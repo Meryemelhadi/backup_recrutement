@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_still_in_office,_integration_degree,_job_ownership_degree,_learning_ease,_autonomy_degree,_recruit_satisfaction,_comment,_filled_on,_fill_state,_notification_state FROM _rct_delayed_feedback WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

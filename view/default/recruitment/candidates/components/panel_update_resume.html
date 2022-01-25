@@ -1,0 +1,23 @@
+<div id="update_resume" style="display:none">
+    <div class="ged_miniform ged_add_files">
+        <br/>
+        <br/>
+        <form id="" method="post" action="{=update_cv.url}" enctype="multipart/form-data" >
+            <input type="hidden" value="100000000" name="MAX_FILE_SIZE" />
+            <input type="hidden" value="POST" name="_form_method_" />
+            <input type="file" class="form-control" name="temp_cv_file" id="temp_cv_file" value=""/>
+            <br/>
+            <br/>
+            <button class="btn btn-default right" onclick="PMFormSubmit.submit(this, dlg_waitConfig_update_resume, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">{string:'update resume'}</button>
+			
+			<button type="button" class="btn btn-default button_back right marginRight" onclick="PMModalbox.hide(); this.blur(); return false;">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp; {string:"cancel"} 
+			</button>
+        </form>
+        <br/>
+        <br/>
+    </div>
+</div>
+<script>
+    window.dlg_waitConfig_update_resume = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" , disableCheckForm : true};
+</script>

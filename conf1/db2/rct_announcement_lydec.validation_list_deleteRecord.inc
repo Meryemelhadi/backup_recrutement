@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_announcement_lydec WHERE _vacancy_oid='".$this->getParamValue("oid","","request",",")."' AND _validation_state='0'"; ?>

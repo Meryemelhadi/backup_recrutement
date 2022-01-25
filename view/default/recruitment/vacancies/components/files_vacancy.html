@@ -1,0 +1,48 @@
+<div class="comments-wrapper" id="files_wrapper">
+{records:attached_files.records}
+<table class="files_wrapper">
+	{record}
+	<tr  class="files_wrapper_{field:oid}">
+		<td class="files_wrapper_{field:oid}" id="file_wrapper_{field.object:oid}" style="width:96%"><a href='{=download.url}{record.url_key}'>{field.html:file_name}</a></td>
+		<td class="" style="width:2%,align:right"><input type="button" class="s-icon si-cross" href="javascript:void(0);" onclick="Generis.Recruitment.deleteFile('{field.object:oid}', '{=delete_attached_file.url}', 'file'); this.blur(); return false;" value="" style="cursor: pointer; background-color:transparent; border:solid 0px"/></td>
+	</tr>
+	{/record}
+</table>
+{/records}
+
+{no_record}
+    <div class="tab_empty">
+        <?php
+            echo __('empty_list_file');
+        ?>
+    </div>
+    {/no_record}
+</div>
+
+<div class="add-comment-wrapper">
+	<div class="add-comment-process clear-both">
+	<script>
+		window.upload_fileConfig = { 
+			exec:function() { PMModalbox.display(window.upload_fileConfig, null); },
+			content_id : 'upload_file',
+			title : "{string:'upload_file'}", 
+			message : "{string:'upload_file_header'}", 
+			viewMode : "", 
+			target : "files_wrapper", 
+			labels : { cancel : "{string:'dlg_cancel'}" }
+		};
+	</script>
+		<!--<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="window.upload_fileConfig.exec(); this.blur(); return false;">
+			<span class="btn-bg"><span class="s-icon si-page-white-add">{string:"add_file"}</span></span>
+		</a>-->
+		
+		<button type="button" class="btn btn-default right" onclick="window.upload_fileConfig.exec(); this.blur(); return false;">
+			<span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>&nbsp;&nbsp;
+			{string:"add_file"}
+		</button>
+		
+	</div>
+</div>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_interview WHERE _created_by='".$props->getProperty("user_oid","",true)."'"; ?>

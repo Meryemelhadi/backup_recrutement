@@ -1,0 +1,20 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+    <application
+            name		= "app_connected"
+            path		= "/recruitment/admin/"
+            protected	= "user"
+            permissions = "default"
+            cache		= "no"
+            lang		= "fr"
+            skin		= "lightsky"
+            application = "app_connected"
+            table		= "rct_app_connected"
+            base_data	= "app_connected"
+            string_base = "app_connected"
+            role = "editor"
+            xmlns="http://www.nxfrontier.com/nxl/page"
+            />
+
+    <include_once file="/all.nxl" />
+</nxl>

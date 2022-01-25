@@ -1,0 +1,848 @@
+<?xml version="1.0"?>
+
+<xo:taglib 
+	uri					= "http://www.presencemedia.com/recruitment/vacancies/components/vacancy_lib.comp"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/vacancies/components/vacancy_lib.comp"
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:ds			= "http://www.nxfrontier.com/nxl/ds"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"	
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+	
+	
+	<xo:tag name="add_candidate_vacancy_log">
+		
+		<xo:param name="ds_add_log" value="rct_candidate_vacancy_action.record@recruitment" />
+		
+		<xo:param name="candidate_oid" />
+		<xo:param name="vacancy_oid" />
+		<xo:param name="user_oid" value="#user:oid#" />
+		<xo:param name="action_oid" />
+		<xo:param name="ref_oid" />
+		<xo:param name="additional_infos" />
+		
+		<block>
+			
+			<ds:store ds="#{$ds_add_log}#" media="db" mode="insert">
+				<ds:record>
+					<ds:field name="candidate_oid"		value="#{$candidate_oid}#" />
+					<ds:field name="vacancy_oid"		value="#{$vacancy_oid}#" />
+					<ds:field name="user_oid"			value="#{$user_oid}#" />
+					<ds:field name="action_oid"			value="#{$action_oid}#" />
+					<ds:field name="ref_oid"			value="#{$ref_oid}#" />
+					<ds:field name="additional_infos"	value="#{$additional_infos}#" />
+				</ds:record>
+			</ds:store>
+
+		</block>
+				
+	</xo:tag>
+	
+
+	<xo:tag name="addlog">
+	
+		<xo:param name="ds_add_log" value="rct_vacancy_action.record@recruitment" />
+		
+		<xo:param name="vacancy_oid" />
+		<xo:param name="user_oid" />
+		<xo:param name="action_oid" />
+		<xo:param name="ref_oid" />
+		<xo:param name="additional_infos" />
+		
+		<block>
+			
+			<ds:store ds="#{$ds_add_log}#" media="db" mode="insert">
+				<ds:record>
+					<ds:field name="vacancy_oid"		value="#{$vacancy_oid}#" />
+					<ds:field name="user_oid"			value="#{$user_oid}#" />
+					<ds:field name="action_oid"			value="#{$action_oid}#" />
+					<ds:field name="ref_oid"			value="#{$ref_oid}#" />
+					<ds:field name="additional_infos"	value="#{$additional_infos}#" />
+				</ds:record>
+			</ds:store>
+
+		</block>
+				
+	</xo:tag>
+	
+	
+	<xo:tag name="candidates_search_results">
+	
+		<xo:param name="ds_search" value="rct_candidate.vacancy_search@recruitment"/>
+		<xo:param name="ds_list" value="handler:recruitment.candidates.search_list@recruitment" />
+		<xo:param name="property_records" value="page.records"/>
+		<xo:param name="record_search" value="page.search"/>
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		
+		<block>
+		
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			
+			<this:candidates_buttons vacancy_oid_param = "#property:vacancy_oid#" />
+		
+			<set name="var:searchData">
+				<ds:load media="request" ds="#{$ds_search}#" property="#{$record_search}#" multiple="no" addProperties="no"/> 
+			</set>
+		
+			<ds:load media="db" ds="#{$ds_list}#" property="#{$property_records}#" multiple="yes" addProperties="no"  record="#var:searchData#" />
+		
+		</block>
+	
+	</xo:tag>
+	
+	<xo:tag name="init_operation">
+		
+		<xo:param name="ds_get_title" />
+		<xo:param name="current_operation" />
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		
+		<block>
+		
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<ds:load media="db" ds="#{$ds_get_title}#" property="vacancy_title_record" multiple="no" addProperties="no"/>
+			
+			<set name="property:current_operation" value="#{$current_operation}#" />
+		
+			<button:set name="list" operation="list" params="#request:filterKey#">
+				<button:param name="mode" value="ajax" />
+			</button:set>
+			<button:set name="edit" operation="edit">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="requirements" operation="requirements">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="calendar" operation="calendar">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="shorts" operation="shorts_list">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="candidates" operation="candidates">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="recruitment_providers" operation="recruitment_providers">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="synthesis" operation="synthesis">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="feedback" operation="feedback">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="warning" operation="warning">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="history" operation="history">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+			<button:set name="announcement" operation="announcement">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+				<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+			</button:set>
+
+		</block>
+				
+	</xo:tag>
+	
+	
+	<xo:tag name="candidates_buttons">
+		
+		<xo:param name="change_status_op" value="change_candidate_status" />
+		<xo:param name="rate_candidate_op" value="rate_candidate" />
+		<xo:param name="candidate_add_interview_op" value="candidate_add_interview" />
+		<xo:param name="send_to_ic_op" value="send_to_ic" />
+		<xo:param name="unlink_candidate_op" value="unlink_candidate" />
+		<xo:param name="unlink_candidate_sl_op" value="unlink_candidate_sl" />			
+		<xo:param name="candidates_search_op" value="candidates_search_results" />
+		<xo:param name="add_short_list_op" value="add_short_list" />
+		<xo:param name="edit_short_list_op" value="edit_short_list" />
+		<xo:param name="send_sl_to_ic_op" value="send_sl_to_ic" />
+		<xo:param name="add_to_short_list_op" value="add_to_short_list" />
+		<xo:param name="preview_op" value="preview" />
+		<xo:param name="candidate_details_op" value="candidate_details" />
+		<xo:param name="add_email_op" value="add_email" />
+		<xo:param name="candidates_op" value="candidates" />
+		<xo:param name="view_mail_op" value="view_mail" />
+		<xo:param name="add_candidate_comment_op" value="add_candidate_comment"/>
+		<xo:param name="delete_sl_op" value="delete_sl" />
+		
+		<xo:param name="handle_proposal_op" value="handle_proposal"/>
+		
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		
+		<block>
+		
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			
+			<button:set name="search" operation="#{$candidates_search_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+				
+			<button:set name="candidates_list" operation="#{$candidates_op}#">
+				<button:param name="oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="rate_candidate" operation="#{$rate_candidate_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="add_interview" operation="#{$candidate_add_interview_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+						
+			<button:set name="send_to_ic" operation="#{$send_to_ic_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="unlink_candidate" operation="#{$unlink_candidate_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="unlink_candidate_sl" operation="#{$unlink_candidate_sl_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="add_short_list" operation="#{$add_short_list_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+				
+			<button:set name="edit_short_list" operation="#{$edit_short_list_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="send_sl_to_ic" operation="#{$send_sl_to_ic_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="delete_sl" operation="#{$delete_sl_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>			
+			
+			<button:set name="view_mail" operation="#{$view_mail_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="add_to_short_list" operation="#{$add_to_short_list_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="add_candidate_comment" operation="#{$add_candidate_comment_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="preview_cv" operation="#{$preview_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+				<button:param name="type" value="cv"/>
+			</button:set>
+			
+			<button:set name="candidate_details" operation="#{$candidate_details_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="add_email" operation="#{$add_email_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+			</button:set>
+			
+			<button:set name="accepted_proposal" operation="#{$handle_proposal_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+				<button:param name="status_value" value="10" />
+			</button:set>
+			
+			<button:set name="refused_proposal" operation="#{$handle_proposal_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+				<button:param name="status_value" value="11" />
+			</button:set>
+			
+			<button:set name="accepted_for_job" operation="#{$change_status_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+				<button:param name="status_value" value="7" />
+			</button:set>
+			
+			<button:set name="refuse_candidate" operation="#{$change_status_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+				<button:param name="status_value" value="8" />
+			</button:set>
+			
+			<button:set name="reinit_status" operation="#{$change_status_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+				<button:param name="status_value" value="0" />
+			</button:set>
+			
+			
+			<button:set name="cancel_accepted_for_job" operation="#{$change_status_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+				<button:param name="status_value" value="18" />
+			</button:set>
+			
+			<button:set name="accept_by_client" operation="#{$change_status_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+				<button:param name="status_value" value="5" />
+			</button:set>
+			
+			<button:set name="refuse_by_client" operation="#{$change_status_op}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#"/>
+				<button:param name="status_value" value="6" />
+			</button:set>
+			
+		</block>
+		
+	</xo:tag>
+		
+	
+	
+	
+	
+	<xo:tag name="client_candidates_list">
+		
+		<xo:param name="ds_candidates_selected" value="handler:recruitment.candidates_client.selected@recruitment" />
+		<xo:param name="ds_short_lists" value="rct_short_list.by_vacancy_with_candidates_client@recruitment" />
+		<xo:param name="ds_candidates_proposed" value="rct_candidate_vacancy_client.by_vacancy@recruitment" />
+		
+		<xo:param name="candidates_selected_records" value="candidates_selected.records" />
+		<xo:param name="short_lists_records" value="short_lists.records" />
+		<xo:param name="candidates_proposed_records" value="candidates_proposed.records" />
+		
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		
+		<block>
+			
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />	
+			<this:candidates_buttons vacancy_oid_param="#property:vacancy_oid#" />
+			
+			<ds:load media="db" ds="#{$ds_candidates_selected}#" property="#{$candidates_selected_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_short_lists}#" property="#{$short_lists_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_candidates_proposed}#" property="#{$candidates_proposed_records}#" multiple="yes" addProperties="no" />
+			
+		</block>
+	</xo:tag>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+	
+	<xo:tag name="candidates_list_1">
+
+		<xo:param name="ds_candidates_selected" value="handler:recruitment.candidates.selected@recruitment" />
+		<xo:param name="ds_candidates_rated" value="handler:recruitment.candidates.rated@recruitment" />
+		<xo:param name="ds_short_lists" value="rct_short_list.by_vacancy_with_candidates@recruitment" />
+		<xo:param name="ds_candidates_associated" value="handler:recruitment.candidates.associated@recruitment" />
+		<xo:param name="ds_candidates_refused" value="handler:recruitment.candidates.refused@recruitment" />
+		
+		<xo:param name="ds_candidates_refused" value="rct_candidate.vacancy_search@recruitment" />
+		
+		<xo:param name="candidates_selected_records" value="candidates_selected.records" />
+		<xo:param name="candidates_rated_records" value="candidates_rated.records" />
+		<xo:param name="short_lists_records" value="short_lists.records" />
+		<xo:param name="candidates_associated_records" value="candidates_associated.records" />
+		<xo:param name="candidates_refused_records" value="candidates_refused.records" />
+		
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		
+		<xo:param name="record_search" value="page.search"/>
+		<xo:param name="ds_search" value="rct_candidate.vacancy_search@recruitment"/>
+		
+		<block>
+			
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />	
+			
+					
+			<this:candidates_buttons vacancy_oid_param="#property:vacancy_oid#" />
+					
+			
+			
+					
+			<ds:load media="empty" ds="#{$ds_search}#" property="#{$record_search}#" multiple="no" addProperties="no"/>
+			
+
+			
+			<ds:load media="db" ds="#{$ds_short_lists}#" property="#{$short_lists_records}#" multiple="yes" addProperties="no" />
+			
+			<ds:load media="db" ds="#{$ds_candidates_selected}#" property="#{$candidates_selected_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_candidates_associated}#" property="#{$candidates_associated_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_candidates_rated}#" property="#{$candidates_rated_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_candidates_refused}#" property="#{$candidates_refused_records}#" multiple="yes" addProperties="no" />
+		</block>
+	</xo:tag>
+
+	<xo:tag name="shorts_list">
+
+
+		<xo:param name="ds_short_lists" value="rct_short_list.by_vacancy_with_candidates@recruitment" />
+		<xo:param name="short_lists_records" value="short_lists.records" />
+		
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		
+		<xo:param name="record_search" value="page.search"/>
+		<xo:param name="ds_search" value="rct_candidate.vacancy_search@recruitment"/>
+		
+		<block>
+			
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />	
+			
+					
+			<this:candidates_buttons vacancy_oid_param="#property:vacancy_oid#" />
+					
+			
+			
+					
+			<ds:load media="empty" ds="#{$ds_search}#" property="#{$record_search}#" multiple="no" addProperties="no"/>
+			
+
+			
+			<ds:load media="db" ds="#{$ds_short_lists}#" property="#{$short_lists_records}#" multiple="yes" addProperties="no" />
+			
+
+		</block>
+	</xo:tag>
+
+	<xo:tag name="candidates_list">
+
+		<xo:param name="ds_candidates_associated" value="handler:recruitment.candidates.associated@recruitment" />
+		<xo:param name="candidates_associated_records" value="candidates_associated.records" />
+		<xo:param name="ds_short_lists" value="rct_short_list.by_vacancy_with_candidates@recruitment" />
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		
+		<xo:param name="record_search" value="page.search"/>
+		<xo:param name="ds_search" value="rct_candidate.vacancy_search@recruitment"/>
+		
+		<block>
+			
+
+
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />	
+			
+					
+			<this:candidates_buttons vacancy_oid_param="#property:vacancy_oid#" />
+
+			<ds:load media="db" ds="#{$ds_short_lists}#" property="#{$short_lists_records}#" multiple="yes" addProperties="no" />
+					
+			<ds:load media="empty" ds="#{$ds_search}#" property="#{$record_search}#" multiple="no" addProperties="no"/>
+
+			<ds:load media="db" ds="#{$ds_candidates_selected}#" property="#{$candidates_selected_records}#" multiple="yes" addProperties="no" />
+		</block>
+	</xo:tag>
+
+	
+	<xo:tag name="rate_candidate">
+		<xo:param name="ds_rate_candidate" value="rct_candidate_vacancy.rate@recruitment" />
+		<block>
+		
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:candidate_oid" value="#request:candidate_oid#" />
+			<set name="property:rating_value" value="#request:rating_value#" />
+			
+			<ds:store ds="#{$ds_rate_candidate}#" media="db" mode="update" />
+			
+			<this:add_candidate_vacancy_log
+				candidate_oid 		= "#property:candidate_oid#"
+				vacancy_oid			= "#property:vacancy_oid#"
+				action_oid			= "12"
+				additional_infos	= "#property:rating_value#" />
+			
+		</block>
+	</xo:tag>
+
+	<xo:tag name="change_candidate_status">
+		<xo:param name="ds_change_candidate_status" value="rct_candidate_vacancy.change_status@recruitment" />
+		<xo:param name="ds_handle_close_vacancy" value="rct_vacancy.close_vacancy@recruitment" />
+		
+		<xo:param name="ds_change_ci_acceptance" value="rct_candidate_vacancy.change_ci_acceptance@recruitment" />
+		<xo:param name="ds_change_job_acceptance" value="rct_candidate_vacancy.change_job_acceptance@recruitment" />
+		
+		<block>
+		
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:candidate_oid" value="#request:candidate_oid#" />
+			<set name="property:status_value" value="#request:status_value#" />
+			
+			<ds:store ds="#{$ds_change_candidate_status}#" media="db" mode="update" />
+
+			<choose>
+				<when test="#property:status_value# == '5'">
+					<!-- Accepté par le CI -->
+					<set name="property:acceptance_status" value="1" />
+					<ds:store ds="#{$ds_change_ci_acceptance}#" media="db" mode="update" />
+				</when>
+				<when test="#property:status_value# == '6'">
+					<!-- Refusé par le CI -->
+					<set name="property:acceptance_status" value="2" />
+					<ds:store ds="#{$ds_change_ci_acceptance}#" media="db" mode="update" />
+				</when>
+				<when test="#property:status_value# == '7'">
+					<!-- Sélectionné pour le job -->
+					<set name="property:acceptance_status" value="1" />
+					<ds:store ds="#{$ds_change_job_acceptance}#" media="db" mode="update" />
+				</when>
+				<when test="#property:status_value# == '8'">
+					<!-- Dé-sélectionné pour le job -->
+					<set name="property:acceptance_status" value="0" />
+					<ds:store ds="#{$ds_change_job_acceptance}#" media="db" mode="update" />
+				</when>
+				<when test="#property:status_value# == '18'">
+					<!-- Déselectionné pour le job -->
+					<set name="property:acceptance_status" value="2" />
+					<ds:store ds="#{$ds_change_job_acceptance}#" media="db" mode="update" />
+				</when>
+			</choose>		
+			
+			<ds:store ds="#{$ds_handle_close_vacancy}#" media="db" mode="update" />
+			
+			<script language="php">
+				$candidates_oids = explode('|', $this->getProperty("candidate_oid",""));
+			</script>
+			
+			<foreach sequence="#var:candidates_oids#" index="i" item="value">
+							
+				<this:add_candidate_vacancy_log
+					candidate_oid 		= "#var:value#"
+					vacancy_oid			= "#property:vacancy_oid#"
+					action_oid			= "#request:status_value#" />
+				
+			</foreach>
+			
+		</block>
+	</xo:tag>
+	
+	
+	<xo:tag name="handle_proposal">
+		<xo:param name="ds_handle_proposal" value="rct_candidate_vacancy.handle_proposal@recruitment" />
+		<xo:param name="property_record" value="page.record"/>
+		<block>
+		
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:candidate_oid" value="#request:candidate_oid#" />
+			<set name="property:status_value" value="#request:status_value#" />	
+			<set name="property:status_value" value="#request:status_value#" />	
+
+			<button:set name="previous_operation" operation="candidates">
+				<button:param name="oid" value="#property:vacancy_oid#" />
+			</button:set>
+			
+			<button:set name="submit" operation="handle_proposal_process">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+				<button:param name="status_value" value="#property:status_value#" />
+				<button:param name="status_value" value="#property:status_value#" />
+			</button:set>
+							
+			<ds:load media="empty" ds="#{$ds_handle_proposal}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+			
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="handle_proposal_process">
+		<xo:param name="ds_handle_proposal" value="rct_candidate_vacancy.handle_proposal@recruitment" />
+		<xo:param name="ds_change_proposal_status" value="rct_candidate_vacancy.change_proposal_status@recruitment" />
+		<xo:param name="property_record" value="page.record"/>
+		<block>
+			
+			<set name="var:cRecord">
+				<ds:load media="request" ds="#{$ds_handle_proposal}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+			</set>
+			
+			<set name="var:date">
+				<ds:field name="date" format="object" record="#var:cRecord#" />
+			</set>
+			
+			<script language="php">
+				$rawdate = $date['year'].'-'.$date['month'].'-'.$date['day'];
+				$date = strftime ( "%d %B %Y", strtotime($rawdate) ); // Pour affichage dans le log
+			</script>
+			
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:candidate_oid" value="#request:candidate_oid#" />
+			<set name="property:status_value" value="#request:status_value#" />
+			<set name="property:rawdate" value="#var:rawdate#" />
+			
+			
+			<set name="property:proposal_acceptance_state" value="1" />
+			<if condition="#property:status_value# == '11'">
+				<set name="property:proposal_acceptance_state" value="2" />
+			</if>
+			
+			
+			<ds:store ds="#{$ds_change_proposal_status}#" media="db" mode="update" />
+										
+			<this:add_candidate_vacancy_log
+				candidate_oid 		= "#request:candidate_oid#"
+				vacancy_oid			= "#property:vacancy_oid#"
+				action_oid			= "#request:status_value#"
+				additional_infos	= "#var:date#" />			
+			
+		</block>
+	</xo:tag>
+	
+	
+	
+	
+	
+	
+	
+	<xo:tag name="unlink_candidate">
+		<xo:param name="ds_unlink_candidate" value="rct_candidate_vacancy.unlink_candidate@recruitment" />
+		<block>
+		
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:candidate_oid" value="#request:candidate_oid#" />
+			
+			<ds:delete ds="#{$ds_unlink_candidate}#" media="db" />
+			
+			<script language="php">
+				$candidates_oids = explode('|', $this->getProperty("candidate_oid",""));
+			</script>
+			
+			<foreach sequence="#var:candidates_oids#" index="i" item="value">
+							
+				<this:add_candidate_vacancy_log
+					candidate_oid 		= "#var:value#"
+					vacancy_oid			= "#property:vacancy_oid#"
+					action_oid			= "15" />
+				
+			</foreach>
+			
+		</block>
+	</xo:tag>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<xo:tag name="send_to_ic">
+		<xo:param name="ds_add" value="rct_candidate_vacancy_client.add@recruitment" />
+		<xo:param name="property_record" value="page.record"/>
+		<block>
+		
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:candidate_oid" value="#request:candidate_oid#" />
+						
+			<button:set name="previous_operation" operation="candidates">
+				<button:param name="oid" value="#property:vacancy_oid#" />
+			</button:set>
+			
+			<button:set name="submit" operation="send_to_ic_process">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+			
+			<ds:load media="empty" ds="#{$ds_add}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="send_to_ic_process">
+		<xo:param name="ds_add" value="rct_candidate_vacancy_client.add@recruitment" />
+		<xo:param name="template_email" value="recruitment.emails.tpl_send_candidate_email" />
+		<block>
+		
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:candidate_oid" value="#request:candidate_oid#" />
+			
+			<ds:store ds="#{$ds_add}#" media="db" mode="insert">
+				<ds:load media="post" ds="#{$ds_add}#" multiple="no" addProperties="no"/>
+			</ds:store>
+			
+			<set name="var:assocOid">
+				<ds:insert_id media="db" />
+			</set>
+
+			<script language="php">
+				$candidates_oids = explode('|', $this->getProperty("candidate_oid",""));
+			</script>
+			
+			<foreach sequence="#var:candidates_oids#" index="i" item="value">
+							
+				<this:add_candidate_vacancy_log
+					candidate_oid 		= "#var:value#"
+					vacancy_oid			= "#property:vacancy_oid#"
+					action_oid			= "2" />
+				
+			</foreach>
+			
+			
+			
+			
+			
+			<tpl:screen 
+				xmlns		= "http://www.nxfrontier.com/tpl/tpml"  
+				xmlns:tpl	= "http://www.nxfrontier.com/tpl/tpml"
+				name		= "send_candidate_email_view" 
+				trace		= "yes">
+				<load view="#{$template_email}#" />
+			</tpl:screen>
+
+			<bean:call
+				xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+				class		= "lib.recruitment.vacancies.services.message"
+				method		= "sendCandidateNotificationEmail"
+				params		= "#var:assocOid#"
+			/>
+			
+			
+			
+			
+			
+			
+			
+
+		</block>
+	</xo:tag>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<xo:tag name="add_candidate_comment">
+		<xo:param name="ds_add_comment" value="rct_candidate_vacancy_comment.add@recruitment" />
+		<xo:param name="ds_get_comment" value="rct_candidate_vacancy_comment.get_record@recruitment" />
+		<xo:param name="property_record" value="page.record"/>
+		<block>
+		
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:candidate_oid" value="#request:candidate_oid#" />
+		
+			<ds:store ds="#{$ds_add_comment}#" media="db" mode="insert">
+				<ds:load media="post" ds="#{$ds_add_comment}#" multiple="no" addProperties="no"/>
+			</ds:store>
+										
+			<set name="property:comment_oid">
+				<ds:insert_id media="db" />
+			</set>
+			
+			<ds:load media="db" ds="#{$ds_get_comment}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="edit_candidate_comment">
+		<xo:param name="ds_edit_comment" value="rct_candidate_vacancy_comment.add@recruitment" />
+		<xo:param name="ds_get_comment" value="rct_candidate_vacancy_comment.get_record@recruitment" />
+		<xo:param name="property_record" value="page.record"/>
+		<block>
+		
+			<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+			<set name="property:candidate_oid" value="#request:candidate_oid#" />
+		
+			<ds:store ds="#{$ds_add_comment}#" media="db" mode="insert">
+				<ds:load media="post" ds="#{$ds_add_comment}#" multiple="no" addProperties="no"/>
+			</ds:store>
+										
+			<set name="property:comment_oid">
+				<ds:insert_id media="db" />
+			</set>
+			
+			<ds:load media="db" ds="#{$ds_get_comment}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+	
+		</block>
+	</xo:tag>	
+	
+	
+	
+	
+	<xo:tag name="change_progress_level">
+		<xo:param name="ds_change_progress_level" value="rct_vacancy.change_progress_level@recruitment" />
+		<xo:param name="vacancy_oid" />
+		<xo:param name="progress_level" />
+		
+		
+		<xo:param name="get_current_progress_level" value="rct_vacancy.get_current_progress_level@recruitment" />
+		<xo:param name="ds_add_history" value="rct_vacancy_history.record@recruitment" />
+		<xo:param name="property_record" value="page.record"/>
+		
+		<block>
+		
+			<set name="property:vacancy_oid" value="#{$vacancy_oid}#" />
+			<set name="property:progress_level" value="#{$progress_level}#" />
+			
+				
+			<ds:store ds="#{$ds_change_progress_level}#" media="db" mode="update" />		
+			
+			
+			<set name="var:cRecord">
+				<ds:load media="db" ds="#{$get_current_progress_level}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+			</set>
+			
+			<set name="var:progress_level">
+				<ds:field name="progress_level" format="object" record="#var:cRecord#" />
+			</set>
+			
+			<set name="var:progress_level_meta">
+				<ds:field name="progress_level_meta" format="html" record="#var:cRecord#" />
+			</set>
+			
+			<ds:store ds="#{$ds_add_history}#" media="db" mode="insert">
+				<ds:record>
+					<ds:field name="vacancy_oid"			value="#property:vacancy_oid#" />
+					<ds:field name="progress_level"			value="#property:progress_level#" />
+					<ds:field name="progress_level_meta"	value="#var:progress_level_meta#" />
+				</ds:record>
+			</ds:store>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	
+		</block>
+	</xo:tag>	
+	
+	
+	
+
+</xo:taglib>
+
+

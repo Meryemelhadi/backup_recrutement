@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_vacancy,_rct_vacancy_readonly,_rct_vacancy_total_control"; ?>

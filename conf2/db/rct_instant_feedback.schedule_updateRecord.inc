@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_instant_feedback SET _filled_by=".$record->getFieldValue("filled_by","DB","NULL").",_scheduled_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."',_scheduled_on=NOW(),_vacancy_oid='".$props->getProperty("vacancy_oid","",true)."',_fill_state='0',_complete_state='0'"; ?>

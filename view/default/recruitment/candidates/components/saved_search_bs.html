@@ -1,0 +1,59 @@
+<div id="save_search" style="display:none">
+    <div class="ged_miniform ged_add_files">
+        <br/>
+        <form id="" method="post" action="{=add_saved_search.url}" enctype="multipart/form-data" onsubmit="return true;" >
+			<input type="hidden" name="url" value="" id="field_url"/>
+			<div class="control-wrapper" id="full_text_search-control-wrapper">
+				<div class="control" id="full_text_search-control">
+					<input type="text" name="name" id="name" value="" class="form-control"/>
+				</div>
+			</div>
+			<br/>
+			<a class="pm-button btn-with-icon right" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+				<span class="btn-bg"><span class="s-icon si-disk">{string:"add saved search"}</span></span>
+			</a>
+			
+			<a class="pm-button btn-with-icon right" style="margin-right: 5px;" href="javascript:void(0);" onclick="PMModalbox.hide(); this.blur(); return false;">
+				<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"cancel"} </span></span>
+			</a>
+        </form>
+		<br/>
+        <br/>
+    </div>
+</div>
+
+<script type="text/javascript" language="Javascript">
+//<![CDATA[
+
+ window.save_searchConfig = { 
+	 exec:function() { PMModalbox.display(window.save_searchConfig, null); },
+	 content_id : 'save_search',
+	 title : "Sauvegarder la recherche", 
+	 message : '<div class="control-label">Nom de la recherche :</div>', 
+	 viewMode : "",  
+	 labels : { cancel : "Annuler" }
+ };
+ window.setUrlField = function(){
+	console.log(window.location.pathname+window.location.search);
+	document.getElementById("field_url").value=window.location.pathname+window.location.search;
+ };
+ window.dlg_waitConfig = { title : "Veuillez patienter", message : "L'opération est en cours ...", viewMode : "wait" };
+ window.dlg_successConfig = {
+	 title : "Action réussie",
+	 message : "L'opération s'est effectuée avec succès",
+	 viewMode : "ok",
+	 /*url : window.location.pathname+window.location.search+"&mode=ajax",*/
+	 target : "content",
+	 labels : { ok : "Valider" }
+ };
+
+ window.dlg_failureConfig = {
+	 title : "dlg_failure_title",
+	 message : "dlg_failure_content",
+	 viewMode : "cancel",
+	 target : "content",
+	 labels : { cancel : "Annuler" }
+ };
+ 
+//]]>
+</script>

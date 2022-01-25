@@ -1,0 +1,19 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+<include_once file = "/strings/all.nxl"/>
+<application
+	name		= "index"
+	path		= "/recruitment/manager_candidates/"
+	protected	= "user"
+	permissions = "default"
+	cache		= "no"
+	lang		= "fr"
+	skin		= "lightsky"
+	application = "manager_candidates"
+	table		= "rct_manager_candidates"
+	string_base = "recruitment_candidates_directory"
+	role = "editor"
+		xmlns="http://www.nxfrontier.com/nxl/page"
+	/>
+
+<include_once file="/all.nxl" />
+</nxl>

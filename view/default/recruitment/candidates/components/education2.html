@@ -1,0 +1,84 @@
+{records:page.records}
+{record}
+<div class="pm-bx-subform-wrapper">
+	
+	<div class="pm-bx-form">
+		<div class="record_wrapper">
+		
+		
+			<div class="record">			
+	
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:diploma}</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">
+							{field.form:diploma}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:diploma_type}</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">
+							{field.form:diploma_type}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:institution}</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">
+							{field.form:institution}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{string:"diploma_date"}</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">
+							{field.form:date}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper normal-layout-control">
+					<div class="control-wrapper">
+						<div class="control">
+							{field.form:description}
+						</div>
+					</div>
+				</div>
+
+			</div>
+			
+			<div class="record-actions">
+				<a href="javascript:void(0);" onclick="(
+					function(aElement) {
+						PMDH.getNextSibling(aElement).checked=true;
+						PMDH.getParentElementByClassName(aElement,'pm-bx-subform-wrapper').style.display='none';
+					})(this);" class="action delete-action s-icon si-cross"><span>{string:"delete_education"}</span></a>
+				<input type="checkbox" class="delete-control-checkbox" name="{record.id}__delete__" value="delete" style="display:none" />
+			</div>
+			
+		</div>
+	</div>
+
+</div>
+{fields:all}
+{if:field.hidden}
+	{field.form}
+{/if}
+{/fields}
+{/record}
+{/records}

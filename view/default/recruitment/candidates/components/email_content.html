@@ -1,0 +1,13 @@
+﻿{record:email.record}
+	<button type="button" class="btn btn-default right" onclick="$('email_content_{field.object:oid}').toggle()"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;Fermer Email </button><br><br>
+	<div id="panel_Informations" class="form-panel-bs">
+	<?php
+		$email_content = $_nx_record->email_content->html;
+		//$enc = mb_detect_encoding($email_content, 'UTF-8,ISO-8859-1', true);
+		//echo iconv($enc, "UTF-8", "".$email_content);
+		if(!mb_detect_encoding($email_content, 'UTF-8', true))
+			echo utf8_encode($email_content);
+		else echo $email_content;
+	?>
+	</div>
+{/record}

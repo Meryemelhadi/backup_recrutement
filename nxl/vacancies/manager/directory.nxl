@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+	<include_once file = "/data_model/all.nxl"/>
+	<include_once file = "/strings/all.nxl"/>
+
+	<include file = "../components/directory_manager.comp.nxl"/>
+
+	<main 
+		xmlns				= "http://www.presencemedia.com/recruitment/vacancies/components/directory_manager.comp" 
+	
+		name				= "directory"
+		path				= "/recruitment/vacancies/manager/"
+		skin				= "#global:RECRUITMENT_SKIN:generis#"
+		strings				= "recruitment_vacancies_directory_admin"
+	
+		service_class		= "lib.recruitment.vacancies.services.directory"
+	
+		ds_my_interviews_list					= "rct_interview.my_list"
+		template_my_calendar				= "recruitment.vacancies.components.my_calendar"
+		template_interviews_list			= "recruitment.vacancies.components.interviews_list_manager"
+		template_calendar					= "recruitment.vacancies.components.calendar"
+		template_edit_wrapper				= "recruitment.vacancies.edit_wrapper"
+		
+		>
+	</main>
+</nxl>

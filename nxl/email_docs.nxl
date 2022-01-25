@@ -1,0 +1,21 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<application
+	name		= "email_docs" 
+	path		= "/recruitment/admin/"
+	protected	= "user" 
+	permissions = "default"
+	cache		= "no" 
+	lang		= "fr"
+	skin		= "lightsky"
+	application = "email_docs"
+	table		= "rct_email_docs"
+	base_data	= "email_docs"
+	string_base = "Pièces jointes"
+	role = "editor"
+		xmlns="http://www.nxfrontier.com/nxl/page"
+	/>
+
+<include_once file="/all.nxl" />
+
+</nxl>

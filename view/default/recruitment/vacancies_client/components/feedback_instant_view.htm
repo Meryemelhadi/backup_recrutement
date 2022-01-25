@@ -1,0 +1,17 @@
+{content:buttons}
+	<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_feedback"}</span></span>
+	</a>
+{/content}
+
+{record:page.record}
+<div class="pm-grid-outer-wrapper">
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	{include:common/record}
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+</div>
+{/record}

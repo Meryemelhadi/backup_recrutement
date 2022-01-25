@@ -1,0 +1,149 @@
+<?xml version="1.0"?> 
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="rct_candidate_etat">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+				<key mode="record_name">
+                    <field name="oid" type="oid" value="%{property:etat_oid}" />
+                </key>
+                <fields mode="record_name">
+                    <field name="name" label="name" type="line" />
+                </fields>
+
+				<fields mode="search">
+					<field name="name" label="name" type="line" />
+				</fields>
+				
+				<key mode="ds_list"></key>
+				<sort mode="ds_list">
+					<field name="index" direction="asc" />
+					<field name="oid" direction="asc" />
+				</sort>
+
+				<key mode="ds_list_all">
+					<field name="oid" label="oid" type="oid" relation="in" value="%{property:cat.enum}"/>
+				</key>				
+				<sort mode="ds_list_all">
+					<field name="index" direction="asc" />
+					<field name="oid" direction="asc" />
+				</sort>
+								
+				<key mode="list">
+					<field name="name" label="name" type="line" relation="LIKE" />
+				</key>
+				<sort mode="list">
+					<field name="index" direction="asc" />
+					<field name="oid" direction="asc" />
+				</sort>
+				<fields mode="list">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="index" type="line" />
+					<field name="name" label="name" type="line" />
+					<field name="taskType" type="text-choice" list="recruitment.workflow_task@recruitment" default="0"/>
+					<field name="in_home" type="text-choice" list="recrute.boolean@recruitment" default="1" sqlType="CHAR(2) NULL DEFAULT 1"/>
+					<field name="vacancy_status" prompt="Action candidat dans poste..." label="status" type="text-choice" list="recruitment.candidate_vacancy_action" control="select" sqlType="integer" />	
+					<field name="color" label="color" type="line" size="20" control="colorpicker" show="show" />
+				</fields>
+
+				<query mode="available_etat" type="select">
+					SELECT 
+						_oid, _name, _index
+					FROM 
+						`_rct_candidate_etat` 
+					WHERE 
+						_oid NOT IN (SELECT _etat_oid from _rct_candidate_etat_assoc where _candidate_oid = '".$this->getProperty("candidate_oid")."')
+					ORDER BY _index, _oid
+				</query>
+
+				<fields mode="available_etat">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="name" label="name" type="line" />
+				</fields>
+				<key mode="by_vacancy_status">
+					<field name="vacancy_status" label="vacancy_status" type="integer" relation="EQ" value="%{property:status_value}" />
+				</key>
+				<fields mode="by_vacancy_status">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="name" label="name" type="line" />
+					<field name="vacancy_status" prompt="Action candidat dans poste..." label="status" type="text-choice" list="recruitment.candidate_vacancy_action" control="select" sqlType="integer" />	
+				</fields>
+				
+				
+	
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+					<field name="index" type="line" />
+					<field name="taskType" type="text-choice" list="recruitment.workflow_task@recruitment" default="0"/>
+					<field name="in_home" type="text-choice" list="recrute.boolean@recruitment" default="1" sqlType="CHAR(2) NULL DEFAULT 1"/>
+
+					<field name="color" label="color" type="line" size="20" control="colorpicker"/>
+
+					<field name="vacancy_status" prompt="Action candidat dans poste..." label="status" type="text-choice" list="recruitment.candidate_vacancy_action" control="select" sqlType="integer" />	
+					
+					<field name="etat_type" prompt="Catégorie..." label="etat_type" type="text-choice" list="recruitment.candidate_etat_type" control="select" sqlType="integer" />
+					<field name="etat_next" prompt="Etat suivant..." label="etat_next" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_etat.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+					<field name="is_short_list" label="is_short_list" type="boolean" control="checkbox_boolean" />
+					<field name="is_default" label="is_default" type="boolean" control="checkbox_boolean" />
+					
+
+				</fields>
+			</table>
+
+			<table name="rct_candidate_etat_assoc">
+				<key mode="delete">
+					<field name="oid" type="oid" value="%{request:oid}" />
+				</key>
+				<key mode="candidate_etats">
+					<field name="candidate_oid" type="integer" relation="EQ" value="%{property:candidate_oid}" />
+				</key>
+				<fields mode="candidate_etats">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="etat_oid" label="etat_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_etat.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.candidate_vacancies" ds_format="{field:name} (N {field:code})" ds_field_value="oid" sqlType="integer" />
+				</fields>
+				<key mode="candidate_etat">
+					<field name="candidate_oid" type="integer" relation="EQ" value="%{property:candidate_oid}" />
+					<field name="etat_oid" type="integer" relation="EQ" value="%{request:etat_oid}" />
+				</key>
+				<fields mode="candidate_etat">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="etat_oid" label="etat_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_etat.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.candidate_vacancies" ds_format="{field:name} (N {field:code})" ds_field_value="oid" sqlType="integer" />
+				</fields>
+				<key mode="add">
+						<field name="etat_oid" type="integer" relation="EQ-OR-NULL"/>
+						<field name="candidate_oid" type="integer" relation="EQ-OR-NULL"/>
+				</key>
+				<fields mode="add">
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" value="%{property:candidate_oid}" show="hidden" />
+					<field name="etat_oid" label="etat_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_etat.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" value="%{request:etat_oid}" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.candidate_vacancies" ds_format="{field:name} (N {field:code})" ds_field_value="oid" sqlType="integer" value="%{property:vacancy_oid}"  />
+				</fields>
+				<key mode="by_candidate">
+					<field name="candidate_oid" type="text" size="50" value="%{property:candidate_oid}"/>
+				</key>
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="candidate_oid" label="candidate_oid" isProp="key" type="ref-oid" isKey="secondary" sqlType="integer" />
+					<field name="etat_oid" label="etat_oid" isProp="val" type="ref-oid" isKey="secondary" sqlType="integer" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.candidate_vacancies" ds_format="{field:name} (N {field:code})" ds_field_value="oid" sqlType="integer" />
+
+
+				</fields>
+			</table>
+		</tables>
+	</data>
+</nxl>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_interview WHERE _created_by='".$props->getProperty("user_oid","",true)."'"; ?>

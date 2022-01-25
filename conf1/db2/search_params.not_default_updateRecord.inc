@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_search_params SET _is_default='0'"; ?>

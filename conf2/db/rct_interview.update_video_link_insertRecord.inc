@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_interview(_video_link) VALUES(".$record->getFieldValue("video_link","DB","NULL").")"; ?>

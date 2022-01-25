@@ -1,0 +1,1400 @@
+<?xml version="1.0"?> 
+<!-- 
+
+___________________________________
+Presence Media | Rabat
+___________________________________
+Package   : Gestion des recrutements
+Module    : Cvthèque
+Composant : Annuaire
+Auteur    : Nadir Elasri
+Version   : 0.1
+___________________________________
+
+-->
+
+<include file = "candidate_card_lib.comp.nxl"/>
+<include file = "candidate_card_edit.comp.nxl"/>
+<include file = "../../vacancies/components/vacancy_lib.comp.nxl"/>
+<include file = "../../vacancies/components/interview_lib.comp.nxl"/>
+
+<xo:taglib 
+	uri					= "http://www.presencemedia.com/recruitment/candidates/components/directory.comp"
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/candidates/components/directory.comp"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"
+	
+	xmlns:card_lib		= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_lib.comp"
+	xmlns:card_edit		= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_edit.comp"
+	xmlns:vacancy_lib	= "http://www.presencemedia.com/recruitment/vacancies/components/vacancy_lib.comp"
+	xmlns:interview_lib	= "http://www.presencemedia.com/recruitment/vacancies/components/interview_lib.comp"
+	
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<!-- ================= COMPONENT ================ -->
+
+	<xo:tag name="main">
+	
+		<xo:param name="site_mode" value="user" />
+		<xo:param name="user_service" value="user" />
+		<xo:param name="path" />
+		<xo:param name="skin" value="intranet" />
+
+		<xo:param name="name" />
+		<xo:param name="application_name" value="#{$path}##{$name}#_"/>
+
+		<xo:param name="strings" />
+		
+		<xo:param name="service_class" />
+		<xo:param name="email_service_class" />
+		<xo:param name="service_class_denorm"/>
+		
+		<xo:param name="ds_list" />
+		<xo:param name="ds_find" />
+		
+		<xo:param name="ds_search" />
+		<xo:param name="ds_delete_etat" />
+		<xo:param name="ds_candidate_etats" />
+		<xo:param name="ds_candidate_etat" />
+		<xo:param name="ds_candidate_etats_add" />
+		<xo:param name="ds_add" />
+		<xo:param name="ds_candidate_etat_add" />
+		
+		<xo:param name="ds_add_process" />
+		
+		<xo:param name="ds_edit" />
+		
+		<xo:param name="ds_edit_process" />
+		
+		<xo:param name="ds_delete" />
+		<xo:param name="ds_delete_test" />
+		<xo:param name="ds_archive" />
+		<xo:param name="ds_relevance" />
+		
+		<xo:param name="ds_add_log" />
+		
+		<xo:param name="ds_comment" />
+		<xo:param name="ds_add_comment" />
+		<xo:param name="ds_get_comment" />
+		<xo:param name="ds_delete_comment" />
+
+		<xo:param name="ds_candidate_base" value="rct_candidate"/>
+		<xo:param name="ds_attached_files_base" />
+
+		<xo:param name="ds_get_log" />
+		<xo:param name="ds_vacancies_list" />
+		<xo:param name="ds_categories_list" />
+		<xo:param name="ds_tri_list" />
+		<xo:param name="ds_change_reading_state" />
+		
+		<xo:param name="ds_add_vacancy_assoc" />
+		<xo:param name="ds_get_vacancy_assoc" />
+		
+		<xo:param name="ds_send_to_client" />
+		<xo:param name="ds_send_to_client_process" />
+
+
+		<xo:param name="ds_send_to_many_client" />
+		<xo:param name="ds_send_to_many_client_process" />
+
+
+		<xo:param name="ds_mark_as_read" />
+		
+		<xo:param name="ds_export_list" />
+		<xo:param name="ds_candidate_vacancies" />
+		
+		<xo:param name="ds_candidate_interviews" />
+		<xo:param name="ds_delete_read_relation" />
+		<xo:param name="ds_list_stats" />
+		<xo:param name="ds_change_application_type" value="rct_vacancy.change_application_type@recruitment" />
+		
+		<xo:param name="ds_candidate_tests" />
+		<xo:param name="ds_candidate_test" />
+		<xo:param name="ds_candidate_tests_add" />
+
+		<xo:param name="ds_user_interviews" />
+		<xo:param name="ds_user_default_interviews" />
+		<xo:param name="template_test_assoc_record" />
+
+		<xo:param name="property_vacancies_records" value="page.vacancies_records"/>
+		<xo:param name="record_search" value="page.search"/>
+		<xo:param name="property_records" value="page.records"/>
+		<xo:param name="property_record" value="page.record"/>
+		<xo:param name="candidate_record" value="candidate.record" />
+		<xo:param name="candidate_vacancies_records" value="candidate_vacancies.records"/>
+		<xo:param name="candidate_categories_records" value="candidate_categories.records"/>
+		<xo:param name="tri_records" value="tri.records"/>
+		<xo:param name="candidate_interviews_records" value="candidate_interviews.records"/>
+		<xo:param name="candidate_log_records" value="candidate_log.records"/>
+		<xo:param name="interviews_records" value="interviews.records"/>
+
+
+		<xo:param name="service_class_stats"/>
+		<xo:param name="template_send_to_client_email"/>
+		<xo:param name="template_send_cvs_to_client"/>
+		<xo:param name="template_list"/>
+		<xo:param name="template_add_record"/>
+		<xo:param name="template_edit_record"/>
+		<xo:param name="template_preview"/>
+		<xo:param name="template_interviews_user"/>
+		
+		<xo:param name="template_redirect"/>
+		
+		<xo:param name="template_vacancy_massive_assoc"/>
+		<xo:param name="template_vacancy_assoc_record"/>
+		<xo:param name="template_relevance"/>
+		<xo:param name="template_attached_files"/>
+
+		<xo:param name="template_interview_add"/>
+		<xo:param name="template_interview_edit"/>
+		<xo:param name="template_interview_synthesis_add"/>
+		<xo:param name="template_interview_synthesis_edit"/>
+		<xo:param name="template_interview_synthesis_view"/>
+		<xo:param name="template_send_to_client" />
+		<xo:param name="template_stat" />
+		<xo:param name="template_xls_export" />
+		<xo:param name="template_etat_assoc_record" />
+		<xo:param name="template_comment"/>
+		<xo:param name="template_interview_wrapper"/>
+		<xo:param name="new_candidate_email_notification" />
+
+		<!-- protected="#{$user_service}#" -->
+		<pages xmlns="http://www.nxfrontier.com/nxl/page">
+			<page	
+				name		= "#{$name}#_v1" 
+				protected	= "#{$user_service}#" 
+				permissions	= "?-rh|?-drh"
+				path		= "#{$path}#"
+				cache		= "no"
+				lang		= "fr"
+				skin		= "#{$skin}#">
+				<exec logic="#{$application_name}#" strings="#{$strings}#">
+				</exec>
+			</page>
+			<page
+				name		= "#{$name}#"
+				protected	= "#{$user_service}#"
+				permissions	= "?-rh|?-drh"
+				path		= "#{$path}#"
+				cache		= "no" 
+				lang		= "fr"
+				skin		= "#{$skin}#">
+
+	include_once GENERIS_PACKAGES."workflow/lib/workflow/ExecuteApp.inc";
+	$forms = array();
+	$datasources = array();
+	$views = array();
+
+	/* call the application */
+	$page=new ExecuteApp(
+		array(
+			'app.id' => 'candidates@recruitment',
+			'app.defaultOperation' => 'list',
+			'app.role' => 'editor',
+			'app.forms' => $forms,
+			'app.datasources' => $datasources,
+			'app.views' => $views,
+			'application.dir'=>'application',
+
+			'page.logic' => 'recruitment.candidates.directory_'.'@recruitment',
+			// 'nxo'=>'nxo',
+
+			'nx.package' => 'recruitment',
+			'page.skin' => (isset($GLOBALS["DIRECTORY_APP_SKIN"])?$GLOBALS["DIRECTORY_APP_SKIN"]:"generis"),
+			'page.strings' => 'recruitment_candidates_directory@recruitment',
+		),
+		$siteDesc);
+
+	$page->run();
+
+			</page>
+		</pages>
+		
+		<!-- logic -->
+		<logic 
+			xmlns			= "http://www.nxfrontier.com/nxl/nxl"
+		   	xmlns:ds		= "http://www.nxfrontier.com/nxl/ds"
+		   	xmlns:button	= "http://www.nxfrontier.com/nxl/button">
+		
+			<application name="#{$application_name}#">
+				
+			<operation name="list">
+						
+				<step name="list">	
+							
+					<code>		
+
+												
+						<!--<bean:call 
+							class="#{$service_class}#" 
+							method="init_list_search" 
+							xmlns:bean  = "http://www.nxfrontier.com/nxl/bean" />-->
+
+						<tags_library:filter_key
+								ds_search		= "#{$ds_search}#"
+								searchData		= "searchData"
+
+								filterKey		= "filterKey"
+								record_search	= "#{$record_search}#"
+							/>
+									
+							<set name="property:alphabet_filter" value="#request:alphabet_filter#" />						
+							<ds:load media="db" ds="#{$ds_list}#" property="#{$property_records}#" multiple="yes" addProperties="no"  record="#$searchData#" />
+							<ds:load media="db" ds="#{$ds_vacancies_list}#" property="#{$property_vacancies_records}#" multiple="yes" addProperties="no" />
+							<ds:load media="db" ds="#{$ds_categories_list}#" property="#{$candidate_categories_records}#" multiple="yes" addProperties="no" />
+							<ds:load media="db" ds="#{$ds_tri_list}#" property="#{$tri_records}#" multiple="yes" addProperties="no" />
+
+							<button:set name="add" operation="add" >
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+								
+							<button:set name="edit" operation="edit" >
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="archive" operation="archive" >
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+								
+							<button:set name="delete" operation="delete">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+
+							<button:set name="preview_cv" operation="preview">
+								<button:param name="type" value="cv" />
+							</button:set>
+								
+							<button:set name="massive_associate_to_vacancy" operation="massive_associate_to_vacancy">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="massive_associate_to_vacancy_process" operation="massive_associate_to_vacancy" step="process">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="massive_relevance_process" operation="relevance" step="process">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="relevance" operation="relevance">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+
+							<button:set name="send_cvs_to_many_client" operation="send_cvs_to_many_client">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="category" operation="category" step="process">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+
+							<button:set name="statistics" operation="statistics" params="#property:filterKey#"/>
+							<button:set name="change_reading_state" operation="change_reading_state" />
+								
+							<button:set name="search" operation="list">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+								<button:param name="mode" value="ajax" />
+								<button:param name="search_in_archive" value="0" />
+								<button:param name="is_search" value="true" />					
+							</button:set>
+							
+							<button:set name="list" operation="list" >
+								<button:param name="mode" value="ajax" />
+								<button:param name="cancel" value="true" />
+							</button:set>
+
+							<button:set name="list_cancel_search" operation="list" >
+								<button:param name="mode" value="ajax" />
+								<button:param name="cancel" value="true" />
+							</button:set>
+							
+							<if condition="#request:is_search# == 'true'">
+								<set name="property:is_search" value="true" />
+							</if>
+							
+							<button:set name="search_in_archive" operation="list">
+								<button:param name="mode" value="ajax" />
+								<button:param name="search_in_archive" value="1" />
+							</button:set>
+							<button:set name="xls_export" operation="xls_export" params="#property:filterKey#" />
+								
+							<tags_library:display_view 
+									application_name	= "#{$application_name}#"
+									plain_page			= "_list_ajax"
+									wrapped_page		= "_list"
+								/>
+																							
+					</code>
+				</step>
+			</operation>
+								
+			<operation name="statistics">
+				<step name="statistics">	
+					<code>						
+		
+						<tags_library:filter_key 
+								ds_search		= "#{$ds_search}#"
+								searchData		= "searchData"
+								filterKey		= "filterKey"
+								record_search	= "#{$record_search}#"
+						/>
+			
+						<set name="property:alphabet_filter" value="#request:alphabet_filter#" />
+						<set name="property:stats_page" value="true" />
+						<set name="var:records">
+						<ds:load media="db" ds="#{$ds_list_stats}#" property="#{$property_records}#" multiple="yes" addProperties="no"  record="#$searchData#"/>
+						</set>
+						
+						<bean:call class="#{$service_class_stats}#" method="load_stats" params="#$records#" xmlns:bean  = "http://www.nxfrontier.com/nxl/bean" />
+			
+						<ds:load media="db" ds="#{$ds_vacancies_list}#" property="#{$property_vacancies_records}#" multiple="yes" addProperties="no" />
+			
+						<ds:load media="db" ds="#{$ds_categories_list}#" property="#{$candidate_categories_records}#" multiple="yes" addProperties="no" />
+										
+						<button:set name="search" operation="statistics">
+							<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							<button:param name="mode" value="ajax" />
+							<button:param name="search_in_archive" value="0" />
+							<button:param name="is_search" value="true" />
+						</button:set>
+						<button:set name="list" operation="list" params="#property:filterKey#"/>
+						
+						<if condition="#request:is_search# == 'true'">
+							<set name="property:is_search" value="true" />
+						</if>
+			
+						<button:set name="search_in_archive" operation="statistics">
+							<button:param name="mode" value="ajax" />
+							<button:param name="search_in_archive" value="1" />
+						</button:set>
+						
+						<tags_library:display_view 
+							application_name	= "#{$application_name}#"
+							plain_page			= "_stat_ajax"
+							wrapped_page		= "_stat"
+						/>
+					</code>
+				</step>
+			</operation>
+
+			<operation name="unlink_from_all">
+				<step name="unlink_unlink_from_all">	
+					<code>
+
+						<vacancy_lib:unlink_from_all candidate_oid 	= "#request:candidate_oid#" />
+						
+						<redirect operation="edit">
+							<url_param name="filterKey" value="#request:filterKey#" encode="true" />
+							<url_param name="oid" value="#request:candidate_oid#"/>
+						</redirect>
+						
+					</code>
+				</step>
+			</operation>
+			<operation name="unlink_candidate">
+					<step name="unlink_candidat">	
+						<code>
+
+							<vacancy_lib:unlink_candidate candidate_oid 	= "#request:candidate_oid#" />
+							
+							<redirect operation="edit">
+								<url_param name="filterKey" value="#request:filterKey#" encode="true" />
+								<url_param name="oid" value="#request:candidate_oid#"/>
+							</redirect>
+							
+						</code>
+					</step>
+				</operation>
+				<operation name="add_test">
+					<step name="add_test">
+						<code>
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+							<set name="property:test_oid" value="#request:test_oid#" />
+							<set name="property:pourcentage" value="#request:pourcentage#" />
+							<ds:store ds="#{$ds_candidate_tests_add}#" media="db" mode="#request:mode#" />
+							<ds:load media="db" ds="#{$ds_candidate_test}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+							<button:set name="delete_test" operation="delete_test">
+								<button:param name="candidate_oid" value="#property:candidate_oid#" />
+							</button:set>
+							<display view="#{$application_name}#_test_assoc"/>
+
+						</code>
+					</step>
+				</operation>
+
+				<operation name="delete_test">
+					<step name="process">	
+						<code>
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+							<set name="property:test_oid" value="#request:test_oid#" />
+
+							<ds:delete ds="#{$ds_delete_test}#" media="db" />	
+											
+						</code>
+					</step>
+				</operation>
+
+				<operation name="edit_etat">
+					<step name="edit_etat">
+						<code>
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+							<set name="property:etat_oid" value="#request:etat_oid#" />
+							<ds:store ds="#{$ds_candidate_etat_add}#" media="db" mode="update" />
+						</code>
+					</step>
+				</operation>
+
+				<operation name="add_etat">
+					<step name="add_etat">
+						<code>
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+							<set name="property:etat_oid" value="#request:test_oid#" />
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<ds:store ds="#{$ds_candidate_etats_add}#" media="db" mode="#request:mode#" />
+							<ds:load media="db" ds="#{$ds_candidate_etat}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+							<button:set name="delete_etat" operation="delete_etat"/>
+							<display view="#{$application_name}#_etat_assoc"/>
+
+						</code>
+					</step>
+				</operation>
+
+				<operation name="delete_etat">
+					<step name="process">	
+						<code>
+							
+							<ds:delete ds="#{$ds_delete_etat}#" media="db" />	
+											
+						</code>
+					</step>
+				</operation>
+
+				<operation name="add">
+					<step name="add">			
+						<code>
+							<ds:load media="empty" ds="#{$ds_add}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+
+							<!-- buttons -->									
+							<button:set name="list" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+				
+							<button:set name="submit" step="process">
+								<button:param name="filterKey" value="#request:filterKey#" encode="true" />
+							</button:set>
+							
+							<form view="#{$application_name}#_add"/>
+						</code>
+					</step>
+					<step name="process">
+						
+							<code>
+			
+			
+							<!--<ds:store ds="#{$ds_add_process}#" media="db" mode="insert">
+				
+							<ds:load media="post" ds="#{$ds_add}#" multiple="no" addProperties="no"/>
+			
+							</ds:store>
+			
+			
+							<set name="var:candidateOid">
+				
+							<ds:insert_id media="db" />
+							</set> -->
+							
+							<set name="var:candidateOid">
+								<bean:call
+									xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+									class		= "#{$service_class}#"
+									method		= "saveNewCV"
+									params		= ""
+								/>
+							</set>
+							
+							<card_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								candidate_oid		= "#var:candidateOid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "0"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							<bean:call
+										xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+										class		= "#{$service_class_denorm}#"
+										method		= "partial"
+										params		= "#var:candidateOid#"
+								/>
+							
+							<button:set name="edit" operation="edit">
+								<button:param name="oid" value="#var:candidateOid#" />
+								<button:param name="filterKey" value="#request:filterKey#" encode="true" />
+							</button:set>
+							
+							<display view="#{$application_name}#_redirect"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="xls_export">
+					<step name="xls_export">
+						<code>
+							<set name="var:searchData">
+								<ds:load media="request" ds="#{$ds_search}#" property="#{$record_search}#" multiple="no" addProperties="no"/>
+							</set>
+										
+							<ds:load media="handler" ds="#{$ds_export_list}#" property="#{$property_records}#" multiple="yes" addProperties="yes" record="#$searchData#" />
+							<script language="php"> 
+								$gen_file = 'liste_candidats_'.date('jmyHd');
+							</script>
+										   
+							<set name="property:file.name" value="#$gen_file#"/>	
+		 
+							<display view="#{$application_name}#_xls" type="xls" />
+						</code>
+					</step>
+				</operation>
+
+				<operation name="send_to_client">
+					<step name="display">
+						<code>
+						
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+							
+							<ds:load media="empty" ds="#{$ds_send_to_client}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							
+							<!-- buttons -->
+							<button:set name="edit" operation="edit">
+								<button:param name="oid" value="#request:candidate_oid#" />
+							</button:set>
+
+							<button:set name="submit" step="process" />
+							
+							<form view="#{$application_name}#_send_to_client"/>
+
+						</code>
+					</step>
+					<step name="process">
+						<code>
+						
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+
+							<ds:store ds="#{$ds_send_to_client_process}#" media="db" mode="insert">
+								<ds:load media="post" ds="#{$ds_send_to_client}#" multiple="no" addProperties="no"/>
+							</ds:store>
+
+							<set name="var:relationOid">
+								<ds:insert_id media="db" />
+							</set>
+
+							<tpl:screen
+								xmlns		= "http://www.nxfrontier.com/tpl/tpml"
+								xmlns:tpl	= "http://www.nxfrontier.com/tpl/tpml"
+								name		= "send_to_client_email_view"
+								trace		= "yes">
+								<load view="#{$template_send_to_client_email}#" />
+							</tpl:screen>
+
+							<card_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								candidate_oid		= "#request:candidate_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "5"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+
+							<bean:call
+								xmlns:bean	= "http://www.nxfrontier.com/nxl/bean"
+								class		= "#{$email_service_class}#"
+								method		= "sendToManyClients"
+								params		= "#var:relationOid#"
+							/>
+							
+						</code>
+					</step>
+				</operation>
+
+
+				<operation name="edit">
+					<step name="edit">	
+						<code>
+							
+							<card_edit:edit application_name="#{$application_name}#" />
+							<set name="var:viewMode" value="ajax" />
+							<if condition="in_array(#get:mode#,array('page','ajax'))">
+								<set name="var:viewMode" value="#get:mode#" />
+							</if>
+							<choose>
+								<when test="$viewMode == 'page'">
+										<display view="#{$application_name}#_edit" />
+								</when>
+								<otherwise>
+									<display view="#{$application_name}#_edit_ajax" />
+								</otherwise>
+							</choose>
+							
+						</code>
+					</step>
+					<step name="process">
+						<code>
+							
+							<card_edit:process application_name="#{$application_name}#" />
+							<bean:call
+										xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+										class		= "#{$service_class_denorm}#"
+										method		= "partial"
+										params		= "#property:candidate_oid#"
+							/>
+							<button:set name="edit" operation="edit">
+								<button:param name="oid" value="#property:candidate_oid#" />
+								<button:param name="filterKey" value="#request:filterKey#" encode="true" />
+							</button:set>
+							
+							<display view="#{$application_name}#_redirect"/>
+							
+						</code>
+					</step>
+				</operation>
+
+				<operation name="add_comment">
+					<step name="add_comment">
+						<code>
+							
+							<ds:store ds="#{$ds_add_comment}#" media="db" mode="insert">
+								<ds:load media="post" ds="#{$ds_comment}#" multiple="no" addProperties="no"/>
+							</ds:store>
+												
+							<set name="property:comment_oid">
+								<ds:insert_id media="db" />
+							</set>
+							
+							<button:set name="delete_comment" operation="delete_comment">
+								<button:param name="candidate_oid" value="#property:candidate_oid#" />
+							</button:set>
+							
+							<ds:load media="db" ds="#{$ds_get_comment}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+							
+							<display view="#{$application_name}#_comment"/>			
+						</code>
+					</step>
+				</operation>
+				<operation name="delete_comment">
+					<step name="process">	
+						<code>
+							
+							<ds:delete ds="#{$ds_delete_comment}#" media="db" />	
+											
+						</code>
+					</step>
+				</operation>
+
+				<operation name="preview">
+					<step name="preview">	
+						<code>
+							
+							<card_lib:preview application_name="#{$application_name}#" />
+							
+						</code>
+					</step>
+				</operation>
+
+				<operation name="download">
+					<step name="download">	
+						<code>
+							
+							<card_lib:download application_name="#{$application_name}#" />
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="associate_to_vacancy">
+					<step name="associate_to_vacancy">	
+						<code>
+							
+							<card_lib:associate_to_vacancy application_name="#{$application_name}#" />
+							
+							<vacancy_lib:change_progress_level
+								vacancy_oid 	= "#property:vacancy_oid#"
+								progress_level 	= "3"	
+							/>
+							
+						</code>
+					</step>
+				</operation>
+
+
+				<!-- ATTACHED FILES -->
+
+				<operation name="attached_files">
+					<step name="attached_files">	
+						<code>
+							
+							<ds:load media="empty" ds="#{$ds_attached_files_base}#.record" property="attached_file.new.record" multiple="no" addProperties="no" />
+							<ds:load media="db" ds="#{$ds_attached_files_base}#.list" property="attached_files.records" multiple="yes" addProperties="no" />			
+							<display view="#{$template_attached_files}#"/>
+
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="add_attached_files">
+					<step name="add_attached_files">
+						<code>
+							
+							<ds:store ds="#{$ds_attached_files_base}#.record" media="db" mode="insert">
+								<ds:load media="request" ds="#{$ds_attached_files_base}#.record" multiple="no" addProperties="no"/>
+							</ds:store>
+																																
+							<redirect operation="edit">
+								<url_param name="mode" value="page"/>
+								<url_param name="tab" value="recruitement_card"/>
+								<url_param name="oid" value="#request:candidate_oid#"/>
+								<url_param name="candidate_oid" value="#request:candidate_oid#"/>
+							</redirect>					
+						</code>
+					</step>
+				</operation>
+
+				<operation name="delete_attached_file">
+					<step name="process">	
+						<code>							
+							<ds:delete ds="#{$ds_attached_files_base}#.record" media="db" />				
+						</code>
+					</step>
+				</operation>
+
+
+				<!-- INTERVIEWS -->
+				
+				<operation name="add_interview">
+					<step name="add_interview">	
+						<code>
+
+							<interview_lib:candidate_init_operation 
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "add_interview"
+							/>
+							
+							<interview_lib:add_interview 
+								ds_interview_add	= "rct_interview.add_to_candidate@recruitment"
+								previous_operation	= "edit"
+								previous_op_label	= "#string:back_to_candidate#"
+								previous_op_param	= "#request:candidate_oid#"
+							/>
+							<set name="property:user_oid" value="#user:oid#"/>
+	
+							<button:set name="preview_cv" operation="preview">
+								<button:param name="type" value="cv" />
+								<button:param name="candidate_oid" value="#request:candidate_oid#" />
+							</button:set>	
+
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+							<ds:load media="db" ds="#{$ds_candidate_base}#.manage_cv_etat" property="candidate.record" multiple="no" addProperties="no" />
+							
+							<ds:load media="db" ds="#{$ds_user_default_interviews}#" property="#{$interviews_records}#" multiple="yes" addProperties="no" />
+							<display view="#{$application_name}#_interview_add"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="add_interview_process">
+					<step name="add_interview_process">	
+						<code>
+							
+							<interview_lib:add_interview_process
+								ds_interview_add = "rct_interview.add_to_candidate@recruitment"
+							/>
+							
+						</code>
+					</step>
+				</operation>
+
+				<operation name="user_interviews">
+					<step name="user_interviews">	
+						<code>
+							
+							<ds:load media="db" ds="#{$ds_user_interviews}#" property="#{$interviews_records}#" multiple="yes" addProperties="no" />
+							
+							<display view="#{$application_name}#_interviews_user"/>
+
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="delete_interview">
+					<step name="delete_interview">	
+						<code>
+							<interview_lib:delete								
+								po_param_name_1		= "candidate_oid"
+								po_param_1			= "#request:candidate_oid#"
+							/>			
+							
+							<card_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								candidate_oid		= "#request:candidate_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "6"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+											
+							<redirect operation="edit">
+								<url_param name="oid" value="#request:candidate_oid#"/>
+							</redirect>					
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="edit_interview">
+					<step name="edit_interview">	
+						<code>
+
+							<interview_lib:edit_interview
+								ds_interview_edit	= "rct_interview.edit_to_candidate@recruitment"
+								previous_operation	= "edit"
+								previous_op_label	= "#string:back_to_candidate#"
+								previous_op_param	= "#request:candidate_oid#"
+								po_param_name_1		= "candidate_oid"
+								po_param_1			= "#request:candidate_oid#"
+							/>							
+
+							<set name="property:user_oid" value="#user:oid#"/>
+
+							<button:set name="preview_cv" operation="preview">
+								<button:param name="type" value="cv" />
+								<button:param name="candidate_oid" value="#request:candidate_oid#" />
+							</button:set>	
+
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+							<ds:load media="db" ds="#{$ds_candidate_base}#.manage_cv" property="candidate.record" multiple="no" addProperties="no" />
+							
+							<ds:load media="db" ds="#{$ds_user_default_interviews}#" property="#{$interviews_records}#" multiple="yes" addProperties="no" />
+							<display view="#{$application_name}#_interview_edit"/>
+							
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="edit_interview_process">
+					<step name="edit_interview_process">	
+						<code>
+						
+							<interview_lib:edit_interview_process
+								ds_interview_edit = "rct_interview.edit_to_candidate@recruitment"
+							/>
+														
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="interview_download">
+					<step name="interview_download">
+						<code>
+						
+							<interview_lib:interview_download
+								application_name="#{$application_name}#" 
+							/>
+													
+						</code>
+					</step>
+					<step name="interview_download_candidate">
+						<code>
+						
+							<interview_lib:interview_download
+								ds_interview_attached_files_download="rct_interview_attached_file_candidate.get_record@recruitment"
+								application_name="#{$application_name}#" 
+							/>
+													
+						</code>
+					</step>
+					<step name="interview_download_interviewers">
+						<code>
+						
+							<interview_lib:interview_download
+								ds_interview_attached_files_download="rct_interview_attached_file_interviewers.get_record@recruitment"
+								application_name="#{$application_name}#" 
+							/>
+													
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="add_interview_synthesis">
+					<step name="add_interview_synthesis">	
+						<code>
+							
+							<!-- Utilisé pour récupérer le nom et le prénom du candidat -->
+							<ds:load media="db" ds="#{$ds_find}#" property="#{$candidate_record}#" multiple="no" addProperties="no"/>
+							
+							<interview_lib:add_interview_synthesis
+								po_param_name_2	= "candidate_oid"
+								po_param_2		= "#request:candidate_oid#"
+								
+							/>							
+							<display view="#{$application_name}#_interview_synthesis_add"/>
+							
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="add_interview_synthesis_process">
+					<step name="add_interview_synthesis_process">	
+						<code>
+													
+							<interview_lib:add_interview_synthesis_process />
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="edit_interview_synthesis">
+					<step name="edit_interview_synthesis">	
+						<code>
+						
+							<ds:load media="db" ds="#{$ds_find}#" property="#{$candidate_record}#" multiple="no" addProperties="no"/>
+							
+							<interview_lib:edit_synthesis
+								po_param_name_2	= "candidate_oid"
+								po_param_2		= "#request:candidate_oid#" 
+							/>							
+							<display view="#{$application_name}#_interview_synthesis_edit"/>
+							
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="edit_interview_synthesis_process">
+					<step name="edit_interview_synthesis_process">	
+						<code>						
+							
+							<interview_lib:edit_synthesis_process
+								application_name="#{$application_name}#" 
+							/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="view_interview_synthesis">
+					<step name="view_interview_synthesis">	
+						<code>
+						
+							<interview_lib:view_interview_synthesis
+								po_param_name_2	= "candidate_oid"
+								po_param_2		= "#request:candidate_oid#" 
+							/>							
+							<display view="#{$application_name}#_interview_synthesis_view"/>
+							
+						</code>
+					</step>
+				</operation>
+							
+				<!-- Step appelée au niveau de la liste -->
+				<operation name="massive_associate_to_vacancy">
+					<step name="display">
+						<code>
+							
+							<set name="property:candidates_oid" value="#request:oid#" />
+							<ds:load media="db" ds="#{$ds_vacancies_list}#" property="#{$property_records}#" multiple="yes" addProperties="no"/>
+							<button:set name="submit" step="process" />	
+							<button:set name="list" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>					
+							<display view="#{$application_name}#_vacancy_massive_assoc"/>
+							
+						</code>				
+					</step>
+					<step name="process">
+						<code>
+						
+							<set name="var:candidates_oids">
+								<bean:call
+									xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+									class		= "#{$service_class}#"
+									method		= "saveAssociations"
+									params		= "#request:candidates_oid#,#request:vacancy_oid#"
+								/>
+							</set>
+							
+							<if condition="count(#var:candidates_oids#) GT 0">
+								<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+								<set name="property:application_type" value="0" />
+								<ds:store ds="#{$ds_change_application_type}#" media="db" mode="update" />
+							</if>
+							
+							
+							<foreach sequence="#var:candidates_oids#" index="i" item="value">
+											
+								<vacancy_lib:add_candidate_vacancy_log
+									candidate_oid 		= "#var:value#"
+									vacancy_oid			= "#request:vacancy_oid#"
+									action_oid			= "0" />
+								
+							</foreach>
+							
+							<vacancy_lib:change_progress_level
+								vacancy_oid 	= "#request:vacancy_oid#"
+								progress_level 	= "3"	
+							/>
+														
+							<redirect operation="list" params="#request:filterKey#" encode="true">
+								<url_param name="mode" value="ajax"/>
+								<url_param name="is_search" value="true"/>
+							</redirect>
+
+
+						</code>				
+					</step>
+				</operation>
+				
+				<!-- Association des candidats à une catégorie -->
+				<operation name="category">
+					<step name="process">
+						<code>
+							
+							<bean:call
+								xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+								class		= "#{$service_class}#"
+								method		= "saveCategoryAssociations"
+								params		= "#request:candidates_oid#,#request:category_oid#"
+							/>
+														
+							<redirect operation="list" params="#request:filterKey#" decode="true">
+								<url_param name="mode" value="ajax"/>
+							</redirect>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<!-- Step appelée au niveau de la liste -->
+				<operation name="relevance">
+					<step name="display">
+						<code>
+							
+							<set name="property:candidates_oid" value="#request:oid#" />
+							<button:set name="submit" step="process" />	
+							<button:set name="list" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+							<display view="#{$application_name}#_relevance"/>
+							
+						</code>				
+					</step>
+					<step name="process">
+						<code>
+							
+							<if condition="#request:relevance_oid# != '?' && #request:relevance_oid# != ''">
+								<set name="property:relevance_oid" value="#request:relevance_oid#" />
+								<ds:store ds="#{$ds_relevance}#" media="db" mode="update" />
+							</if>
+							<set name="property:filterKey" value="#request:filterKey#"/>
+							<redirect operation="list" params="#request:filterKey#" decode="true">
+								<url_param name="mode" value="ajax"/>
+							</redirect>
+
+						</code>				
+					</step>
+				</operation>
+				
+				<operation name="change_reading_state">
+					<step name="change_reading_state">	
+						<code>
+							
+							<!--<if condition="in_array(#request:reading_state#, array(1,0))">
+								<set name="property:reading_state" value="#request:reading_state#" />
+								<ds:store ds="#{$ds_change_reading_state}#" media="db" mode="update" />
+							</if>-->
+							
+							<choose>
+								<when test="#request:reading_state# == '1'">
+									
+									<!--// Virer la relation-->
+									<ds:delete ds="#{$ds_delete_read_relation}#" media="db" />
+									
+								</when>
+								<otherwise>
+									
+									<!--// Ajouter la relation-->
+									<load>
+										<bean:call
+											xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+											class		= "#{$service_class}#"
+											method		= "insertReadState"
+											params		= "#user:oid#,#request:oid#"
+										/>
+									</load>
+									
+								</otherwise>
+							</choose>
+							
+							
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				<operation name="delete">
+					
+					<step name="delete">	
+						
+						<code>
+							<ds:delete ds="#{$ds_delete}#" media="db" />	
+											
+							
+								<redirect operation="list" params="#request:filterKey#" encode="false">
+								
+									<url_param name="mode" value="ajax"/>
+							
+								</redirect>
+						</code>
+					
+					</step>
+				
+				</operation>
+
+				<operation name="send_cvs_to_many_client">
+					
+					<step name="display">
+						<code>
+						
+							<set name="property:candidates_oid" value="#request:candidates_oid#" />
+							
+							<ds:load media="empty" ds="#{$ds_send_to_many_client}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							
+							<!-- buttons -->
+							<button:set name="list" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+							
+							<button:set name="submit" operation="send_cvs_to_many_client" step="process">
+								<button:param name="candidates_oid" value="#request:candidates_oid#" />
+							</button:set>
+							
+							<form view="#{$application_name}#_send_cvs_to_client"/>
+								
+							
+						</code>
+					</step>
+					<step name="process">
+						<code>
+						
+														<script language="php">
+								$candidateOids = explode('|',trim($_REQUEST['candidates_oid'],'|'));
+								$candidates = $_REQUEST['candidates_oid'];
+								foreach($candidateOids as $c) {
+									$_REQUEST['candidates_oid'] = $c;
+									$this->putRecord(
+										$this->getRecord('rct_candidate_client.add_many','page.record','post',false,null,null),'rct_candidate_client.add_many','insert','db','Object',null);
+								
+									$relationOid=
+										$this->getLastInsertID('db');
+									$this->putRecord(
+										$_nx_record_data11=array(
+												'candidate_oid'=>$c,
+												'user_oid'=>$GLOBALS["_NX_user"]->getProperty("oid",""),
+												'action_oid'=>'5',
+												'ref_oid'=>'',
+												'additional_infos'=>'',),'rct_candidate_action.record','insert','db','Object',null);
+								}
+								$_REQUEST['candidates_oid'] = $candidates;
+							</script>
+							<!--<ds:store ds="#{$ds_send_to_many_client_process}#" media="db" mode="insert">
+								<ds:load media="post" ds="#{$ds_send_to_many_client}#" multiple="no" addProperties="no"/>
+							</ds:store>
+							
+							<set name="var:relationOid">
+								<ds:insert_id media="db" />
+							</set>
+							
+							<card_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								candidates_oid		= "#request:candidates_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "5"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							-->
+							<tpl:screen 
+								xmlns		= "http://www.nxfrontier.com/tpl/tpml"  
+								xmlns:tpl	= "http://www.nxfrontier.com/tpl/tpml"
+								name		= "send_to_client_email_view" 
+								trace		= "yes">
+								<load view="#{$template_send_to_client_email}#" />
+							</tpl:screen>
+							
+							
+							<bean:call
+								xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+								class		= "#{$email_service_class}#"
+								method		= "sendManyCvsToManyClients"
+								params		= "#var:relationOid#"
+							/>
+							
+						</code>
+					</step>
+				
+				</operation>
+
+				
+				
+				<operation name="archive">
+					
+					<step name="archive">	
+						
+						<code>
+							<ds:store ds="#{$ds_archive}#" media="db" mode="update" />
+							<set name="var:oids" value="#request:oid#" />
+							<script language="php">
+								$oids = explode('|', $oids);
+							</script>
+							
+							<foreach sequence="$oids" index="i" item="value">
+								<card_lib:addlog
+									ds_add_log			= "#{$ds_add_log}#"
+									candidate_oid		= "#$value#"
+									user_oid			= "#user:oid#"
+									action_oid			= "2"
+									ref_oid				= ""
+									additional_infos	= ""
+								/>
+								</foreach>
+								<redirect operation="list" params="#request:filterKey#">
+								
+									<url_param name="mode" value="ajax"/>
+							
+								</redirect>
+							</code>
+					
+						</step>
+				
+					</operation>
+
+					
+					
+					
+
+			</application>
+		</logic>
+		
+		<!-- views -->
+		<tpl:screens xmlns="http://www.nxfrontier.com/tpl/tpml"  xmlns:tpl="http://www.nxfrontier.com/tpl/tpml" skin="default">
+			  
+			<tpl:screen name="#{$application_name}#_list" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_list}#" />
+				</zone>
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_list_ajax" trace="yes">
+				<load view="#{$template_list}#" />
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_interviews_user" trace="yes">
+				<load view="#{$template_interviews_user}#" />
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_edit" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_edit_record}#" />
+				</zone>
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_edit_ajax" trace="yes">
+				<load view="#{$template_edit_record}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_add" trace="yes">
+				<load view="#{$template_add_record}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_preview" trace="yes">
+				<load view="#{$template_preview}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_vacancy_assoc" trace="yes">
+				<load view="#{$template_vacancy_assoc_record}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_redirect" trace="yes">
+				<load view="#{$template_redirect}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_send_to_client" trace="yes">
+				<load view="#{$template_send_to_client}#" />
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_send_cvs_to_client" trace="yes">
+				<load view="#{$template_send_cvs_to_client}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_vacancy_massive_assoc" trace="yes">
+				<load view="#{$template_vacancy_massive_assoc}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_relevance" trace="yes">
+				<load view="#{$template_relevance}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_add" trace="yes" inherit="#{$template_interview_wrapper}#" >
+				<zone>
+					<load view="#{$template_interview_add}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_edit" trace="yes">
+				<load view="#{$template_interview_edit}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_synthesis_add" trace="yes">
+				<load view="#{$template_interview_synthesis_add}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_synthesis_edit" trace="yes">
+				<load view="#{$template_interview_synthesis_edit}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_synthesis_view" trace="yes">
+				<load view="#{$template_interview_synthesis_view}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="new_candidate_email_notification" trace="yes">
+				<load view="#{$new_candidate_email_notification}#" />
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_etat_assoc" trace="yes">
+				<load view="#{$template_etat_assoc_record}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_stat" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_stat}#" />
+				</zone>
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_stat_ajax" trace="yes">
+				<load view="#{$template_stat}#" />
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_xls" trace="yes">
+				<load view="#{$template_xls_export}#" />
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_test_assoc" trace="yes">
+				<load view="#{$template_test_assoc_record}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_comment" trace="yes">
+				<load view="#{$template_comment}#" />
+			</tpl:screen>
+
+			</tpl:screens>
+		
+	</xo:tag>
+</xo:taglib>

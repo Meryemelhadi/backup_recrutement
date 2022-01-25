@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+	<!-- tables definitions -->
+	<tables  init="create">
+		<table name="rct_channel">
+			<fields>
+			
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="to_email" label="to_email"  type="line" size="200" />
+
+				<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+
+			</fields>
+		</table>
+
+	</tables>
+		
+	<!-- DML Views (gernerating SQL requests)-->
+	<views>
+		<view name="rct_channel.list" table="rct_channel">
+			<key>
+				<field name="name" label="name"  type="line" relation="like"/>
+				<field name="establishment" type="text-choice" relation="eq-match" />
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="15" />				
+		
+			<sort>
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="to_email" label="to_email"  type="line" size="200" />
+
+				<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+			</fields>		
+		</view>
+		
+		<view name="rct_channel.get_stage" table="rct_channel">
+		    <key>
+                <field name="name" label="name"  type="line" relation="like" value="stag"/>
+            </key>
+            <fields>
+                <field name="oid" label="oid" type="oid" isKey="primary"/>
+            </fields>
+		</view>
+
+		<view name="rct_channel.ds_list" table="rct_channel">
+			<sort>
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="to_email" label="to_email"  type="line" size="200" />
+			</fields>
+		</view>
+
+		<view name="rct_channel.by_email" table="rct_channel">
+			<key>
+				<field name="to_email" label="to_email"  type="line" size="200" relation="like" value="%{property:email}"/>
+			</key>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="to_email" label="to_email"  type="line" size="200" />
+				<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+			</fields>		
+		</view>
+
+		<view name="rct_channel.excel" table="rct_channel">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+			</key>
+			<sort>
+				<field name="name" direction="asc"/>
+			</sort>
+			<fields>
+				<field name="oid" label="object_id" type="oid" isKey="primary" show="hidden" isEdit="no" />
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="to_email" label="to_email"  type="line" size="200" />
+				<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+			</fields>
+		</view>
+		
+		<view name="rct_channel.search" table="rct_channel">
+			<fields>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+				<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+			</fields>
+		</view>
+
+		<view name="rct_channel.record" table="rct_channel">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="to_email" label="to_email"  type="line" size="200" />
+				<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+			</fields>
+		</view>
+		
+		<view name="rct_channel.by_oid" table="rct_channel">
+			<key>
+				<field name="oid"  value="%{property:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="to_email" label="to_email"  type="line" size="200" />
+				<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+			</fields>
+		</view>				
+
+		<view name="rct_channel.add" table="rct_channel">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="to_email" label="to_email"  type="line" size="200" />
+				<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+			</fields>
+		</view>				
+	</views>
+	
+</data>
+</nxl>

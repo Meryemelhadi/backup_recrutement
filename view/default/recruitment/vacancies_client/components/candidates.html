@@ -1,0 +1,61 @@
+<div class="pm-grid-outer-wrapper">
+
+	{$noRecords = 'yes'}
+	{if:#=candidates_selected.records# || #=short_lists.records# || #=candidates_proposed.records#}
+	<div class="directory-grid-wrapper" id="candidates_list_grid">
+
+		
+		{if:#=candidates_selected.records#}
+			<!--! {records:candidates_selected.records} -->
+			{if:records.count>0}
+			{$noRecords='no'}
+				<h3 class="grid-header">{string:"title_selected_candidates"}</h3>
+				<?php $currentGroup = 'accepted_candidates'; ?>
+				<!--! {record} -->
+				{include:recruitment/vacancies_client/components/candidates_list}
+				<!--! {/record} -->
+			{/if}
+			<!--! {/records} -->
+		{/if}
+		
+		{if:#=short_lists.records#}
+			<!--! {records:short_lists.records} -->
+			{if:records.count>0}
+			{$noRecords = 'no'}
+				<h3 class="grid-header">{string:"title_short_lists"}</h3>
+				<?php $currentGroup = 'short_lists'; ?>
+				<!--! {record} -->
+				{include:recruitment/vacancies_client/components/short_lists}
+				<!--! {/record} -->
+			{/if}
+			<!--! {/records} -->
+		{/if}
+
+		{if:#=candidates_proposed.records#}
+			<!--! {records:candidates_proposed.records} -->
+			{if:records.count>0}
+			{$noRecords = 'no'}
+				<h3 class="grid-header">{string:"title_proposed_candidates"}</h3>
+				<?php $currentGroup = 'proposed_candidates'; ?>
+				<!--! {record} -->
+				{include:recruitment/vacancies_client/components/propositions_list}
+				<!--! {/record} -->
+			{/if}
+			<!--! {/records} -->
+		{/if}
+	
+
+	</div>
+	<script>
+		PMDH.Skin.LightSky.Grid.init('', {
+			wrapperClass	: 'directory-grid-wrapper',
+			gridClass		: 'directory-grid',
+			gridRowClass	: 'directory-grid-row'
+		});
+	</script>
+	{/if}
+	{if:#var:noRecords# == 'yes'}
+	<div class="empty-records">{string:"empty_candidates_list"}</div>
+	{/if}
+	
+</div>

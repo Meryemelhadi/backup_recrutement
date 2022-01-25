@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_email_title,_email_content FROM _rct_email_sample"; ?>

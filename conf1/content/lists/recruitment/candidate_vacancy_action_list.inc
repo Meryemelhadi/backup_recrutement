@@ -1,0 +1,15 @@
+<?php $list=array(
+'0' => 'Linked to job vacancy',
+'1' => 'In short-list',
+'2' => 'For review by internal client',
+'3' => 'Email sent to candidate',
+'4' => 'Interview',
+'5' => 'Validated by internal client',
+'6' => 'Not validated by internal client',
+'7' => 'Validated for the job',
+'8' => 'Rejected',
+'9' => 'Proposal sent',
+'10' => 'Proposal accepted',
+'11' => 'Proposal not accepted',
+'12' => 'Note',
+); ?>

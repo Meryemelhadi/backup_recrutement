@@ -1,0 +1,60 @@
+<script language="php">
+	$candidates = new PersistentCollection('handler:rct_interview.by_user_day_future_candidates@recruitment','handler');
+	$this->setProperty('candidates.records',$candidates->records);
+	$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+</script>
+
+{records:candidates.records}
+<div class="homepage-box box-theme-green">
+
+    <h4 class="homepage-box-title">{string:"Mes candidats à rencontrer"}</h4>
+
+    <div class="homepage-box-articles-list">
+
+        {record}
+
+        <script language="php">
+	$editUrl = PORTAL_URL_PREFIX.'/recruitment/manager_candidates/coid-'.$_nx_record->candidate_oid->object.'/index.php?nxo=edit&mode=page&oid='.$_nx_record->candidate_oid->object.'&from_home=1';
+</script>
+
+        <div class="article {if:record.is_first}first{/if} clear-both">
+            <div ><a href="{var:editUrl}">
+                <b><span>{field:date:short} : </span><span>{field.html:candidate_oid}</span> </b><span>,{field:zip} {field:town_name}</span></a> </div>
+            <div><b>Première réception</b>: {field:creation_date:short}
+                <?php
+	if(!$_nx_record->update_date->isEqual($_nx_record->creation_date))
+                {
+                ?>
+                ,<b> Mise à jour CV </b>: {field:update_date:short}
+                <?php
+	}
+
+	$update_info_date = $_nx_record->update_info_date->time;
+                if($_nx_record->update_info_date->isOk())
+                {
+                ?>
+                , <b>Mise à jour fiche recrutement</b> : {field:update_info_date}
+                <?php
+	}
+?>
+            </div>
+
+            {if:%field:synthesis_oid% != 0}
+            <a href="{var:PORTAL_URL_PREFIX}/recruitement2/interview_manager.php?nxo=interview_evaluation:edit_by_interview&oid={field:interview_oid}&mode=page" style="background: #5382F5 none repeat scroll 0% 0%; border: medium none rgb(76, 158, 217); margin-left: 10px; border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;float:right">Voir fiche d'évaluation</a>
+            {else}
+            <a href="{var:PORTAL_URL_PREFIX}/recruitement2/interview_manager.php?nxo=interview_evaluation:edit_by_interview&oid={field:interview_oid}&mode=page" style="background: #5382F5 none repeat scroll 0% 0%; border: medium none rgb(76, 158, 217); margin-left: 10px; border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;float:right">Créer fiche d'évaluation</a>
+            {/if}
+            <a  href="{var:editUrl}" id={field:interview_oid}&mode=page" style="background: none repeat scroll 0% 0% #76A42E; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;float:right">Voir fiche candidat</a>
+
+        </div>
+        {/record}
+        {no_record}
+        <div class="article {if:record.is_first}first{/if} clear-both">
+            <div class="article-title">{string:"Vous n'avez pas encore de CV dans la base"}</div>
+        </div>
+        {/no_record}
+
+    </div>
+
+</div>
+{/records}

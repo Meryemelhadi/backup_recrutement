@@ -1,0 +1,76 @@
+{records:page.records}
+{record}
+<div class="pm-bx-subform-wrapper">
+	
+	<div class="pm-bx-form">
+		<div class="record_wrapper">
+		
+		
+			<div class="record">			
+	
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:diploma}</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">
+							{field:diploma}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:diploma_type}</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">
+							{field:diploma_type}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:institution}</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">
+							{field:institution}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{string:"diploma_date"}</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">
+							{field:date}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:description}</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control">
+							{field:description}
+						</div>
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+
+</div>
+{/record}
+{/records}
+{no_record}
+<div class="empty-records">{string:"empty_education_list"}</div>
+{/no_record}

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_vacancy_readonly WHERE _oid in('".$props->getProperty("cat.enum","",true)."')"; ?>

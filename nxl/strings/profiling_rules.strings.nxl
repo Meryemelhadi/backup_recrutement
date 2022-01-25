@@ -1,0 +1,115 @@
+
+<nxl version="1.0"
+	xmlns="http://www.nxfrontier.com/nxl/nxl" 
+	package="recruitment"
+>
+
+	<!-- French Strings -->
+	<i8n:strings name="profiling_rules" lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:i8n="http://www.nxfrontier.com/nxl/i8n">
+
+		<i8n:string id="page_title" value="La liste des Règles" />
+		
+		<i8n:string id="create record" value="Création Règle" />
+
+		<i8n:string id="list records" value="Liste des Règles" />
+		<i8n:string id="add record" value="Ajout d\'une nouveau Règle" />
+		<i8n:string id="edit record" value="Traitement Règle" />
+		<i8n:string id="exec action" value="Traitement Règle" />
+		<i8n:string id="page_title_view" value="Détails de l' Règle" />
+		
+		<i8n:string id="items_search" value="Règle(s) trouvé(s)" />	
+		<i8n:string id="edit_helper" value="Editer" />	
+		<i8n:string id="delete_helper" value="Supprimer" />	
+		<i8n:string id="legend" value="Légende" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des Règles" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d\'ajouter une nouveau Règle" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier l' Règle sélectionné" />
+		<i8n:string id="page_message_view" value="Détails de l' Règle sélectionné" />
+		
+		<i8n:string id="page_message_list_details" value="Cliquer sur une Règle pour en visualiser les détails" />
+		<i8n:string id="page_message_add_details" value="Après avoir remplis les champs de l' formulaire, cliquer sur envoyer pour ajouter l' nouveau Règle" />
+		<i8n:string id="page_message_edit_details" value="Cliquer sur \'Envoyer\' pour valider les modifications et revenir à la liste des Règle, ou sur \'Retour\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" value="Cliquer sur \'Retour\' pour revenir à la liste des Règles" />
+
+		<i8n:string id="dlg_wait_title" value="Veuillez patienter" />
+		<i8n:string id="dlg_wait_content" value="En cours d\'ajout des nouvelles données" />
+
+		<i8n:string id="dlg_success_title" value="Action réussie" />
+		<i8n:string id="dlg_success_content" value="Opération effectuée avec succès" />
+
+		<i8n:string id="dlg_back_title" value="Annulation de la saisie en cours" />
+		<i8n:string id="dlg_back_content" value="Cette action va supprimer les données en cours de saisie. Souhaitez-vous continuer ?" />
+
+		<i8n:string id="dlg_delete_title" value="Suppression d\'une Règle" />
+		<i8n:string id="dlg_delete_content" value="Etes vous sûr de vouloir supprimer cette Règle ?" />
+
+		<i8n:string id="dlg_success" value="Valider" />
+		<i8n:string id="dlg_cancel" value="Annuler" />
+		<i8n:string id="dlg_ok" value="Ok" />
+
+		<i8n:string id="empty_list" value="Aucune Règle n\'est enregistrée" />
+		
+		<i8n:string id="details" value="Détails" />
+		<i8n:string id="edit" value="Modifier" />
+		<i8n:string id="delete" value="Supprimer" />
+
+		<i8n:string id="Next" value="Suivant" />
+		<i8n:string id="Previous" value="Précédent" />
+		<i8n:string id="Results" value="Résultats" />		
+
+		<i8n:string id="Success" value="Opération réussie" />
+		<i8n:string id="Error" value="Erreur" />
+		<i8n:string id="Warning" value="Attention" />
+
+		<i8n:string id="search" value="Rechercher" />
+		<i8n:string id="add" value="Ajouter" />
+		<i8n:string id="export_excel" value="Export Excel" />
+		<i8n:string id="save" value="Enregistrer" />
+		<i8n:string id="save and continue" value="Enregistrer et continuer" />
+		<i8n:string id="back" value="Retour" />
+		<i8n:string id="submit" value="Envoyer" />
+		<i8n:string id="attached_files_title" value="Fichiers attachés" />
+	
+		<!-- les labels des champs de données -->
+		<fields xmlns="http://www.nxfrontier.com/nxl/i8n">
+
+			<field name="index" label="Ordre d'exécution"  type="line" size="200" />
+			<field name="name" label="Nom"  type="line" size="200" />
+
+			<field name="profiling_on" label="Profiler sur " type="text-choice" 
+					default="cv" list="profiling_on" control="select" />
+			<field name="form_field" label="Champ formulaire"  type="line" size="200" />
+			<field name="profiling_value_for" label="Appliquer valeur pour" type="text-choice" 
+					prompt="" list="profiling_value_for" control="select" />
+
+
+			<field name="keywords" label="Mots clefs nécessaires (séparés par ',')"  type="line" size="200" />
+			<field name="not_keywords" label="Mots clefs à éviter (séparés par ',')"  type="line" size="200" />
+
+			<field name="vacancy" label="Poste à pourvoir" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list_all" ds_format="{field:name} (N {field:code})" ds_field_value="oid" prompt="Affecter poste à pourvoir..."/>
+
+			<field 
+				name			= "cand_channel"
+				label			= "Canal de recrutement" 
+				type			= "text-choice" 
+				prompt			= "Affecter canal de recrutement..."
+				multiple		= "false"
+				control			= "select"
+				ds				= "db:rct_channel.ds_list@recruitment"
+				ds_format		= "{field:name}" 
+				ds_field_value="oid" sqlType="integer"/>
+
+			<field name="category_oid" label="Vivier" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_category.ds_list" ds_format="{field:name}" ds_field_value="oid"  prompt="Affecter vivier..."/>
+
+			<field name="profile" prompt="profil candidat..." label="Profil" />
+			<field name="provider" prompt="Affecter source..." label = "Source" />
+
+			<field name="establishment" label="Etablissement" prompt="Etablissement..."  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+
+		</fields>
+			
+	</i8n:strings>
+	
+</nxl>

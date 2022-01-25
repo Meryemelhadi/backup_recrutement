@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_candidate_read_state(_oid INT AUTO_INCREMENT NOT NULL,_candidate_oid INT,_user_oid INT,_read_time DATETIME,PRIMARY KEY(_oid))"; ?>

@@ -1,0 +1,34 @@
+<?php $properties["query"]="INSERT INTO _rct_vacancy(_name,_number,_cand_channel,_category_oid,_contract_type_oid,_mission_start_date,_suited_recruitment_date,_taking_office_date,_code,_manager_oid,_client_oid,_current_step,_progress_level,_closing_date,_opening_date,_announce_date,_duty_station_oid,_service_oid,_subsidiary_oid,_establishment,_workflow_state,_internship_title,_internship_start,_internship_end,_archive_state,_oid,_creator,_groups_user_readonly,_groups_user_total_control,_direction,_pole,_email,_vacancy_project,_app_connected) VALUES(".$record->getFieldValue("name","DB","NULL").",".
+"'1',".
+$record->getFieldValue("cand_channel","DB","NULL").",".
+$record->getFieldValue("category_oid","DB","NULL").",".
+$record->getFieldValue("contract_type_oid","DB","NULL").",".
+$record->getFieldValue("mission_start_date","DB","NOW()").",".
+$record->getFieldValue("suited_recruitment_date","DB","NOW()").",".
+$record->getFieldValue("taking_office_date","DB","NOW()").",".
+$record->getFieldValue("code","DB","NULL").",".
+$record->getFieldValue("manager_oid","DB","NULL").",".
+$record->getFieldValue("client_oid","DB","NULL").",".
+$record->getFieldValue("current_step","DB","0").",".
+"'0',".
+$record->getFieldValue("closing_date","DB","NOW()").",".
+"NOW(),".
+$record->getFieldValue("announce_date","DB","now").",".
+$record->getFieldValue("duty_station_oid","DB","NULL").",".
+$record->getFieldValue("service_oid","DB","NULL").",".
+$record->getFieldValue("subsidiary_oid","DB","NULL").",".
+$record->getFieldValue("establishment","DB","NULL").",".
+"'2',".
+$record->getFieldValue("internship_title","DB","NULL").",".
+$record->getFieldValue("internship_start","DB","NOW()").",".
+$record->getFieldValue("internship_end","DB","NOW()").",".
+"'0',".
+$record->getFieldValue("oid","DB","NULL").",".
+"'".$GLOBALS["_NX_user"]->getProperty("oid","",true)."',".
+$record->getFieldValue("groups_user_readonly","DB","NULL").",".
+$record->getFieldValue("groups_user_total_control","DB","NULL").",".
+$record->getFieldValue("direction","DB","NULL").",".
+$record->getFieldValue("pole","DB","NULL").",".
+$record->getFieldValue("email","DB","NULL").",".
+$record->getFieldValue("vacancy_project","DB","0").",".
+$record->getFieldValue("app_connected","DB","NULL").")"; ?>

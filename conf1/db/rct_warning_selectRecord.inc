@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_vacancy_oid,_scheduled_by,_scheduled_on,_date,_concerned_people,_subject,_notification_content,_notification_state FROM _rct_warning"; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_saved_search SET _oid=".$record->getFieldValue("oid","DB","NULL").",_name=".$record->getFieldValue("name","DB","NULL")." WHERE ".$this->getWhereClause("_name",$this->getFieldParam("name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false')." AND _user_oid='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."'"; ?>

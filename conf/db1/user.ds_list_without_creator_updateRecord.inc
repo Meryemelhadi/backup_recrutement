@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _user SET _oid=".$record->getFieldValue("oid","DB","NULL").",_first_name=".$record->getFieldValue("first_name","DB","NULL").",_last_name=".$record->getFieldValue("last_name","DB","NULL")." WHERE _oid<>'".$props->getProperty("creator","",true)."'"; ?>

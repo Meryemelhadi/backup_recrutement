@@ -1,0 +1,152 @@
+<?xml version="1.0"?> 
+
+<include file = "candidate_card_lib.comp.nxl"/>
+<include file = "email_lib.comp.nxl"/>
+<include file = "vacancy_lib.comp.nxl"/>
+<include file = "interview_lib.comp.nxl"/>
+<include file = "short_list_lib.comp.nxl"/>
+<include file = "provider_lib.comp.nxl"/>
+<include file = "feedback_lib.comp.nxl"/>
+<include file = "warning_lib.comp.nxl"/>
+
+<xo:taglib 		   
+	uri					= "http://www.presencemedia.com/recruitment/candidates/components/directory_client.comp"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/candidates/components/directory_client.comp"
+	
+	xmlns:candidate_lib	= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_lib.comp"
+	
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<xo:tag name="main">
+	
+		<xo:param name="site_mode" value="user" />
+		<xo:param name="user_service" value="user" />
+		<xo:param name="path" />
+		<xo:param name="skin" value="intranet" />
+
+		<xo:param name="name" />
+		<xo:param name="application_name" value="#{$path}##{$name}#_"/>
+
+		<xo:param name="strings" />
+		
+		<xo:param name="service_class" />
+
+		<xo:param name="ds_list" />
+		
+		<xo:param name="property_records" value="page.records"/>
+		
+		<xo:param name="template_list"/>
+		<xo:param name="template_candidate_details" />
+		
+		<!-- protected="#{$user_service}#" -->
+		<pages xmlns="http://www.nxfrontier.com/nxl/page">
+			<page	
+				name		= "#{$name}#" 
+				protected	= "#{$user_service}#" 
+				permissions	= "?-rhmanager"
+				path		= "#{$path}#"
+				cache		= "no" 
+				lang		= "fr"
+				skin		= "#{$skin}#">
+				<exec logic = "#{$application_name}#" strings="#{$strings}#">
+				</exec>
+			</page>
+		</pages>
+		
+		<!-- logic -->
+		<logic 
+			xmlns			= "http://www.nxfrontier.com/nxl/nxl"
+		   	xmlns:ds		= "http://www.nxfrontier.com/nxl/ds"
+		   	xmlns:button	= "http://www.nxfrontier.com/nxl/button">
+		
+			<application name="#{$application_name}#">
+				<operation name="list">
+					<step name="list">	
+						<code>
+									
+							<ds:load media="db" ds="#{$ds_list}#" property="#{$property_records}#" multiple="yes" addProperties="no" />
+							
+		
+							
+							<button:set name="preview_cv" operation="preview_cv">
+								<button:param name="type" value="cv"/>
+							</button:set>
+							
+							<button:set name="candidate_details" operation="candidate_details"/>
+							
+							<tags_library:display_view 
+								application_name	= "#{$application_name}#"
+								plain_page			= "_list_ajax"
+								wrapped_page		= "_list"
+							/>
+						</code>
+					</step>
+				</operation>
+
+				<operation name="preview_cv">
+					<step name="preview_cv">	
+						<code>
+							
+							<candidate_lib:preview
+								application_name	= "#{$application_name}#"
+							/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="candidate_details">
+					<step name="candidate_details">	
+						<code>	
+							
+							
+									
+							<candidate_lib:details
+								application_name	= "#{$application_name}#"
+								
+								previous_operation				= "list"
+								previous_operation_param_name	= "mode"
+								previous_operation_param_value	= "ajax"
+							/>
+							
+							
+							
+							<display view="#{$application_name}#_candidate_details"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+			</application>
+		</logic>
+		
+		<!-- views -->
+		<tpl:screens xmlns="http://www.nxfrontier.com/tpl/tpml"  xmlns:tpl="http://www.nxfrontier.com/tpl/tpml" skin="default">
+			  
+			<tpl:screen name="#{$application_name}#_list" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_list}#" />
+				</zone>
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_list_ajax" trace="yes">
+				<load view="#{$template_list}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_candidate_details" trace="yes">
+				<load view="#{$template_candidate_details}#" />
+			</tpl:screen>
+			
+			
+
+		</tpl:screens>
+		
+	</xo:tag>
+</xo:taglib>

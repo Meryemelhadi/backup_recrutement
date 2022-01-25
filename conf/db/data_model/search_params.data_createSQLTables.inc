@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("CREATE TABLE IF NOT EXISTS _rct_search_params(_oid INT AUTO_INCREMENT NOT NULL,_name VARCHAR(200),_fields TEXT,_is_default TEXT,PRIMARY KEY(_oid))",); ?>

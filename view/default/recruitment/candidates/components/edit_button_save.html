@@ -1,0 +1,25 @@
+<br/>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" style="float:right" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+    <span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+</a>
+<br/>
+
+<script>
+    window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+    window.dlg_successConfig = {
+        title : "{string:'dlg_success_title'}",
+        message : "{string:'dlg_success_content'}",
+        viewMode : "ok",
+        url : "{=edit.url}&mode=ajax",
+        target : "content",
+        labels : { ok : "{string:'dlg_success'}" }
+    };
+
+    window.dlg_failureConfig = {
+        title : "{string:'dlg_failure_title'}",
+        message : "{string:'dlg_failure_content'}",
+        viewMode : "cancel",
+        target : "content",
+        labels : { cancel : "{string:'dlg_cancel'}" }
+    };
+</script>

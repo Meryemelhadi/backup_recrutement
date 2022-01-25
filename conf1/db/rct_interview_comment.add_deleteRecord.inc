@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_interview_comment WHERE _interview_oid='".$props->getProperty("interview_oid","",true)."'"; ?>

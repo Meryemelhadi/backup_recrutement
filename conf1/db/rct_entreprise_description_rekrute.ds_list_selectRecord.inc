@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name_description,_entreprise,_identifiant,_descriptionEntreprise FROM _rct_entreprise_description_rekrute ORDER BY _name_description ASC "; ?>

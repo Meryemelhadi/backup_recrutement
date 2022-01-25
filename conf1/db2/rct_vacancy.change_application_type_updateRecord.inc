@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy SET _application_type='".$props->getProperty("application_type","",true)."' WHERE _oid='".$props->getProperty("vacancy_oid","",true)."'"; ?>

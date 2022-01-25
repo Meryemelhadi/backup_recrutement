@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+
+	<!-- candidates -->
+	<include file="candidate.data.nxl" />
+
+	<!-- Lists -->
+	<include file="lists.data.nxl" />
+		
+	<!-- admin data -->
+	<include file="provider.data.nxl" />
+	<include file="contract_type.data.nxl" />
+	<include file="email_sample.data.nxl" />
+	<include file="interview_default_criteria.data.nxl" />
+	<include file="candidate_category.data.nxl" />
+	<include file="candidate_test.data.nxl" />
+	<include file="vacancy_category.data.nxl" />
+	<include file="language.data.nxl" />
+	
+	<include file="country.data.nxl" />
+	<include file="town.data.nxl" />
+	<include file="duty_station.data.nxl" />
+	<include file="subsidiary.data.nxl" />
+	<include file="service.data.nxl" />
+	<include file="announcement.data.nxl" />
+	
+	<include file="vacancy.data.nxl" />
+	<include file="short_list.data.nxl" />
+	<include file="email.data.nxl" />
+	<include file="interview.data.nxl" />
+	<include file="attached_files.data.nxl" />
+	<include file="feedback.data.nxl" />
+	<include file="warning.data.nxl" />
+	<include file="recruitment_reason.data.nxl" />
+	
+	<include file="keyword.data.nxl" />
+	<include file="candidate_tags.data.nxl" />
+	
+	<include file="tb_integrations_synthesis.data.nxl" />
+	<include file="tb_recruitments_checklist.data.nxl" />
+	<include file="tb_recruitments_synthesis.data.nxl" />
+	
+	
+	<include file="user.data.nxl" />
+	
+	
+	<!-- candidates -->
+	<include file="test.data.nxl" />
+
+	<!-- pour les cabinets de recrutement -->
+	<include file="client.data.nxl" />
+
+
+
+	<!-- include data model (new applications) -->
+	<include_once file="/data_model/dashboard_interviews.data.nxl" />
+	<include_once file="/data_model/recruitment_channel.data.nxl" />
+	<include_once file="/data_model/candidate_etats.data.nxl" />
+
+	<include_once file="/data_model/profiling_rules.data.nxl" />
+	<include_once file="/data_model/emails.data.nxl" />
+	<include_once file="/data_model/candidate_email.data.nxl" />
+
+	<include_once file="/data_model/attached_files.data.nxl" />
+	<include_once file="/data_model/email_docs.data.nxl" />
+	<include_once file="/data_model/meeting_rooms.data.nxl" />
+    <include_once file="/data_model/search_params.data.nxl" />
+
+<include_once file="/data_model/manager_candidates.data.nxl" />
+<include_once file="/data_model/manage_providers.data.nxl" />
+<include_once file="/data_model/app_connected.data.nxl" />
+<include_once file="/data_model/vacancy_project.data.nxl" />
+<include_once file="/data_model/saved_search.data.nxl" />
+<include_once file="/data_model/interview.data.nxl" />
+<include_once file="/data_model/actions_candidate_etat.data.nxl" />
+<include_once file="/data_model/services_web.data.nxl" />
+
+<include_once file="/data_model/candidate_tags.data.nxl" />
+</nxl>

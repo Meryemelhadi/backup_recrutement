@@ -1,0 +1,2992 @@
+<?xml version="1.0"?> 
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="rct_interview">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+				<query type="select" mode="todays_interviews">
+					SELECT
+						  _rct_interview._oid AS _oid,
+						  CONCAT_WS(' ',_rct_candidate._first_name, _rct_candidate._last_name) AS _candidate_name,
+						  _rct_interview._time_start AS _time_start
+						FROM _rct_interview JOIN _rct_interview_by
+						LEFT JOIN _rct_candidate ON _rct_candidate._oid = _rct_interview._candidate_oid
+						WHERE (_rct_interview_by._key=_rct_interview._oid
+								AND (_rct_interview_by._val='".$GLOBALS["_NX_user"]->getProperty("oid","")."'
+								OR _rct_interview._created_by='".$GLOBALS["_NX_user"]->getProperty("oid","")."'
+								OR _rct_interview_by._val in (select _oid from _user where `_interim` = '".$GLOBALS["_NX_user"]->getProperty("oid","")."')
+								OR _rct_interview._created_by in (select _oid from _user where `_interim` = '".$GLOBALS["_NX_user"]->getProperty("oid","")."')
+								)
+								AND _rct_interview._date =DATE(NOW()))
+						GROUP BY _rct_interview._oid
+						ORDER BY _rct_interview._time_start DESC
+				</query>
+				<fields mode="todays_interviews">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<!--<field name="candidate_name" label="candidate_name" type="line" is_transient="true" />-->
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+				</fields>
+	
+				<fields mode="search">	
+					<!--<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+					
+					<field name="date" label="date" type="datetime" />-->
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" class= "test" ds="db:rct_candidate.clist" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="handler:recruitment.vacancy.list.interview@recruitment" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1" />
+
+				</fields>
+				
+				<fields mode="search-drh">	
+					<!--<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+					
+					<field name="date" label="date" type="datetime" />-->
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" class= "test" ds="db:rct_candidate.clist-drh@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />			
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="handler:recruitment.vacancy.list.drh@recruitment" ds_format="{field:name} " ds_field_value="oid" sqlType="integer" />
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1" />
+					
+				</fields>
+				
+				<!--
+					Liste de donn�es (Text-choice)
+				-->
+
+				<query mode="email_data" type="select">
+
+					SELECT
+						CONCAT_WS(' ',_rct_candidate._first_name, _rct_candidate._last_name) AS _candidate_full_name,
+						_rct_candidate._email AS _to,
+
+						CONCAT_WS(' ',_user._first_name, _user._last_name) AS _user_full_name,
+						_user._email AS _user_email,
+						_user._oid AS _user_oid,
+						
+						_rct_interview._oid AS _oid,
+
+						_rct_interview._ical_uid,
+						_rct_interview._ical_seq,
+
+						_rct_interview._email_title AS _subject,
+						_rct_interview._email_content AS _body,
+						_rct_interview._email_docs AS _docs,
+						_rct_interview._user_email_title AS _user_subject,
+						_rct_interview._user_email_content AS _user_body,
+						_rct_interview._user_email_docs AS _user_docs,
+						_rct_interview._candidate_email_not AS _candidate_email_not,
+						_rct_interview._interviewer_email_not AS _interviewer_email_not,
+						_files._files AS _files
+
+					FROM
+						_rct_interview
+
+					LEFT JOIN 
+					(
+						SELECT 
+							_interview_oid, 
+							GROUP_CONCAT(_file_name SEPARATOR '|||') as _files 
+						FROM 
+							_rct_interview_attached_file 
+						WHERE 
+							_interview_oid = '".$props->getProperty("interview_oid")."' 
+						GROUP BY 
+							_interview_oid
+
+					) AS _files	ON _files._interview_oid = _rct_interview._oid
+
+					LEFT JOIN _rct_candidate ON _rct_candidate._oid = _rct_interview._candidate_oid
+					LEFT JOIN _rct_interview_by ON _rct_interview_by._key = _rct_interview._oid
+					LEFT JOIN _user ON _user._oid = _rct_interview_by._val
+
+					WHERE
+						_rct_interview._oid = '".$props->getProperty("interview_oid")."'	
+
+				</query>
+
+				<fields mode="email_data">
+					<field name="oid" label="oid" type="ref-oid" is_transient="true" />
+					<field name="candidate_full_name" label="candidate_full_name" type="line" is_transient="true" />
+					<field name="to" label="to" type="line" is_transient="true" />
+					<field name="user_full_name" label="user_full_name" type="line" is_transient="true" />
+					<field name="user_email" label="user_email" type="line" is_transient="true" />
+					<field name="user_oid" label="user_oid" type="ref-oid" is_transient="true" />
+					<field name="subject" label="subject" type="line" is_transient="true" />
+					<field name="body" label="body" type="line" is_transient="true" />
+					<field name="docs" label="docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field name="user_subject" label="user_subject" type="line" is_transient="true" />
+					<field name="user_body" label="user_body" type="line" is_transient="true" />
+					<field name="user_docs" label="user_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field name="candidate_email_not" label="candidate_email_not" type="line" is_transient="true" />
+					<field name="interviewer_email_not" label="interviewer_email_not" type="line" is_transient="true" />
+					<field name="files" label="files" type="line" is_transient="true" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+
+				<sort mode="ds_list">
+					<field name="date" label="date" type="datetime" direction="desc" />
+				</sort>
+				
+				<key mode="ds_list">
+					<field name="oid" label="oid" type="oid" relation="in" value="%{property:cat.enum}"/>
+				</key>
+				
+				<fields mode="ds_list">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+					
+					<field name="date" label="date" type="datetime" />
+				</fields>
+
+
+				<!--
+					Liste des entretiens par jour
+				-->
+				<key mode="by_user_day">
+					<and>
+						<field table="rct_interview_by" name="key"  type="ref-oid" value="%{field:rct_interview.oid}%"/>
+						<field table="rct_interview_by" name="val" type="integer" relation="EQ" value="%{request:interview_by_oid}"/>
+					</and>
+					<field name="date" type="date" relation="EQ" value="%{request:date}"/>
+				</key>
+
+				<fields mode="by_user_day">
+
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M" increment-mn="10"/>
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10"/>
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				</fields>
+
+				<query mode="by_user_day_now" type="select">
+					SELECT
+
+						_rct_interview._time_start AS _time_start,
+						_rct_interview._time_end AS _time_end,
+						_rct_interview._candidate_oid AS _candidate_oid
+
+					FROM
+
+						_rct_interview,_rct_interview_by
+
+					WHERE
+						
+						(_rct_interview_by._key=_rct_interview._oid AND _rct_interview_by._val='".$this->getProperty("user_oid")."')
+						and _rct_interview._date = DATE(NOW())				
+
+				</query>
+
+				<fields mode="by_user_day_now">
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+					<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				</fields>
+				
+				<query mode="by_interviewer_day" type="select">
+					SELECT
+
+						_rct_interview._time_start AS _time_start,
+						_rct_interview._interview_type AS _interview_type,
+						_rct_interview._time_end AS _time_end,
+						_rct_interview._candidate_oid AS _candidate_oid,
+						_rct_interview_by._val AS _interviewer_oid,
+						_rct_interview._date AS _date
+
+					FROM
+
+						_rct_interview,_rct_interview_by
+
+					WHERE
+						
+						(_rct_interview_by._key=_rct_interview._oid AND _rct_interview_by._val in (".$_REQUEST["interviewers"]."))
+
+						and _rct_interview._date = '".$_REQUEST["date_interview"]."'
+						and _rct_interview_by._val != '0' and _rct_interview._candidate_oid != '0'
+
+				</query>
+
+				<fields mode="by_interviewer_day">
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type@recruitment" control="select" sqlType="integer" multiple="false" />
+					<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="date" label="date" type="date" />
+					<field 
+						name			= "interviewer_oid"
+						label			= "interviewer_oid" 
+						type			= "text-choice" 
+						multiple		= "false"
+						control			= "select"
+						is_transient    = "true"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_format		= "{field:first_name} {field:last_name}"				
+						ds_field_value="oid" sqlType="integer"/>
+				</fields>
+				
+				<query mode="by_interviewer_day_interview_oid" type="select">
+					SELECT
+
+						_rct_interview._time_start AS _time_start,
+						_rct_interview._time_end AS _time_end,
+						_rct_interview._interview_type AS _interview_type,
+						_rct_interview._candidate_oid AS _candidate_oid,
+						_rct_interview_by._val AS _interviewer_oid,
+						_rct_interview._date AS _date
+
+					FROM
+
+						_rct_interview,_rct_interview_by
+
+					WHERE
+						
+						(_rct_interview_by._key=_rct_interview._oid AND _rct_interview_by._val in (".$_REQUEST["interviewers"]."))
+
+						and _rct_interview._date = '".$_REQUEST["date_interview"]."'
+						and _rct_interview._oid != '".$_REQUEST["interview_oid"]."'
+						and _rct_interview_by._val != '0' and _rct_interview._candidate_oid != '0'
+
+				</query>
+
+				<fields mode="by_interviewer_day_interview_oid">
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+					<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type@recruitment" control="select" sqlType="integer" multiple="false" />
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="date" label="date" type="date" />
+					<field 
+						name			= "interviewer_oid"
+						label			= "interviewer_oid" 
+						type			= "text-choice" 
+						multiple		= "false"
+						control			= "select"
+						is_transient    = "true"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_format		= "{field:first_name} {field:last_name}"				
+						ds_field_value="oid" sqlType="integer"/>
+				</fields>
+				
+				
+				<key mode="by_user_and_candidate">
+					<field table="rct_interview_by" name="val"  type="ref-oid" value="%{user:oid}"/>
+					<field name="candidate_oid" type="ref-oid" relation="EQ" value="%{request:oid}"/>
+				</key>
+				<group_by mode="by_user_and_candidate">
+					<field name="oid" label="oid" type="oid" />
+				</group_by>
+
+				<fields mode="by_user_and_candidate">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M" increment-mn="10"/>
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10"/>
+					<field name="date" label="date" type="date" format="%d %B %Y" />
+                    
+				</fields>
+
+				<query mode="by_user_day_future" type="select">
+                    SELECT
+
+						_rct_interview._oid AS _oid,
+                        _rct_interview._time_start AS _time_start,
+                        _rct_interview._time_end AS _time_end,
+                        CONCAT(_rct_candidate._first_name,' ',_rct_candidate._last_name) AS _candidate,
+                        CONCAT(_rct_candidate._first_name,' ',_rct_candidate._last_name) AS _candidate_oid,
+                        _rct_interview._date AS _date,		
+						
+						_rct_vacancy._oid AS _vacancy_oid,
+						_rct_vacancy._name AS _vacancy_name
+
+                    FROM
+
+                        _rct_interview join _rct_interview_by 
+						LEFT JOIN _rct_candidate ON _rct_interview._candidate_oid = _rct_candidate._oid
+						LEFT JOIN _rct_vacancy ON _rct_vacancy._oid = _rct_interview._vacancy_oid
+
+                    WHERE
+						_rct_interview._interview_by_oid like '%|".$GLOBALS["_NX_user"]->getProperty("oid","")."|%'
+                        and _rct_interview._date >= DATE(NOW( ))
+
+					GROUP BY 
+						_rct_interview._oid
+
+                    ORDER BY 
+						_rct_interview._date ASC , _rct_candidate._first_name ASC , _rct_candidate._last_name ASC
+
+                </query>
+
+                <fields mode="by_user_day_future">
+					<field name="oid" label="oid" type="line" />
+                    <field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+                    <field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+                    <field name="date" label="date" type="datetime" format="%Y-%m-%d"/>
+                    <field name="candidate_oid" label="candidate_oid" type="text" multiple="false" />
+                    <field name="candidate" label="candidate" type="text" multiple="false" />
+
+                    <field name="vacancy_oid" label="vacancy_oid" type="ref-oid" multiple="false" />
+                    <field name="vacancy_name" label="vacancy_name" type="text" multiple="false" />
+                </fields>
+
+				<query mode="by_user_day_future_by_job" type="select">
+                    SELECT
+
+						_rct_interview._oid AS _oid,
+                        _rct_interview._time_start AS _time_start,
+                        _rct_interview._time_end AS _time_end,
+                        CONCAT(_rct_candidate._first_name,' ',_rct_candidate._last_name) AS _candidate,
+                        CONCAT(_rct_candidate._first_name,' ',_rct_candidate._last_name) AS _candidate_oid,
+                        _rct_interview._date AS _date,
+
+						_rct_vacancy._oid AS _vacancy_oid,
+						_rct_vacancy._name AS _vacancy_name
+
+                    FROM
+                        _rct_interview join _rct_interview_by 
+						LEFT JOIN _rct_candidate ON _rct_interview._candidate_oid = _rct_candidate._oid
+						LEFT JOIN _rct_vacancy ON _rct_vacancy._oid = _rct_interview._vacancy_oid
+
+                    WHERE
+						_rct_interview._interview_by_oid like '%|".$GLOBALS["_NX_user"]->getProperty("oid","")."|%'
+                        AND _rct_interview._date >= DATE(NOW( ))
+
+						AND _vacancy_oid = ".(isset($_REQUEST['void']) ? : $this->getProperty('void'))."
+
+					group by 
+						_rct_interview._oid
+                    
+					order by 
+						_rct_interview._date ASC , 
+						_rct_candidate._first_name ASC , 
+						_rct_candidate._last_name ASC
+
+                </query>
+
+                <fields mode="by_user_day_future_by_job">
+					<field name="oid" label="oid" type="line" />
+                    <field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+                    <field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+                    <field name="date" label="date" type="datetime" format="%Y-%m-%d"/>
+                    <field name="candidate_oid" label="candidate_oid" type="text" multiple="false" />
+                    <field name="candidate" label="candidate" type="text" multiple="false" />
+                    <field name="vacancy_oid" label="vacancy_oid" type="ref-oid" multiple="false" />
+                    <field name="vacancy_name" label="vacancy_name" type="text" multiple="false" />
+                </fields>
+
+                <query mode="by_user_day_future_candidates" type="select">
+                    SELECT
+                        _rct_interview._time_start AS _time_start,
+                        _rct_interview._time_end AS _time_end,
+                        _rct_interview._candidate_oid AS _candidate_oid,
+                        _rct_interview._date AS _date,
+                        _rct_candidate._first_name as _first_name,
+                        _rct_candidate._last_name as _last_name,
+                        _rct_candidate._update_date as _update_date,
+                        _rct_candidate._zip as _zip,
+                        _rct_candidate._town_oid as _town_name,
+                        _rct_candidate._creation_date as _creation_date,
+                        _rct_candidate._update_info_date AS _update_info_date,
+                        _rct_interview_synthesis._oid as _synthesis_oid,
+                        _rct_interview._oid as _interview_oid
+
+                    FROM
+
+                        _rct_interview join _rct_interview_by
+                        LEFT JOIN _rct_candidate ON _rct_candidate._oid = _rct_interview._candidate_oid
+                        LEFT JOIN _rct_interview_synthesis ON _rct_interview_synthesis._interview_oid = _rct_interview._oid
+
+                    WHERE
+
+                        (_rct_interview_by._key=_rct_interview._oid AND _rct_interview_by._val='".$this->getProperty("user_oid")."' and _rct_interview._date >= DATE(NOW( )) )
+
+					group by _rct_interview._oid
+                    order by _rct_interview._date ASC , _rct_candidate._first_name ASC , _rct_candidate._last_name ASC
+
+                </query>
+
+                <fields mode="by_user_day_future_candidates">
+                    <field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+                    <field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+                    <field name="date" label="date" type="date" format="%d %B %Y" />
+                    <field name="first_name" label="first_name" type="line" is_transient="true"/>
+                    <field name="last_name" label="last_name" type="line" is_transient="true" />
+                    <field name="zip" label="zip" type="line" is_transient="true" />
+                    <field name="town_name" label="town_name" type="line" is_transient="true" />
+                    <field name="update_date" label="update_date" type="date" format="%d %B %Y" />
+                    <field name="creation_date" label="creation_date" type="date" format="%d %B %Y" />
+                    <field name="update_info_date" label="update_info_date" type="date" format="%d %B %Y" />
+                    <field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_all_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+                    <field name="synthesis_oid" label="synthesis_oid" type="integer" is_transient="true" />
+                    <field name="interview_oid" label="interview_oid" type="integer" is_transient="true" />
+                </fields>
+
+				<!--
+
+					Liste des entretiens &amp;agrave; valider pour un dossier
+
+				-->
+				<key mode="validation_list">
+					<field name="vacancy_oid" type="ref-oid" relation="EQ" value="%{request:oid}"/>
+					<field name="validation_state" type="integer" value="0" />
+				</key>
+
+				<fields mode="validation_list">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+					<field name="date" label="date" type="date" format="%d %B %Y" />
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+					<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" />
+				</fields>
+
+				<!--
+
+					Liste des entretiens pour l'utilisateur
+
+				-->
+
+				<key mode="my_list">
+					<field table="rct_interview_by" name="key"  type="ref-oid" value="%{field:rct_interview.oid}%"/>
+					<field table="rct_interview_by"  name="val"  type="ref-oid" value="%{user:user.oid}" />
+				</key>
+
+				<fields mode="my_list">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field name="date" label="date" type="date" />
+
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time" increment-mn="10"  format="%H:%M" />
+
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" />
+
+				</fields>
+
+
+				<!--
+
+					Liste des entretiens pour le calendrier
+
+				-->
+
+				<!-- old one -->
+				<!--<key mode="ds_calendar_list">
+
+					<field name="vacancy_oid" type="ref-oid" relation="EQ" value="%{request:oid}"/>
+
+					<field name="date" type="datetime" relation="GTE" value="%{request:start_date}" />
+
+					<field name="date" type="datetime" relation="LTE" value="%{request:end_date}" />
+				<or>
+					<and>
+
+						<field table="rct_interview_by" name="key"  type="ref-oid" value="%{field:rct_interview.oid}%"/>
+
+						<field table="rct_interview_by"  name="val"  type="ref-oid" value="%{user:user.oid}" />
+					</and>
+
+					<and>
+
+					<field name="created_by" label="created_by" type="ref-oid" relation="EQ" value="%{user:oid}" />
+				
+					</and>
+
+				</or>
+
+				</key>-->
+				<key mode="ds_calendar_list">
+
+					<or>
+						<and>
+
+							<field table="rct_interview_by" name="key"  type="ref-oid" value="%{field:rct_interview.oid}%"/>
+
+							<field table="rct_interview_by"  name="val"  type="ref-oid" value="%{user:user.oid}" />
+						</and>
+
+						<and>
+
+						<field name="created_by" label="created_by" type="ref-oid" relation="EQ" value="%{user:oid}" />
+					
+						</and>
+
+					</or>
+
+				</key>
+				<group_by mode="ds_calendar_list">
+					<field name="oid" label="oid" type="oid" />
+				</group_by>
+				<sort mode="ds_calendar_list">
+					<field name="date" label="date" type="datetime" direction="desc" />
+				</sort>
+
+				<fields mode="ds_calendar_list">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid"  
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+					<field name="date" label="date" type="date" />
+
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time" increment-mn="10"  format="%H:%M" />
+
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" />
+
+				</fields>
+
+
+				<!--
+					Liste des entretiens d'un candidat (Utilis� au niveau de la cvth�que)
+				-->
+				
+				<sort mode="candidate_interviews">
+					<field name="date" label="date" type="datetime" direction="desc" />
+				</sort>
+				
+				<key mode="candidate_interviews">
+					<OR>
+						<field name="candidate_oid" type="ref-oid" relation="EQ" value="%{property:candidate_oid}"/>
+						<!--<field name="candidate_oid" type="ref-oid" relation="EQ" value="%{request:candidate_oid}"/>-->
+					</OR>
+				</key>
+				
+				<fields mode="candidate_interviews">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+					<field name="interview_oid" label="interview_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+
+					<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" show="hidden"/>
+									
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" control="radio" list="recruitment.interview.etat" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+									
+					<field name="date" label="date" type="date" format="%d/%m/%Y" />
+					<field name="time_start" label="time_start" type="datetime"  increment-mn="10" format="%H:%M" />
+					
+				</fields>
+				
+				
+				<sort mode="candidate_interviews_planified">
+					<field name="date" label="date" type="datetime" direction="desc" />
+				</sort>
+				
+				<key mode="candidate_interviews_planified">
+					<field name="candidate_oid" type="ref-oid" relation="EQ" value="%{property:candidate_oid}"/>
+					<field name="date" label="date" type="date" relation="gte" value="now" />
+				</key>
+				
+				<fields mode="candidate_interviews_planified">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+					<field name="interview_oid" label="interview_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+
+					<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" show="hidden"/>
+									
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" control="radio" list="recruitment.interview.etat" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+									
+					<field name="date" label="date" type="date" format="%d/%m/%Y" />
+					<field name="time_start" label="time_start" type="datetime"  increment-mn="10" format="%H:%M" />
+					
+				</fields>
+				
+				<sort mode="candidate_interviews_realised">
+					<field name="date" label="date" type="datetime" direction="desc" />
+				</sort>
+				
+				<key mode="candidate_interviews_realised">
+					<field name="candidate_oid" type="ref-oid" relation="EQ" value="%{property:candidate_oid}"/>
+					<field name="date" label="date" type="date" relation="lt" value="now" />
+				</key>
+				
+				<fields mode="candidate_interviews_realised">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+					<field name="interview_oid" label="interview_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+
+					<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" show="hidden"/>
+									
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" control="radio" list="recruitment.interview.etat" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+									
+					<field name="date" label="date" type="date" format="%d/%m/%Y" />
+					<field name="time_start" label="time_start" type="datetime"  increment-mn="10" format="%H:%M" />
+					
+				</fields>
+				<!--
+
+					Ajout d'un nouvel entretien (Vacancies - Calendrier) 
+
+				-->
+
+				<fields mode="add">			
+				
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." value="%{property:candidate_oid}" isRequired = "true"  />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="integer" show="hidden" value="%{property:vacancy_oid}" />
+					<field name="created_by" label="created_by" type="integer" show="hidden" value="%{user:oid}" />
+					<field name="validated_by" label="validated_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false"  controlLayout="table" columns="3" sqlType="integer" default="1" />
+
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now" />
+
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" default="now" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" default="now+20min" />
+
+					<field 
+
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" 
+						default="%{user:oid}"/>
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+					
+					
+					<field name="creation_date" label="creation_date" type="datetime" value="now" show="hidden" />				
+					<field name="validation_date" label="validation_date" type="datetime" value="now" show="hidden" />
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30" />
+
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." />
+
+					<field name="user_email_title" label="user_email_title" type="line" size="500" csslayout="normal-layout" />	
+
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" value="1" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+
+				<fields mode="candidate_add_client">					
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" isEdit="no" value="%{request:candidate_oid}" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="integer" show="hidden" value="%{property:vacancy_oid}" />
+
+					<field name="created_by" label="created_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid"
+						default="%{user:oid}" />
+
+					<field name="creation_date" label="creation_date" type="datetime" value="now" show="hidden" />
+					<field name="date" label="date" type="date" />
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now" />
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now+10" />
+					<field name="validation_state" label="validation_state" type="integer" value="0" show="hidden" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>			
+
+				<fields mode="add_client">					
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="integer" show="hidden" value="%{property:vacancy_oid}" />
+					<field name="created_by" label="created_by" type="integer" show="hidden" value="%{user:oid}" />
+					<field 
+
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid"
+						default="%{user:oid}" />
+
+					<field name="creation_date" label="creation_date" type="datetime" value="now" show="hidden" />
+					<field name="date" label="date" type="date" />
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M"  increment-mn="10"  default="now" />
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now+10"  />
+					<field name="validation_state" label="validation_state" type="integer" value="0" show="hidden" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+
+				<query mode="request_email_data">
+
+					SELECT
+
+						_rct_interview._oid,
+
+						_rct_interview._ical_uid,
+						_rct_interview._ical_seq,
+
+						_rct_interview._date,
+
+						_rct_interview._time_start,
+
+						_rct_interview._time_end,
+
+						_rct_interview._vacancy_oid,
+
+						_rct_vacancy._manager_oid AS _manager_oid,
+
+						_rct_vacancy._name AS _vacancy_name,
+
+						_rct_vacancy._code AS _vacancy_code,
+
+						CONCAT_WS(' ', u1._first_name, u1._last_name) AS _creator_full_name,
+
+						CONCAT_WS(' ',_rct_candidate._first_name, _rct_candidate._last_name) AS _candidate_full_name
+
+					FROM
+
+						_rct_interview
+
+					LEFT JOIN
+
+						_rct_vacancy ON _rct_vacancy._oid = _rct_interview._vacancy_oid
+
+					LEFT JOIN
+
+						_user u1 ON u1._oid = _rct_interview._created_by
+
+					LEFT JOIN 
+
+						_rct_candidate ON _rct_candidate._oid = _rct_interview._candidate_oid
+
+					WHERE
+
+						_rct_interview._oid = '".$this->getProperty("interview_oid")."'
+
+				</query>
+
+				<fields mode="request_email_data">
+
+					<field name="oid" type="oid" />
+					<field name="vacancy_oid" type="ref-oid" />
+					<field name="date" type="date" format="%d %B %Y" />
+					<field name="time_start" type="timestamp" format="%H:%M" />
+					<field name="time_end" type="timestamp" />				
+
+					<field name="vacancy_name" type="line" is_transient="true" />
+					<field name="vacancy_code" type="line" is_transient="true" />
+					<field name="creator_full_name" type="line" is_transient="true" />
+					<field name="candidate_full_name" type="line" is_transient="true" />										
+					<field name="vacancy_oid" type="ref-oid" />
+					<field name="to" type="line" is_transient="true" />					
+					<field name="subject" type="line" is_transient="true" />
+					<field name="body" type="line" is_transient="true" />
+					<field name="first_name" type="line" is_transient="true" />
+					<field name="manager_oid" type="line" is_transient="true" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+
+				
+
+				<!--
+
+					Ajout d'un nouvel entretien (Pour candidats &amp;agrave; l'int�rieur des dossiers)
+
+				-->
+
+				<fields mode="candidate_add">					
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="yes" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" isEdit="no" value="%{property:candidate_oid}" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="rct_vacancy.ds_list_all" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" value="%{property:vacancy_oid}" isEdit="no"/>
+
+					<field name="created_by" label="created_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="validated_by" label="validated_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1" />
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now"/>
+	
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" default="now" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" default="now+10min" />
+
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" 
+						default="%{user:oid}"/>
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+
+					<field name="creation_date" label="creation_date" type="datetime" value="now" show="hidden" />
+					
+					<field name="validation_date" label="validation_date" type="datetime" value="now" show="hidden" />
+	
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>					
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." />
+
+					<field name="user_email_title" label="user_email_title" size="500" type="line" csslayout="normal-layout" />					
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" value="1" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+				
+				<!--
+
+					Ajout d'un nouvel entretien (ajout simple)
+
+				-->
+				
+				<fields mode="simple_add">					
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_candidate.list_candidate" ds_format="{field:full_name}" ds_field_value="oid" csv_sep="|" prompt="candidat ..." isRequired = "true" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.vacancies_for_interview" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+					<field name="created_by" label="created_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="validated_by" label="validated_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1" />
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now"/>
+	
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" default="now" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" default="now+10min" />
+
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" 
+						default="%{user:oid}"/>
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+
+					<field name="creation_date" label="creation_date" type="datetime" value="now" show="hidden" />
+					
+					<field name="validation_date" label="validation_date" type="datetime" value="now" show="hidden" />
+	
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>					
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." />
+
+					<field name="user_email_title" label="user_email_title" size="500" type="line" csslayout="normal-layout" />					
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" value="1" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+
+				<!--
+
+					Ajout d'un nouvel entretien (Pour candidats en dehors de la gestion des dossiers)
+
+				-->
+
+				<fields mode="add_to_candidate">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" isEdit="no" value="%{request:candidate_oid}" show="hidden" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="handler:recruitment.vacancy.list.interview" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" default ="%{property:vacancy}" />
+					
+					<field name="created_by" label="created_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="validated_by" label="validated_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1" />
+
+					<field name="creation_date" label="creation_date" type="datetime" value="now" show="hidden" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer"  default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now"/>
+
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M" increment-mn="10"  default="now" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now+10min" />
+					
+					<field name="video_link" label="video_link" type="line" size="500" />
+					
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by@recruitment"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid"
+						default="%{user:oid}" />
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+					<field name="validation_date" label="validation_date" type="datetime" value="now" show="hidden" />
+					<field name="comment" label="comment" type="text" multiLines="auto" size="500"  height="250px" rowsMaxBox="30"/>
+				
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." />
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list@recruitment"
+								ds_record	= "db:rct_interview_attached_file_candidate.record@recruitment"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." />
+
+					<field name="user_email_title" label="user_email_title" type="line" size="500" csslayout="normal-layout" />					
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" value="1" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+				<fields mode="add_to_candidate_vacancy">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_candidate.list_candidate" ds_format="{field:full_name}" ds_field_value="oid" csv_sep="|" prompt="candidat ..." isRequired = "true" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="handler:recruitment.vacancy.list.interview" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" default = "%{property:vacancy}" />
+					
+					<field name="created_by" label="created_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="validated_by" label="validated_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1"/>
+
+					<field name="creation_date" label="creation_date" type="datetime" value="now" show="hidden" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer"  default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now"/>
+
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M" increment-mn="10"  default="now" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now+10min" />
+					
+
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid"
+						default="%{user:oid}" />
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+					<field name="validation_date" label="validation_date" type="datetime" value="now" show="hidden" />
+					<field name="comment" label="comment" type="text" multiLines="auto" size="500"  height="250px" rowsMaxBox="30"/>
+				
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="user_email_title" label="user_email_title" type="line" size="500" csslayout="normal-layout" />					
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" value="1" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+				<fields mode="add_to_vacancy">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" isRequired = "true"/>
+
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="rct_vacancy.ds_list_all" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" value="%{request:vacancy_oid}" isEdit="no" />
+					
+					<field name="created_by" label="created_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="validated_by" label="validated_by" type="integer" show="hidden" value="%{user:oid}" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1"/>
+
+					<field name="creation_date" label="creation_date" type="datetime" value="now" show="hidden" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer"  default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now"/>
+
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M" increment-mn="10"  default="now" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now+10min" />
+					
+
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid"
+						default="%{user:oid}" />
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+					<field name="validation_date" label="validation_date" type="datetime" value="now" show="hidden" />
+					<field name="comment" label="comment" type="text" multiLines="auto" size="500"  height="250px" rowsMaxBox="30"/>
+				
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." />
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="user_email_title" label="user_email_title" type="line" size="500" csslayout="normal-layout" />					
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" value="1" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+
+				<key mode="view">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+
+				<fields mode="view">
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." isEdit="no" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" default="1" multiple="false" controlLayout="table" columns="3" sqlType="integer" />
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now"/>
+
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M" increment-mn="10"  default="now+10min" />
+
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />					
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field name="validated_by" label="validated_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+
+				</fields>
+
+				
+				<!--
+
+					Edition d'un entretien (Vacancies - Calendrier) 
+
+				-->
+				<key mode="edit">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+
+				<fields mode="edit">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." isEdit="no"/>
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="handler:recruitment.vacancy.list.interview@recruitment" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+					<field name="date" label="date" type="date" default="now"/>
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now" />
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now+10min" />
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />	
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+						
+					
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />			
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />					
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+					
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="user_email_title" label="user_email_title" type="line" size="500" csslayout="normal-layout" />					
+
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+					
+					<field name="creation_date" label="creation_date" type="datetime" isEdit="no" format="%d %B %Y &amp;agrave; %H:%M" />
+
+					<field name="validated_by" label="validated_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+					
+				</fields>
+				
+				<!-- Edition du champs candidate_email_not en cas d'echec d'envoi de mail -->
+				<key mode="edit_candidate_email_not">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+
+				<fields mode="edit_candidate_email_not">
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />			
+				</fields>
+				
+				<!-- Edition du champs interviewer_email_not en cas d'echec d'envoi de mail -->
+				<key mode="edit_interviewer_email_not">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+
+				<fields mode="edit_interviewer_email_not">
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />			
+				</fields>
+
+				
+				
+
+				<!--
+
+					Edition d'un entretien (Vacancies - Calendrier) 
+
+				-->
+				<key mode="edit_to_candidate">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+
+				<fields mode="edit_to_candidate">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." isEdit="no" show="hidden" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+					
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now"/>
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now" />
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now+10min" />
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+				
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />	
+						
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30" />
+
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="handler:recruitment.vacancy.list.interview@recruitment" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="user_email_title" label="user_email_title" type="line" size="500" csslayout="normal-layout" />					
+
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+					<field name="created_by" label="created_by" type="text-choice" control="select" show="hidden" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field name="validated_by" label="validated_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+					<field name="video_link" label="video_link" type="line" size="500" />
+
+				</fields>
+				<key mode="edit_to_candidate_vacancy">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+				<fields mode="edit_to_candidate_vacancy">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." isEdit="no"/>
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now"/>
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now" />
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now+10min" />
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+				
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />	
+						
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30" />
+
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list@recruitment" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" value="%{request:vacancy_oid}" isEdit="no"/>
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="user_email_title" label="user_email_title" type="line" size="500" csslayout="normal-layout" />					
+
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field name="validated_by" label="validated_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+					<field name="video_link" label="video_link" type="line" size="500" />
+					
+				</fields>
+				
+				<key mode="edit_to_candidate_manager">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+				<fields mode="edit_to_candidate_manager">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." isEdit="no" show="hidden"/>
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" isEdit="no" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1" isEdit="no"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="date" label="date" type="date" default="now" isEdit="no"/>
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now" isEdit="no"/>
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M"  increment-mn="10" default="now+10min" isEdit="no" />
+
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" isEdit="no" />
+				
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid"
+						isEdit="no" />	
+						
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30" />
+
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list_3" sqlType="integer" control="checkbox" multiple="false" default="0" />
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." />
+
+					<field name="user_email_title" label="user_email_title" type="line" size="500" csslayout="normal-layout" />					
+
+					<field name="user_email_content" label="user_email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field name="validated_by" label="validated_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+
+				</fields>
+
+				<key mode="delete">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+
+				<fields mode="delete">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+				</fields>
+				
+				<key mode="delete_by_user">
+					<field name="created_by" type="ref-oid" relation="EQ" value="%{property:user_oid}"/>
+				</key>
+				
+				<key mode="update_video_link">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+
+				<fields mode="update_video_link">
+					<field name="video_link" label="video_link" type="line" />
+				</fields>
+				
+
+				<!--
+
+					Validation d'un entretien (Vacancies - Calendrier) 
+
+				-->
+				<key mode="validate">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+
+				<fields mode="validate">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." isEdit="no" />
+
+					<field name="validated_by" label="validated_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+					<field 
+						name			= "interview_by_oid"
+						label			= "interview_by_oid" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "interview_by_oid..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_interview_by"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />				
+
+					<field name="date" label="date" type="date" format="%d %B %Y" isEdit="no" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" list="recruitment.interview.etat" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="time_start" label="time_start" type="timestamp" control="time" format="%H:%M" default="now" isEdit="no" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time" format="%H:%M" default="now+10" isEdit="no" />
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>
+
+				</fields>
+
+				<key mode="validate_process">
+					<field name="oid" type="oid" relation="EQ" value="%{property:interview_oid}"/>
+				</key>
+
+				<fields mode="validate_process">
+					<field name="validation_state" type="integer" value="%{property:validation_state}" />
+					<field name="validated_by" type="integer" value="%{user:oid}" />
+				</fields>
+		
+				<!--
+					Liste de donn�es (Affichage)
+				-->	
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="validated_by" label="validated_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+					<field name="interview_by_oid" label="interview_by_oid" type="text-choice" />
+					
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+					
+					<field name="creation_date" label="creation_date" type="datetime" />
+					<field name="validation_date" label="validation_date" type="datetime" />
+
+					<field name="date" label="date" type="date" />
+
+					<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+
+					<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+					
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_candidate_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..."  />
+					<field name="email_title" label="email_title" type="line" size="500" />
+					<field name="email_content" label="email_content" type="text" />
+					<field name="email_docs" label="email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_candidate" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_candidate"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_candidate.list"
+								ds_record	= "db:rct_interview_attached_file_candidate.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>	
+
+					<field name="user_default_email" label="user_default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list_recruiter_interview" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." />
+					<field name="user_email_title" label="user_email_title" type="line" size="500" />
+					<field name="user_email_content" label="user_email_content" type="text" />
+					<field name="user_email_docs" label="user_email_docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list_recruiter" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+					<field 
+								name		= "attached_files_interviewer"
+								type		= "records" 
+								ds			= "db:rct_interview_attached_file_interviewers.list"
+								ds_record	= "db:rct_interview_attached_file_interviewers.record"
+								key			= "oid"
+								fkey		= "interview_oid"
+								edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+								edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+								insert_new  = "bottom"
+						/>
+
+					<field name="candidate_email_not" label="candidate_email_not" type="text-choice" list="recruitment.boolean_list" control="select" sqlType="integer" />
+
+					<field name="interviewer_email_not" label="interviewer_email_not" type="text-choice" list="recruitment.boolean_list" control="select" sqlType="integer" />
+
+					<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" />
+
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+					<field name="interview_etat" label="interview_etat" type="text-choice" control="radio" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+					<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+					<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>
+
+					<field name="ical_uid" label="ical_uid" type="line" size="255" show="hidden"/>
+					<field name="ical_seq" label="ical_seq" type="line" size="11" show="hidden" default="0"/>
+					<field name="video_link" label="video_link" type="line" size="500" />
+				</fields>
+
+			</table>
+
+
+			<table name="rct_interview_comment">
+
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+
+				<key mode="get_record">
+					<field name="oid" type="oid" relation="EQ" value="%{property:comment_oid}" />
+				</key>
+
+				<key mode="ds_list">
+					<field name="interview_oid" type="ref-oid" relation="EQ" value="%{property:interview_oid}" />
+				</key>
+
+				<sort mode="ds_list">
+					<field name="date" type="timestamp" direction="ASC" />
+				</sort>			
+
+				<key mode="add">
+					<field name="interview_oid" type="ref-oid" relation="EQ" value="%{property:interview_oid}" />
+				</key>
+
+				<fields mode="add">
+					<field name="interview_oid" type="ref-oid" value="%{request:oid}" />
+					<field name="user_oid" type="ref-oid" value="%{user:oid}" />
+					<field name="date" type="timestamp" value="now" />
+					<field name="comment" type="text" />
+				</fields>
+				
+				<key mode="delete_by_user">
+					<field name="user_oid" type="integer" value="%{property:user_oid}"/>
+				</key>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="interview_oid" label="interview_oid" type="ref-oid" isKey="secondary" sqlType="integer" />				
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list_all@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+					<field name="date" label="date" type="timestamp" format="Le %d %B %Y &amp;agrave; %H:%M" />
+					<field name="comment" label="comment" type="text" />
+				</fields>
+			</table>
+
+			<table name="rct_interview_by">	
+				<key mode="by_key">
+					<field name="key"  type="ref-oid" value="%{property:key}"/>   
+				</key>
+
+				<key>
+					<field name="key"  type="ref-oid" value="%{property:key}"/>
+				</key>
+
+				<fields>
+					<field name="oid"  label="oid" type="oid" isKey="primary" show="hidden" isEdit="no"/>
+					<field name="key"  type="ref-oid" />
+					<field name="val"  type="ref-oid" />
+				</fields>
+
+			</table>
+			
+
+			<table name="rct_interview_attached_file_candidate">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+
+				<key mode="list">
+					<field name="interview_oid" type="ref-oid" value="%{property:oid}"/>
+				</key>
+
+				<!-- obsolete? -->
+				<key mode="get_record">
+					<field name="oid" type="oid" relation="EQ" value="%{property:oid}" />
+				</key>			
+
+				<key mode="by_interview">
+					<field name="interview_oid" type="ref-oid" relation="EQ" value="%{property:interview_oid}" />
+				</key>			
+
+				<fields mode="add_record">
+					<field name="interview_oid" type="ref-oid" value="%{property:object_oid}" />
+					<field name="file_name" type="line" value="%{property:file_name}" />
+				</fields>			
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="interview_oid" label="interview_oid" type="ref-oid" isKey="secondary" sqlType="integer" />
+					<field name="file_name" label="file_name" type="line" show="hidden"/>
+					<field name="file" label="file" type="file" control="file_no_update"/>
+				</fields>
+			</table>
+
+			<table name="rct_interview_attached_file_interviewers">
+
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+				<key mode="list">
+					<field name="interview_oid" type="ref-oid" value="%{property:oid}"/>
+				</key>
+
+				<key mode="get_record">
+					<field name="oid" type="oid" relation="EQ" value="%{property:oid}" />
+				</key>
+
+				<key mode="by_interview">
+					<field name="interview_oid" type="ref-oid" relation="EQ" value="%{property:interview_oid}" />
+				</key>			
+
+				<fields mode="add_record">
+					<field name="interview_oid" type="ref-oid" value="%{property:object_oid}" />
+					<field name="file_name" type="line" value="%{property:file_name}" />
+				</fields>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="interview_oid" label="interview_oid" type="ref-oid" isKey="secondary" sqlType="integer" />
+					<field name="file_name" label="file_name" type="line" show="hidden"/>
+					<field name="file" label="file" type="file" control="file_no_update"/>
+				</fields>
+			</table>
+
+			<table name="rct_interview_synthesis_lydec">
+
+				<key mode="delete">
+
+					<field name="interview_oid" type="ref-oid" value="%{property:interview_oid}" />
+
+				</key>
+
+				<fields mode="delete">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />				
+
+				</fields>
+
+				<key mode="by_interview">
+					<field name="interview_oid" type="ref-oid" value="%{property:interview_oid}" />
+				</key>
+
+				<fields mode="by_interview">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="interview_oid" type="ref-oid" isKey="secondary" show="hidden" />					
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+
+				</fields>
+				<fields mode="add">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="interview_oid" type="ref-oid" isKey="secondary" value="%{property:interview_oid}" show="hidden" />
+					<field name="post" label="post" type="line" />
+					<field name="direction" label="direction" type="text-choice" control="select" multiple="false" ds="db:directions" ds_format="{field:group_name}" ds_field_value="oid" sqlType="integer" prompt="direction ..." />
+					<field name="technicite_comment" label="technicite_comment" type="text" multiLines="auto" size="255"  />
+					<field name="technicite_note" label="technicite_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="management_comment" label="management_comment" type="text" multiLines="auto" size="255"  />
+					<field name="management_note" label="management_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="communication_comment" label="communication_comment" type="text" multiLines="auto" size="255"  />
+					<field name="communication_note" label="communication_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="motivation_comment" label="motivation_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="general_comment" label="general_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="avis" label="avis" type="text-choice" list="recruitment.avis_entretien" sqlType="integer" control="checkbox" multiple="false"  />
+				
+
+				</fields>
+
+				<fields mode="add_process">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="user_oid" label="user_oid" type="ref-oid" value="%{user:oid}" />
+					<field name="interview_oid" type="ref-oid" isKey="secondary" value="%{property:interview_oid}" show="hidden" />
+					<field name="post" label="post" type="line" />
+					<field name="interview_oid" label="rct_interview_oid" type="ref-oid" isKey="secondary" />
+					<field name="direction" label="direction" type="text-choice" control="select" multiple="false" ds="db:directions" ds_format="{field:group_name}" ds_field_value="oid" sqlType="integer" prompt="direction ..." />
+					<field name="technicite_comment" label="technicite_comment" type="text" multiLines="auto" size="255"  />
+					<field name="technicite_note" label="technicite_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="management_comment" label="management_comment" type="text" multiLines="auto" size="255"  />
+					<field name="management_note" label="management_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="communication_comment" label="communication_comment" type="text" multiLines="auto" size="255"  />
+					<field name="communication_note" label="communication_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="motivation_comment" label="motivation_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="general_comment" label="general_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="avis" label="avis" type="text-choice" list="recruitment.avis_entretien" sqlType="integer" control="checkbox" multiple="false"  />
+
+				</fields>
+				<key mode="edit">
+
+					<field name="oid" type="oid" relation="EQ" value="%{property:synthesis_oid}" />
+
+				</key>
+
+				<fields mode="edit">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" isEdit="no" />
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="handler:recruitment.vacancy.list.interview@recruitment" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" isEdit="no" />
+
+					
+					<field name="post" label="post" type="line" />
+					<field name="interview_oid" label="rct_interview_oid" type="ref-oid" isKey="secondary" />
+					<field name="direction" label="direction" type="text-choice" control="select" multiple="false" ds="db:directions" ds_format="{field:group_name}" ds_field_value="oid" sqlType="integer" prompt="direction ..." />
+					<field name="technicite_comment" label="technicite_comment" type="text" multiLines="auto" size="255"  />
+					<field name="technicite_note" label="technicite_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="management_comment" label="management_comment" type="text" multiLines="auto" size="255"  />
+					<field name="management_note" label="management_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="communication_comment" label="communication_comment" type="text" multiLines="auto" size="255"  />
+					<field name="communication_note" label="communication_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="motivation_comment" label="motivation_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="general_comment" label="general_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="avis" label="avis" type="text-choice" list="recruitment.avis_entretien" sqlType="integer" control="checkbox" multiple="false"  />
+
+				</fields>
+
+				<key mode="pdf">
+
+					<field name="oid" type="oid" relation="EQ" value="%{property:synthesis_oid}" />
+
+				</key>
+
+				<fields mode="pdf">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+
+					<field name="post" label="post" type="line" />
+					<field name="interview_oid" label="rct_interview_oid" type="ref-oid" isKey="secondary" />
+					<field name="direction" label="direction" type="text-choice" control="select" multiple="false" ds="db:directions" ds_format="{field:group_name}" ds_field_value="oid" sqlType="integer" prompt="direction ..." />
+					<field name="technicite_comment" label="technicite_comment" type="text" multiLines="auto" size="255"  />
+					<field name="technicite_note" label="technicite_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="management_comment" label="management_comment" type="text" multiLines="auto" size="255"  />
+					<field name="management_note" label="management_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="communication_comment" label="communication_comment" type="text" multiLines="auto" size="255"  />
+					<field name="communication_note" label="communication_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="motivation_comment" label="motivation_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="general_comment" label="general_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="avis" label="avis" type="text-choice" list="recruitment.avis_entretien" sqlType="integer" control="checkbox" multiple="false"  />
+
+				</fields>
+
+				<key mode="edit_process">
+
+					<field name="oid" type="oid" relation="EQ" value="%{property:synthesis_oid}" />
+
+				</key>
+
+				<fields mode="edit_process">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="date" label="date" type="timestamp" value="now" />			
+
+					<field name="post" label="post" type="line" />
+					<field name="interview_oid" label="rct_interview_oid" type="ref-oid" isKey="secondary" />
+					<field name="direction" label="direction" type="text-choice" control="select" multiple="false" ds="db:directions" ds_format="{field:group_name}" ds_field_value="oid" sqlType="integer" prompt="direction ..." />
+					<field name="technicite_comment" label="technicite_comment" type="text" multiLines="auto" size="255"  />
+					<field name="technicite_note" label="technicite_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="management_comment" label="management_comment" type="text" multiLines="auto" size="255"  />
+					<field name="management_note" label="management_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="communication_comment" label="communication_comment" type="text" multiLines="auto" size="255"  />
+					<field name="communication_note" label="communication_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="motivation_comment" label="motivation_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="general_comment" label="general_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="avis" label="avis" type="text-choice" list="recruitment.avis_entretien" sqlType="integer" control="checkbox" multiple="false"  />
+
+				</fields>
+
+				<key mode="view">
+
+					<field name="oid" type="oid" relation="EQ" value="%{property:synthesis_oid}" />
+
+				</key>
+
+				<fields mode="view">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+
+					<field name="post" label="post" type="line" />
+					<field name="interview_oid" label="rct_interview_oid" type="ref-oid" isKey="secondary" />
+					<field name="direction" label="direction" type="text-choice" control="select" multiple="false" ds="db:directions" ds_format="{field:group_name}" ds_field_value="oid" sqlType="integer" prompt="direction ..." />
+					<field name="technicite_comment" label="technicite_comment" type="text" multiLines="auto" size="255"  />
+					<field name="technicite_note" label="technicite_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="management_comment" label="management_comment" type="text" multiLines="auto" size="255"  />
+					<field name="management_note" label="management_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="communication_comment" label="communication_comment" type="text" multiLines="auto" size="255"  />
+					<field name="communication_note" label="communication_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="motivation_comment" label="motivation_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="general_comment" label="general_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="avis" label="avis" type="text-choice" list="recruitment.avis_entretien" sqlType="integer" control="checkbox" multiple="false"  />
+					
+				</fields>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="post" label="post" type="line" />
+					<field name="interview_oid" label="rct_interview_oid" type="ref-oid" isKey="secondary" />
+					<field name="user_oid" label="user_oid" type="ref-oid" isKey="secondary" sqlType="integer" />
+					<field name="direction" label="direction" type="text-choice" control="select" multiple="false" ds="db:directions" ds_format="{field:group_name}" ds_field_value="oid" sqlType="integer" prompt="direction ..." />
+					<field name="technicite_comment" label="technicite_comment" type="text" multiLines="auto" size="255"  />
+					<field name="technicite_note" label="technicite_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="management_comment" label="management_comment" type="text" multiLines="auto" size="255"  />
+					<field name="management_note" label="management_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="communication_comment" label="communication_comment" type="text" multiLines="auto" size="255"  />
+					<field name="communication_note" label="communication_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="motivation_comment" label="motivation_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="general_comment" label="general_comment" type="text" multiLines="auto" size="255"  />
+					<field name="motivation_note" label="motivation_note" type="text-choice" control="select"  list="recruitment.note" default="0" />
+					<field name="avis" label="avis" type="text-choice" list="recruitment.avis_entretien" sqlType="integer" control="checkbox" multiple="false"  />
+
+				</fields>
+
+			</table>
+
+			<table name="rct_interview_synthesis">
+				
+				<key mode="delete">
+					<field name="interview_oid" type="ref-oid" value="%{property:interview_oid}" />
+				</key>
+
+				<fields mode="delete">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field 
+
+						name		= "criterias_entries" 
+						label		= "criterias_entries" 
+						type		= "records" 
+						ds			= "rct_interview_synthesis_criterias.list"
+						ds_record	= "rct_interview_synthesis_criterias.record" 
+						key			= "oid"
+						fkey		= "interview_synthesis_oid"
+						view		= "recruitment.vacancies.subforms.record_sf"
+						edit_view	= "recruitment.vacancies.subforms.record_sf_form"
+					/>					
+				</fields>
+
+				<key mode="by_interview">
+					<field name="interview_oid" type="ref-oid" value="%{property:interview_oid}" />
+				</key>
+
+				<fields mode="by_interview">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="interview_oid" type="ref-oid" isKey="secondary" show="hidden" />					
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+				</fields>
+				
+				<key mode="by_interview_interviewer">
+					<field name="interview_oid" type="ref-oid" value="%{property:interview_oid}" />
+					<field name="user_oid" type="ref-oid" value="%{property:interview_by_oid}" />
+				</key>
+
+				<fields mode="by_interview_interviewer">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="interview_oid" type="ref-oid" isKey="secondary" show="hidden" />					
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+				</fields>
+
+				<fields mode="add">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="interview_oid" type="ref-oid" isKey="secondary" value="%{property:interview_oid}" show="hidden" />
+
+					<field name="education" label="education" type="text" multiLines="auto" size="255" />
+					<field name="motivations" label="motivations" type="text" multiLines="auto" size="255"  />
+					<field name="experiences" label="experiences" type="text" multiLines="auto" size="255"  />
+					<field name="qualifications" label="qualifications" type="text" multiLines="auto" size="255"  />
+					<field name="current_salary" label="current_salary" type="line" />
+					<field name="desired_salary" label="desired_salary" type="line" />
+					<field name="leaving_period" label="leaving_period" type="line" />
+					<field 
+
+						name			= "criterias_entries" 
+						label			= "criterias_entries" 
+						type			= "records" 
+						ds				= "handler:rct_interview_synthesis_criterias.add"
+						ds_record		= "db:rct_interview_synthesis_criterias.add"
+						key				= "oid"
+						load_on_empty	= "true"
+						fkey			= "interview_synthesis_oid"
+						view			= "recruitment.vacancies.subforms.record_sf"
+						edit_view		= "recruitment.vacancies.subforms.record_sf_form"
+					/>
+				
+					<field name="hobbies" label="hobbies" type="text" multiLines="auto" size="255"  />
+					<field name="best_professional_moment" label="best_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="worst_professional_moment" label="worst_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_posivively" label="person_who_marked_me_posivively" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_negatively" label="person_who_marked_me_negatively" type="text" multiLines="auto" size="255"  />
+
+					<field name="parents_jobs" label="parents_jobs" type="text" multiLines="auto" size="255"  />
+					<field name="spouse_job" label="spouse_job" type="text" multiLines="auto" size="255"  />
+					<field name="best_quality" label="best_quality" type="text" multiLines="auto" size="255"  />
+					<field name="worst_lack" label="worst_lack" type="text" multiLines="auto" size="255"  />
+					<field name="lucky_or_brave" label="lucky_or_brave" type="text" multiLines="auto" size="255"  />
+					<field name="last_making_authority" label="last_making_authority" type="text" multiLines="auto" size="255"  />
+
+				</fields>
+
+				<fields mode="add_process">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="interview_oid" type="ref-oid" isKey="secondary" value="%{property:interview_oid}" show="hidden" />
+					<field name="user_oid" label="user_oid" type="ref-oid" value="%{user:oid}" />
+					<field name="date" label="date" type="timestamp" value="now" />
+					<field name="education" label="education" type="text" multiLines="auto" size="255" />
+					<field name="motivations" label="motivations" type="text" multiLines="auto" size="255"  />
+					<field name="experiences" label="experiences" type="text" multiLines="auto" size="255"  />
+					<field name="qualifications" label="qualifications" type="text" multiLines="auto" size="255"  />
+					<field name="current_salary" label="current_salary" type="line" />
+					<field name="desired_salary" label="desired_salary" type="line" />
+					<field name="leaving_period" label="leaving_period" type="line" />
+					<field 
+						name		= "criterias_entries" 
+						label		= "criterias_entries" 
+						type		= "records" 
+						ds			= "rct_interview_synthesis_criterias.list"
+						ds_record	= "rct_interview_synthesis_criterias.record" 
+						key			= "oid"
+						fkey		= "interview_synthesis_oid"
+						view		= "recruitment.vacancies.subforms.record_sf"
+						edit_view	= "recruitment.vacancies.subforms.record_sf_form"
+					/>
+
+					<field name="hobbies" label="hobbies" type="text" multiLines="auto" size="255"  />
+					<field name="best_professional_moment" label="best_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="worst_professional_moment" label="worst_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_posivively" label="person_who_marked_me_posivively" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_negatively" label="person_who_marked_me_negatively" type="text" multiLines="auto" size="255"  />
+					<field name="parents_jobs" label="parents_jobs" type="text" multiLines="auto" size="255"  />
+					<field name="spouse_job" label="spouse_job" type="text" multiLines="auto" size="255"  />
+					<field name="best_quality" label="best_quality" type="text" multiLines="auto" size="255"  />
+					<field name="worst_lack" label="worst_lack" type="text" multiLines="auto" size="255"  />
+					<field name="lucky_or_brave" label="lucky_or_brave" type="text" multiLines="auto" size="255"  />
+					<field name="last_making_authority" label="last_making_authority" type="text" multiLines="auto" size="255"  />
+				</fields>
+
+				<key mode="edit">
+					<field name="oid" type="oid" relation="EQ" value="%{property:synthesis_oid}" />
+				</key>
+
+				<fields mode="edit">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" isEdit="no" />			
+
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" isEdit="no" />
+
+					<field name="education" label="education" type="text" multiLines="auto" size="255" />
+					<field name="motivations" label="motivations" type="text" multiLines="auto" size="255"  />
+					<field name="experiences" label="experiences" type="text" multiLines="auto" size="255"  />
+					<field name="qualifications" label="qualifications" type="text" multiLines="auto" size="255"  />
+					<field name="current_salary" label="current_salary" type="line" />
+					<field name="desired_salary" label="desired_salary" type="line" />
+					<field name="leaving_period" label="leaving_period" type="line" />
+					<field 
+						name		= "criterias_entries" 
+						label		= "criterias_entries" 
+						type		= "records" 
+						ds			= "rct_interview_synthesis_criterias.list"
+						ds_record	= "rct_interview_synthesis_criterias.record" 
+						key			= "oid"
+						fkey		= "interview_synthesis_oid"
+						view		= "recruitment.vacancies.subforms.record_sf"
+						edit_view	= "recruitment.vacancies.subforms.record_sf_form"
+					/>
+
+					<field name="hobbies" label="hobbies" type="text" multiLines="auto" size="255"  />
+					<field name="best_professional_moment" label="best_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="worst_professional_moment" label="worst_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_posivively" label="person_who_marked_me_posivively" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_negatively" label="person_who_marked_me_negatively" type="text" multiLines="auto" size="255"  />
+					<field name="parents_jobs" label="parents_jobs" type="text" multiLines="auto" size="255"  />
+					<field name="spouse_job" label="spouse_job" type="text" multiLines="auto" size="255"  />
+					<field name="best_quality" label="best_quality" type="text" multiLines="auto" size="255"  />
+					<field name="worst_lack" label="worst_lack" type="text" multiLines="auto" size="255"  />
+					<field name="lucky_or_brave" label="lucky_or_brave" type="text" multiLines="auto" size="255"  />
+					<field name="last_making_authority" label="last_making_authority" type="text" multiLines="auto" size="255"  />
+				</fields>
+				
+				<key mode="pdf">
+
+					<field name="oid" type="oid" relation="EQ" value="%{property:synthesis_oid}" />
+
+				</key>
+
+				<fields mode="pdf">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+					<field name="education" label="education" type="text" multiLines="auto" size="255" />
+					<field name="motivations" label="motivations" type="text" multiLines="auto" size="255"  />
+					<field name="experiences" label="experiences" type="text" multiLines="auto" size="255"  />
+					<field name="qualifications" label="qualifications" type="text" multiLines="auto" size="255"  />
+					<field name="current_salary" label="current_salary" type="line" />
+					<field name="desired_salary" label="desired_salary" type="line" />
+					<field name="leaving_period" label="leaving_period" type="line" />
+
+					<field 
+						name		= "criterias_entries" 
+						label		= "criterias_entries" 
+						type		= "records" 
+						ds			= "rct_interview_synthesis_criterias.list"
+						ds_record	= "rct_interview_synthesis_criterias.record" 
+						key			= "oid"
+						fkey		= "interview_synthesis_oid"
+						view		= "recruitment.vacancies.subforms.record_sf_form_pdf"
+						edit_view	= "recruitment.vacancies.subforms.record_sf_form_pdf"
+					/>
+
+					<field name="hobbies" label="hobbies" type="text" multiLines="auto" size="255"  />
+					<field name="best_professional_moment" label="best_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="worst_professional_moment" label="worst_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_posivively" label="person_who_marked_me_posivively" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_negatively" label="person_who_marked_me_negatively" type="text" multiLines="auto" size="255"  />
+					<field name="parents_jobs" label="parents_jobs" type="text" multiLines="auto" size="255"  />
+					<field name="spouse_job" label="spouse_job" type="text" multiLines="auto" size="255"  />
+					<field name="best_quality" label="best_quality" type="text" multiLines="auto" size="255"  />
+					<field name="worst_lack" label="worst_lack" type="text" multiLines="auto" size="255"  />
+					<field name="lucky_or_brave" label="lucky_or_brave" type="text" multiLines="auto" size="255"  />
+					<field name="last_making_authority" label="last_making_authority" type="text" multiLines="auto" size="255"  />
+
+				</fields>
+
+				<key mode="edit_process">
+					<field name="oid" type="oid" relation="EQ" value="%{property:synthesis_oid}" />
+				</key>
+
+				<fields mode="edit_process">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="date" label="date" type="timestamp" value="now" />			
+					<field name="education" label="education" type="text" multiLines="auto" size="255" />
+					<field name="motivations" label="motivations" type="text" multiLines="auto" size="255"  />
+					<field name="experiences" label="experiences" type="text" multiLines="auto" size="255"  />
+					<field name="qualifications" label="qualifications" type="text" multiLines="auto" size="255"  />
+					<field name="current_salary" label="current_salary" type="line" />
+					<field name="desired_salary" label="desired_salary" type="line" />
+					<field name="leaving_period" label="leaving_period" type="line" />
+
+					<field 
+						name		= "criterias_entries" 
+						label		= "criterias_entries" 
+						type		= "records" 
+						ds			= "rct_interview_synthesis_criterias.list"
+						ds_record	= "rct_interview_synthesis_criterias.record" 
+						key			= "oid"
+						fkey		= "interview_synthesis_oid"
+						view		= "recruitment.vacancies.subforms.record_sf"
+						edit_view	= "recruitment.vacancies.subforms.record_sf_form"
+					/>
+
+					<field name="hobbies" label="hobbies" type="text" multiLines="auto" size="255"  />
+					<field name="best_professional_moment" label="best_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="worst_professional_moment" label="worst_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_posivively" label="person_who_marked_me_posivively" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_negatively" label="person_who_marked_me_negatively" type="text" multiLines="auto" size="255"  />
+					<field name="parents_jobs" label="parents_jobs" type="text" multiLines="auto" size="255"  />
+					<field name="spouse_job" label="spouse_job" type="text" multiLines="auto" size="255"  />
+					<field name="best_quality" label="best_quality" type="text" multiLines="auto" size="255"  />
+					<field name="worst_lack" label="worst_lack" type="text" multiLines="auto" size="255"  />
+					<field name="lucky_or_brave" label="lucky_or_brave" type="text" multiLines="auto" size="255"  />
+					<field name="last_making_authority" label="last_making_authority" type="text" multiLines="auto" size="255"  />				
+
+				</fields>
+
+
+				<key mode="view">
+					<field name="oid" type="oid" relation="EQ" value="%{property:synthesis_oid}" />
+				</key>
+
+				<fields mode="view">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+
+					<field name="education" label="education" type="text" multiLines="auto" size="255" />
+					<field name="motivations" label="motivations" type="text" multiLines="auto" size="255"  />
+					<field name="experiences" label="experiences" type="text" multiLines="auto" size="255"  />
+					<field name="qualifications" label="qualifications" type="text" multiLines="auto" size="255"  />
+					<field name="current_salary" label="current_salary" type="line" />
+					<field name="desired_salary" label="desired_salary" type="line" />
+					<field name="leaving_period" label="leaving_period" type="line" />
+					<field 
+						name		= "criterias_entries" 
+						label		= "criterias_entries" 
+						type		= "records" 
+						ds			= "rct_interview_synthesis_criterias.list"
+						ds_record	= "rct_interview_synthesis_criterias.record" 
+						key			= "oid"
+						fkey		= "interview_synthesis_oid"
+						view		= "recruitment.vacancies.subforms.record_sf_form_readonly"
+						edit_view	= "recruitment.vacancies.subforms.record_sf_form"
+					/>
+
+					<field name="hobbies" label="hobbies" type="text" multiLines="auto" size="255"  />
+					<field name="best_professional_moment" label="best_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="worst_professional_moment" label="worst_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_posivively" label="person_who_marked_me_posivively" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_negatively" label="person_who_marked_me_negatively" type="text" multiLines="auto" size="255"  />
+					<field name="parents_jobs" label="parents_jobs" type="text" multiLines="auto" size="255"  />
+					<field name="spouse_job" label="spouse_job" type="text" multiLines="auto" size="255"  />
+					<field name="best_quality" label="best_quality" type="text" multiLines="auto" size="255"  />
+					<field name="worst_lack" label="worst_lack" type="text" multiLines="auto" size="255"  />
+					<field name="lucky_or_brave" label="lucky_or_brave" type="text" multiLines="auto" size="255"  />
+					<field name="last_making_authority" label="last_making_authority" type="text" multiLines="auto" size="255"  />
+				
+				</fields>
+				<key mode="view_by_interview">
+					<field name="interview_oid" type="ref-oid" relation="EQ" value="%{property:interview_oid}" />
+				</key>
+
+				<fields mode="view_by_interview">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+					<field name="date" label="date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+
+					<field name="education" label="education" type="text" multiLines="auto" size="255" />
+					<field name="motivations" label="motivations" type="text" multiLines="auto" size="255"  />
+					<field name="experiences" label="experiences" type="text" multiLines="auto" size="255"  />
+					<field name="qualifications" label="qualifications" type="text" multiLines="auto" size="255"  />
+					<field name="current_salary" label="current_salary" type="line" />
+					<field name="desired_salary" label="desired_salary" type="line" />
+					<field name="leaving_period" label="leaving_period" type="line" />
+					<field 
+						name		= "criterias_entries" 
+						label		= "criterias_entries" 
+						type		= "records" 
+						ds			= "rct_interview_synthesis_criterias.list"
+						ds_record	= "rct_interview_synthesis_criterias.record" 
+						key			= "oid"
+						fkey		= "interview_synthesis_oid"
+						view		= "recruitment.vacancies.subforms.record_sf_form_readonly"
+						edit_view	= "recruitment.vacancies.subforms.record_sf_form"
+					/>
+
+					<field name="hobbies" label="hobbies" type="text" multiLines="auto" size="255"  />
+					<field name="best_professional_moment" label="best_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="worst_professional_moment" label="worst_professional_moment" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_posivively" label="person_who_marked_me_posivively" type="text" multiLines="auto" size="255"  />
+					<field name="person_who_marked_me_negatively" label="person_who_marked_me_negatively" type="text" multiLines="auto" size="255"  />
+					<field name="parents_jobs" label="parents_jobs" type="text" multiLines="auto" size="255"  />
+					<field name="spouse_job" label="spouse_job" type="text" multiLines="auto" size="255"  />
+					<field name="best_quality" label="best_quality" type="text" multiLines="auto" size="255"  />
+					<field name="worst_lack" label="worst_lack" type="text" multiLines="auto" size="255"  />
+					<field name="lucky_or_brave" label="lucky_or_brave" type="text" multiLines="auto" size="255"  />
+					<field name="last_making_authority" label="last_making_authority" type="text" multiLines="auto" size="255"  />
+				
+				</fields>
+				<query mode="list_by_candidate" type="select">
+					SELECT
+						_rct_interview._oid AS _interview_oid,
+						_rct_interview._date AS _date,		
+						_rct_interview_synthesis._oid AS _synthesis_oid,
+						_rct_interview_synthesis._date AS _date_eval
+					FROM
+						_rct_interview 
+						LEFT JOIN _rct_candidate ON _rct_interview._candidate_oid=_rct_candidate._oid
+						LEFT JOIN _rct_interview_synthesis ON _rct_interview._oid = _rct_interview_synthesis._interview_oid
+					WHERE _rct_candidate._oid = '".$props->getProperty("candidate_oid")."' and _rct_interview_synthesis._oid IS NOT NULL
+					GROUP BY _interview_oid
+				</query>
+				<fields mode="list_by_candidate">
+
+					<field name="interview_oid" label="rct_interview_oid" type="ref-oid" isKey="secondary" />
+
+					<field name="date" label="date" type="date" format="%d/%m/%Y" />
+					
+					<field name="synthesis_oid" label="synthesis_oid" type="ref-oid" isKey="secondary" />
+					
+					<field name="date_eval" label="date_effectiv" type="timestamp" />
+
+				</fields>
+
+				<fields>
+
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+
+					<field name="interview_oid" label="rct_interview_oid" type="ref-oid" isKey="secondary" />
+
+					<field name="user_oid" label="user_oid" type="ref-oid" isKey="secondary" sqlType="integer" />
+
+					<field name="date" label="date" type="timestamp" />
+
+					<field name="education" label="education" type="text" multiLines="auto" size="20000"  maxLength="20000" />
+
+					<field name="motivations" label="motivations" type="text" multiLines="auto" size="255"  />
+
+					<field name="experiences" label="experiences" type="text" multiLines="auto" size="255"  />
+
+					<field name="qualifications" label="qualifications" type="text" multiLines="auto" size="255"  />
+
+					<field name="current_salary" label="current_salary" type="line" />
+
+					<field name="desired_salary" label="desired_salary" type="line" />
+
+					<field name="leaving_period" label="leaving_period" type="line" />
+
+					<field name="hobbies" label="hobbies" type="text" multiLines="auto" size="255"  />
+
+					<field name="best_professional_moment" label="best_professional_moment" type="text" multiLines="auto" size="255"  />
+
+					<field name="worst_professional_moment" label="worst_professional_moment" type="text" multiLines="auto" size="255"  />
+
+					<field name="person_who_marked_me_posivively" label="person_who_marked_me_posivively" type="text" multiLines="auto" size="255"  />
+
+					<field name="person_who_marked_me_negatively" label="person_who_marked_me_negatively" type="text" multiLines="auto" size="255"  />
+
+					<field name="parents_jobs" label="parents_jobs" type="text" multiLines="auto" size="255"  />
+
+					<field name="spouse_job" label="spouse_job" type="text" multiLines="auto" size="255"  />
+
+					<field name="best_quality" label="best_quality" type="text" multiLines="auto" size="255"  />
+
+					<field name="worst_lack" label="worst_lack" type="text" multiLines="auto" size="255"  />
+
+					<field name="lucky_or_brave" label="lucky_or_brave" type="text" multiLines="auto" size="255"  />
+
+					<field name="last_making_authority" label="last_making_authority" type="text" multiLines="auto" size="255"  />
+					
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" multiple = "no" control = "facebook_list"" multiple="false"  ds="db:rct_candidate.ds_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				</fields>
+
+			</table>
+
+			<table name="rct_vacancy_comment">
+
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+
+				<key mode="get_record">
+					<field name="oid" type="oid" relation="EQ" value="%{property:comment_oid}" />
+				</key>
+				<key mode="delete_by_poste">
+					<field name="vacancy_oid" type="integer" relation="EQ" value="%{property:oid}" />
+				</key>
+
+				<fields mode="delete_by_poste">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+				</fields>
+
+				<key mode="ds_list">
+					<field name="vacancy_oid" type="ref-oid" relation="EQ" value="%{property:vacancy_oid}" />
+				</key>
+
+				<sort mode="ds_list">
+					<field name="date" type="timestamp" direction="ASC" />
+				</sort>			
+
+				<key mode="add">
+					<field name="vacancy_oid" type="ref-oid" relation="EQ" value="%{property:vacancy_oid}" />
+				</key>
+
+				<fields mode="add">
+					<field name="vacancy_oid" type="ref-oid" value="%{request:oid}" />
+					<field name="user_oid" type="ref-oid" value="%{user:oid}" />
+					<field name="date" type="timestamp" value="now" />
+					<field name="comment" type="text" />
+				</fields>
+				
+				<key mode="delete_by_user">
+					<field name="user_oid" type="integer" value="%{property:user_oid}"/>
+				</key>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" isKey="secondary" sqlType="integer" />				
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list_all@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />					
+					<field name="date" label="date" type="timestamp" format="Le %d %B %Y &amp;agrave; %H:%M" />
+					<field name="comment" label="comment" type="text" />
+				</fields>
+
+			</table>
+
+			<table name="rct_interview_synthesis_criterias">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+
+				<key mode="list">
+					<field name="interview_synthesis_oid" type="ref-oid" value="%{property:synthesis_oid|0}"/>
+				</key>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="interview_synthesis_oid" label="interview_synthesis_oid" type="ref-oid" isKey="secondary" show="hidden" />
+					<field name="name" label="name" type="line" />
+					<field name="level" label="level" type="text-choice" list="recruitment.interview_criteria_value" control="grid_radio" sqlType="integer" />
+
+				</fields>
+
+			</table>
+		
+		</tables>
+
+		
+
+		<views>
+			<view 
+				name	= "recruitment.vacancy.list.interview"
+				table	= "rct_vacancy" 
+				handler	= "lib.recruitment.vacancies.records.interview.vacancies">
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line"/>
+					<field name="code" label="code" type="line"/>
+				</fields>
+			</view>
+			<view name	= "interview_synthesis.delete_by_user" table	= "rct_interview_synthesis">
+				<key>
+					<field name="user_oid" type="integer" value="%{property:user_oid}"/>
+				</key>
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+				</fields>
+			</view>
+			<view 
+				name	= "rct_interview_synthesis_criterias.add"
+				table	= "rct_interview_synthesis_criterias"
+				handler	= "lib.recruitment.interviews.records.criterias_list">
+
+				<fields>
+
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="interview_synthesis_oid" type="ref-oid" sqlType="integer" show="hidden" />
+					<field name="name" label="name" type="line" />
+					<field name="level" label="level" type="text-choice" list="recruitment.interview_criteria_value" control="grid_radio" sqlType="integer" />
+
+				</fields>
+
+			</view>
+			<view name	= "interviews.icons.total" table	= "rct_interview">
+                <fields>
+                    <field name="count" label="count" type="line"/>
+                </fields>
+                <query type="select">
+                    SELECT count(*) as _count
+                    FROM
+                        _rct_interview 
+                        LEFT JOIN _rct_vacancy ON _rct_vacancy._oid = _rct_interview._vacancy_oid
+						LEFT JOIN _rct_vacancy_total_control AS T_CTRL ON T_CTRL._key = _rct_vacancy._oid
+						LEFT JOIN _rct_vacancy_readonly		 AS R_CTRL ON R_CTRL._key = _rct_vacancy._oid
+                    WHERE
+                        _rct_interview._interview_by_oid like '%|".$GLOBALS["_NX_user"]->getProperty("oid","")."|%'
+                        and _rct_interview._date >= DATE(NOW( ))
+                        and _rct_vacancy._current_step = 0 and _rct_vacancy._oid IS NOT NULL
+						AND (
+							_rct_vacancy._creator='".$GLOBALS["_NX_user"]->getProperty("oid","")."' OR
+							T_CTRL._val='".$GLOBALS["_NX_user"]->getProperty("oid","")."' OR
+							R_CTRL._val='".$GLOBALS["_NX_user"]->getProperty("oid","")."' OR
+							_rct_vacancy._manager_oid='".$GLOBALS["_NX_user"]->getProperty("oid","")."'
+						)
+                </query>
+            </view>
+			<view name	= "interviews.icons.total.drh" table	= "rct_interview">
+                <fields>
+                    <field name="count" label="count" type="line"/>
+                </fields>
+                <query type="select">
+                    SELECT count(distinct _rct_interview._oid) as _count
+                    FROM
+                        _rct_interview 
+                        LEFT JOIN _rct_vacancy ON _rct_vacancy._oid = _rct_interview._vacancy_oid
+						LEFT JOIN _rct_vacancy_total_control AS T_CTRL ON T_CTRL._key = _rct_vacancy._oid
+						LEFT JOIN _rct_vacancy_readonly		 AS R_CTRL ON R_CTRL._key = _rct_vacancy._oid
+                    WHERE
+                         _rct_interview._date >= DATE(NOW( ))
+                        and _rct_vacancy._current_step = 0 and _rct_vacancy._oid IS NOT NULL
+						
+                </query>
+            </view>
+            <view
+                name	= "rct_interview.ds_calendar_list_realised"
+                table	= "rct_interview"
+                handler	= "lib.recruitment.interviews.records.list_realised">
+                <fields>
+                    <field name="oid" label="oid" type="oid" isKey="primary" />
+
+                    <field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+                    <field
+                        name			= "interview_by_oid"
+                        label			= "interview_by_oid"
+                        type			= "text-choice"
+                        list			= "product_range"
+                        prompt			= "interview_by_oid..."
+                        multiple		= "yes"
+						sep				= ","
+                        control			= "select"
+                        ds				= "db:user.ds_list_all@recruitment"
+                        ds_link			= "rct_interview_by"
+                        ds_format		= "{field:first_name} {field:last_name}"
+                        ds_field_value	= "oid" />
+
+                    <field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list@recruitment" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer"  />
+                    <field name="vacancy_name" label="vacancy_name" type="line" is_transient="true" />
+                    <field name="candidate_name" label="candidate_name" type="line" is_transient="true" />
+                    <field name="date" label="date" type="date" />
+
+                    <field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+
+                    <field name="time_end" label="time_end" type="timestamp" control="time" increment-mn="10"  format="%H:%M" />
+
+                    <field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" />
+
+                    <field name="etat_color" label="color"  type="line" />
+
+                    <field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list_all@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+                    <field name="etat_oid" label="etat_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_etat.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" isKey=""/>
+
+                    <field name="interview_etat" label="interview_etat" type="text-choice" control="radio" list="recruitment.interview.etat" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+
+                    <field name="synthesis_oid" label="synthesis_oid" type="integer" is_transient="true" />
+					<field name="cv_path" label="cv_path" type="file" />
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+					<field name="phone_1" label="phone_1" type="line" />
+					<field name="phone_2" label="phone_2" type="line" />
+					<field name="mobile" label="mobile" type="line" />
+					<field name="video_link" label="video_link" type="line" size="500" />
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1" />
+                </fields>
+            </view>
+            <view
+                name	= "rct_interview.ds_calendar_list_futur"
+                table	= "rct_interview"
+                handler	= "lib.recruitment.interviews.records.list_futur">
+                <fields>
+                    <field name="oid" label="oid" type="oid" isKey="primary" />
+
+                    <field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+                    <field
+                        name			= "interview_by_oid"
+                        label			= "interview_by_oid"
+                        type			= "text-choice-table"
+                        list			= "product_range"
+                        prompt			= "interview_by_oid..."
+                        multiple		= "yes"
+						sep				= ","
+                        control			= "facebook_list"
+                        ds				= "db:user.ds_list_all@recruitment"
+                        ds_link			= "rct_interview_by"
+                        ds_format		= "{field:first_name} {field:last_name}"
+                        ds_field_value	= "oid" />
+
+                    <field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+                    <field name="vacancy_name" label="vacancy_name" type="line" is_transient="true" />
+
+                    <field name="candidate_name" label="candidate_name" type="line" is_transient="true" />
+
+                    <field name="date" label="date" type="date" />
+
+                    <field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="10" format="%H:%M" />
+
+                    <field name="time_end" label="time_end" type="timestamp" control="time" increment-mn="10"  format="%H:%M" />
+
+                    <field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" show="hidden" />
+
+                    <field name="etat_color" label="color"  type="line" />
+
+                    <field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list_all@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." isEdit="no" />
+
+                    <field name="etat_oid" label="etat_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_etat.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" isKey=""/>
+
+                    <field name="interview_etat" label="interview_etat" type="text-choice" control="radio" list="recruitment.interview.etat" multiple="false" controlLayout="table" columns="3" sqlType="integer" default="1"/>
+					<field name="cv_path" label="cv_path" type="file" />
+					<field name="location" label="location" type="text-choice" control="select" multiple="false" ds="db:meeting_rooms.list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select meeting room..." show="show" />
+					<field name="phone_1" label="phone_1" type="line" />
+					<field name="phone_2" label="phone_2" type="line" />
+					<field name="mobile" label="mobile" type="line" />
+					<field name="synthesis_oid" label="synthesis_oid" type="integer" is_transient="true" />
+					<field name="video_link" label="video_link" type="line" size="500" />
+					<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1" />
+                </fields>
+            </view>
+
+		</views>
+
+	</data>
+</nxl>

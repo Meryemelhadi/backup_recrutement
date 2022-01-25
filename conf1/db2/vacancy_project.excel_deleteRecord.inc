@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_vacancy_project WHERE ".$this->getWhereClause("_name",$this->getFieldParam("name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false'); ?>

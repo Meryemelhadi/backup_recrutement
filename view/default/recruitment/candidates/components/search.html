@@ -1,0 +1,40 @@
+<div class="search-panel" id="search-panel" style="display:none">
+	<div class="search-panel-inner-wrapper">
+		<!--! {form:page.search} -->
+		<table class="pm-search-grid">
+			<!--!{fields}-->
+			{if: (field.index % 4) == 0}<tr>{/if}
+				<td>
+					<div class="control-main-wrapper normal-layout-control">
+						<div class="control-label-wrapper">
+							<div class="control-label">{field.label} :</div>
+						</div>
+						<div class="control-wrapper" id="{field.name}-control-wrapper">
+							<div class="control" id="{field.name}-control">{field.form}</div>
+						</div>
+					</div>
+				</td>
+				{if:field.is_last && (field.index % 4) < 3 }
+					<td colspan="{expr:3 - (field.index % 4)}" style="width:{expr:100*((3-(field.index % 4))/4)}%;color:#333001">&nbsp;</td>
+				{/if}
+				{if: (field.index % #=form.nb_fields_per_row|4#) == 3}</tr>{/if}
+				<!--!{/fields}-->
+				{if: (field.index % 4) == 0}<tr>{/if}
+			</tr>
+		</table>		
+		<div class="pm-button-wrapper clear-both">					
+			<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_submit(event,this,'content','{=search_in_archive.url}',false); this.blur(); return false;">
+				<span class="btn-bg"><span class="s-icon si-zoom">{string:"search_in_archive"}</span></span>
+			</a>
+			<span class="pm-button-sep"></span>
+			<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_submit(event,this,'content','{=search.url}',false); this.blur(); return false;">
+				<span class="btn-bg"><span class="s-icon si-zoom">{string:"search"}</span></span>
+			</a>
+		</div>
+		
+		
+		
+		
+		<!--! {/form} -->
+	</div>
+</div>

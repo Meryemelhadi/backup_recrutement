@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_actions_candidate_etat(_oid INT AUTO_INCREMENT NOT NULL,_name VARCHAR(200),_service_web integer,_etat_candidate varchar(255),_actif TEXT,_notification_text VARCHAR(200),PRIMARY KEY(_oid))"; ?>

@@ -1,0 +1,16 @@
+{records:page.records}
+ {if:records.count > 0}
+	<div class="table-list-wrapper log-table">
+		<table class="table-list">
+			{record}
+			<tr>
+				<td class="entry" style="padding: 5px;"><strong>{field:action_oid} {if:#field.object:action_oid# ==16} {field.html:vacancy_oid}{/if} </strong>{if:#field:user_oid# !=NULL} par {field:user_oid}{/if} le {field:date} {if:#field.object:ref_oid#!=null && #field.object:ref_oid#!=0 }(Poste:{field.html:ref_oid}){/if}{field:additional_infos}</td>
+			</tr>
+			{/record}
+		</table>
+	</div>
+ {else}
+	{=creation_date}
+ {/if}
+{/records}
+

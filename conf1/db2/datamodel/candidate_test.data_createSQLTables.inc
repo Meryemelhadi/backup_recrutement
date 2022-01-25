@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("CREATE TABLE IF NOT EXISTS _rct_candidate_test(_oid INT AUTO_INCREMENT NOT NULL,_name TEXT,PRIMARY KEY(_oid))","CREATE TABLE IF NOT EXISTS _rct_candidate_test_assoc(_oid INT AUTO_INCREMENT NOT NULL,_candidate_oid integer,_test_oid integer,_pourcentage INT,_comment TEXT,PRIMARY KEY(_oid))",); ?>

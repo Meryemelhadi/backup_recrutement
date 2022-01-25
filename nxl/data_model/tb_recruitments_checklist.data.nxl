@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<views>
+		
+			<view 
+				name	= "rct_vacancy.dashboards.recruitments_checklist.search"
+				table	= "rct_vacancy">
+				<fields>
+					
+					<field name="name" label="name" type="line" />
+					<!-- <field name="recruitment_motivation" label="recruitment_motivation" type="text" />
+ -->					<field name="instant_feedback" type="text-choice" list="recruitment.boolean_list" 
+						control="select" prompt="select state" sqlType="integer" />
+					<field name="delayed_feedback" type="text-choice" list="recruitment.boolean_list" 
+						control="select" prompt="select state" sqlType="integer" />
+					<field name="opening_date_start" label="opening_date_start" type="date"  />
+					<field name="opening_date_end" label="opening_date_end" type="date"  />
+					<field name="closing_date_start" type="date"  />
+					<field name="closing_date_end" type="date"  />
+					<field name="announcement" type="text-choice" list="recruitment.boolean_list" 
+						control="select" prompt="select state" sqlType="integer" />
+					<field name="contract_type_oid" label="contract_type_oid" type="text-choice" control="select" multiple="false" ds="db:rct_contract_type.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="contract type" />
+					<field name="category_oid" label="category_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy_category.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="category..." />	
+					<field name="application_type" label="application_type" type="text-choice" list="recruitment.application_type" control="select" sqlType="integer" prompt="app type ..." />
+					
+					<field name="current_step" label="current_step" type="text-choice" list="recruitment.vacancy_step" control="select" sqlType="integer" prompt="current_step ..." />
+								
+				</fields>
+			</view>
+			
+			<view 
+				name	= "rct_vacancy.dashboards.recruitments_checklist.list"
+				table	= "rct_vacancy" 
+				handler	= "lib.recruitment.dashboards.records.recruitments_checklist">
+				<fields>
+					
+					<field name="name" label="name" type="line" />
+					<field name="recruitment_motivation" label="recruitment_motivation" type="text" />
+					
+					<field name="announcement" type="text-choice" list="recruitment.boolean_list" 
+						control="select" prompt="select state" sqlType="integer" />
+					<field name="instant_feedback" type="text-choice" list="recruitment.boolean_list" 
+						control="select" prompt="select state" sqlType="integer" />
+					<field name="delayed_feedback" type="text-choice" list="recruitment.boolean_list" 
+						control="select" prompt="select state" sqlType="integer" />
+					
+					
+					<field name="current_step" type="integer" show="hidden" />
+					<field 
+						name			= "manager_oid"
+						label			= "manager_oid" 
+						type			= "text-choice" 
+						prompt			= "manager_oid..."
+						multiple		= "false"
+						control			= "select"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_format		= "{field:first_name} {field:last_name}"					
+						ds_field_value="oid" sqlType="integer"/>
+					<field name="nb_candidates" type="integer" show="show" />
+					<field name="nb_interviews" type="integer" show="show" />
+					
+					<field name="mission_start_date" label="mission_start_date" type="date" format="%d %B %Y"  />
+					<field name="suited_recruitment_date" type="date" format="%d %B %Y" />
+					<field name="closing_date" label="closing_date" type="date" format="%d %B %Y"  />
+
+					<field name="open_close_delay" label="open_close_delay" type="integer" />
+					<field name="close_taking_office_delay" label="close_taking_office_delay" type="integer"  />
+					<field name="selected_people" label="selected_people" type="line" />
+					<field name="providers" label="providers" type="line" />
+					<field name="contract_type" label="contract_type" type="line" />
+					<field name="category" label="category" type="line" />
+					<field 
+						name="application_type" 
+						label="application_type" 
+						type="text-choice" 
+						list="recruitment.application_type" 
+						control="select" 
+						sqlType="integer" 
+						default="0" />
+					<field name="proposal_acceptance_date" label="proposal_acceptance_date" type="date" format="%d %B %Y"  />
+									
+				</fields>
+			</view>
+			
+		</views>
+
+	</data>
+
+</nxl>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_interview WHERE ((_key=_rct_interview._oid AND _val='".$GLOBALS["_NX_user"]->getProperty("user.oid","",true)."')  OR (_created_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."') ) "; ?>

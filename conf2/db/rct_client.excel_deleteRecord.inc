@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_client WHERE (".$this->getWhereClause("_nom_societe","'".$this->getParamValue("ltr","","request","|")."'",'LIKE','OR','','%',true,false,'|','false').") "; ?>

@@ -1,0 +1,21 @@
+<table class="associated-files">
+{records:attached_files.records}
+	{record}
+
+    <tr id="row-file-{field:oid}">
+        <td class="label"><a href="{=download.url}{record.url_key}">{field.html:file_name}</a></td>
+        <td class="operations">
+            <a class="s-icon si-page-white-put" href="{=download.url}{record.url_key}" alt="{string:"action_download"}"><span>{string:"action_download"}</span></a>
+            <a class="s-icon si-delete af-delete-action" href="javascript:void(0);" alt="{string:"action_delete"}" objectoid="{field:oid}"><span>{string:"action_delete"}</span></a>
+            <input type="checkbox" value="{field:oid}" id="checkbox-file-{field:oid}" name="files_to_delete[]" />
+        </td>
+    </tr>
+
+    <tr id="deleted-row-file-{field:oid}" style="display:none">
+        <td colspan="2" class="deleted">{field.html:file_name} {string:"deleted"},
+            <a href="javascript:void(0);" objectoid="{field:oid}"  class="action s-icon si-arrow-rotate-clockwise af-restore-action"><span>{string:"action_restore"}</span></a></td>
+    </tr>
+
+	{/record}
+{/records}
+</table>

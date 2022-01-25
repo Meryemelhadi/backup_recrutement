@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _filled_by,_scheduled_by,_scheduled_on,_vacancy_oid,_fill_state,_complete_state FROM _rct_instant_feedback"; ?>

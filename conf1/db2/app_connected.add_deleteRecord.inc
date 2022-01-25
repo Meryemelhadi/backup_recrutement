@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_app_connected WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

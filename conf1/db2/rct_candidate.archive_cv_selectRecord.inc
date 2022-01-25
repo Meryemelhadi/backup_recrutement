@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _archive_state FROM _rct_candidate WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

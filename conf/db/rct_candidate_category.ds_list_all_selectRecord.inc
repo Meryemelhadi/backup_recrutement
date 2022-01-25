@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name FROM _rct_candidate_category WHERE _oid in('".$props->getProperty("cat.enum","",true)."') ORDER BY _name ASC "; ?>

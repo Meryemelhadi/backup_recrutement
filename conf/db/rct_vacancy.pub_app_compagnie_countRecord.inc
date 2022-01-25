@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_app_connected WHERE _key='".$this->getParamValue("key","","request",",")."'"; ?>

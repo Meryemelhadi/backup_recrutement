@@ -1,0 +1,193 @@
+{content:menu}
+<div id="nav">
+<ul>
+	<li class="">
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=associated_candidate.url}','content'); return false;">
+			<b>{string:"title_associated_candidates"}</b>
+		</a>
+	</li>
+
+	<li class="current">
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=candidates.url}','content'); return false;">
+			<b>{string:"resume"}</b>
+		</a>
+	</li>
+	<li class="">
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=shorts_list.url}','content'); return false;">
+			<b>{string:"title_short_lists"}</b>
+		</a>
+	</li>
+	<li class="" >
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=rated.url}','content'); return false;">
+			<b>{string:"title_rated_candidates"}</b>
+		</a>
+	</li>
+	<li class="" >
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=refused_candidate.url}','content'); return false;">
+			<b>{string:"title_refused_candidates"}</b>
+		</a>
+	</li>
+</ul>
+</div>
+{/content}
+
+<div class="pm-grid-outer-wrapper">
+{=menu}
+<br/>
+	<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="PMDH.toggle('search-panel', 'appear'); return false;">
+			<span class="btn-bg"><span class="s-icon si-zoom">{string:"search"}</span></span>
+		</a>
+	</div> 
+
+	{include:common/search}	
+
+	<div class="directory-grid-wrapper" id="candidates_list_grid">
+	
+		<div class="directory-grid-selection clear-both">
+							
+			<div class="selection-wrapper">
+				<input type="checkbox" name="selection-checkbox" class="select-all-checkbox" />
+			</div>
+			
+			<div class="actions-droplist-wrapper">
+
+				<select name="grid-selection-actions" id="grid-selection-actions" style="display:none;">
+					<option value="?">{string:"actions_prompt"}</option>
+					<option value="{action:'urlInMB', config: window.dlg_mCreateSLCfg}">{string:'action_create_short_list'}</option>
+					<option value="{action:'urlInMB', config: window.dlg_mAddToSLCfg}">{string:'action_add_to_short_list'}</option>
+					<option value="{action:'urlInMB', config: window.dlg_mSendToICCfg}">{string:'action_send_to_internal_client'}</option>
+					<option value="{action:'confirm', config: window.dlg_mSelectForJobCfg}">{string:'action_select_for_job'}</option>
+					<option value="{action:'confirm', config: window.dlg_mRefuseCfg}">{string:'action_refuse_selection'}</option>
+					<option value="{action:'confirm', config: window.dlg_mUnlinkCfg}">{string:'action_unlink_selection'}</option>
+					
+					<option value="{action:'navigate', config: window.dlg_mScheduleInterviewDlg}">{string:'action_schedule_interview'}</option>
+					<option value="{action:'navigate', config: window.dlg_mSendMailDlg}">{string:'action_send_mail'}</option>
+				</select>
+				
+				<script>
+					new Generis.Dropdownlist({
+						control: 'grid-selection-actions',
+						onchange: function() {
+							Generis.Recruitment.doSelectAction(this);
+						}
+					});	
+					
+					window.dlg_mScheduleInterviewDlg = { url: '{=add_interview.url}', paramName:'candidate_oid' };
+					window.dlg_mSendMailDlg = { url: '{=add_email.url}', paramName:'candidate_oid' };	
+				
+					window.dlg_mCreateSLCfg = { title:"{string:'add_short_list_title'}", url: "{=add_short_list.url}", width:550, paramName:'candidate_oid' };
+					window.dlg_mAddToSLCfg = { title:"{string:'add_to_short_list_title'}", url: "{=add_to_short_list.url}", width:550, paramName:'candidate_oid' };			
+					window.dlg_mSendToICCfg = { title:"{string:'send_to_client_title'}", width:550, url :'{=send_to_ic.url}', paramName:'candidate_oid' };
+					
+					window.dlg_mSelectForJobCfg = { 
+						title : "{string:'dlg_massive_select_for_job_title'}",
+						message : "{string:'dlg_massive_select_for_job_content'}", 
+						viewMode : "okCancel", 
+						url : "{=accepted_for_job.url}", 
+						paramName:'candidate_oid',
+						target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" 
+					} };
+					
+					window.dlg_mRefuseCfg = { 
+						title : "{string:'dlg_massive_refuse_title'}",
+						message : "{string:'dlg_massive_refuse_content'}", 
+						viewMode : "okCancel", 
+						url : "{=refuse_candidate.url}", 
+						paramName:'candidate_oid',
+						target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" 
+					} };
+
+					window.dlg_mUnlinkCfg = { 
+						title : "{string:'dlg_unlink_selection_title'}",
+						message : "{string:'dlg_unlink_selection_content'}", 
+						viewMode : "okCancel", 
+						url : "{=unlink_candidate.url}", 
+						paramName:'candidate_oid',
+						target : "content", 
+						labels : { 
+							ok : "{string:'dlg_ok'}", 
+							cancel : "{string:'dlg_cancel'}" 
+					} };		
+				</script>
+				
+			</div>
+		</div>
+
+       {$disableCheckbox = ''}
+
+<?php $list= false; ?>
+
+{if:#=candidates_selected.records# || #=short_lists.records# }
+	
+	{if:#=candidates_selected.records#}
+			<!--! {records:candidates_selected.records} -->
+			{if:records.count>0}
+			<h3 class="grid-header">{string:"title_selected_candidates"}</h3>
+			<?php $currentGroup = 'accepted_candidates'; ?>
+			<!--! {record} -->
+			{include:recruitment/vacancies/components/candidates_list}
+			<!--! {/record} -->
+			{/if}
+			<!--! {/records} -->
+	{else}
+		<div class="empty-records">{string:"empty_candidates_accepted_list"}</div>
+	{/if}
+
+
+	{$disableCheckbox = ''}
+
+	{if:#=short_lists.records#}
+
+			<!--! {records:short_lists.records} -->
+			{if:records.count>0}
+			
+				<?php $currentGroup = 'short_lists'; ?>
+				<!--! {record} -->
+				{if:record.is_first == true}
+					<h3 class="grid-header">{string:"title_short_list_last"}</h3>
+					{include:recruitment/vacancies/components/short_lists}
+				{/if}
+				<!--! {/record} -->
+			{/if}
+			<!--! {/records} -->
+	
+	</div>
+	<script>
+		PMDH.Skin.LightSky.Grid.init('', {
+			wrapperClass	: 'directory-grid-wrapper',
+			gridClass		: 'directory-grid',
+			gridRowClass	: 'directory-grid-row'
+		});
+	</script>
+	{else}
+			<div class="empty-records">{string:"empty_shortlist"}</div>
+	{/if}
+
+{/if}
+
+<?php if($currentGroup != 'short_lists' && $currentGroup !='accepted_candidates' ) { ?>
+	{if:#=candidates_associated.records#}
+		<!--! {records:candidates_associated.records} -->
+		{if:records.count>0}
+		<h3 class="grid-header">{string:"title_associated_candidates"}</h3>
+		<?php $currentGroup = 'associated_candidates'; ?>
+		<!--! {record} -->
+		{include:recruitment/vacancies/components/candidates_list}
+		<!--! {/record} -->
+		{/if}
+		<!--! {/records} -->
+	{/if}
+<?php } ?>
+
+</div>
+
+<?php 
+if(isset($_GET['candidate_oid'])) { ?>
+<script>
+window.location.href = "#{get:candidate_oid}";
+</script>
+<?php } ?>

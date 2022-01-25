@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_short_list(_is_visible) VALUES('".$props->getProperty("visibility","",true)."')"; ?>

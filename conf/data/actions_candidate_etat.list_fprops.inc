@@ -1,0 +1,10 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_actions_candidate_etat_oid','show'=>false,'isEdit'=>false,'onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'name','label'=>'name','type'=>'text','size'=>'200','srcName'=>'name','ufname'=>'_name','qname'=>'rct_actions_candidate_etat_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'service_web','label'=>'service_web','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:services_web.dslist@recruitment','ds_format'=>'{field:name}','ds_field_value'=>'oid','sqltype'=>'integer','srcName'=>'service_web','ufname'=>'_service_web','qname'=>'rct_actions_candidate_etat_service_web','list'=>'service_web','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'actif','label'=>'actif','type'=>'text_choice','control'=>'select','list'=>'recruitment.boolean_list@recruitment','srcName'=>'actif','ufname'=>'_actif','qname'=>'rct_actions_candidate_etat_actif','onSubmitCheck'=>"checkSelect('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'etat_candidate','label'=>'etat_candidate','type'=>'text_choice','control'=>'checkbox','multiple'=>true,'ds'=>'db:rct_candidate_etat.ds_list@recruitment','ds_format'=>'{field:name}','ds_field_value'=>'oid','sqltype'=>'varchar(255)','controlLayout'=>'table','columns'=>'3','srcName'=>'etat_candidate','ufname'=>'_etat_candidate','qname'=>'rct_actions_candidate_etat_etat_candidate','list'=>'etat_candidate','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','name'=>'name','_name'=>'name','service_web'=>'service_web','_service_web'=>'service_web','actif'=>'actif','_actif'=>'actif','etat_candidate'=>'etat_candidate','_etat_candidate'=>'etat_candidate',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'actions_candidate_etat.list','table'=>'_rct_actions_candidate_etat');
+ ?>

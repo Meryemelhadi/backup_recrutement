@@ -1,0 +1,13 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_interview_oid','isKey'=>'primary','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'time_start','label'=>'time_start','type'=>'datetime','control'=>'time','increment-mn'=>'10','format'=>'%H:%M','srcName'=>'time_start','ufname'=>'_time_start','qname'=>'rct_interview_time_start',),
+array('name'=>'time_end','label'=>'time_end','type'=>'datetime','control'=>'time','increment-mn'=>'10','format'=>'%H:%M','srcName'=>'time_end','ufname'=>'_time_end','qname'=>'rct_interview_time_end',),
+array('name'=>'date','label'=>'date','type'=>'datetime','format'=>'%Y-%m-%d','srcName'=>'date','ufname'=>'_date','qname'=>'rct_interview_date',),
+array('name'=>'candidate_oid','label'=>'candidate_oid','type'=>'text','multiple'=>false,'srcName'=>'candidate_oid','ufname'=>'_candidate_oid','qname'=>'rct_interview_candidate_oid','control'=>'select','ds'=>'db:rct_candidate.ds_list','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','sqltype'=>'integer','onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'candidate','label'=>'candidate','type'=>'text','multiple'=>false,'srcName'=>'candidate','ufname'=>'_candidate','qname'=>'rct_interview_candidate','onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'vacancy_oid','label'=>'vacancy_oid','type'=>'text','multiple'=>false,'srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_interview_vacancy_oid','control'=>'select','ds'=>'db:rct_vacancy.ds_list','ds_format'=>'{field:name} ({field:code})','ds_field_value'=>'oid','sqltype'=>'integer','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'vacancy_name','label'=>'vacancy_name','type'=>'text','multiple'=>false,'srcName'=>'vacancy_name','ufname'=>'_vacancy_name','qname'=>'rct_interview_vacancy_name','onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','time_start'=>'time_start','_time_start'=>'time_start','time_end'=>'time_end','_time_end'=>'time_end','date'=>'date','_date'=>'date','candidate_oid'=>'candidate_oid','_candidate_oid'=>'candidate_oid','candidate'=>'candidate','_candidate'=>'candidate','vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid','vacancy_name'=>'vacancy_name','_vacancy_name'=>'vacancy_name',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_interview.by_user_day_future_by_job','table'=>'_rct_interview');
+ ?>

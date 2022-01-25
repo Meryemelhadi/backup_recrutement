@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_warning_concerned_people WHERE _key='".$this->getParamValue("oid","","request",",")."'"; ?>

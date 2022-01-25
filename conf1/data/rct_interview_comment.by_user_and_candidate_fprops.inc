@@ -1,0 +1,9 @@
+<?php $properties["fprops"]=array(
+array('name'=>'rct_interview_comment_oid','label'=>'oid','type'=>'text','isKey'=>'primary','srcName'=>'oid','ufname'=>'rct_interview_comment_oid','qname'=>'rct_interview_comment_oid','show'=>false,'isEdit'=>false,'onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'rct_interview_comment_time_start','label'=>'time_start','type'=>'datetime','control'=>'time','format'=>'%H:%M','increment-mn'=>'10','srcName'=>'time_start','ufname'=>'rct_interview_comment_time_start','qname'=>'rct_interview_comment_time_start',),
+array('name'=>'rct_interview_comment_time_end','label'=>'time_end','type'=>'datetime','control'=>'time','format'=>'%H:%M','increment-mn'=>'10','srcName'=>'time_end','ufname'=>'rct_interview_comment_time_end','qname'=>'rct_interview_comment_time_end',),
+array('name'=>'rct_interview_comment_date','label'=>'date','type'=>'date','format'=>'%d %B %Y','srcName'=>'date','ufname'=>'rct_interview_comment_date','qname'=>'rct_interview_comment_date','onSubmitCheck'=>"checkDate('%3\$s',%1\$s.%2\$s_day,%1\$s.%2\$s_month,%1\$s.%2\$s_year,%4\$s)",),);
+$properties["falias"]=array('oid'=>'rct_interview_comment_oid','oid'=>'rct_interview_comment_oid','_oid'=>'rct_interview_comment_oid','time_start'=>'rct_interview_comment_time_start','time_start'=>'rct_interview_comment_time_start','_time_start'=>'rct_interview_comment_time_start','time_end'=>'rct_interview_comment_time_end','time_end'=>'rct_interview_comment_time_end','_time_end'=>'rct_interview_comment_time_end','date'=>'rct_interview_comment_date','date'=>'rct_interview_comment_date','_date'=>'rct_interview_comment_date',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_interview_comment.by_user_and_candidate','table'=>'_rct_interview_comment');
+ ?>

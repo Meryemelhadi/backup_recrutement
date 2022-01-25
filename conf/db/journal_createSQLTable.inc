@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _journal(_oid INT AUTO_INCREMENT NOT NULL,_provider_oid TEXT,_category_id integer,_title TEXT,_summary VARCHAR(255),_content TEXT,_author_id INT,_creation_date DATETIME,_validated INT,_validated_by INT,_image TEXT,_type TEXT,PRIMARY KEY(_oid))"; ?>

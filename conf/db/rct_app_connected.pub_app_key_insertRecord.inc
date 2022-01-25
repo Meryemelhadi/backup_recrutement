@@ -1,0 +1,34 @@
+<?php $properties["query"]="INSERT INTO _rct_app_connected(_url,_logo,_favicon,_name_society,_adress,_description_society,_banner_background_image,_banner_second_background_image,_contact_email,_menu_text_color,_menu_text_font_size,_menu_text_font_family,_menu_background_color,_baniere_title_color,_baniere_title_font_size,_baniere_title_font_family,_baniere_title_text_align,_baniere_description_color,_baniere_description_font_size,_baniere_description_font_family,_button_nous_rejoindre_color,_button_nous_rejoindre_font_size,_button_nous_rejoindre_font_family,_button_nous_rejoindre_rounded,_button_nous_rejoindre_color_text,_footer_content,_footer_text_color,_footer_text_font_size,_footer_text_font_family,_footer_text_text_align,_footer_text_height,_footer_text_background_color,_css_txt,_js_txt) VALUES(".$record->getFieldValue("url","DB","NULL").",".
+$record->getFieldValue("logo","DB","NULL").",".
+$record->getFieldValue("favicon","DB","NULL").",".
+$record->getFieldValue("name_society","DB","NULL").",".
+$record->getFieldValue("adress","DB","NULL").",".
+$record->getFieldValue("description_society","DB","NULL").",".
+$record->getFieldValue("banner_background_image","DB","NULL").",".
+$record->getFieldValue("banner_second_background_image","DB","NULL").",".
+$record->getFieldValue("contact_email","DB","NULL").",".
+$record->getFieldValue("menu_text_color","DB","#fff").",".
+$record->getFieldValue("menu_text_font_size","DB","NULL").",".
+$record->getFieldValue("menu_text_font_family","DB","NULL").",".
+$record->getFieldValue("menu_background_color","DB","#2c2c2c").",".
+$record->getFieldValue("baniere_title_color","DB","#fff").",".
+$record->getFieldValue("baniere_title_font_size","DB","NULL").",".
+$record->getFieldValue("baniere_title_font_family","DB","NULL").",".
+$record->getFieldValue("baniere_title_text_align","DB","NULL").",".
+$record->getFieldValue("baniere_description_color","DB","#000").",".
+$record->getFieldValue("baniere_description_font_size","DB","NULL").",".
+$record->getFieldValue("baniere_description_font_family","DB","NULL").",".
+$record->getFieldValue("button_nous_rejoindre_color","DB","#fff").",".
+$record->getFieldValue("button_nous_rejoindre_font_size","DB","NULL").",".
+$record->getFieldValue("button_nous_rejoindre_font_family","DB","NULL").",".
+$record->getFieldValue("button_nous_rejoindre_rounded","DB","NULL").",".
+$record->getFieldValue("button_nous_rejoindre_color_text","DB","#fff").",".
+$record->getFieldValue("footer_content","DB","NULL").",".
+$record->getFieldValue("footer_text_color","DB","#fff").",".
+$record->getFieldValue("footer_text_font_size","DB","NULL").",".
+$record->getFieldValue("footer_text_font_family","DB","NULL").",".
+$record->getFieldValue("footer_text_text_align","DB","NULL").",".
+$record->getFieldValue("footer_text_height","DB","NULL").",".
+$record->getFieldValue("footer_text_background_color","DB","#000").",".
+$record->getFieldValue("css_txt","DB","NULL").",".
+$record->getFieldValue("js_txt","DB","NULL").")"; ?>

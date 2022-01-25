@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+	<include_once file = "data_model/all.nxl"/>
+	<include_once file = "strings/all.nxl"/>
+
+	<include_once file="/candidates/directory.nxl" />
+	<include_once file="/vacancies/all.nxl" />
+
+	<include_once file="/dashboards/all.nxl" />
+	<include_once file="/dashboard_interviews.nxl" />
+	<include_once file="/candidates/recruitment_channel.nxl" />
+
+	<include_once file="/manage_candidate_etats.nxl" />
+	<include_once file="/profiling_rules.nxl" />
+	<include_once file="/emails.nxl" />
+
+	<include_once file="/email_docs.nxl" />
+	<include_once file="/meeting_rooms.nxl" />
+	<include_once file="/search_params.nxl" />
+	<include_once file="/index.nxl" />
+	<include_once file="/manage_providers.nxl" />
+	<include_once file="/app_connected.nxl" />
+	<include_once file="/vacancy_project.nxl" />
+	<include_once file="/saved_search.nxl" />
+<include_once file="/actions_candidate_etat.nxl" />
+<include_once file="/services_web.nxl" />
+<include_once file="/candidate_tags.nxl" />
+</nxl>

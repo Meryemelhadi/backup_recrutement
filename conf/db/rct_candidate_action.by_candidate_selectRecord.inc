@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_user_oid,_date,_action_oid,_ref_oid,_additional_infos,_vacancy_oid FROM _rct_candidate_action WHERE _candidate_oid='".$props->getProperty("candidate_oid","",true)."'"; ?>

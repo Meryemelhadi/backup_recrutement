@@ -1,0 +1,509 @@
+<?xml version="1.0"?> 
+
+<include file = "vacancy_lib.comp.nxl"/>
+
+<xo:taglib 
+	uri					= "http://www.presencemedia.com/recruitment/vacancies/components/interview_lib.comp"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/vacancies/components/interview_lib.comp"
+	xmlns:vacancy_lib	= "http://www.presencemedia.com/recruitment/vacancies/components/vacancy_lib.comp"
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:ds			= "http://www.nxfrontier.com/nxl/ds"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<xo:tag name="interviews_list">
+
+		<xo:param name="ds_interviews_list" value="rct_interview.ds_calendar_list@recruitment" />		
+		<xo:param name="property_records" value="page.records" />
+		<xo:param name="edit_op_name" value="edit_interview" />
+		<xo:param name="edit_op" value="edit_interview" />
+		<xo:param name="validate_op_name" value="validate_interview" />
+		<xo:param name="validate_op" value="validate_interview" />
+		
+		<xo:param name="param_name" value="oid" />
+		<xo:param name="param" value="#request:oid#" />
+		
+		<block>
+				
+			<ds:load media="db" ds="#{$ds_interviews_list}#" property="#{$property_records}#" multiple="yes" addProperties="no" />
+			<button:set name="#{$edit_op_name}#" operation="#{$edit_op}#">
+				<button:param name="#{$param_name}#" value="#{$param}#" />
+			</button:set>
+			<button:set name="#{$validate_op_name}#" operation="#{$validate_op}#">
+				<button:param name="#{$param_name}#" value="#{$param}#" />
+			</button:set>	
+								
+		</block>
+	</xo:tag>
+
+	<xo:tag name="add_interview">
+		
+		<xo:param name="ds_interview_add" value="rct_interview.add@recruitment" />
+		<xo:param name="property_record" value="page.record" />
+		<xo:param name="previous_operation" value="calendar" />
+		<xo:param name="submit_operation" value="add_interview_process" />
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		<xo:param name="previous_op_label" value="#string:back_to_calendar#" />
+		<xo:param name="previous_op_param_name" value="oid" />
+		<xo:param name="previous_op_param" value="#property:vacancy_oid#" />
+		<block>
+		
+			<if condition="#request:candidate_oid#">
+				<set name="property:candidate_oid" value="#request:candidate_oid#" />
+			</if>
+
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<ds:load media="empty" ds="#{$ds_interview_add}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+			<set name="property:previous_op_label" value="#{$previous_op_label}#" />
+			
+			<button:set name="get_email_sample" operation="get_email_sample" />
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="#{$previous_op_param_name}#" value="#{$previous_op_param}#" />
+			</button:set>
+			<button:set name="submit" operation="#{$submit_operation}#" />
+					
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="add_interview_process">
+
+		<xo:param name="ds_interview_add" value="rct_interview.add@recruitment" />
+		<xo:param name="ds_interview_attached_files_add_candidate" value="rct_interview_attached_file_candidate.add_record@recruitment" />
+		<xo:param name="ds_interview_attached_files_add_interviewer" value="rct_interview_attached_file_interviewers.add_record@recruitment" />
+		<xo:param name="ds_add_log" value="rct_vacancy_action.record" />
+		<xo:param name="interviews_path" value="interviews" />
+		<xo:param name="service_class" value="lib.recruitment.vacancies.services.directory" />
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		<xo:param name="candidate_oid_param" value="#request:candidate_oid#" />
+		<xo:param name="property_record" value="page.record"/>
+		<xo:param name="ds_interview_email" value="rct_interview.email_data@recruitment" />
+		<xo:param name="template_email" value="recruitment.emails.tpl_email" />
+		<xo:param name="email_mode" value="send" />
+			
+		<block>
+
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />	
+			<set name="property:candidate_oid" value="#{$candidate_oid_param}#" />
+			
+			<script language="php">
+				$candidates_oids = explode('|', $this->getProperty("candidate_oid",""));
+				$lastOids = array();
+			</script>
+
+			<foreach sequence="#var:candidates_oids#" index="i" item="value">
+				
+				<set name="property:candidate_oid" value="#var:value#" />
+					
+				<ds:store ds="#{$ds_interview_add}#" media="db" mode="insert">
+					<ds:load media="post" ds="#{$ds_interview_add}#" multiple="no" addProperties="no"/>
+				</ds:store>
+				
+				<set name="var:lastOid">
+					<!--<ds:insert_id record="#{$ds_interview_add}#" />-->
+					<ds:insert_id media="db" />
+				</set>
+				
+				<script language="php">
+					$lastOids[] = array($lastOid, $value);
+				</script>
+				
+			</foreach>
+			
+			<set name="var:path" value="#{$interviews_path}#" />
+			<set name="var:handler_candidate" value="#{$ds_interview_attached_files_add_candidate}#" />
+			<set name="var:handler_interviewers" value="#{$ds_interview_attached_files_add_interviewer}#" />
+
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "uploadNCopyInterview"
+					params		= "#var:lastOids#,#var:handler_candidate#,#var:handler_interviewers#,#var:path#"
+				/>
+			</load>
+
+			<tpl:screen 
+				xmlns		= "http://www.nxfrontier.com/tpl/tpml"  
+				xmlns:tpl	= "http://www.nxfrontier.com/tpl/tpml"
+				name		= "interview_email_view" 
+				trace		= "yes">
+				<load view="#{$template_email}#" />
+			</tpl:screen>
+			
+			
+			
+			<set name="var:email_mode" value="#{$email_mode}#" />
+			<if condition="#var:email_mode# == 'send'">
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "lib.recruitment.vacancies.services.message"
+					method		= "sendInterviewEmail"
+					params		= "#var:lastOids#"
+				/>
+			</if>
+	
+			
+			
+			
+			
+					
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="delete">
+	
+		<xo:param name="ds_synthesis_delete" value="rct_interview_synthesis.delete@recruitment" />
+		<xo:param name="ds_delete" value="rct_interview.delete@recruitment" />
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		<xo:param name="interview_oid_param" value="#request:interview_oid#" />
+		
+		<block>
+			
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<set name="property:interview_oid" value="#{$interview_oid_param}#" />	
+			
+			<ds:delete ds="#{$ds_synthesis_delete}#" media="db" />
+			<ds:delete ds="#{$ds_delete}#" media="db" />
+					
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="edit_interview">
+
+		<xo:param name="ds_interview_edit" value="rct_interview.edit@recruitment" />
+		<xo:param name="ds_interview_synthesis" value="rct_interview_synthesis.by_interview@recruitment" />
+		<xo:param name="ds_interview_attached_files_interviewers" value="rct_interview_attached_file_interviewers.by_interview@recruitment" />
+		<xo:param name="ds_interview_attached_files_candidate" value="rct_interview_attached_file_candidate.by_interview@recruitment" />
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		<xo:param name="interview_oid_param" value="#request:interview_oid#" />
+		
+		<xo:param name="previous_operation" value="calendar" />
+		
+		<xo:param name="property_record" value="page.record"/>
+		<xo:param name="attached_files_records_interviewers" value="attached_files_interviewers.records"/>
+		<xo:param name="attached_files_records_candidate" value="attached_files_candidate.records"/>
+		<xo:param name="synthesis_records" value="interview_synthesis.records"/>
+		
+		<xo:param name="previous_op_param_name" value="oid"/>
+		<xo:param name="previous_op_param" value="#property:vacancy_oid#"/>
+		
+		<xo:param name="po_param_name_1" value="vacancy_oid" />
+		<xo:param name="po_param_1" value="#property:vacancy_oid#" />
+		<xo:param name="po_param_name_2" value="interview_oid" />
+		<xo:param name="po_param_2" value="#property:interview_oid#" />
+	
+		<block>
+				
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<set name="property:interview_oid" value="#{$interview_oid_param}#" />			
+			
+			<ds:load media="db" ds="#{$ds_interview_edit}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+			<ds:load media="db" ds="#{$ds_interview_synthesis}#" property="#{$synthesis_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_interview_attached_files_candidate}#" property="#{$attached_files_records_candidate}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_interview_attached_files_interviewers}#" property="#{$attached_files_records_interviewers}#" multiple="yes" addProperties="no" />
+			
+			<button:set name="get_email_sample" operation="get_email_sample" />
+			<button:set name="download_candidate" operation="interview_download" step="interview_download_candidate"/>
+			<button:set name="download_interviewers" operation="interview_download" step="interview_download_interviewers"/>
+					
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="#{$previous_op_param_name}#" value="#{$previous_op_param}#" />
+			</button:set>	
+			
+			<button:set name="delete_interview" operation="delete_interview">
+				<button:param name="#{$po_param_name_1}#" value="#{$po_param_1}#" />
+				<button:param name="#{$po_param_name_2}#" value="#{$po_param_2}#" />
+			</button:set>
+					
+			<button:set name="submit" operation="edit_interview_process">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>
+			
+			
+			<button:set name="add_interview_synthesis" operation="add_interview_synthesis">
+				<button:param name="#{$po_param_name_1}#" value="#{$po_param_1}#" />
+				<button:param name="#{$po_param_name_2}#" value="#{$po_param_2}#" />
+			</button:set>
+			
+			<button:set name="edit_interview_synthesis" operation="edit_interview_synthesis">
+				<button:param name="#{$po_param_name_1}#" value="#{$po_param_1}#" />
+				<button:param name="#{$po_param_name_2}#" value="#{$po_param_2}#" />
+			</button:set>
+			
+			<button:set name="pdf_export" operation="pdf_export">
+				<button:param name="#{$po_param_name_1}#" value="#{$po_param_1}#" />
+				<button:param name="#{$po_param_name_2}#" value="#{$po_param_2}#" />
+			</button:set>
+			
+			<button:set name="view_interview_synthesis" operation="view_interview_synthesis">
+				<button:param name="#{$po_param_name_1}#" value="#{$po_param_1}#" />
+				<button:param name="#{$po_param_name_2}#" value="#{$po_param_2}#" />
+			</button:set>			
+			
+					
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="edit_interview_process">
+	
+		<xo:param name="ds_interview_edit" value="rct_interview.edit@recruitment" />
+		<xo:param name="ds_interview_edit_process" value="rct_interview.edit@recruitment" />
+		<xo:param name="ds_interview_attached_files_add_candidate" value="rct_interview_attached_file_candidate.add_record@recruitment" />
+		<xo:param name="ds_interview_attached_files_remove_candidate" value="rct_interview_attached_file_candidate.get_record@recruitment" />
+		<xo:param name="ds_interview_attached_files_add_interviewers" value="rct_interview_attached_file_interviewers.add_record@recruitment" />
+		<xo:param name="ds_interview_attached_files_remove_interviewers" value="rct_interview_attached_file_interviewers.get_record@recruitment" />
+				
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		<xo:param name="interview_oid_param" value="#request:oid#" />
+		
+		<xo:param name="interviews_path" value="interviews" />	
+		<xo:param name="service_class" value="lib.recruitment.vacancies.services.directory" />
+	
+		<block>
+				
+			<set name="property:interview_oid" value="#{$interview_oid_param}#" />
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />							
+			
+			<ds:store ds="#{$ds_interview_edit_process}#" media="db" mode="update">
+				<ds:load media="post" ds="#{$ds_interview_edit}#" multiple="no" addProperties="no"/>
+			</ds:store>		
+								
+			<!-- Upload des fichiers -->
+			<set name="var:oid" value="#property:interview_oid#" />
+			<set name="var:path" value="#{$interviews_path}#" />
+			<set name="var:handler_candidate" value="#{$ds_interview_attached_files_add_candidate}#" />
+			<set name="var:handler_interviewers" value="#{$ds_interview_attached_files_add_interviewers}#" />
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "uploadInterviewFiles"
+					params		= "#var:oid#,#var:handler_candidate#,#var:handler_interviewers#,#var:path#"
+				/>
+			</load>
+			
+			<!-- Suppression des fichiers -->
+			<set name="var:handler" value="#{$ds_interview_attached_files_remove_interviewers}#" />
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "removeFiles"
+					params		= "#var:oid#,#var:handler#,#var:path#"
+				/>
+			</load>
+			<set name="var:handler" value="#{$ds_interview_attached_files_remove_candidate}#" />
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "removeFiles"
+					params		= "#var:oid#,#var:handler#,#var:path#"
+				/>
+			</load>
+			
+			
+			
+			
+			
+			<set name="var:candidate_oid" value="#request:candidate_oid#" />
+			<script language="php">
+				$lastOids = array(array($oid, $candidate_oid));
+			</script>
+			<bean:call
+				xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+				class		= "lib.recruitment.vacancies.services.message"
+				method		= "sendInterviewEmail"
+				params		= "#var:lastOids#"
+			/>
+			
+			
+			
+			
+			
+			
+	
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="interview_download">
+		
+		<xo:param name="ds_interview_attached_files_download" value="rct_interview_attached_file.get_record@recruitment" />
+		<xo:param name="interviews_path" value="interviews" />	
+		<xo:param name="service_class" value="lib.recruitment.vacancies.services.directory" />
+		<xo:param name="file_oid_param" value="#request:oid#" />
+		<xo:param name="interview_oid_param" value="#request:interview_oid#" />
+		
+		<block>
+
+			<set name="var:path" value="#{$interviews_path}#" />
+			<set name="var:handler" value="#{$ds_interview_attached_files_download}#" />
+			<set name="var:oidField" value="interview_oid" />
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "download"
+					params		= "#{$file_oid_param}#,#{$interview_oid_param}#,#var:path#,#var:handler#,#var:oidField#"
+				/>
+			</load>
+					
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="add_interview_synthesis">
+		
+		<xo:param name="ds_interview_synthesis_add" value="rct_interview_synthesis_lydec.add@recruitment" />
+		<xo:param name="property_record" value="page.record" />
+		
+		<xo:param name="submit" value="add_interview_synthesis_process" />
+		
+		<xo:param name="previous_operation" value="edit_interview" />
+		<xo:param name="po_param_name_1" value="interview_oid" />
+		<xo:param name="po_param_1" value="#request:interview_oid#" />
+		<xo:param name="po_param_name_2" value="oid" />
+		<xo:param name="po_param_2" value="#request:vacancy_oid#" />
+		
+		<xo:param name="interview_oid" value="#request:interview_oid#" />
+		
+		<block>
+			
+			<set name="property:interview_oid" value="#{$interview_oid}#" />
+			<ds:load media="empty" ds="#{$ds_interview_synthesis_add}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+			
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="#{$po_param_name_1}#" value="#{$po_param_1}#" />
+				<button:param name="#{$po_param_name_2}#" value="#{$po_param_2}#" />
+			</button:set>
+			<button:set name="submit" operation="#{$submit}#" />
+			
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="add_interview_synthesis_process">
+		
+		<xo:param name="ds_interview_synthesis_add" value="rct_interview_synthesis.add@recruitment" />
+		<xo:param name="ds_interview_synthesis_add_process" value="rct_interview_synthesis.add_process@recruitment" />
+		<xo:param name="interview_oid_param" value="#request:interview_oid#" />
+		
+		<block>
+			
+			<set name="property:interview_oid" value="#{$interview_oid_param}#" />
+			<ds:store ds="#{$ds_interview_synthesis_add_process}#" media="db" mode="insert">
+				<ds:load media="post" ds="#{$ds_interview_synthesis_add}#" multiple="no" addProperties="no"/>
+			</ds:store>
+					
+		</block>
+	</xo:tag>
+	
+	
+	
+	
+	
+	
+	
+	<xo:tag name="edit_synthesis">
+		
+		<xo:param name="ds_edit" value="rct_interview_synthesis.edit@recruitment" />
+		<xo:param name="property_record" value="page.record" />
+		
+		<xo:param name="submit" value="edit_interview_synthesis_process" />
+		
+		<xo:param name="previous_operation" value="edit_interview" />
+		<xo:param name="po_param_name_1" value="interview_oid" />
+		<xo:param name="po_param_1" value="#request:interview_oid#" />
+		<xo:param name="po_param_name_2" value="oid" />
+		<xo:param name="po_param_2" value="#request:vacancy_oid#" />
+		
+		<xo:param name="interview_oid" value="#request:interview_oid#" />
+		
+		<block>
+			
+			<set name="property:synthesis_oid" value="#request:oid#" />
+			<set name="property:interview_oid" value="#{$interview_oid}#" />
+			
+			<ds:load media="db" ds="#{$ds_edit}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+			
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="#{$po_param_name_1}#" value="#{$po_param_1}#" />
+				<button:param name="#{$po_param_name_2}#" value="#{$po_param_2}#" />
+			</button:set>
+			
+			<button:set name="submit" operation="#{$submit}#" />
+			
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="edit_synthesis_process">
+		
+		<xo:param name="ds_edit" value="rct_interview_synthesis.edit@recruitment" />
+		<xo:param name="ds_edit_process" value="rct_interview_synthesis.edit_process@recruitment" />
+		<xo:param name="interview_oid_param" value="#request:interview_oid#" />
+		
+		<block>
+			
+			<set name="property:synthesis_oid" value="#request:oid#" />
+			<set name="property:interview_oid" value="#{$interview_oid_param}#" />
+			
+			<ds:store ds="#{$ds_edit_process}#" media="db" mode="update">
+				<ds:load media="post" ds="#{$ds_edit}#" multiple="no" addProperties="no"/>
+			</ds:store>
+					
+		</block>
+	</xo:tag>
+
+	<xo:tag name="view_interview_synthesis">
+		
+		<xo:param name="ds_interview_synthesis_view" value="rct_interview_synthesis.view@recruitment" />
+		<xo:param name="property_record" value="page.record" />
+		<xo:param name="previous_operation" value="edit_interview" />
+		<xo:param name="po_param_name_1" value="interview_oid" />
+		<xo:param name="po_param_1" value="#request:interview_oid#" />
+		<xo:param name="po_param_name_2" value="oid" />
+		<xo:param name="po_param_2" value="#request:vacancy_oid#" />
+		
+		<xo:param name="interview_oid" value="#request:interview_oid#" />
+		
+		<block>
+			
+			<set name="property:synthesis_oid" value="#request:oid#" />
+			<set name="property:interview_oid" value="#{$interview_oid}#" />
+			<ds:load media="db" ds="#{$ds_interview_synthesis_view}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+			
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="#{$po_param_name_1}#" value="#{$po_param_1}#" />
+				<button:param name="#{$po_param_name_2}#" value="#{$po_param_2}#" />
+			</button:set>
+			
+		</block>
+	</xo:tag>
+	<xo:tag name="pdf_interview_synthesis">
+		
+		<xo:param name="ds_interview_synthesis_pdf" value="rct_interview_synthesis.pdf@recruitment" />
+		<xo:param name="property_record" value="page.record" />
+		<xo:param name="po_param_name_1" value="interview_oid" />
+		<xo:param name="po_param_1" value="#request:interview_oid#" />
+		<xo:param name="po_param_name_2" value="oid" />
+		<xo:param name="po_param_2" value="#request:vacancy_oid#" />
+		
+		<xo:param name="interview_oid" value="#request:interview_oid#" />
+		
+		<block>
+			
+			<set name="property:synthesis_oid" value="#request:oid#" />
+			<set name="property:interview_oid" value="#{$interview_oid}#" />
+			
+
+			<ds:load media="db" ds="#{$ds_interview_synthesis_pdf}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+			
+			
+			
+		</block>
+	</xo:tag>
+
+</xo:taglib>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _journal_categories SET ; ?>

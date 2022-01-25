@@ -1,0 +1,38 @@
+{if:%property:not_hide_back%}
+	{if:%property:previous_operation_link.url%}
+	<button type="button" class="btn btn-default button_back {if:!%property:from_vacancy% && !%property:from_vacancy_calendar% && !%property:my_calendar% && !%property:from_mes_candidats% && !%property:from_eval% && !%property:from_homepage%}green{/if}" onclick="document.location.href='{=previous_operation_link.url}'">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+		{if:%property:from_vacancy%}{string:"back_to_vacancy"}{elseif:%property:from_vacancy_calendar%}{string:"back_to_vacancy_calendar"}{elseif:%property:my_calendar%}{string:"back_to_calendar"}{elseif:%property:from_mes_candidats%}{string:"back_to_my_candidates"}{elseif:%property:from_eval%}{string:"back_to_eval"}{elseif:%property:from_homepage%}{string:"back_to_home"}{else}{string:"back"}{/if}
+	</button>
+	{else}
+	<button type="button" class="btn btn-default button_back" onclick="Generis.Recruitment.hide_cv_menu();PMFormSubmit.validate(this, dlg_backConfig, event); this.blur(); return false;">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;{string:"back"}
+	</button>
+	{/if}
+{/if}
+<!--<button type="button" class="btn btn-default" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;&nbsp;{string:"submit"}
+</button>
+<span class="pm-button-sep"></span>
+
+
+
+<script>
+    window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+    window.dlg_successConfig = {
+        title : "{string:'dlg_success_title'}",
+        message : "{string:'dlg_success_content'}",
+        viewMode : "ok",
+	url : "{=edit.url}&mode=ajax",
+        target : "content",
+        labels : { ok : "{string:'dlg_success'}" }
+    };
+
+    window.dlg_failureConfig = {
+        title : "{string:'dlg_failure_title'}",
+        message : "{string:'dlg_failure_content'}",
+        viewMode : "cancel",
+        target : "content",
+        labels : { cancel : "{string:'dlg_cancel'}" }
+    };
+</script>-->

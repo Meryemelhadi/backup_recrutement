@@ -1,0 +1,151 @@
+<script language="php">
+	$current_operation = $this->getProperty('current_operation');
+	switch($current_operation)
+	{
+		case 'edit':
+			$linkText = 'title_general_infos';
+			break;
+		case 'requirements':
+			$linkText = 'title_requirements';
+			break;
+		case 'candidates':
+			$linkText = 'title_candidates';
+			break;
+		case 'calendar':
+			$linkText = 'title_calendar';
+			break;
+		case 'recruitment_providers':
+			$linkText = 'title_offer';
+			break;
+		case 'feedback':
+			$linkText = 'title_evaluation';
+			break;
+		case 'warning':
+			$linkText = 'title_warnings';
+			break;
+		case 'history':
+			$linkText = 'title_history';
+			break;
+		default:
+			$linkText = $current_operation;
+			break;
+	}
+	$linkText = addslashes(__($linkText));
+
+
+	$backList = preg_replace('%void-[0-9]+/%','',$this->getProperty('list.url'));
+</script>
+
+{content:page.content}
+<script>
+	window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{var:backList}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+
+	window.dlg_submitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+	
+	window.dlg_submitContinueConfig = { title : "{string:'dlg_wait_title'}", url:"{=submit_continue.url}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+    
+</script>
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		{record:vacancy_title_record}
+		<div class="pm-title">
+			{string:"vacancy"}: {field.html:name}{if:#field.object:code# != ''} (N° {field.html:code}){/if}
+			{if:#field.object:current_step# != 0 || #field.object:progress_level# != 0}
+				<br/>
+				{if:#field.object:current_step# != 0} {field.label:current_step}: {field.html:current_step}, {/if}
+				{if:#field.object:progress_level# != 0} {field.label:progress_level}: {field.html:progress_level}{/if}
+			{/if}
+		</div>
+		{content:vtitle}{field.html:name}{/content}
+		{/record}		
+	</div>
+</div>
+
+<script>
+	/* set current page BC */
+	container.bc
+		.resetLink().addAjaxLink('{=vtitle}','{=edit.url}&mode=ajax').addLink('{var:linkText}','');
+</script>
+
+<div class="directory-card-wrapper">
+<div class="directory-card clear-both">
+	<table class="directory-card-table">
+		<tr>
+			<td class="directory-card-side-column left_side" id="left_column">
+				<div class="tabbable tabs-left">
+					<ul class="nav nav-tabs">
+						<li class="back-btn">
+							<a href="{var:backList}&mode=page" ><span class="glyphicon glyphicon-chevron-left"></span><span>{string:"back_to_vacancies"}</span></a>
+						</li>
+						<li class="<?php if($current_operation == 'edit'){?>active<?php } ?>"><a
+									href=" {=edit.url}&mode=page"><span>{string:"title_general_infos"}</span></a></li>
+						<li class="{if:#var:current_operation# == 'candidates'}active{/if}"><a
+									href="{=candidates.url}&from_vac=1&mode=page"><span>{string:"title_candidates"}</span></a></li>
+						<li class="<?php if($current_operation == 'calendar'){?>active<?php } ?>" ><a
+								href="{=calendar.url}&mode=page&from_vac=1" ><span>{string:"title_calendar"}</span></a></li>
+						<li class="<?php if($current_operation == 'feedback'){?>active<?php } ?>" ><a
+								href="{=feedback.url}&mode=page"><span>{string:"title_evaluation"}</span></a></li>
+						<li class="<?php if($current_operation == 'warning'){?>active<?php } ?>" ><a
+								href="{=warning.url}&mode=page"><span>{string:"title_warnings"}</span></a></li>
+						<li class="<?php if($current_operation == 'history'){?>active<?php } ?>"><a
+								href="{=history.url}&mode=page"><span>{string:"title_history"}</span></a></li>
+					</ul>
+				</div>		
+				<?php if($this->getProperty('current_operation') == 'candidates'){?>
+					<br><br>
+                    <div class="nipple-box nbt-legend" style="width:218px;font-size:12px">
+                        <div class="box-title"><h4>{string:"flags_helper"}</h4></div>
+                        <div class="border-nipple"></div>
+                        <div class="nipple"></div>
+
+                        <div class="box-content">
+                            <ul class="legend-list">
+
+                                <li><span class="l-icon s-icon si-flag-not-read"></span><span class="legend"><span class="dots">|</span> {string:"not_read_helper"}</span></li>
+                                <li><span class="l-icon s-icon si-flag-read-by-someone"></span><span class="legend"><span class="dots">|</span> {string:"read_by_someone_helper"}</span></li>
+                                <li><span class="l-icon s-icon si-flag-read"></span><span class="legend"><span class="dots">|</span> {string:"already_read_helper"}</span></li>
+
+                            </ul>
+                        </div>
+                    </div>
+					<br>
+					<div class="nipple-box nbt-legend" style="width:218px; font-size:12px">
+                        <div class="box-title"><h4>{string:"legend"}</h4></div>
+                        <div class="border-nipple"></div>
+                        <div class="nipple"></div>
+
+                        <div class="box-content">
+                            <ul class="legend-list">
+
+                                <li><b>{string:'title_candidates'}:</b><span class="legend">{string:"title_candidates_help"}</span></li>
+								<li><b>{string:'title_short_lists'} :</b><span class="legend">{string:"title_short_lists_help"}</span></li>
+								<li><b>{string:'title_rated_candidates'} :</b><span class="legend">{string:"title_rated_candidates_help"}</span></li>
+								<li><b>{string:'title_refused_candidates'} :</b><span class="legend">{string:"title_refused_candidates_help"}</span></li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+					<?php } ?>
+			</td>
+
+			<td class="directory-card-main-column" id="right-content">			
+				{=page.content}
+			</td>
+		</tr>
+	</table>
+</div>
+</div>
+{/content}
+
+<script language="php">
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=='page') {
+</script>
+	{include:page_bs}
+{else}
+	{=page.content}
+{/if}

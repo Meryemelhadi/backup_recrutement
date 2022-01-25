@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_number,_service_name,_years_of_practice,_suited_diplomas,_opening_date,_application_type,_providers,_current_step,_progress_level FROM _rct_vacancy"; ?>

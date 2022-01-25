@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_search_params WHERE ".$this->getWhereClause("_name",$this->getFieldParam("name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false')." AND ".$this->getWhereClause("_is_default",$this->getFieldParam("is_default","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false'); ?>

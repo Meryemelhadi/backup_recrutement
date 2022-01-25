@@ -1,0 +1,173 @@
+{content:page.content}
+<!-- config css du module -->
+{include:common.page_css}
+<link href="/nx/controls/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"  media="all" />
+<link href="/nx/controls/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"  media="all" />
+<link href="/nx/skins/lightsky/css/recruitment3/screen.css" rel="stylesheet" type="text/css"  media="all" />
+<link href="/nx/skins/lightsky/css/recruitment/interview.css" rel="stylesheet" type="text/css"  media="all" />
+
+
+<?php
+$workflow = $this->getProperty('workflow');
+?>
+
+<style>
+	{=app.list.css}
+</style>
+
+<script>
+	{=app.list.js}
+</script>
+
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title" style="color:rgb(255, 136, 52) !important;"><?php echo __($workflow->title); ?></div>
+	</div>
+</div>
+
+{include:common.messages_log}
+{include:common.message_help}
+
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+
+			<div class="pm-grid-outer-wrapper">
+
+				{include:common/search_get}
+				{include:workflow.tabs_by}
+                <div class="tab_panel">
+                    {if: %property:tab_title%}
+                    <div class="tab_header">
+                        <div class="tab_title">{=tab_title}</div>
+                        <div class="tab_help">{=tab_help}</div>
+                    </div>
+                    {/if}
+
+                    <div class="tab_content {tab_id} interviews">
+                        <!--! {records:futurInterviews.records} -->
+                        {if:records.count>0}
+                        <interviews>
+                            <h4>{string:"page_title_my_interviews_futur"}</h4>
+                            <!--! {record} -->
+                            <div class="panel panel-default" onclick="document.location.href='{=edit.url}{field:oid}'">
+                                <div class="panel-heading">
+                                    <i class="icon-calendar"></i>
+                                    <div class="panel-content">
+                                        <span>{field:candidate_oid}, {field.label:interview_by_oid} {field:interview_by_oid}<span class="label" style="background:{field:etat_color}">{field:etat_oid}</span><span class="right">{field:date}, de {field:time_start} à {field:time_end}</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-font">
+                                        <tbody>
+                                        <tr>
+                                            <td class="first">{string:"created_by"} :<span>{field:created_by}</span></td>
+                                            <td class="first">{field.label:vacancy_oid}:<span>{field:vacancy_oid}</span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--! {/record} -->
+                        </interviews>
+                        {/if}
+                        <!--! {/records} -->
+
+                        {no_record}
+                        <div class="tab_empty"><?php
+					$msg = $this->getProperty('tab_empty_list_msg');
+                            if(!$msg)
+                            $msg = __('empty_list_interview_futur');
+                            echo $msg;
+                            ?>
+                        </div>
+                        {/no_record}
+                        <?php
+                        $items_search = __('items_search_interview_futur');
+                        ?>
+                        {include:common/r_pagination}
+                    </div>
+                </div>
+				<div class="tab_panel">
+					{if: %property:tab_title%}
+						<div class="tab_header">
+							<div class="tab_title">{=tab_title}</div>
+							<div class="tab_help">{=tab_help}</div>
+						</div>
+					{/if}
+
+					<div class="tab_content {tab_id} interviews">
+                        <!--! {records:lastInterviews.records} -->
+                        {if:records.count>0}
+                        <interviews>
+                            <h4>{string:"page_title_my_interviews_realised"}</h4>
+                            <!--! {record} -->
+                            <div class="panel panel-default" onclick="document.location.href='{=edit.url}{field:oid}'">
+                                <div class="panel-heading">
+                                    <i class="icon-calendar"></i>
+                                    <div class="panel-content">
+                                        <span >{field:candidate_name}, {field.label:interview_by_oid} {field:interview_by_oid} : {field:interview_etat}<span class="label" style="background:{field:etat_color}">{field:etat_oid}</span><span class="right">{field:date}, de {field:time_start} à {field:time_end}</span>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-font">
+                                        <tbody>
+                                            <tr>
+                                                <td class="first">{string:"created_by"} : <span>{field:created_by}</span></td>
+
+                                                <td class="first">{field.label:vacancy_oid}:<span>{field:vacancy_name}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {if:%field:synthesis_oid% != 0}
+                                                    <a href="{=eval.url}{field:oid}&mode=page" style="background: #5382F5 none repeat scroll 0% 0%; border: medium none rgb(76, 158, 217);  border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;">Voir fiche d'évaluation</a>
+                                                    {else}
+                                                    <a href="{=eval.url}{field:oid}&mode=page" style="background: #5382F5 none repeat scroll 0% 0%; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;">Créer fiche d'évaluation</a>
+                                                    {/if}
+                                                </td>
+                                                <td></td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!--! {/record} -->
+                        </interviews>
+                        {/if}
+                        <!--! {/records} -->
+
+				{no_record}
+				<div class="tab_empty"><?php
+					$msg = $this->getProperty('tab_empty_list_msg');
+					if(!$msg)
+						$msg = __('empty_list_interview_realised');
+					echo $msg;
+				?>
+				</div>
+				{/no_record}
+
+                <?php
+                    $items_search = __('items_search_interview_realised');
+                ?>
+				{include:common/r_pagination}
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<script>
+	if(PMDH && PMDH.Skin)
+		PMDH.Skin.LightSky.Grid.init();
+</script>
+{/content}
+<script language="php">
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=='ajax') {
+</script>
+	{=page.content}
+{else}
+	{include:page}
+{/if}

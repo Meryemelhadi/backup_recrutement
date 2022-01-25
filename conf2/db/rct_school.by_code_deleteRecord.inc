@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_school WHERE _code='".$props->getProperty("code","",true)."'"; ?>

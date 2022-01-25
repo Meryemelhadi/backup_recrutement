@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_instant_feedback(_oid) VALUES(".$record->getFieldValue("oid","DB","NULL").")"; ?>

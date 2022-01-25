@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_email_attached_file SET _oid=".$record->getFieldValue("oid","DB","NULL").",_email_oid=".$record->getFieldValue("email_oid","DB","NULL").",_file=".$record->getFieldValue("file","DB","NULL"); ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_keyword SET _oid=".$record->getFieldValue("oid","DB","NULL").",_name=".$record->getFieldValue("name","DB","NULL").",_key=".$record->getFieldValue("key","DB","NULL"); ?>

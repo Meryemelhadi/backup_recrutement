@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _docs,_user_docs,_ical_uid,_ical_seq FROM _rct_interview_comment"; ?>

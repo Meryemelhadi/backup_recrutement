@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_interview_comment(_oid INT AUTO_INCREMENT NOT NULL,_interview_oid integer,_user_oid integer,_date DATETIME,_comment TEXT,PRIMARY KEY(_oid))"; ?>

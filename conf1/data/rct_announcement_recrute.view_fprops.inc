@@ -1,0 +1,9 @@
+<?php $properties["fprops"]=array(
+array('name'=>'vacancy_oid','label'=>'vacancy_oid','type'=>'text_choice','value'=>$props->getProperty("vacancy_oid","",true),'srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_announcement_recrute_vacancy_oid','control'=>'select','multiple'=>false,'ds'=>'db:rct_vacancy.ds_list','ds_format'=>'{field:name} ({field:code})','ds_field_value'=>'oid','sqltype'=>'integer','list'=>'vacancy_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'created_by','label'=>'created_by','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:user.ds_list','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','sqltype'=>'integer','srcName'=>'created_by','ufname'=>'_created_by','qname'=>'rct_announcement_recrute_created_by','list'=>'created_by','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'creation_date','label'=>'creation_date','type'=>'datetime','srcName'=>'creation_date','ufname'=>'_creation_date','qname'=>'rct_announcement_recrute_creation_date','show'=>false,'value'=>'now',),
+array('name'=>'descriptionPoste','label'=>'ann_title','type'=>'text','csslayout'=>'normal-layout','srcName'=>'descriptionPoste','ufname'=>'_descriptionPoste','qname'=>'rct_announcement_recrute_descriptionPoste','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid','created_by'=>'created_by','_created_by'=>'created_by','creation_date'=>'creation_date','_creation_date'=>'creation_date','descriptionPoste'=>'descriptionPoste','_descriptionPoste'=>'descriptionPoste',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_announcement_recrute.view','table'=>'_rct_announcement_recrute');
+ ?>

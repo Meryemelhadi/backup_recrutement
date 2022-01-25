@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_language SET _name=".$record->getFieldValue("name","DB","NULL"); ?>

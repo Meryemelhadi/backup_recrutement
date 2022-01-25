@@ -1,0 +1,1151 @@
+{content:page.content}
+<style>
+/*#page-header{
+	position: fixed;
+    z-index: 100;
+	margin-bottom:20x;
+}
+#page-content{
+	padding-top: 60px;
+}*/
+.navbar-default {
+    background-color: transparent;
+    border-color: #2f4050;
+}
+.navbar-static-side, body.canvas-menu .navbar-static-side {
+    position: fixed;
+    width: 220px;
+    z-index: 2001;
+    height: 100%;
+}
+ul.nav-second-level {
+    background: #293846;
+}
+.nav>li {
+    position: relative;
+    display: block;
+}
+.nav > li.active > a {
+    color: #ffffff;
+}
+.nav > li > a {
+    color: #a7b1c2;
+    font-weight: 600;
+    padding: 14px 20px 14px 25px;
+}
+.hide-bar{
+	width:0;
+}
+.appear-nav-search{
+	width: 310px !important;
+    padding-right: 40px;
+}
+.appear-title-wrapper ,  .appear-content-row{
+	margin: 0 0 0 290px !important;
+}
+.product-list {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 15px;
+    background-color: #eee;
+    padding: 10px;
+	margin-right: auto;
+    margin-left: auto;
+}
+#catalog_list .list-item {
+    background-color: #fff;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+.product-list-item {
+    border: 1px solid #eaeaea;
+    margin-bottom: 0px;
+    padding: 0px;
+    /* min-height: 180px; */
+    /* padding-bottom: 50px; */
+    border-radius: 5px;
+    background-color: #fff;
+}
+.trailer {
+    margin-bottom: 5px;
+}
+.trailer h2 {
+    margin: 0;
+    font-size: 24px;
+}
+.blue-text, .blue-text a {
+    color: #0098a2;
+	margin:0px !important;
+	border-bottom:0px !important;
+	font-size:18px !important;
+}
+.trailer p {
+    margin-bottom: 0;
+}
+.orange-text {
+    color: #fe530b;
+}
+.trailer p {
+    margin-bottom: 0;
+}
+.left-infos-col {
+    padding-left: 0;
+}
+.list-item-infos-right .item-info , .list-item-infos-right .item-info span , .list-item-infos-right .item-info i {
+    background-color: #f8f8f8;
+    padding: 5px;
+    border: 0px solid #e1e1e1;
+    text-decoration: none;
+    color: rgb(254, 83, 11)!important;
+    padding-left: 10px;
+    padding-right: 10px;
+	font-size:14px;
+}
+.list-item-infos {
+    margin-top: 10px;
+    margin-left: 5px;
+    min-height: 30px;
+}
+.flat-btn-wrapper {
+    height: 50px;
+    margin-top: -43px;
+}
+
+.flat-btn {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border: 1px solid #e1e1e1;
+    text-decoration: none;
+}
+.panel-heading {
+    background-color: #fff !important;
+    display: table;
+    width: 100%;
+	border-bottom: 2px solid #eee;
+}
+.panel-content {
+    font-size: 13px;
+    font-weight: bold;
+}
+</style>
+<!--<nav class="navbar-default navbar-static-side hide-bar" role="navigation" id="nav-search">
+    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;">
+		<div class="sidebar-collapse" style="overflow: hidden; width: auto; height: 100%;">
+			<ul class="nav metismenu" id="side-menu">
+				<li class="active">
+					<a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Recherche</span><span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level collapse in">
+						
+						
+					</ul>
+				</li>  
+			</ul>
+		</div>
+	</div>
+</nav>-->
+
+
+
+<script>
+
+	function changeImage(num)
+		{   
+		    var id='idButton_'+num;
+			if(document.getElementById(id).className =='s-icon si-arrow-down')
+				{document.getElementById(id).className ='s-icon si-arrow-up';}
+			else document.getElementById(id).className ='s-icon si-arrow-down';
+		}
+
+	window.stopEvent = function(evt) {
+		evt = evt || window.event;if(evt.stopPropagation)evt.stopPropagation(); else evt.cancelBubble=true;
+	}
+</script>
+
+<script language="php">
+if ($this->getProperty('recruitment.candidates.showAgeInList')===false)
+	$display_age=false;
+else
+	$display_age=true;
+	$portal_prefix = PORTAL_URL_PREFIX;
+	
+$saved_search = $this->getProperty('saved_search', false); 
+//pagination
+$items_search = __('items_search');
+
+/** Eviter le style bootstrap pour les champs de type date **/
+//define(NX_DATE_CONTROL,'datepicker')
+</script>
+
+<link href="/nx/skins/default/css/recruitment/cvtheque.css" rel="stylesheet" type="text/css"  media="all" />
+
+<div class="pm-page-title-wrapper" id="title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<!--<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " onclick="toogleClass('nav-search', 'appear-nav-search'); toogleClass('title-wrapper', 'appear-title-wrapper'); toogleClass('content-row', 'appear-content-row');"><span class="glyphicon glyphicon-align-justify" style="color: white;
+    font-size: 12px;" aria-hidden="true" ></span></a>-->
+		<div class="pm-title" style="color:rgb(118, 164, 46) !important;">{string:"page_title_list"}</div>
+	</div>
+</div>
+
+
+{include:common.messages_log}
+{include:common.message_help}
+
+{content:vacancies_ddlist}
+	{records:page.vacancies_records}
+	{record}
+	<li><a onclick="massive_associate_to_vacancy({field:oid})">{field:name}{if:trim(#field.object:code#)!=""} ({field:code}){/if}</a></li>
+	{/record}
+	{/records}
+{/content}
+
+{content:categories_ddlist}
+	{records:candidate_categories.records}
+	{record}
+	<li><a onclick="category_process({field:oid})">{field:name}</a></li>
+	{/record}
+	{/records}
+{/content}
+{content:saved_search}
+	{include:recruitment/candidates/components/saved_search_bs}
+{/content}
+
+
+
+<script>
+window.searchPlusToggle = function(e) {
+	var res = PMDH.toggle('search-panel', 'appear');
+
+	if(e.innerHTML == '<span>-</span>')
+	{
+		e.innerHTML = '<span>+</span>';
+		e.className = 'search-plus_open';
+		$('search_cv').show();
+	}
+	else
+	{
+		e.innerHTML = '<span>-</span>';
+		e.className = 'search-plus_close';
+		//$('search_cv').hide();
+	}
+}
+</script>
+
+
+<script language="php">
+	if($showSearch == 'yes')
+	{
+		$this->setProperty('showSearch','yes');
+		$buttonPlus = '-';
+		$classSearch = '';
+	}
+	else
+	{
+		$this->setProperty('showSearch','no');
+		$buttonPlus = '+';
+		$classSearch = '';
+	}
+	$this->setProperty('forceDisplay','no');
+	
+</script>
+
+<div class="row"  id="content-row">
+			<!--<div class="pm-grid-outer-wrapper">
+				<div class="generis-toolbar-wrapper" onclick="window.searchPlusToggle($('search-plus'));return false;" >
+					<div class="generis-toolbar btn-toolbar cvtq-toolbar">
+						<div class="btn-group">
+							<a href="{=statistics.url}" class="stats" title="Affiche les statistiques sur la CVthèque filtrée par le ou les champs de recherche." onclick="window.stopEvent(event);">
+								<span class="glyphicon glyphicon-stats" aria-hidden="true" ></span>{string:"statistics"}
+							</a>
+							<a id="add_button" href="{=add.url}" title="Ajout d'une fiche sans CV" onclick="document.location='{=add.url}';Event.stop(event);return false;" >
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>{string:"add"}
+							</a>
+
+							{include:recruitment/candidates/components/add_cv}
+							
+						</div>
+						
+						<div class="btn-group" style="float:right">
+							<a id="search-plus" class="search-plus" href="javascript:void(0);" onclick="window.searchPlusToggle(this);return false;" title="'+' : Affiche le formulaire de recheche avancée, '-' affiche seulement le formulaire de recherche simple par mots clefs." onclick="window.stopEvent(event);"><span>{var:buttonPlus}</span></a>
+
+							<div id="search_cv" class="{$classSearch}" title="Recherche de CV simple par mots clefs" onclick="window.stopEvent(event);" >
+								<form method="post" action="{var:portal_prefix}/recruitment/candidates/directory.php" enctype="multipart/form-data">
+									<input type="hidden" value="POST" name="_form_method_" />
+
+									<input type="text" class="text" name="full_text_search" maxlength="100000" title="Texte de recherche dans le corps des CV" value="{request:full_text_search}" />
+										
+									<button type="submit" class="btn btn-default" >Rechercher</button>
+										
+								</form>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>-->
+			<div class="container-fluid">
+				<div class="pull-right">
+					
+					
+					<form name="add_cv_form" id="add_cv_form" enctype="multipart/form-data" action="?nxo=candidates@recruitment:upload_cv" method="post" onsubmitX="return window.checkAddCVform()" class="form-inline form-group" style="display:none;float: right;
+    margin-bottom: 0px;
+    margin-left: 15px;
+    margin-top: 5px;">
+						<input type="hidden" name="MAX_FILE_SIZE" value="100000000">
+						<input type="hidden" name="_form_method_" value="POST">
+						<input id="cv_file" type="file" name="temp_cv_file" style="font-size:11px" class="form-control">
+						<div id="add_button"  onclick="return window.checkAddCVform()" title="Ajouter CV..." style="background: rgb(118, 164, 46) !important;
+						color: #fff  !important;
+						width: 30px;
+						height: 30px;
+						border-radius: 50%;
+						font-size: 18px;
+						color: #fff;
+						line-height: 30px;
+						text-align: center;
+						background: #444;
+						cursor: pointer;
+						font-weight: bold;
+						margin-left: 15px;
+						float:right;" >
+							<span class="glyphicon glyphicon-share-alt" aria-hidden="true" style="margin:0; color:white" ></span>
+						</div>	
+					</form>
+					<div class="round_button blue" title="Ajout d'un CV :Le CV est envoyé pour analyse et une fiche est ensuite créée automatiquement si le candidat n'existe pas dans la base. Sinon la fiche candidat sera mise à jour avec le nouveau CV, sans modifier les informations de recrutement."  onclick="return window.checkAddCVform()" style="
+						background: rgb(118, 164, 46) !important;
+						color: #fff  !important;
+						width: 40px;
+						height: 40px;
+						border-radius: 50%;
+						font-size: 22px;
+						color: #fff;
+						line-height: 40px;
+						text-align: center;
+						background: #444;
+						cursor: pointer;
+						font-weight: bold;
+						margin-left: 15px;
+						float:right;
+					"><span class="glyphicon glyphicon-file" style="font-size: 16px;color:#fff" aria-hidden="true"></span></div>
+					<div class="round_button blue" title="Ajout d'une fiche sans CV"  onclick="document.location='{=add.url}';Event.stop(event);return false;" style="
+						background: rgb(118, 164, 46) !important;
+						color: #fff  !important;
+						width: 40px;
+						height: 40px;
+						border-radius: 50%;
+						font-size: 22px;
+						color: #fff;
+						line-height: 40px;
+						text-align: center;
+						background: #444;
+						cursor: pointer;
+						font-weight: bold;
+						float:right;
+						margin-left: 15px;
+					">+</div>
+				</div>
+			</div>
+				
+			<script>
+
+				window.checkAddCVform = function() {
+					var frm = document.forms['add_cv_form'];
+					if(frm.elements['cv_file'].value == '')
+					{
+						if(document.getElementById('add_cv_form').style.display=="block")
+						{
+							document.getElementById('add_cv_form').style.display = 'none';
+							//$('add_cv_form').hide();
+							//$('submit_value').innerHTML="Ajouter CV...";
+						}
+						else
+						{
+							document.getElementById('add_cv_form').style.display = 'block';
+							//$('add_cv_form').show();
+							//$('submit_value').innerHTML="Envoyer CV";
+						}
+						return false;
+					}
+					document.getElementById('add_cv_form').submit();
+					return true;
+				}
+
+				</script>
+				
+			
+				
+			
+			<div class="container-fluid product-list list">
+			<!--! {records:page.records} -->
+			{include:common/pagination_count}
+
+			<div class="directory-grid-wrapper" >
+				
+				<!--<div class="directory-grid-selection clear-both">
+					
+					<div class="selection-wrapper" style="margin-right: 3px;">
+						<input type="checkbox" name="selection-checkbox" class="select-all-checkbox" />
+					</div>
+						
+					<div>
+						<div class="btn-group block selection-list" role="group">
+							<button class="btn btn-default btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{string:"associate_to_vacancy_helper"}... <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+							{=vacancies_ddlist}
+							</ul>
+						</div>	
+							
+						<div class="btn-group block selection-list">
+							<button class="btn btn-default btn  dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{string:"action_relevance"}... <span class="caret"></span>
+							</button>
+							  <ul class="dropdown-menu">
+								<?php $list = $this->getChoiceList('recruitment.relevance@recruitment');
+								$listArray = $list->getListAsArray();
+								foreach ($listArray as $k=>$v) { ?>
+								<li><a onclick="massive_relevance_process({$k})">{$v}</a></li>
+								
+								<?php } ?>
+								
+							  </ul>
+							</div>
+							
+							<div class="btn-group block selection-list">
+								<button class="btn btn-default btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{string:"action_category"}... <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									{=categories_ddlist}
+								</ul>
+							</div>
+							
+							<div class="btn-group block selection-list" id="grid-selection-actions">
+								<button class="btn btn-default btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{string:"actions_prompt"}... <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a onclick="selection_actions(window.dlg_massiveArchiveCfg);">{string:'action_archive'}</a></li>
+									<li><a onclick="selection_actions(config: window.dlg_massiveDeleteCfg)">{string:'action_delete'}</a></li>
+									<li><a onclick="selection_actions('send_email')">{string:'send_email'}</a></li>
+								</ul>
+							</div>
+							
+							<script>
+								// Configs
+								window.dlg_massiveDeleteCfg = {
+									action		: 'confirm',
+									title 		: "{string:'dlg_massive_delete_title'}",
+									message 	: "{string:'dlg_massive_delete_content'}", 
+									viewMode 	: "okCancel", 
+									url 		: "{=delete.url}", 
+									target 		: "content", 
+									labels	 	: { 
+										ok 		: "{string:'dlg_ok'}", 
+										cancel 	: "{string:'dlg_cancel'}" 
+									} 
+								};
+								window.dlg_massiveArchiveCfg = { 
+									action		: 'confirm',
+									title 		: "{string:'dlg_massive_archive_title'}",
+									message 	: "{string:'dlg_massive_archive_content'}", 
+									viewMode 	: "okCancel", 
+									url 		: "{=archive.url}", 
+									target 		: "content", 
+									labels	 	: { 
+										ok 		: "{string:'dlg_ok'}", 
+										cancel 	: "{string:'dlg_cancel'}" 
+									} 
+								};
+								function massive_associate_to_vacancy(value) {
+									var grid = document.getElementById( "directory-grid" );
+									inputs = grid.querySelectorAll('input[type=checkbox]:checked');
+									var candidatesOids ="";
+									for(var i=0 ; i<inputs.length; i++){
+										if(candidatesOids != "") candidatesOids += "|";
+										candidatesOids += inputs[i].value;
+									}
+										var vacancyOid = value;				
+										if( candidatesOids == '?' || candidatesOids == '' || vacancyOid=='?' || vacancyOid=='' ) {
+											return false;
+										}
+										var url = "{=massive_associate_to_vacancy_process.url}";
+										url += "&amp;vacancy_oid="+vacancyOid;
+										url += "&amp;candidates_oid="+candidatesOids;
+																	
+										ajax_navigate(null,url,"content");
+									};
+									
+								function massive_relevance_process(value) {
+										
+										var grid = document.getElementById( "directory-grid" );
+										inputs = grid.querySelectorAll('input[type=checkbox]:checked');
+										var candidatesOids ="";
+										for(var i=0 ; i<inputs.length; i++){
+											if(candidatesOids != "") candidatesOids += "|";
+											candidatesOids += inputs[i].value;
+										}
+										var relevanceOid = value; // répétion de la valeur
+										if( candidatesOids == '?' || candidatesOids == '' || relevanceOid=='?' || relevanceOid=='' ) {
+											return false;
+										}
+
+										var url = "{=massive_relevance_process.url}";
+										url += "&amp;relevance_oid="+relevanceOid;
+										url += "&amp;oid="+candidatesOids;					
+										ajax_navigate(null,url,"content");
+									};
+								
+								function category_process(categoryOid){
+									var grid = document.getElementById( "directory-grid" );
+									inputs = grid.querySelectorAll('input[type=checkbox]:checked');
+									var candidatesOids ="";
+									for(var i=0 ; i<inputs.length; i++){
+										if(candidatesOids != "") candidatesOids += "|";
+										candidatesOids += inputs[i].value;
+									}				
+									if( candidatesOids == '?' || candidatesOids == '' || categoryOid=='?' || categoryOid=='') {
+										return false;
+									}
+									var url = "{=category.url}";
+									url += "&amp;category_oid="+categoryOid;
+									url += "&amp;candidates_oid="+candidatesOids;					
+									ajax_navigate(null,url,"content");
+								};
+								
+								function selection_actions(config){
+									if(config == "send_email")
+									{	
+										var grid = document.getElementById( "directory-grid" );
+										inputs = grid.querySelectorAll('input[type=checkbox]:checked');
+										var candidatesOids ="";
+										for(var i=0 ; i<inputs.length; i++){
+											if(candidatesOids != "") candidatesOids += "|";
+											candidatesOids += inputs[i].value;
+										}			
+										if( candidatesOids == '?' || candidatesOids == '' ) {
+											return false;
+										}
+										window.send_cvs_to_many_client = { 
+										title 		: "{string:'send_to_client_title'}",
+										url 		: "{=send_cvs_to_many_client.url}&amp;candidates_oid=|"+candidatesOids+"|", 
+										width:550
+										};
+										PMModalbox.loadFromUrl(window.send_cvs_to_many_client,null);
+										return false;
+									}
+									else{
+										var grid = document.getElementById( "directory-grid" );
+										inputs = grid.querySelectorAll('input[type=checkbox]:checked');
+										
+										var candidatesOids ="";
+										for(var i=0 ; i<inputs.length; i++){
+											if(candidatesOids != "") candidatesOids += "|";
+											candidatesOids += inputs[i].value;
+										}			
+										if( candidatesOids == '?' || candidatesOids == '' ) {
+											return false;
+										}
+										config.url += '&oid='+candidatesOids;
+										PMModalbox.display(config);
+									}
+								};
+							</script>
+							<script language="php">
+								$editUrl = $this->getProperty('edit.url');
+								$editUrlDir = dirname($editUrl).'/';
+								$editUrlBase = 'directory.php?nxo=edit&mode=page&filterKey='.urlencode($this->getProperty('filterKey'));
+							</script>
+							
+						</div>
+					</div>-->
+					<!--! {record} -->
+					<div style="margin-top: 10px;">
+					<div class="product-list-item list-item container-fluid">
+						<div class="panel-heading" style="padding:10px">
+							<i class="icon-folder-open" style="color:gray ; float: left; margin-right: 10px; font-size: 20px;" title="Planifié par vous"></i>
+								<div class="panel-content">
+								<i class="glyphicon glyphicon-user" style="margin-right: 10px;"></i><span title="{field.js:first_name} {field.js:last_name}"><span style="font-size:1.2em">{field.js:first_name} {field.js:last_name}   {if:(#field.object:age# != '0' && #field.object:age# != '') || trim(#field.string:town_name#) != ''}
+																
+											<span class="field-content" style="font-weight: normal;">{if:#var:display_age# == true}{if:#field.object:age# != '0'}, {field:age} {string:'years_old'}{/if}{if:#field.object:age# != '0' && trim(#field.string:town_name#) != ''},{/if}{/if} <i class="glyphicon glyphicon-map-marker" style="margin-right: 5px;"></i>{field:zip} {field:town_name}</span>
+											{/if}</span><span class="right"><i class="icon-calendar" style="color:gray; float: left; margin-right: 10px; font-size: 20px;"></i><i class="glyphicon glyphicon-calendar" style="margin-right: 5px;"></i>{if:#field:add_date#==#field:update_date#}
+											<span class="field-label">Ajout:</span> <span class="field-content">{field:add_date}</span>
+											{else}
+											<span class="field-label">Ajout:</span> <span class="field-content">{field:add_date}</span><span class="field-label">, MàJ:</span> <span class="field-content">{field:update_date}</span>{/if}</span>
+							</span></div>
+						</div>
+						<div class="row" style="padding:10px">
+							<div class="col-md-4">
+								<h2 class="title blue-text">
+								{if:#field.object:vacancy_name# != ''}
+								<span class="field-label">{string:"vacancy"}:</span> <span class="field-content">{field:vacancy_name}{if:#field.object:vacancy_code#!=''} (N° {field:vacancy_code}){/if}</span>
+								<br/>
+								{/if}
+								<br>
+								</h2>
+								<p class="region orange-text" style="font-size:1.1em">{if:#field.object:years_of_practice# != '' && #field.object:years_of_practice# != '0'}
+										{field:years_of_practice} 
+										{string:'year'}{if:#field.object:years_of_practice# > '1'}s{/if} {string:'experience_grid_label'}
+									{elseif:#field.object:years_of_practice# == '0'}
+									{string:"no_experience"}
+									{/if} 
+									{if:#field:studies_level# != ''}<i class="glyphicon glyphicon-education"></i>{field:studies_level}{/if}{if:trim(#field.object:studies_level#) != '' && trim(#field.object:diploma#) != ''},{/if} {field.string:diploma}
+									{if:trim(#field.object:last_employment#) != ''}
+								<br/><br/>
+								<span class="field-content">{field:last_employment_summary}</span>
+								{elseif:trim(#field.object:last_employment#) == '' && trim(#field.object:last_training#) != ''}
+								<br/>
+								<span class="field-content">{field:last_training_summary}</span>
+								{/if}
+								</p>
+
+								<span class="field-content">
+									
+									{if:#field.object:institution# != ''}
+									<br/>
+									{field:institution}
+									{/if}
+									<br/>
+									
+								</span>
+								
+							
+							</div>
+
+							<div class="col-md-8">
+								<div class="row">
+									<div class="col-md-8 trailer">  
+										{if:trim(#field.object:profile#) != ''}
+											<span class="field-label">{field.label:profile}:</span> <span class="field-content">{field:summary_keywords}</span>
+											<br/>
+											{/if}
+											{if:#field.object:relevance# != '' && #field.object:relevance# != '0'}
+											<span class="field-label">{field.label:relevance}:</span> <span class="field-content">{field:relevance}</span>
+											<br/>
+											{/if}
+											
+											
+											{if:trim(#field.object:cand_channel#)!=''}
+											<span class="field-label">{field.label:cand_channel}:</span> <span class="field-content">{field:cand_channel}</span>
+											<br/>
+											{/if}
+											<?php if (trim($_nx_record->hr_manager->object,"\t\n\r\0\x0B?")!='') { ?>												
+											<span class="field-label">{field.label:hr_manager}:</span> <span class="field-content">{field:hr_manager}</span>
+											<?php } ?>
+							
+										</div>
+
+									<div class="col-md-4 left-infos-col"> 
+										<ul class="list-item-infos-right">
+											{if:trim(#field.object:category_oid#)!=''}
+											<li class="text-left item-info" style="color: rgb(254, 83, 11);">
+												<span><i class="glyphicon glyphicon-paperclip"></i> {string:"category"}:</span> <span class="field-content">{field:category_oid}</span>
+											</li>
+											{/if}
+											{if:trim(#field.object:provider#)!=''}
+											<li class="text-left item-info">
+												<span class="field-label"><i class="glyphicon glyphicon-hand-right"></i>{field.label:provider}:</span> <span class="field-content">{field:provider}</span>
+											</li>
+											{/if}
+											{if:trim(#field.object:etat_oid#)!=''}
+											<li class="text-left item-info">
+												<span class="field-label"><i class="glyphicon glyphicon-tag"></i>{field.label:etat_oid}:</span> <span class="field-content" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor}">{field:etat_oid}</span>
+											</li>
+											{/if}
+										</ul>											
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row list-item-infos" style="padding:10px">
+							<div class="col-md-2 item-info" >
+								<i class="glyphicon glyphicon-time"></i> 7h
+									<span>/ 1 j</span>
+							</div>
+							<div class="col-md-4 item-info">
+								<div class="item-info-content"><ul><li class="enum"><i class="glyphicon glyphicon-map-marker"></i> Breuil Le Sec (4)-Breuil le sec</li></ul></div>
+							</div>
+							<div class="col-md-3 item-info">
+								<div class="item-info-content" ><ul><li class="enum"><i class="glyphicon glyphicon-user"></i> claire sargent</li></ul></div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="flat-btn-wrapper pull-right">
+						<ul class="list-unstyled list-inline">
+							<li class="text-center">
+								<a href="" ng-click="openItem(item)" class="flat-btn view"><i class="glyphicon glyphicon-eye-open"></i> Voir plus</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+					
+				<!--! {/record} -->
+					
+					
+					
+					
+					<table class="directory-grid table" id="directory-grid">
+					
+						<!--! {record} -->
+						<script language="php">
+							$oid = $_nx_record->oid->object;
+							$editUrl = $editUrlDir.'coid-'.$oid.'/'.$editUrlBase.$_nx_record->getUrlKey();
+							$etat_color = $_nx_record->etat_color->object;
+							$relevance = $_nx_record->relevance->object;
+							if($etat_color == null ){
+								$fontColor = "#000000";
+							}else{
+								if((0.2125*intval(substr($etat_color,1,2), 16) + 0.7154*intval(substr($etat_color,3,2), 16) + 0.0721*intval(substr($etat_color,5,2), 16)) <= 128)
+									$fontColor  = "#FFFFFF";
+								else
+									$fontColor = "#000000";
+							}
+						</script>
+						<tr class="relevance_{var:relevance}">						
+							<td class="relevance-color" style="{if:%var:etat_color%}background-color:{var:etat_color} !important; background-image:none;{/if}">
+								<div class=""><input type="checkbox" class="selection-checkbox" name="selection-checkbox-{field.object:oid}" value="{field.object:oid}" /></div>
+							</td>
+							<td>
+								<div class="row">
+									<div class="col-md-1 flag-class" onclick="Generis.Recruitment.changeReadingState(this, {readState:{field.object:read_state}, userReadState:{field.object:user_read_state}, url:'{=change_reading_state.url}{record.url_key}'});">
+										{if:#field.object:user_read_state# == '1'}
+											<div class="dg-flag dg-flag-gray" title="{string:'already_read_helper'}"></div>
+										{elseif:#field.object:read_state# == '1'}
+											<div class="dg-flag dg-flag-yellow" title="{string:'read_by_someone_helper'}"></div>
+										{elseif:#field.object:read_state# == '0'}
+											<div class="dg-flag dg-flag-blue" title="{string:'not_read_helper'}"></div>
+										{/if}
+									</div>
+									<div class="col-md-4" onclick="document.location='{var:editUrl}';">
+										<div class="dg-cell-wrapper">
+											<span class="field-content title-color capitalize">
+												<strong>{field.js:first_name} {field.js:last_name}</strong>
+											</span>
+											{if:(#field.object:age# != '0' && #field.object:age# != '') || trim(#field.string:town_name#) != ''}
+											<br/>								
+											<span class="field-content">{if:#var:display_age# == true}{if:#field.object:age# != '0'}{field:age} {string:'years_old'}{/if}{if:#field.object:age# != '0' && trim(#field.string:town_name#) != ''},{/if}{/if} {field:zip} {field:town_name}</span>
+											{/if}
+											<br/>
+											{if:#field:add_date#==#field:update_date#}
+											<span class="field-label">Ajout:</span> <span class="field-content">{field:add_date}</span>
+											{else}
+											<span class="field-label">Ajout:</span> <span class="field-content">{field:add_date}</span><span class="field-label">, MàJ:</span> <span class="field-content">{field:update_date}</span>{/if}							
+										</div>
+									</div>
+									<div class="col-md-4" onclick="document.location='{var:editUrl}';">
+										<div class="dg-cell-wrapper">
+											<span class="field-content">
+												{if:#field:studies_level# != ''}{field:studies_level}{/if}{if:trim(#field.object:studies_level#) != '' && trim(#field.object:diploma#) != ''},{/if} {field.string:diploma}
+												{if:#field.object:institution# != ''}
+												<br/>
+												{field:institution}
+												{/if}
+												<br/>
+												{if:#field.object:years_of_practice# != '' && #field.object:years_of_practice# != '0'}
+													{field:years_of_practice} 
+													{string:'year'}{if:#field.object:years_of_practice# > '1'}s{/if} {string:'experience_grid_label'}
+												{elseif:#field.object:years_of_practice# == '0'}
+												{string:"no_experience"}
+												{/if}
+											</span>
+											{if:trim(#field.object:last_employment#) != ''}
+											<br/>
+											<span class="field-content">{field:last_employment_summary}</span>
+											{elseif:trim(#field.object:last_employment#) == '' && trim(#field.object:last_training#) != ''}
+											<br/>
+											<span class="field-content">{field:last_training_summary}</span>
+											{/if}
+											
+										</div>
+									</div>
+									<div class="col-md-3" onclick="document.location='{var:editUrl}';">
+										<div class="dg-cell-wrapper">
+											{if:trim(#field.object:profile#) != ''}
+											<span class="field-label">{field.label:profile}:</span> <span class="field-content">{field:summary_keywords}</span>
+											<br/>
+											{/if}
+											{if:#field.object:relevance# != '' && #field.object:relevance# != '0'}
+											<span class="field-label">{field.label:relevance}:</span> <span class="field-content">{field:relevance}</span>
+											<br/>
+											{/if}
+											{if:#field.object:vacancy_name# != ''}
+											<span class="field-label">{string:"vacancy"}:</span> <span class="field-content">{field:vacancy_name}{if:#field.object:vacancy_code#!=''} (N° {field:vacancy_code}){/if}</span>
+											<br/>
+											{/if}
+											{if:trim(#field.object:category_oid#)!=''}
+											<span class="field-label">{string:"category"}:</span> <span class="field-content">{field:category_oid}</span>
+											<br/>
+											{/if}
+											{if:trim(#field.object:provider#)!=''}
+											<span class="field-label">{field.label:provider}:</span> <span class="field-content">{field:provider}</span>
+											<br/>
+											{/if}
+											{if:trim(#field.object:etat_oid#)!=''}
+											<span class="field-label">{field.label:etat_oid}:</span> <span class="field-content" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor}">{field:etat_oid}</span>
+											<br/>
+											{/if}
+											{if:trim(#field.object:cand_channel#)!=''}
+											<span class="field-label">{field.label:cand_channel}:</span> <span class="field-content">{field:cand_channel}</span>
+											<br/>
+											{/if}
+											<?php if (trim($_nx_record->hr_manager->object,"\t\n\r\0\x0B?")!='') { ?>												
+											<span class="field-label">{field.label:hr_manager}:</span> <span class="field-content">{field:hr_manager}</span>
+											<?php } ?>
+										</div>
+									</div>
+								</div>
+								<div class="row slidingDivRow slidingDiv_{field:oid}" id="slidingDiv_{field:oid}" style="display:none;">
+									<div class="viewers">
+										<div class="candidate-history clear-both">
+											<div class="column-1">
+												<div class="column-inner">
+													<div class="candidate-history-title title-first">{string:'viewer_list'}</div>
+														{field:viewers}
+												</div>
+											</div>
+											<div class="column-2">
+												<div class="column-inner">
+													<div class="candidate-history-title title-first">{string:'comments'}</div>
+														{field:comment}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+							<td class="dg-operations dg-3-operations">
+								<div class="dg-cell-wrapper">
+								
+									<script>
+									window.dlg_deleteConfig{record.index} = { 
+										title : "{string:'dlg_delete_title'}",
+										message : "{string:'dlg_delete_content'}", 
+										viewMode : "okCancel", 
+										url : "{=delete.url}{record.url_key}", 
+										target : "content", 
+										labels : { 
+											ok : "{string:'dlg_ok'}", 
+											cancel : "{string:'dlg_cancel'}" 
+									} };
+											
+									window.dlg_archiveConfig{record.index} = { 
+										title : "{string:'dlg_archive_title'}",
+										message : "{string:'dlg_archive_content'}", 
+										viewMode : "okCancel", 
+										url : "{=archive.url}{record.url_key}", 
+										target : "content", 
+										labels : { 
+											ok : "{string:'dlg_ok'}", 
+											cancel : "{string:'dlg_cancel'}" 
+									} };
+										
+									window.dlg_associateToVacancy{record.index} = { 
+										title : "{string:'assoc_to_vacancy_title'}",
+										url: "{=massive_associate_to_vacancy.url}{record.url_key}",
+										width:550
+									};
+									
+									window.dlg_preview{record.index} = { 
+										title:"{string:'preview_cv_title'} {field.html:first_name} {field.html:last_name}",
+										fullscreen: true, 
+										url: '{=preview_cv.url}{record.url_key}',								
+
+										readStateCfg: {
+											url				: '{=change_reading_state.url}{record.url_key}',
+											state			: 0,
+											readState		: {field.object:read_state}, 
+											userReadState	: {field.object:user_read_state},
+											searchParentByClass : 'directory-card',
+											searchFlagByClass : 'dg-flag-wrapper'
+										}
+										
+									};
+									
+									window.toggleHistory = function() {
+											  document.getElementById('flags').style.display = 'none'; 
+											  document.getElementById('flag-gray').style.display='block';
+		
+										return false;
+									}
+									
+									</script>
+							
+									<a 
+										class="s-icon si-page-white-edit" 
+										href="{var:editUrl}"
+										title="{string:'edit_helper'}">
+										<span>{string:"edit_helper"}</span>
+									</a>
+									<a 
+										class="s-icon si-folder-page-white" 
+										href="javascript:void(0);" 
+										onclick="PMModalbox.loadFromUrl(window.dlg_associateToVacancy{record.index}, event); return false;" 
+										title="{string:'associate_to_vacancy_helper'}">
+										<span>{string:"associate_to_vacancy_helper"}</span>
+									</a>
+									<a 
+										class="s-icon si-page-white-zip" 
+										href="javascript:void(0);" 
+										onclick="PMModalbox.display(dlg_archiveConfig{record.index}, event);" 
+										title="{string:'archive_helper'}">
+										<span>{string:"archive_helper"}</span>
+									</a>
+									<a 
+										class="s-icon si-linkedin"
+										target="_blank"
+										href="http://www.linkedin.com/search/fpsearch?lname={field:last_name}&fname={field:first_name}" 
+										title="{string:'search_on_linkedin_helper'}">
+										<span>{string:"search_on_linkedin_helper"}</span>
+									</a>
+                                    <br/>
+									<a 
+										class="s-icon si-viadeo"
+										target="_blank"
+										href="http://www.viadeo.com/recherche/re<?php ?>sultat_membres/?fullName={field:last_name}%20{field:first_name}&amp;search=Chercher&amp;language=fr" 
+										title="{string:'search_on_viadeo_helper'}">
+										<span>{string:"search_on_viadeo_helper"}</span>
+									</a>
+									<a 
+										class="s-icon si-facebook"
+										target="_blank"
+										href="https://www.facebook.com/search.php?init=s%3Aname&q={field:first_name}%20{field:last_name}&type=users" 
+										title="{string:'search_on_facebook_helper'}">
+										<span>{string:"search_on_facebook_helper"}</span>
+									</a>
+									<a></a>
+									{if:(#field.object:user_read_state# == '1'  || #field.object:read_state# == '1')}
+									<a 
+										class="s-icon si-arrow-down"
+										id="idButton_{field:oid}" 
+										target="_blank"
+										onclick="PMDH.toggle('slidingDiv_{field:oid}', 'appear'); changeImage({field:oid});"
+										title="{string:'viewers'}">
+										<span>{string:"viewers"}</span>
+									</a>
+									{/if}
+								</div>
+							</td>
+						</tr>
+						<!--! {/record} -->
+					</table>
+				</div>
+				
+				<!--! {/records} -->
+				</div>
+				{include:common/grid_empty}
+				{include:recruitment/candidates/components/pagination/pagination}
+			
+			</div>
+</div>
+
+{=saved_search}
+<script>
+	document.getElementById("saved_search").getElementsByTagName('select')[0].onclick = function(event){event.stopPropagation()};
+	PMDH.Skin.LightSky.Grid.init('', {
+		wrapperClass	: 'directory-grid-wrapper',
+		gridClass		: 'directory-grid',
+		gridRowClass	: 'directory-grid-row'
+	});
+	
+	(function() {
+		var form = document.getElementById("form_rct_candidate_search");
+		if(typeof form == 'undefined'){
+			for(var i=0; i<form.elements.length; i++) {
+				var cElement = form.elements[i];
+				if( typeof cElement.size != 'undefined' ) {
+					cElement.removeAttribute('size');
+				}
+			}
+		}
+		
+	})();
+	function loadSearch(select){
+		if(select.options[select.selectedIndex].value != '?'){
+			var http = new XMLHttpRequest();
+			var url = "{=get_search.url}&oid="+select.options[select.selectedIndex].value;
+			http.open("GET", url, true);
+
+			http.onreadystatechange = function() {
+				if (http.readyState == 4 && http.status == 200) {
+					document.location.href = http.responseText.replace(/&amp;/g, '&');
+					document.getElementById('btn_delete_search').style.display='inline-block';
+				}
+			};
+			//Send the proper header information along with the request
+			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			http.send();      
+		}
+	};
+	function deleteSearch(){
+		var select = document.getElementById('saved_search').getElementsByTagName('select')[0];
+		if(select.options[select.selectedIndex].value != '?'){
+			var http = new XMLHttpRequest();
+			var url = "{=delete_search.url}&oid="+select.options[select.selectedIndex].value;
+			http.open("GET", url, true);
+
+			http.onreadystatechange = function() {
+				if (http.readyState == 4 && http.status == 200) {
+					document.location.href = '/recruitment/candidates/directory.php';
+				}
+			};
+			//Send the proper header information along with the request
+			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			http.send();      
+		}
+	};
+	function toogleClass(ele, class1) {
+	  ele = document.getElementById(ele);
+	  var classes = ele.className;
+	  var regex = new RegExp('\\b' + class1 + '\\b');
+	  var hasOne = classes.match(regex);
+	  class1 = class1.replace(/\s+/g, '');
+	  if (hasOne)
+		ele.className = classes.replace(regex, '');
+	  else
+		ele.className = classes +' '+class1;
+	}
+	
+
+	
+</script>
+
+<div class="theme-config">
+    <div class="theme-config-box" id="config-box">
+        <div id="spin-icon" onclick="toogleClass('config-box', 'show');">
+			<span class="glyphicon glyphicon-search" id="" style="color: white;" aria-hidden="true"></span>
+            <i class="fa fa-cogs fa-spin"></i>
+        </div>
+        <div class="skin-setttings">
+            <div class="title">Recherche</div>
+            <div class="setings-item">
+                    <!--<span>
+                        Voici la liste des fiches CV<br><br>
+						Cliquer sur une fiche pour voir le CV, ou sur les icones à droite pour les autres actions..
+                    </span>-->
+					<div class="widget">
+						{include:recruitment/candidates/components/search/search_get_bs_n}
+					</div>
+            </div>
+          
+            
+
+            <!--<div class="title">Légende</div>
+            <div class="setings-item default-skin">
+                   <ul class="task-list legend-list">
+						<li>
+							<span class="l-icon s-icon si-page-white-edit"></span>
+							<span class="legend"><span class="dots">|</span> {string:"edit_helper"}</span>
+						</li>
+						<li>
+							<span class="l-icon s-icon si-folder-page-white"></span>
+							<span class="legend"><span class="dots">|</span> {string:"associate_to_vacancy_helper"}</span>
+						</li>
+						<li>
+							<span class="l-icon s-icon si-flag-not-read"></span>
+							<span class="legend"><span class="dots">|</span> {string:"not_read_helper"}</span>
+						</li>
+						<li>
+							<span class="l-icon s-icon si-flag-read-by-someone"></span>
+							<span class="legend"><span class="dots">|</span> {string:"read_by_someone_helper"}</span>
+						</li>
+						<li>
+							<span class="l-icon s-icon si-flag-read"></span>
+							<span class="legend"><span class="dots">|</span> {string:"already_read_helper"}</span>
+						</li>
+						<li>
+							<span class="l-icon s-icon si-linkedin"></span>
+							<span class="legend"><span class="dots">|</span> {string:"search_on_linkedin_helper"}</span>
+						</li>
+						<li>
+							<span class="l-icon s-icon si-viadeo"></span>
+							<span class="legend"><span class="dots">|</span> {string:"search_on_viadeo_helper"}</span>
+						</li>
+						<li>
+							<span class="l-icon s-icon si-facebook"></span>
+							<span class="legend"><span class="dots">|</span> {string:"search_on_facebook_helper"}</span>
+						</li>
+						<li>
+							<span class="l-icon s-icon si-arrow-down"></span>
+							<span class="legend"><span class="dots">|</span> {string:"viewer_list"}</span>
+						</li>
+					</ul>
+            </div>-->
+            
+        </div>
+    </div>
+</div>
+<style>
+.theme-config {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    overflow: hidden;
+}
+.theme-config-box.show {
+    margin-right: 0;
+}
+.theme-config-box {
+    margin-right: -290px;
+    position: relative;
+    z-index: 2000;
+    transition-duration: 0.8s;
+}
+.show {
+    display: block!important;
+}
+#spin-icon {
+    background: #1ab394;
+    position: absolute;
+    padding: 7px 10px 7px 13px;
+    border-radius: 20px 0 0 20px;
+    font-size: 16px;
+    top: 0;
+    left: 0;
+    width: 40px;
+    color: #fff;
+    cursor: pointer;
+}
+.skin-setttings {
+    width: 290px;
+    margin-left: 40px;
+    background: #f3f3f4;
+}
+.skin-setttings .title {
+    background: #efefef;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: block;
+    padding: 10px 15px;
+    font-size: 12px;
+}
+.setings-item {
+    padding: 10px 15px;
+}
+.setings-item .switch {
+    float: right;
+}
+/*.minimalize-styl-2 {
+    padding: 4px 12px;
+    margin: 0px 5px 5px 0px;
+    font-size: 14px;
+    float: left;
+}*/
+.row{
+	margin : 0px;
+}
+
+</style>
+
+{/content}
+
+<script language="php">
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=='ajax') {
+</script>
+{=page.content}
+
+{else}
+{include:page_bs}
+{/if}

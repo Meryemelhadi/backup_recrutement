@@ -1,0 +1,327 @@
+<?xml version="1.0"?> 
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+			<table name="rct_announcement_rekrute">
+
+				<sort mode="list_internet_by_vacancy">
+					<field name="creation_date" label="creation_date" type="datetime" direction="desc" />
+				</sort>
+				<key mode="list_internet_by_vacancy">
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" />
+				</key>
+				<fields mode="list_internet_by_vacancy">
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid"/>
+					<field name="reference" label="reference" type="line" csslayout="normal-layout" />
+					<field name="intitule" label="intitule"  type="line" csslayout="normal-layout" />
+					<field name="typeoffre" label="typeoffre" type="text-choice" control="select"  list="recrute.typeoffre" prompt="Selectionnez un type ..." />
+					<field name="typereponses" label="typereponses" type="text-choice" control="select"  list="recrute.typereponses" prompt="Selectionnez un type ..." />
+					<field name="codeContrat" label="codeContrat" type="text-choice" control="select"  list="recrute.contrats" prompt="Selectionnez un type ..." />
+					<field name="codeExperience" label="codeExperience" type="text-choice" control="select"  list="recrute.experiences" prompt="Selectionnez un type ..." />
+					<field name="codeEducation" label="codeEducation" type="text-choice" control="select"  list="recrute.education" prompt="Selectionnez un type ..." />
+					<field name="salaire" label="salaire" type="text-choice" control="select"  list="recrute.salaires" prompt="Selectionnez un type ..." />
+					<field name="descriptionEntreprise" label="descriptionEntreprise" type="rich-text" csslayout="normal-layout"  />
+					<field name="descriptionPoste" label="descriptionPoste" type="rich-text" csslayout="normal-layout" />
+					<field name="descriptionProfil" label="descriptionProfil" type="rich-text" csslayout="normal-layout" />
+					<field name="date" label="date" type="date" format="%d/%m/%Y" value="now" />
+					<field name="duree" label="duree" type="line" />
+					<field name="contactMail" label="contactMail" type="line" />
+					<field name="typeAlerte" label="typeAlerte" type="text-choice" control="select"  list="recrute.typealerte" prompt="Selectionnez un type ..." />
+					<field name="codeRegion" label="codeRegion" type="text-choice" control="select"  list="recrute.regions" prompt="Selectionnez une region ..." />
+					<field name="codeSecteur" label="codeSecteur" type="text-choice" control="select"  list="recrute.secteurs" prompt="Selectionnez un secteur ..." />
+					<field name="codeFonction1" label="codeFonction1" type="text-choice" control="select"  list="recrute.fonctions" prompt="Selectionnez une fonction ..." />
+					<field name="codeFonction2" label="codeFonction2" type="text-choice" control="select"  list="recrute.fonctions" prompt="Selectionnez une fonction ..." />
+					<field name="codeLangue1" label="codeLangue1" type="text-choice" control="select"  list="recrute.langues" prompt="Selectionnez une langue ..." />
+					<field name="codeLangue2" label="codeLangue2" type="text-choice" control="select"  list="recrute.langues" prompt="Selectionnez une langue ..." />
+					<field name="cadre" label="cadre" type="text-choice" control="select"  list="recrute.cadre" />
+					<field name="nombrePoste" label="nombrePoste" type="line" /> 
+					<field name="startDate" label="startDate" type="date" format="%d/%m/%Y" />
+					<field name="endDate" label="endDate" type="date" format="%d/%m/%Y" />
+					<field name="creation_date" label="creation_date" type="date" format="%d/%m/%Y" />
+				</fields>
+			
+
+				<fields mode="add">
+					<field name="created_by" label="created_by" type="text-choice" show="hidden" value="%{user:oid}" />
+					<field name="creation_date" label="creation_date" type="datetime" show="hidden" value="now" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" show="hidden"/>
+					<field name="reference" label="reference" type="line" csslayout="normal-layout" />
+					<field name="intitule" label="intitule"  type="line" csslayout="normal-layout" />
+					<field name="typeoffre" label="typeoffre" type="text-choice" control="select"  list="recrute.typeoffre" prompt="Selectionnez un type ..." />
+					<field name="typereponses" label="typereponses" type="text-choice" control="select"  list="recrute.typereponses" prompt="Selectionnez un type ..." />
+					<field name="codeContrat" label="codeContrat" type="text-choice" control="select"  list="recrute.contrats" prompt="Selectionnez un type ..." />
+					<field name="codeExperience" label="codeExperience" type="text-choice" control="select"  list="recrute.experiences" prompt="Selectionnez un type ..." />
+					<field name="codeEducation" label="codeEducation" type="text-choice" control="select"  list="recrute.education" prompt="Selectionnez un type ..." />
+					<field name="salaire" label="salaire" type="text-choice" control="select"  list="recrute.salaires" prompt="Selectionnez un type ..." />
+					<field name="date" label="date" type="date" format="%d/%m/%Y" value="now" show="hidden"  />
+					<field name="default_description" label="default_description" type="text-choice" control="select" multiple="false" ds="db:rct_entreprise_description_rekrute.ds_list" ds_format="{field:name_description}" ds_field_value="oid" sqlType="integer" prompt="select a description..." is_transient="true" />
+					<field name="descriptionEntreprise" label="descriptionEntreprise" type="rich-text" csslayout="normal-layout"  />
+					<field name="descriptionPoste" label="descriptionPoste" type="rich-text" csslayout="normal-layout" />
+					<field name="descriptionProfil" label="descriptionProfil" type="rich-text" csslayout="normal-layout" />
+					<field name="duree" label="duree" type="line" />
+					<field name="contactMail" label="contactMail" type="line" />
+					<field name="typeAlerte" label="typeAlerte" type="text-choice" control="select"  list="recrute.typealerte" prompt="Selectionnez un type ..." />
+					<field name="codeRegion" label="codeRegion" type="text-choice" control="select"  list="recrute.regions" prompt="Selectionnez une region ..." />
+					<field name="codeSecteur" label="codeSecteur" type="text-choice" control="select"  list="recrute.secteurs" prompt="Selectionnez un secteur ..." />
+					<field name="codeFonction1" label="codeFonction1" type="text-choice" control="select"  list="recrute.fonctions" prompt="Selectionnez une fonction ..." />
+					<field name="codeFonction2" label="codeFonction2" type="text-choice" control="select"  list="recrute.fonctions" prompt="Selectionnez une fonction ..." />
+					<field name="codeLangue1" label="codeLangue1" type="text-choice" control="select"  list="recrute.langues" prompt="Selectionnez une langue ..." />
+					<field name="codeLangue2" label="codeLangue2" type="text-choice" control="select"  list="recrute.langues" prompt="Selectionnez une langue ..." />
+					<field name="cadre" label="cadre" type="text-choice" control="select"  list="recrute.cadre" />
+					<field name="nombrePoste" label="nombrePoste" type="line" /> 
+					<field name="startDate" label="startDate" type="date" format="%d/%m/%Y" />
+					<field name="endDate" label="endDate" type="date" format="%d/%m/%Y" />	
+				</fields>
+				
+				<key mode="view">
+					<field name="oid" label="oid" type="oid" isKey="primary" value="%{property:announcement_oid}" />
+				</key>
+				<fields mode="view">
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" />
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="creation_date" label="creation_date" type="datetime" />
+					<field name="descriptionPoste" label="ann_title" type="line" csslayout="normal-layout" />
+				</fields>
+			
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="creation_date" label="creation_date" type="datetime" show="hidden" value="now" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid"/>
+					<field name="reference" label="reference" type="line" />
+					<field name="intitule" label="intitule"  type="line"  />
+					<field name="typeoffre" label="typeoffre" type="text-choice" control="select"  list="recrute.typeoffre" prompt="Selectionnez un type ..." default="logo" />
+					<field name="typereponses" label="typereponses" type="text-choice" control="select"  list="recrute.typereponses" prompt="Selectionnez un type ..." />
+					<field name="codeContrat" label="codeContrat" type="text-choice" control="select"  list="recrute.contrats" prompt="Selectionnez un type ..." />
+					<field name="codeExperience" label="codeExperience" type="text-choice" control="select"  list="recrute.experiences" prompt="Selectionnez un type ..." />
+					<field name="codeEducation" label="codeEducation" type="text-choice" control="select"  list="recrute.education" prompt="Selectionnez un type ..." />
+					<field name="salaire" label="salaire" type="text-choice" control="select"  list="recrute.salaires" prompt="Selectionnez un type ..." />
+					<field name="descriptionEntreprise" label="descriptionEntreprise" type="rich-text" csslayout="normal-layout" />
+					<field name="descriptionPoste" label="descriptionPoste" type="rich-text" csslayout="normal-layout" />
+					<field name="descriptionProfil" label="descriptionProfil" type="rich-text" csslayout="normal-layout" />
+					<field name="date" label="date" type="date" format="%d/%m/%Y" value="now"  />
+					<field name="duree" label="duree" type="line" />
+					<field name="contactMail" label="contactMail" type="line" />
+					<field name="typeAlerte" label="typeAlerte" type="text-choice" control="select"  list="recrute.typealerte" prompt="Selectionnez un type ..." />
+					<field name="codeRegion" label="codeRegion" type="text-choice" control="select"  list="recrute.regions" prompt="Selectionnez une region ..." />
+					<field name="codeSecteur" label="codeSecteur" type="text-choice" control="select"  list="recrute.secteurs" prompt="Selectionnez un secteur ..." />
+					<field name="codeFonction1" label="codeFonction1" type="text-choice" control="select"  list="recrute.fonctions" prompt="Selectionnez une fonction ..." />
+					<field name="codeFonction2" label="codeFonction2" type="text-choice" control="select"  list="recrute.fonctions" prompt="Selectionnez une fonction ..." />
+					<field name="codeLangue1" label="codeLangue1" type="text-choice" control="select"  list="recrute.langues" default="4" prompt="Selectionnez une langue ..." />
+					<field name="codeLangue2" label="codeLangue2" type="text-choice" control="select"  list="recrute.langues" default="6" />
+					<field name="cadre" label="cadre" type="text-choice" control="select"  list="recrute.cadre" />
+					<field name="nombrePoste" label="nombrePoste" type="line" /> 
+					<field name="startDate" label="startDate" type="date" format="%d/%m/%Y" />
+					<field name="endDate" label="endDate" type="date" format="%d/%m/%Y" />
+				</fields>
+
+			</table>
+			
+			<table name="rct_entreprise_description_rekrute">
+					<key mode="record">
+						<field name="oid" type="oid" />
+					</key>
+
+					<fields mode="record">
+
+						<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+						<field name="name_description" label="name_description" type="line" csslayout="normal-layout" />
+						<field name="entreprise" label="entreprise" type="line" csslayout="normal-layout" show="hidden" />
+						<field name="identifiant" label="identifiant" type="line" csslayout="normal-layout" show="hidden" />
+						<field name="descriptionEntreprise" label="descriptionEntreprise" type="rich-text" csslayout="normal-layout" />
+
+					</fields>
+
+					<sort mode="ds_list">
+						<field name="name_description" label="name_description" type="line" direction="ASC" />
+					</sort>
+					<key mode="ds_list"></key>
+				
+					<pages mode="list" alias="page" pageOffset="%{get:page}" recordsPerPage="10" />
+					<key mode="list">
+						<field name="name_description" label="name_description" type="line" relation="LIKE" />
+					</key>
+					<fields mode="list">
+						<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+						<field name="name_description" label="name_description" type="line" />
+					</fields>
+
+					<fields>
+						<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+						<field name="name_description" label="name_description" type="line" csslayout="normal-layout" />
+						<field name="entreprise" label="entreprise" type="line" csslayout="normal-layout" show="hidden"/>
+						<field name="identifiant" label="identifiant" type="line" csslayout="normal-layout" show="hidden" />
+						<field name="descriptionEntreprise" label="description" type="rich-text" csslayout="normal-layout" />
+					</fields>
+		
+			</table>
+	
+			<table name="rct_announcement">
+			
+				<sort mode="list_intranet_by_vacancy">
+					<field name="creation_date" label="creation_date" type="datetime" direction="desc" />
+				</sort>
+				<key mode="list_intranet_by_vacancy">
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" />
+					<field name="type" label="type" value="intranet"/>
+				</key>
+				<fields mode="list_intranet_by_vacancy">
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" />
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="creation_date" label="creation_date" type="datetime" />
+					<field name="ann_title" label="ann_title" type="line" />
+					
+				</fields>
+
+				<sort mode="list_internet_by_vacancy">
+					<field name="creation_date" label="creation_date" type="datetime" direction="desc" />
+				</sort>
+				<key mode="list_internet_by_vacancy">
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" />
+					<field name="type" label="type" value="internet"/>
+				</key>
+				<fields mode="list_internet_by_vacancy">
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" />
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="creation_date" label="creation_date" type="datetime" />
+					<field name="ann_title" label="ann_title" type="line" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid" />
+				</fields>
+			
+
+				<fields mode="add">
+				
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" />
+					<field name="created_by" label="created_by" type="text-choice" show="hidden" value="%{user:oid}" />
+					<field name="creation_date" label="creation_date" type="datetime" show="hidden" value="now" />
+					<field name="ann_title" label="ann_title" type="line" csslayout="normal-layout" />
+					<field name="ann_content" label="ann_title" type="rich-text" csslayout="normal-layout" />
+					<field name="ref_oid" label="ref_oid" type="text-choice" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid" />
+					<field name="type" label="type" type="line" />
+					
+				</fields>
+				
+				<key mode="view">
+					<field name="oid" label="oid" type="oid" isKey="primary" value="%{property:announcement_oid}" />
+				</key>
+				<fields mode="view">
+					
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" />
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="creation_date" label="creation_date" type="datetime" />
+					<field name="ann_title" label="ann_title" type="line" csslayout="normal-layout" />
+					<field name="ann_content" label="ann_title" type="rich-text" csslayout="normal-layout" />
+					
+				</fields>
+			
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+					<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="creation_date" label="creation_date" type="datetime" />
+					<field name="ann_title" label="ann_title" type="line" csslayout="normal-layout" />
+					<field name="ann_content" label="ann_title" type="rich-text" csslayout="normal-layout" />
+					<field name="ref_oid" label="ref_oid" type="text-choice" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid"/>
+					<field name="type" label="type" type="line" /> 
+				</fields>
+			
+	
+
+			</table>
+			
+			
+			
+			<table name="journal">
+				<fields mode="add_intranet">
+					<field name="oid" label="object id" type="oid" isKey="primary" />
+					<field name="category_id" label="category_id" type="text-choice" control="select" multiple="false" ds="db:journal_categories.ds_list@recruitment" ds_format="{field:category_label}" ds_field_value="oid" sqlType="integer" prompt="select category..." />
+					<field name="title" label="title" type="line" />
+					<field name="summary" label="summary" type="text" multilines="auto" size="255" />
+					<field name="content" label="content" type="rich-text" alias="article_content" />
+					
+					<field name="author_id" label="author_id" type="ref-oid" isKey="secondary" show="hidden" value="%{user:oid}" />
+					<field name="creation-date" label="creation-date" type="timestamp" value="now" show="hidden" />
+					<field name="validated" label="validated" type="integer" show="hidden" value="0" />
+					<field name="validated_by" label="validated_by" type="ref-oid" show="hidden" value="%{user:oid}" />
+					<field name="image" label="image" type="image" maxSize="200000" imageSize="60x60" imageSizes="original" />
+					<field name="type" label ="type" type="line" value="intranet" show="hidden" />
+				</fields>
+				<fields mode="add_internet">
+					<field name="oid" label="object id" type="oid" isKey="primary" />
+
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid" />
+					<field name="category_id" label="category_id" type="text-choice" control="select" multiple="false" ds="db:journal_categories.ds_list@recruitment" ds_format="{field:category_label}" ds_field_value="oid" sqlType="integer" prompt="select category..." />
+					<field name="title" label="title" type="line" />
+					<field name="summary" label="summary" type="text" multilines="auto" size="255" />
+					<field name="content" label="content" type="rich-text" alias="article_content" />
+					
+					<field name="author_id" label="author_id" type="ref-oid" isKey="secondary" show="hidden" value="%{user:oid}" />
+					<field name="creation-date" label="creation-date" type="timestamp" value="now" show="hidden" />
+					<field name="validated" label="validated" type="integer" show="hidden" value="0" />
+					<field name="validated_by" label="validated_by" type="ref-oid" show="hidden" value="%{user:oid}" />
+					<field name="image" label="image" type="image" maxSize="200000" imageSize="60x60" imageSizes="original" />
+					<field name="type" label ="type" type="line" value="internet"  show="hidden"/>
+				</fields>
+				<fields>
+					<field name="oid" label="object id" type="oid" isKey="primary" />
+
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid" />
+					<field name="category_id" label="category_id" type="text-choice" control="select" multiple="false" ds="db:journal_categories.ds_list@recruitment" ds_format="{field:category_label}" ds_field_value="oid" sqlType="integer" prompt="select category..." />
+					<field name="title" label="title" type="line" />
+					<field name="summary" label="summary" type="text" multilines="auto" size="255" />
+					<field name="content" label="content" type="rich-text" alias="article_content" />
+					
+					<field name="author_id" label="author_id" type="ref-oid" isKey="secondary" show="hidden" value="%{user:oid}" />
+					<field name="creation-date" label="creation-date" type="timestamp" value="now" show="hidden" />
+					<field name="validated" label="validated" type="integer" show="hidden" value="0" />
+					<field name="validated_by" label="validated_by" type="ref-oid" show="hidden" value="%{user:oid}" />
+					<field name="image" label="image" type="image" maxSize="200000" imageSize="60x60" imageSizes="original" />
+					<field name="type" label ="type" type="line"/>
+				</fields>
+			</table>
+			
+			<table name="journal_categories">
+				<sort mode="ds_list">
+					<field name="category_label" label="category label" type="line" />
+				</sort>
+				<fields mode="ds_list">
+					<field name="oid" label="object id" type="oid" isKey="primary" />
+					<field name="category_label" label="category label" type="line" />
+					<field name="category_description" label="category description" type="text" size="255" />
+				</fields>
+			</table>
+			
+			<table name="journal_file_attachements">
+				<fields mode="add">
+					<field name="article_id" type="line" value="%{property:object_oid}" />
+					<field name="file_name" type="line" value="%{property:file_name}" />
+				</fields>
+			</table>
+		
+		</tables>
+
+	</data>
+
+</nxl>

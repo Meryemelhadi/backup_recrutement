@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+	<!-- tables definitions -->
+	<tables  init="create">
+		<table name="rct_saved_search">
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="url" label="url" type="line"/>
+                <field name="user_oid" label="user_oid" type="ref-oid" isKey="secondary" sqlType="integer" show="hidden"/>
+			</fields>
+		</table>
+
+	</tables>
+		
+	<!-- DML Views (gernerating SQL requests)-->
+	<views>
+		<view name="saved_search.list" table="rct_saved_search">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+				<field name="user_oid" label="user_oid" type="ref-oid" value="%{user:oid}" />
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="15" />				
+		
+			<sort>
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+			</fields>		
+		</view>
+		
+		<view name="saved_search.list_url" table="rct_saved_search">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+				<field name="user_oid" label="user_oid" type="ref-oid" value="%{user:oid}" />
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="15" />				
+		
+			<sort>
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="url" label="url" type="line"/>
+			</fields>		
+		</view>
+
+		<view name="saved_search.excel" table="rct_saved_search">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+				<field name="user_oid" label="user_oid" type="ref-oid" value="%{user:oid}" />
+			</key>
+			<sort>
+				<field name="name" direction="asc"/>
+			</sort>
+			<fields>
+				<field name="oid" label="object_id" type="oid" isKey="primary" show="hidden" isEdit="no" />
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="url" label="url" type="line"/>
+			</fields>
+		</view>
+		
+		<view name="saved_search.search" table="rct_saved_search">
+			<fields>
+				<field name="name" label="name"  type="line" size="200" />
+			</fields>
+		</view>
+
+		<view name="saved_search.record" table="rct_saved_search">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="url" label="url" type="line"/>
+                <field name="user_oid" label="user_oid" type="ref-oid" isKey="secondary" sqlType="integer" show="hidden" value="%{user:oid}"/>
+			</fields>		
+		</view>
+
+		<view name="saved_search.add" table="rct_saved_search">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="url" label="url" type="line"/>
+                <field name="user_oid" label="user_oid" type="ref-oid" isKey="secondary" sqlType="integer" show="hidden" value="%{user:oid}"/>
+			</fields>		
+		</view>		
+
+		<view name="saved_search.by_user" table="rct_saved_search">
+			<key>
+				<field name="user_oid"  value="%{user:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="url" label="url" type="line"/>
+			</fields>		
+		</view>		
+		
+		<view name="saved_search.delete_by_user" table="rct_saved_search">
+			<key>
+				<field name="user_oid" label="user_oid" type="ref-oid" value="%{property:user_oid}" />
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+			</fields>		
+		</view>	
+		
+		
+	</views>
+	
+</data>
+</nxl>

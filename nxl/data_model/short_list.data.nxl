@@ -1,0 +1,612 @@
+<?xml version="1.0"?>
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="rct_short_list">
+
+				<key mode="delete">
+					<field name="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+				</key>
+				<fields mode="delete">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />						
+				</fields>
+				
+				<key mode="delete_by_poste">
+					<field name="vacancy_oid" type="integer" relation="EQ" value="%{property:oid}" />
+				</key>
+				<fields mode="delete_by_poste">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />						
+				</fields>
+			
+				<!-- Rendre la short-list visible chez le client -->
+				<fields mode="add">
+					<field name="name" label="name" type="line" />
+					<field name="created_by" type="ref-oid" value="%{user:oid}" show="hidden" />
+					<field name="creation_date" type="timestamp" value="now" show="hidden" />
+					<field name="vacancy_oid" type="ref-oid" value="%{property:vacancy_oid}" show="hidden" />
+					<field name="is_visible" type="text-choice" value="0" show="hidden" />
+				</fields>
+				
+				<key mode="edit">
+					<field name="oid" type="oid" value="%{property:sl_oid}" />
+				</key>
+				<fields mode="edit">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+				</fields>
+						
+				<!-- Rendre la short-list visible chez le client -->
+				<key mode="send_to_ic">
+					<field name="oid" type="oid" />
+				</key>
+				<fields mode="send_to_ic">
+					<field name="is_visible" type="integer" value="%{property:visibility}" />
+				</fields>			
+								
+				<!-- Liste des short-lists par dossier -->
+				<sort mode="by_vacancy_with_candidates">
+					<field name="creation_date" type="timestamp" direction="DESC" />
+				</sort>
+				<key mode="by_vacancy_with_candidates">
+					<field name="vacancy_oid" type="ref-oid" value="%{property:vacancy_oid}" />
+				</key>
+				<fields mode="by_vacancy_with_candidates">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="short_list_oid" label="short_list_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+					<field name="name" label="name" type="line" />
+					<field name="created_by" label="created_by" type="ref-oid" sqlType="integer" />
+					<field name="creation_date" label="creation_date" type="timestamp" />
+					<field name="sent_by" label="sent_by" type="ref-oid" sqlType="integer" />
+					<field name="sending_date" label="sending_date" type="timestamp" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" />					
+					<field name="is_visible" label="is_visible" type="text-choice" list="recruitment.boolean_list" control="select" sqlType="integer" multiple="false" default="0" />
+					
+					<field 
+						name		= "candidates_list" 
+						label		= "candidates_list" 
+						type		= "records" 
+						ds			= "handler:recruitment.short_lists.candidates.list"
+						ds_record	= "handler:recruitment.short_lists.candidates.list"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.candidates_short_list"
+						edit_view	= "recruitment.vacancies.components.candidates_short_list"
+					/>
+					
+
+					<field 
+						name		= "log" 
+						label		= "log" 
+						type		= "records" 
+						ds			= "rct_short_list_action.list"
+						ds_record	= "rct_short_list_action.record"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.short_list_log"
+						edit_view	= "recruitment.vacancies.components.short_list_log"
+					/>
+					
+						
+				</fields>
+				
+				
+				
+				<sort mode="by_short_list_with_candidates">
+					<field name="creation_date" type="timestamp" direction="DESC" />
+				</sort>
+				<key mode="by_short_list_with_candidates">
+					<field name="oid" type="oid" value="%{request:short_list_oid}" />
+				</key>
+				<fields mode="by_short_list_with_candidates">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="short_list_oid" label="short_list_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+					<field name="name" label="name" type="line" />
+					<field name="created_by" label="created_by" type="ref-oid" sqlType="integer" />
+					<field name="creation_date" label="creation_date" type="timestamp" />
+					<field name="sent_by" label="sent_by" type="ref-oid" sqlType="integer" />
+					<field name="sending_date" label="sending_date" type="timestamp" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" />					
+					<field name="is_visible" label="is_visible" type="text-choice" list="recruitment.boolean_list" control="select" sqlType="integer" multiple="false" default="0" />
+					
+					<field 
+						name		= "candidates_list" 
+						label		= "candidates_list" 
+						type		= "records" 
+						ds			= "handler:recruitment.short_lists.candidates.list"
+						ds_record	= "handler:recruitment.short_lists.candidates.list"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.candidates_short_list"
+						edit_view	= "recruitment.vacancies.components.candidates_short_list"
+					/>
+					
+
+					<field 
+						name		= "log" 
+						label		= "log" 
+						type		= "records" 
+						ds			= "rct_short_list_action.list"
+						ds_record	= "rct_short_list_action.record"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.short_list_log"
+						edit_view	= "recruitment.vacancies.components.short_list_log"
+					/>
+						
+				</fields>
+				
+				<!-- Liste des short-lists par dossier -->			
+				<query mode="by_vacancy_with_candidates_client" type="select">
+					SELECT
+						_rct_short_list._oid AS _oid,
+						_rct_short_list._name AS _name,
+						_rct_short_list._vacancy_oid AS _vacancy_oid,
+						_rct_short_list_vacancy_client._proposed_by AS _proposed_by,
+						_rct_short_list_vacancy_client._proposal_date AS _proposal_date,
+						_rct_short_list_vacancy_client._comment AS _comment
+					FROM
+						_rct_short_list_vacancy_client
+					LEFT JOIN 
+						_rct_short_list ON _rct_short_list_vacancy_client._short_list_oid = _rct_short_list._oid
+					WHERE
+						_rct_short_list_vacancy_client._vacancy_oid = '".$this->getProperty("vacancy_oid")."'
+					ORDER BY
+						_rct_short_list_vacancy_client._proposal_date DESC
+				</query>
+				<fields mode="by_vacancy_with_candidates_client">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" />
+					<field name="short_list_oid" label="short_list_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+					<field name="name" label="name" type="line" />
+					<field name="proposed_by" label="proposed_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" />
+					<field name="proposal_date" label="creation_date" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+					<field name="name" label="name" type="line" />
+					<field name="comment" label="comment" type="line" />
+					<field 
+						name		= "candidates_list" 
+						label		= "candidates_list" 
+						type		= "records" 
+						ds			= "handler:recruitment.short_lists.candidates_client.list"
+						ds_record	= "handler:recruitment.short_lists.candidates_client.list"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies_client.components.candidates_short_list"
+						edit_view	= "recruitment.vacancies_client.components.candidates_short_list"
+					/>						
+				</fields>
+
+				
+				<!-- Liste des short-lists par dossier -->
+				<sort mode="by_vacancy">
+					<field name="creation_date" type="timestamp" direction="DESC" />
+				</sort>
+				<key mode="by_vacancy">
+					<field name="vacancy_oid" type="ref-oid" value="%{property:vacancy_oid}" />
+				</key>
+	
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+					<field name="created_by" label="created_by" type="ref-oid" sqlType="integer" />
+					<field name="creation_date" label="creation_date" type="timestamp" />
+					<field name="sent_by" label="sent_by" type="ref-oid" sqlType="integer" />
+					<field name="sending_date" label="sending_date" type="timestamp" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" />					
+					<field name="is_visible" label="is_visible" type="text-choice" list="recruitment.boolean_list" control="select" sqlType="integer" multiple="false" default="0" isKey="secondary" />			
+				</fields>
+			</table>
+			
+			<table name="rct_short_list_action">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+				<key mode="list">
+					<field name="short_list_oid" type="ref-oid" value="%{property:oid|0}"/>
+				</key>
+				<sort mode="list">
+					<field name="date" label="date" type="timestamp" direction="DESC" />
+				</sort>
+				
+				<key mode="by_sl">
+					<field name="short_list_oid" type="ref-oid" relation="EQ" value="%{property:short_list_oid}"  />
+				</key>
+				<sort mode="by_sl">
+					<field name="date" label="date" type="timestamp" direction="DESC" />
+				</sort>
+				
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" is_edit="no" />
+					<field name="short_list_oid" label="short_list_oid" type="ref-oid" isKey="secondary" sqlType="integer" />		
+					<field name="user_oid" label="user_oid" type="text-choice" control="select" multiple="false" ds="db:user.ds_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" />
+					<field name="date" label="date" type="timestamp" value="now" format="%d/%m/%Y &amp;agrave; %H:%M" />
+					<field name="action_oid" label="action_oid" type="text-choice" list="recruitment.short_list_log" control="select" />
+					<field name="ref_oid" label="ref_oid" type="text-choice" control="select" multiple="yes" ds="db:rct_candidate.ds_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sep=", " />
+					<field name="additional_infos" label="additional_infos" type="line" />
+				</fields>
+			</table>
+			
+			<table name="rct_candidate_short_list">
+				
+				<key mode="by_sl">
+					<field name="short_list_oid" type="ref-oid" value="%{property:short_list_oid}" />
+				</key>
+				
+				<key mode="unlink_candidate">
+					<field name="short_list_oid" type="ref-oid" value="%{property:short_list_oid}" />
+					<field name="candidate_oid" type="ref-oid" value="%{property:candidate_oid}" />
+				</key>
+				<fields mode="unlink_candidate">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+				</fields>	
+				<key mode="by_candidate">
+					<field name="candidate_oid" type="ref-oid" value="%{property:candidate_oid}"/>
+				</key>			
+				
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="short_list_oid" type="ref-oid" sqlType="integer" />
+					<field name="candidate_oid" type="ref-oid" sqlType="integer" />
+				</fields>
+			</table>
+		</tables>
+		
+		<views>
+		
+			<view 
+				name	= "recruitment.short_lists.candidates_client.list"
+				table	= "rct_candidate" 
+				handler	= "lib.recruitment.vacancies.records.candidates_client.short_list_candidates">
+				<fields>
+					
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="candidate_oid" label="candidate_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+					<field name="assoc_oid" type="integer" isKey="secondary" />
+					<field name="first_name" label="first_name"  type="line" />
+					<field name="last_name" label="last_name"  type="line" />
+					<field name="age" label="age" type="line" is_transient="true" />
+					<field name="town_name" label="town_name" type="line" is_transient="true" />
+					<field name="diploma_type" label="diploma_type" type="line" is_transient="true" />
+					<field name="institution" label="institution" type="line" is_transient="true" />
+					<field name="cv_path" label="cv_path" type="line" />
+					<field name="years_of_practice" label="years_of_practice" type="integer" />
+					<field name="keywords" label="keywords" type="text" multiLines="auto" show="hidden" />
+					<field name="summary_keywords" label="summary_keywords" type="expression" field="keywords" control_html="summary" />
+					<field name="rating" label="rating" type="integer" />
+					<field name="status" label="status" type="text-choice" list="recruitment.candidate_vacancy_action" control="select" sqlType="integer" />
+					<field name="is_visible" label="is_visible" type="text-choice" list="recruitment.boolean_list"   control="checkbox" multiple="false" default="0" sqlType="integer" isKey="secondary" />
+					
+					<field name="ci_acceptance_state" label="ci_acceptance_state" type="text-choice" list="recruitment.acceptance_list" control="select" sqlType="integer" multiple="false" default="0" sqlType="integer" />
+					<field name="job_acceptance_state" label="job_acceptance_state" type="text-choice" list="recruitment.acceptance_list" control="select" sqlType="integer" multiple="false" default="0" sqlType="integer" />
+					<field name="proposal_acceptance_state" label="proposal_acceptance_state" type="text-choice" list="recruitment.acceptance_list" control="select" sqlType="integer" multiple="false" default="0" sqlType="integer" />
+					<field name="proposal_acceptance_date" label="proposal_acceptance_date" type="date" format="%d %B %Y" />
+					
+					<field 
+						name		= "candidate_log" 
+						label		= "candidate_log" 
+						type		= "records" 
+						ds			= "handler:recruitment.candidates.log.candidate_log"
+						ds_record	= "handler:recruitment.candidates.log.candidate_log"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies_client.components.candidate_log"
+						edit_view	= "recruitment.vacancies_client.components.candidate_log"
+					/>
+					
+					<field 
+						name		= "candidate_interviews" 
+						label		= "candidate_interviews" 
+						type		= "records" 
+						ds			= "handler:recruitment.candidates.log.candidate_interviews"
+						ds_record	= "handler:recruitment.candidates.log.candidate_interviews"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies_client.components.candidate_log"
+						edit_view	= "recruitment.vacancies_client.components.candidate_log"
+					/>
+					
+					<field 
+						name		= "candidate_emails" 
+						label		= "candidate_emails" 
+						type		= "records" 
+						ds			= "handler:recruitment.candidates.log.candidate_emails"
+						ds_record	= "handler:recruitment.candidates.log.candidate_emails"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies_client.components.candidate_log"
+						edit_view	= "recruitment.vacancies_client.components.candidate_log"
+					/>
+					
+					<field 
+						name		= "candidate_comments" 
+						label		= "candidate_comments" 
+						type		= "records" 
+						ds			= "db:rct_candidate_vacancy_comment.ds_list"
+						ds_record	= "db:rct_candidate_vacancy_comment.ds_list"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies_client.components.candidate_comments_list"
+						edit_view	= "recruitment.vacancies_client.components.candidate_comments_list"
+					/>
+					<field 
+						name		= "candidate_vacancies" 
+						label		= "candidate_vacancies" 
+						type		= "records" 
+						ds			= "db:rct_candidate_vacancy.candidate_vacancies_c"
+						ds_record	= "db:rct_candidate_vacancy.candidate_vacancies_c"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.candidate_vacancies_list"
+						edit_view	= "recruitment.vacancies.components.candidate_vacancies_list"
+					/>
+					
+				</fields>
+			</view>
+			<view 
+				name	= "recruitment.short_lists.candidates.excel"
+				table	= "rct_candidate" 
+				>
+			<query type='select'>
+				SELECT
+					_rct_candidate._oid as _oid,
+					_rct_candidate._first_name as _first_name,
+					_rct_candidate._last_name as _last_name,
+					_rct_candidate._age as _age,
+					_rct_candidate._phone_1 as _phone_1,
+					_rct_candidate._mobile as _mobile,
+					_rct_candidate._email as _email,
+					_rct_candidate._town_oid as _town_name,
+					_rct_candidate._years_of_practice as _years_of_practice,
+					_rct_candidate._diploma_type as _diploma_type,
+					_rct_candidate._institution as _institution,
+					_rct_candidate._cv_path as _cv_path,
+					_rct_candidate._add_date AS _add_date,
+					_rct_candidate._profile AS _profile,
+					_rct_candidate._update_date AS _update_date,
+					_rct_candidate._studies_level AS _studies_level,
+					_rct_candidate._last_employment_start_date AS _last_employment_start_date,
+					_rct_candidate._last_employment_end_date AS _last_employment_end_date,
+					_rct_candidate. _last_employment AS _last_employment,
+					_rct_candidate._last_training_start_date AS _last_training_start_date,
+					_rct_candidate._last_training_end_date AS _last_training_end_date,
+					_rct_candidate._last_training AS _last_training,
+					_rct_candidate._provider as _provider,
+					_rct_candidate._etat_oid as _etat_oid
+				FROM
+
+					_rct_candidate
+					LEFT JOIN _rct_candidate_vacancy ON _rct_candidate._oid = _rct_candidate_vacancy._candidate_oid
+					LEFT JOIN _rct_provider ON _rct_provider._oid = _rct_candidate_vacancy._cv_source_oid
+					LEFT JOIN _rct_candidate_etat ON _rct_candidate_etat._oid = _rct_candidate._etat_oid
+
+				WHERE
+					_rct_candidate_vacancy._vacancy_oid = '".$_REQUEST['vacancy_oid']."'
+					AND _rct_candidate._oid IS NOT NULL
+					 AND _rct_candidate._oid IN (SELECT _candidate_oid FROM _rct_candidate_short_list WHERE _short_list_oid = '".$_REQUEST['short_list_oid']."')
+			</query>
+			<fields>
+					
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="first_name" label="first_name"  type="line" />
+					<field name="last_name" label="last_name"  type="line" />
+					<field name="etat_oid" label="etat_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_etat.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+                    <field name="phone_1" label="phone_1" type="line" />
+                    <field name="mobile" label="mobile" type="line" />
+					<field name="email" label="email" type="line" />
+					<field name="town_name" label="town_name" type="line" is_transient="true" />
+					<field name="years_of_practice" label="years_of_practice" type="integer" />
+					<field name="age" label="age" type="line" is_transient="true" />
+					<field name="studies_level" label="studies_level" type="line" />
+					<field name="last_employment" label="last_employment" type="text" />
+					<field name="last_employment_start_date" label="last_employment_start_date" type="date" />
+					<field name="last_employment_end_date" label="last_employment_end_date" type="date" />
+					
+					
+					<!--<field name="diploma_type" label="diploma_type" type="line" is_transient="true" />
+					<field name="institution" label="institution" type="line" is_transient="true" />
+					
+
+					/***********************************/
+					<field name="add_date" label="add_date" type="datetime" />
+					
+					<field name="creation_date" label="creation_date" type="datetime"  />
+					<field name="update_date" label="update_date" type="datetime" />-->
+					
+					<field name="last_training" label="last_training" type="text" />
+					<field name="last_training_start_date" label="last_training_start_date" type="date" />
+					<field name="last_training_end_date" label="last_training_end_date" type="date" />
+
+					<field name="provider" label = "provider" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+					<!--<field name="profile" prompt="profile ..." label="profile" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_keyword.ds_list" ds_format="{field:name}" ds_field_value="key" csv_sep=","  />-->
+
+				</fields>
+			</view>
+			<view 
+				name	= "recruitment.short_lists.candidates.list"
+				table	= "rct_candidate" 
+				handler	= "lib.recruitment.vacancies.records.candidates.short_list_candidates">
+				<fields>
+					
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="candidate_oid" label="candidate_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+					<field name="assoc_oid" type="integer" isKey="secondary" />
+					<field name="first_name" label="first_name"  type="line" />
+					<field name="last_name" label="last_name"  type="line" />
+					<field name="age" label="age" type="line" is_transient="true" />
+					<field name="town_name" label="town_name" type="line" is_transient="true" />
+					<field name="diploma_type" label="diploma_type" type="line" is_transient="true" />
+					<field name="institution" label="institution" type="line" is_transient="true" />
+					<field name="cv_path" label="cv_path" type="line" />
+					<field name="years_of_practice" label="years_of_practice" type="integer" />
+					<field name="keywords" label="keywords" type="text" multiLines="auto" show="hidden" />
+					<field name="summary_keywords" label="summary_keywords" type="expression" field="keywords" control_html="summary" />
+					<field name="rating" label="rating" type="integer" />
+					<field name="status" label="status" type="text-choice" list="recruitment.candidate_vacancy_action" control="select" sqlType="integer" />
+					<field name="is_visible" label="is_visible" type="text-choice" list="recruitment.boolean_list"   control="checkbox" multiple="false" default="0" sqlType="integer" isKey="secondary" />
+					
+					<field name="etat_color" label="color"  type="line" />
+					<field name="ci_acceptance_state" label="ci_acceptance_state" type="text-choice" list="recruitment.acceptance_list" control="select" sqlType="integer" multiple="false" default="0" sqlType="integer" />
+					<field name="job_acceptance_state" label="job_acceptance_state" type="text-choice" list="recruitment.acceptance_list" control="select" sqlType="integer" multiple="false" default="0" sqlType="integer" />
+					<field name="proposal_acceptance_state" label="proposal_acceptance_state" type="text-choice" list="recruitment.acceptance_list" control="select" sqlType="integer" multiple="false" default="0" sqlType="integer" />
+					<field name="proposal_acceptance_date" label="proposal_acceptance_date" type="date" format="%d %B %Y" />	
+
+					/***********************************/
+					<field name="add_date" label="add_date" type="datetime" />
+					<field name="studies_level" label="studies_level" type="line" />
+					<field name="creation_date" label="creation_date" type="datetime"  />
+					<field name="update_date" label="update_date" type="datetime" />
+					<field name="last_employment_summary" label="last_employment_summary" type="expression" field="last_employment" control_html="summary" />
+					<field name="last_employment_start_date" label="last_employment_start_date" type="date" />
+					<field name="last_employment_end_date" label="last_employment_end_date" type="date" />
+					<field name="last_employment" label="last_employment" type="text" />
+					<field name="last_training_start_date" label="last_training_start_date" type="date" />
+					<field name="last_training_end_date" label="last_training_end_date" type="date" />
+					<field name="last_training_summary" label="last_training_summary" type="expression" field="last_training" control_html="summary" />
+					<field name="last_training" label="last_training" type="text" />
+					<field name="relevance" label="relevance" type="text-choice"  list="recruitment.relevance" control="select" sqlType="integer" multiple="false" />
+					<field name="etat_oid" label="etat_oid" type="line" is_transient="true" />
+
+					<field name="provider" label = "provider" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+					<field name="profile" prompt="profile ..." label="profile" type="text-choice" control="facebook_list" multiple="yes" ds="db:rct_keyword.ds_list" ds_format="{field:name}" ds_field_value="key" csv_sep=","  />
+					<field name="summary_keywords" label="summary_keywords" type="expression" field="profile" control_html="summary" />
+					<field name="read_state" label="read_state" type="integer" />
+                    <field name="user_read_state" label="user_read_state" type="integer" />
+					<field
+                        name		= "viewers"
+                        label		= "viewers"
+                        type		= "records"
+                        ds			= "db:rct_candidate_read_state.by_candidate_oid"
+                        ds_record	= "db:rct_candidate_read_state.by_candidate_oid"
+                        key			= "oid"
+                        fkey		= "candidate_oid"
+                        view		= "recruitment.candidates.components.viewers"
+                        edit_view	= "recruitment.candidates.components.viewers"
+                    />
+					<field
+						name		= "comment"
+						label		= "comment"
+						type		= "records"
+						ds		= "db:rct_candidate_comment.by_candidate_oid"
+						ds_record	= "db:rct_candidate_comment.by_candidate_oid"
+						key		= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.candidates.components.comments"
+						edit_view	= "recruitment.candidates.components.comments"
+					/>
+
+
+				</fields>
+			</view>
+
+			<view 
+				name	= "recruitment.short_lists.candidates.record"
+				table	= "rct_candidate" 
+				handler	= "lib.recruitment.vacancies.records.candidates.short_list_candidates_record">
+
+				<fields>
+					
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="candidate_oid" label="candidate_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+					<field name="assoc_oid" type="integer" isKey="secondary" />
+					<field name="first_name" label="first_name"  type="line" />
+					<field name="last_name" label="last_name"  type="line" />
+					<field name="age" label="age" type="line" is_transient="true" />
+					<field name="town_name" label="town_name" type="line" is_transient="true" />
+					<field name="diploma_type" label="diploma_type" type="line" is_transient="true" />
+					<field name="institution" label="institution" type="line" is_transient="true" />
+					<field name="cv_path" label="cv_path" type="line" />
+					<field name="years_of_practice" label="years_of_practice" type="integer" />
+					<field name="keywords" label="keywords" type="text" multiLines="auto" show="hidden" />
+					<field name="summary_keywords" label="summary_keywords" type="expression" field="keywords" control_html="summary" />
+					<field name="rating" label="rating" type="integer" />
+					<field name="status" label="status" type="text-choice" list="recruitment.candidate_vacancy_action" control="select" sqlType="integer" />
+					<field name="is_visible" label="is_visible" type="text-choice" list="recruitment.boolean_list"   control="checkbox" multiple="false" default="0" sqlType="integer" isKey="secondary" />
+					
+					<field name="ci_acceptance_state" label="ci_acceptance_state" type="text-choice" list="recruitment.acceptance_list" control="select" sqlType="integer" multiple="false" default="0" sqlType="integer" />
+					<field name="job_acceptance_state" label="job_acceptance_state" type="text-choice" list="recruitment.acceptance_list" control="select" sqlType="integer" multiple="false" default="0" sqlType="integer" />
+					<field name="proposal_acceptance_state" label="proposal_acceptance_state" type="text-choice" list="recruitment.acceptance_list" control="select" sqlType="integer" multiple="false" default="0" sqlType="integer" />
+					<field name="proposal_acceptance_date" label="proposal_acceptance_date" type="date" format="%d %B %Y" />
+					
+					<field 
+						name		= "candidate_log" 
+						label		= "candidate_log" 
+						type		= "records" 
+						ds			= "handler:recruitment.candidates.log.candidate_log"
+						ds_record	= "handler:recruitment.candidates.log.candidate_log"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.candidate_log"
+						edit_view	= "recruitment.vacancies.components.candidate_log"
+					/>
+					
+					<field 
+						name		= "candidate_interviews" 
+						label		= "candidate_interviews" 
+						type		= "records" 
+						ds			= "handler:recruitment.candidates.log.candidate_interviews"
+						ds_record	= "handler:recruitment.candidates.log.candidate_interviews"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.candidate_log"
+						edit_view	= "recruitment.vacancies.components.candidate_log"
+					/>
+					
+					<field 
+						name		= "candidate_emails" 
+						label		= "candidate_emails" 
+						type		= "records" 
+						ds			= "handler:recruitment.candidates.log.candidate_emails"
+						ds_record	= "handler:recruitment.candidates.log.candidate_emails"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.candidate_log"
+						edit_view	= "recruitment.vacancies.components.candidate_log"
+					/>
+					
+					<field 
+						name		= "candidate_comments" 
+						label		= "candidate_comments" 
+						type		= "records" 
+						ds			= "db:rct_candidate_vacancy_comment.ds_list"
+						ds_record	= "db:rct_candidate_vacancy_comment.ds_list"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.candidate_comments_list"
+						edit_view	= "recruitment.vacancies.components.candidate_comments_list"
+					/>
+					
+					
+					<field 
+						name		= "candidate_vacancies" 
+						label		= "candidate_vacancies" 
+						type		= "records" 
+						ds			= "db:rct_candidate_vacancy.candidate_vacancies_c"
+						ds_record	= "db:rct_candidate_vacancy.candidate_vacancies_c"
+						key			= "oid"
+						fkey		= "candidate_oid"
+						view		= "recruitment.vacancies.components.candidate_vacancies_list"
+						edit_view	= "recruitment.vacancies.components.candidate_vacancies_list"
+					/>
+					
+				</fields>
+			</view>
+			
+		</views>
+		
+		
+		
+	</data>
+
+</nxl>

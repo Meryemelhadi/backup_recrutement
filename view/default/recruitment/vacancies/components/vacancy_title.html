@@ -1,0 +1,9 @@
+﻿{record:vacancy_title_record}{/record}
+<script>
+/* set current page BC */
+if(window.container)
+{
+	window.container.bc.resetLink().addAjaxLink('{=title}','{=edit.url}&mode=ajax').addLink('{var:linkText}','');
+}
+document.getElementById('page_title').innerHTML = 'Poste à pourvoir: {=title} <p>{=step}</p>';
+</script>

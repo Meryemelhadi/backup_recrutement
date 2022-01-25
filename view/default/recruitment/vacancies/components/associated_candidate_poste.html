@@ -1,0 +1,60 @@
+{record:candidate.record}
+	<!--<div class="candidate-history clear-both">
+		
+		<div class="column-1">
+			<div class="column-inner">
+				<div class="candidate-history-title title-first">{string:"title_candidate_log"}</div>
+				{field:candidate_log}
+				{field:candidate_vacancies}
+            </div>
+		</div>
+
+		<div class="column-2">
+			<div class="column-inner">
+				<div class="candidate-history-title title-first">{string:"title_candidate_summary"}</div>
+				<ul class="candidate-history-content">					
+					<li>{field.label:ci_acceptance_state}: <strong>{field:ci_acceptance_state}</strong></li>
+					<li>{field.label:job_acceptance_state}: <strong>{field:job_acceptance_state}</strong></li>
+					<li>{field.label:proposal_acceptance_state}: <strong>{field:proposal_acceptance_state}</strong>{if:#field.object:proposal_acceptance_state# != '0'}, {string:'date_prefix_lc'} <strong>{field:proposal_acceptance_date}</strong>{/if}</li>
+				</ul>
+			</div>
+		</div>
+		
+	</div>-->
+	<div class="row history-vacancy-row">
+		<form:columns>
+			<form:column index="1">
+				<form:group title="{string:'title_candidate_log'}">
+					{field:candidate_log}
+					{field:candidate_vacancies}
+				</form:group>
+			</form:column>
+			<form:column index="2">
+				<form:group title="{string:'title_candidate_summary'}">
+					<ul class="candidate-history-content">					
+						<li>{field.label:ci_acceptance_state}: <strong>{field:ci_acceptance_state}</strong></li>
+						<li>{field.label:job_acceptance_state}: <strong>{field:job_acceptance_state}</strong></li>
+						<li>{field.label:proposal_acceptance_state}: <strong>{field:proposal_acceptance_state}</strong>{if:#field.object:proposal_acceptance_state# != '0'}, {string:'date_prefix_lc'} <strong>{field:proposal_acceptance_date}</strong>{/if}</li>
+					</ul>
+				</form:group>
+			</form:column>
+		</form:columns>
+		<!--<div class="col-md-6">
+			<div class="column-inner">
+				<div class="candidate-history-title title-first">{string:"title_candidate_log"}</div>
+				{field:candidate_log}
+				{field:candidate_vacancies}
+            </div>
+		</div>
+		<div class="col-md-6">
+			<div class="column-inner">
+				<div class="candidate-history-title title-first">{string:"title_candidate_summary"}</div>
+				<ul class="candidate-history-content">					
+					<li>{field.label:ci_acceptance_state}: <strong>{field:ci_acceptance_state}</strong></li>
+					<li>{field.label:job_acceptance_state}: <strong>{field:job_acceptance_state}</strong></li>
+					<li>{field.label:proposal_acceptance_state}: <strong>{field:proposal_acceptance_state}</strong>{if:#field.object:proposal_acceptance_state# != '0'}, {string:'date_prefix_lc'} <strong>{field:proposal_acceptance_date}</strong>{/if}</li>
+				</ul>
+			</div>
+		</div>-->
+	</div>
+{/record}

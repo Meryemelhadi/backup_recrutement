@@ -1,0 +1,14 @@
+	{include:presencerecrute_main@recruitement}
+	{include:presencerecrute_tb@recruitement}
+	
+	<cont:nav_section 
+		title		= "Configuration" 
+		permission	= "$isRH || $isRHClient || $isAdmin"
+		iconCls		= "icon-chart-pie"
+		xmlns:cont	= "http://www.presencemedia.ma/container/container">
+		
+		{include:presencerecrute_config@recruitement}
+		{include:presencerecrute_config_annuaire@recruitement}
+		{include:presencerecrute_config_cms@recruitement}
+
+	</cont:nav_section>

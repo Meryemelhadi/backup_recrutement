@@ -1,0 +1,152 @@
+<?xml version="1.0"?> 
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="rct_email_sample">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+
+				<key mode="by_oid">
+					<field name="oid" type="oid" value="%{property:oid}"/>
+				</key>
+				
+				<key mode="by_default_mail">
+					<field name="oid" type="oid" value="%{property:default_mail}"/>
+				</key>
+	
+				<fields mode="search">
+					<field name="name" label="name" type="line" />
+				</fields>
+				
+
+				<key mode="ds_list"></key>
+				<sort mode="ds_list">
+					<field name="name" label="name" type="line" direction="ASC" />
+				</sort>
+
+
+				<!-- 
+				<list name="recruitment.email_type.all">
+					<option value="2">Proposition</option>
+					<option value="3">Convocation entretien</option>
+					<option value="4">Annulation entretien</option>
+					<option value="5">Invitation recruteur</option>
+					<option value="6">Refus candidature</option>
+					<option value="7">Relance dossier</option>
+					<option value="8">Demande CV récent</option>
+					<option value="9">Accusé réception CV</option>
+					<option value="1">Email simple (autre type)</option>
+				</list>
+				-->
+				<key mode="ds_list_candidate">
+					<field name="type_email" type="text-choice" relation="in" value="2,3,4,6,7,8,1" />
+				</key>
+				<sort mode="ds_list_candidate">
+					<field name="name" label="name" type="line" direction="ASC" />
+				</sort>
+
+				<key mode="ds_list_candidate_interview">
+					<field name="type_email" type="text-choice" relation="=" value="3" />
+				</key>
+				<sort mode="ds_list_candidate_interview">
+					<field name="name" label="name" type="line" direction="ASC" />
+				</sort>
+
+				<key mode="ds_list_recruiter">
+					<field name="type_email" type="text-choice" relation="=" value="3" />
+				</key>
+				<sort mode="ds_list_recruiter">
+					<field name="name" label="name" type="line" direction="ASC" />
+				</sort>
+
+				<key mode="ds_candidature_reception">
+					<field name="type_email" type="text-choice" relation="EQ" value="9" />
+				</key>
+				
+				<key mode="ds_list_recruiter_interview">
+					<field name="type_email" type="text-choice" relation="=" value="5" />
+				</key>
+				<sort mode="ds_list_recruiter_interview">
+					<field name="name" label="name" type="line" direction="ASC" />
+				</sort>
+				
+				<key mode="ds_list_proposition_cvs">
+					<field name="type_email" type="text-choice" relation="=" value="10" />
+				</key>
+				<sort mode="ds_list_proposition_cvs">
+					<field name="name" label="name" type="line" direction="ASC" />
+				</sort>
+
+				<pages mode="list" alias="page" pageOffset="%{get:page}" recordsPerPage="10" />
+				<key mode="list">
+					<field name="name" label="name" type="line" relation="LIKE" />
+				</key>
+				<fields mode="list">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+					<field name="type_email" label="type_email" type="text-choice" list="recruitment.email_type.all@recruitment" control="select" multiple="false" sqlType="varchar(5)" />
+				</fields>
+	
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" csslayout="normal-layout" />
+
+					<field name="type_email" label="type_email" type="text-choice" list="recruitment.email_type.all@recruitment" control="select" multiple="false" sqlType="varchar(5)" />
+
+					<field name="email_title" label="email_title" type="line" size="500" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+
+					<field name="docs" label="docs" 
+						type="text-choice" control="checkbox" multiple="true" columns="2" controlLayout="table"
+						ds="db:email_docs.ds_list@recruitment" 
+						ds_format="{field:name}" 
+						ds_field_value="oid" 
+						sqlType="varchar(255)" />
+				</fields>
+			</table>
+
+			<table name="rct_email_sample_attached_file">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+
+				<key mode="get_record">
+					<field name="oid" type="oid" relation="EQ" value="%{property:oid}" />
+				</key>
+
+				<key mode="by_email">
+					<field name="email_oid" type="ref-oid" relation="EQ" value="%{property:email_oid}" />
+				</key>			
+
+				<fields mode="add_record">
+					<field name="email_oid" type="ref-oid" value="%{property:object_oid}" />
+					<field name="file_name" type="line" value="%{property:file_name}" />
+				</fields>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="email_oid" label="email_oid" type="ref-oid" isKey="secondary" sqlType="integer" />
+					<field name="file_name" label="file_name" type="line" />
+				</fields>
+
+			</table>
+
+		
+		</tables>
+	</data>
+
+</nxl>

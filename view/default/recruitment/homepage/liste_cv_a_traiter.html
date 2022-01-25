@@ -1,0 +1,56 @@
+<div id="mygrouptasks">
+
+<script language="php">
+	$myCV = new PersistentCollection('recruitment.candidates.mycandidates_tasks@recruitment','handler');
+	$this->setProperty('cv_a_traiter.records',$myCV->records);
+	$etat = '';
+	$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+</script>
+
+{records:cv_a_traiter.records}
+	<div class="homepage-box box-theme-green">
+		<div id="search_my_candidates" style="float: right;margin-top:10px;">
+
+			<form method="post" action="{var:PORTAL_URL_PREFIX}/recruitment/candidates/directory.php" enctype="multipart/form-data">
+				<input type="hidden" value="POST" name="_form_method_">
+				<input type="hidden" value="{user:oid}" name="hr_manager">
+
+				<input type="text" style="border: solid 1px #999; border-radius: 5px; padding:3px;width:90px;" 
+					class="text" name="full_text_search" maxlength="100000" value="">
+
+				<input type="submit" value="Rechercher" style="background: none repeat scroll 0% 0% #76A42E; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding:3px;">
+					
+			</form>
+
+		</div>
+
+		<h4 class="homepage-box-title">{string:"Mes Candidats"}</h4>
+		<div class="homepage-box-articles-list">
+			{record}
+		<script language="php">
+		$editUrl = PORTAL_URL_PREFIX.'/recruitment/candidates/coid-'.$_nx_record->oid->object.'/directory.php?nxo=edit&mode=page'.$_nx_record->getUrlKey();
+		$etat_record = $_nx_record->etat_oid->object;
+		if($etat!=$etat_record)
+		{
+			$etat = $etat_record;
+			echo  '<h3 class="grid-header">'.$etat_record.'</h3>';
+		}
+		</script>
+			<div class="article {if:record.is_first}first{/if} clear-both">
+				<div class="article-title"><a href="{var:editUrl}">
+				<span><span>{field:first_name} {field:last_name}</span></a>
+				<br/><span>Modifié le: {field:update_date:short}</span></div>
+			</div>
+			{/record}
+			{no_record}
+			<div class="article {if:record.is_first}first{/if} clear-both">
+				<div class="article-title">{string:"Liste vide"}</div>
+			</div>
+			{/no_record}
+		
+		</div>
+
+	</div>
+{/records}
+
+</div>

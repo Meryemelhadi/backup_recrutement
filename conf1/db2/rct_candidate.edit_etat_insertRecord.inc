@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_candidate(_etat_oid) VALUES('".$props->getProperty("etat_oid","",true)."')"; ?>

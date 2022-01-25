@@ -1,0 +1,979 @@
+<?xml version="1.0"?> 
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+
+		
+	
+			<table name="rct_instant_feedback">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>		
+				
+				<key mode="ds_list"></key>
+
+				
+
+				
+
+				<key mode="completed_count">
+
+					<field name="vacancy_oid" type="integer" value="%{property:vacancy_oid}" />
+
+					<field name="fill_state" type="integer" value="1" />
+
+				</key>
+
+				<fields mode="completed_count">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+
+				</fields>
+
+				
+
+				
+
+				
+
+				
+
+				<query type="select" mode="email_data">
+
+					SELECT
+
+						CONCAT_WS(' ',_cl._first_name, _cl._last_name) AS _full_name,
+
+						CONCAT_WS(' ',_us._first_name, _us._last_name) AS _scheduler_full_name,
+
+						_cl._email AS _to,
+
+						_rct_vacancy._name AS _vacancy_name
+
+					FROM
+
+						_rct_instant_feedback AS _fb
+
+					LEFT JOIN _user _cl ON _cl._oid = _fb._filled_by
+
+					LEFT JOIN _user _us ON _us._oid = _fb._scheduled_by
+
+					LEFT JOIN _rct_vacancy ON _rct_vacancy._oid = _fb._vacancy_oid
+
+					WHERE 
+
+						_fb._oid = '".$this->getProperty("record_oid")."'
+
+				</query>
+
+			
+
+				<fields mode="email_data">
+
+					<field name="full_name" label="full_name" type="line" is_transient="true" />
+
+					<field name="vacancy_name" label="vacancy_name" type="line" is_transient="true" />
+
+					<field name="to" label="to" type="line" is_transient="true" />
+
+					<field name="subject" label="subject" type="line" is_transient="true" />
+
+					<field name="body" label="body" type="line" is_transient="true" />
+
+				</fields>
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				<sort mode="client_list">
+
+					<field name="scheduled_on" type="timestamp" direction="DESC" />
+
+				</sort>
+
+				<key mode="client_list">
+
+					<field name="vacancy_oid" label="vacancy_oid" type="integer" show="hidden" value="%{property:vacancy_oid}" />
+
+					<field name="filled_by" label="filled_by" type="ref-oid" value="%{user:oid}" />
+
+				</key>
+
+				<fields mode="client_list">
+
+				
+
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+
+					
+
+					
+
+					<field name="filled_by" label="filled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					
+
+					
+
+					<field name="scheduled_by" label="scheduled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" value="now" show="hidden" />
+
+					<field name="fill_state" label="fill_state" type="ref-oid" sqlType="integer" show="hidden" />
+
+					<field name="completed_by" label="completed_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					<field name="completed_on" label="completed_on" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M"/>
+
+					<field name="complete_state" label="complete_state" type="ref-oid" sqlType="integer" show="hidden" />		
+
+				</fields>
+				
+
+				<sort mode="admin_list">
+
+					<field name="scheduled_on" type="timestamp" direction="DESC" />
+
+				</sort>
+				<key mode="admin_list">
+					<field name="vacancy_oid" label="vacancy_oid" type="integer" show="hidden" value="%{property:vacancy_oid}" />
+				</key>
+				<fields mode="admin_list">
+
+				
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+
+					
+
+					
+
+					<field name="filled_by" label="filled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					
+
+					
+
+					<field name="scheduled_by" label="scheduled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" value="now" show="hidden" />
+
+					<field name="fill_state" label="fill_state" type="ref-oid" sqlType="integer" show="hidden" />
+
+					<field name="completed_by" label="completed_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					<field name="completed_on" label="completed_on" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M"/>
+
+					<field name="complete_state" label="complete_state" type="ref-oid" sqlType="integer" show="hidden" />		
+				</fields>
+
+				
+
+				<fields mode="schedule">
+
+					<field name="filled_by" label="filled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list_all@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					
+
+					<field name="scheduled_by" label="scheduled_by" type="ref-oid" value="%{user:oid}" show="hidden" />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" value="now" show="hidden" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="integer" show="hidden" value="%{property:vacancy_oid}" />
+
+					<field name="fill_state" label="fill_state" type="ref-oid" sqlType="integer" show="hidden" value="0" />
+
+					<field name="complete_state" label="complete_state" type="ref-oid" sqlType="integer" show="hidden" value="0" />
+
+				</fields>
+
+				
+
+				
+
+				<key mode="view_client">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+				</key>
+
+				<fields mode="view_client">
+
+
+
+					<field name="first_sl_period" label="first_sl_period" type="line" />
+
+					<field name="cv_in_sl" label="cv_in_sl" type="line" isEdit="no" />
+
+					<field name="cv_pc_in_interview" label="cv_pc_in_interview" type="line" />
+
+					<field name="cv_having_good_level" label="cv_having_good_level" type="line" />
+
+					<field name="period_before_agreement" label="period_before_agreement" type="line" />
+
+					
+
+					<field name="hr_staff_need_identification" label="hr_staff_need_identification" type="line" />
+
+					<field name="cv_in_sl_quality" label="cv_in_sl_quality" type="line" />
+
+					<field name="cv_in_interview_quality" label="cv_in_interview_quality" type="line" />
+
+					<field name="satisfaction_with_candidate" label="satisfaction_with_candidate" type="line" />
+
+					<field name="instant_comment" label="instant_comment" type="text" />
+
+										
+
+				</fields>
+
+				
+
+				<key mode="complete_client">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+				</key>
+
+				<fields mode="complete_client">
+
+									
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />	
+
+					
+
+					
+
+
+
+
+
+					<field name="first_sl_period" label="first_sl_period" type="line" multiLines="auto" size="255" />
+
+					<field name="cv_in_sl" label="cv_in_sl" type="line" multiLines="auto" size="255" />
+
+					<field name="cv_pc_in_interview" label="cv_pc_in_interview" type="line" multiLines="auto" size="255" />
+
+					<field name="cv_having_good_level" label="cv_having_good_level" type="line" multiLines="auto" size="255" />
+
+					<field name="period_before_agreement" label="period_before_agreement" type="line" multiLines="auto" size="255" />
+
+					
+
+					
+
+					<field name="hr_staff_need_identification" label="hr_staff_need_identification" type="line" multiLines="auto" size="255" />
+
+					<field name="cv_in_sl_quality" label="cv_in_sl_quality" type="line" multiLines="auto" size="255" />
+
+					<field name="cv_in_interview_quality" label="cv_in_interview_quality" type="line" multiLines="auto" size="255"/>
+
+					<field name="satisfaction_with_candidate" label="satisfaction_with_candidate" type="line" multiLines="auto" size="255"/>
+
+					<field name="instant_comment" label="instant_comment" type="text" multiLines="auto" size="255"/>
+
+					
+
+					<field name="filled_on" label="filled_on" type="timestamp" value="now" show="hidden" />
+
+					<field name="fill_state" label="fill_state" type="ref-oid" sqlType="integer" value="1" show="hidden" />
+
+										
+
+				</fields>
+
+				
+
+				<key mode="complete">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+				</key>
+
+				<fields mode="complete">
+
+									
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />	
+
+					
+
+					<field name="scheduled_by" label="scheduled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" prompt="select a user..." show="hidden" isEdit="no" />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" show="hidden" isEdit="no" />
+
+					
+
+					<field name="filled_by" label="filled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" prompt="select a user..." show="hidden" isEdit="no" /> <!-- Saisi par -->
+
+					<field name="filled_on" label="filled_on" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" show="hidden" isEdit="no" /> <!-- Saisi le -->
+
+					
+
+					<field name="completed_by" label="completed_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" prompt="select a user..." show="hidden" isEdit="no" /> <!-- Complété par -->
+
+					<field name="completed_on" label="completed_on" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" show="hidden" isEdit="no" /> <!-- complété le -->
+
+										
+
+					<field name="fill_state" label="fill_state" type="text-choice" list="recruitment.boolean_list" control="select" sqlType="integer" multiple="false" prompt="fill_state..." show="hidden" isEdit="no" />
+
+					<field name="complete_state" label="complete_state" type="text-choice" list="recruitment.boolean_list" control="select" sqlType="integer" multiple="false" prompt="complete_state..." show="hidden" isEdit="no" />	
+
+
+
+					<field name="first_sl_period" label="first_sl_period" type="line"  isEdit="no" />
+
+					<field name="cv_in_sl" label="cv_in_sl" type="line" isEdit="no" />
+
+					<field name="cv_pc_in_interview" label="cv_pc_in_interview" type="line" isEdit="no" />
+
+					<field name="cv_having_good_level" label="cv_having_good_level" type="line" isEdit="no" />
+
+					<field name="period_before_agreement" label="period_before_agreement" type="line" isEdit="no" />
+
+					<field name="recruitment_cost" label="recruitment_cost" type="line" />
+
+					
+
+					
+
+					<field name="hr_staff_need_identification" label="hr_staff_need_identification" type="line" isEdit="no" />
+
+					<field name="cv_in_sl_quality" label="cv_in_sl_quality" type="line" isEdit="no" />
+
+					<field name="cv_in_interview_quality" label="cv_in_interview_quality" type="line" isEdit="no" />
+
+					<field name="satisfaction_with_candidate" label="satisfaction_with_candidate" type="line"  isEdit="no"/>
+
+					<field name="recruitment_budget_followed" label="recruitment_budget_followed" type="line" />
+
+					<field name="instant_comment" label="instant_comment" type="text" isEdit="no" />
+
+										
+
+				</fields>
+
+				
+
+				<key mode="complete_process">
+
+						<field name="oid" label="oid" type="oid" isKey="primary" />
+
+				</key>
+
+				<fields mode="complete_process">
+
+					<field name="completed_by" label="completed_by" type="text-choice" value="%{user:oid}" />
+
+					<field name="completed_on" label="completed_on" type="timestamp" value="now" />
+
+					<field name="complete_state" label="complete_state" type="text-choice" value="1" />	
+
+					<field name="recruitment_cost" label="recruitment_cost" type="line" />
+
+					<field name="recruitment_budget_followed" label="recruitment_budget_followed" type="line" />
+
+				</fields>
+
+				
+
+				
+	
+				<fields>
+
+					
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />		
+
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" />
+
+					
+
+					<field name="scheduled_by" label="scheduled_by" type="ref-oid" sqlType="integer" />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" />
+
+					
+
+					<field name="filled_by" label="filled_by" type="ref-oid" sqlType="integer" /> <!-- Saisi par -->
+
+					<field name="filled_on" label="filled_on" type="timestamp" /> <!-- Saisi le -->
+
+					
+
+					<field name="completed_by" label="completed_by" type="ref-oid" sqlType="integer" /> <!-- Complété par -->
+
+					<field name="completed_on" label="completed_on" type="timestamp" /> <!-- complété le -->
+
+					
+
+					<field name="fill_state" label="fill_state" type="ref-oid" sqlType="integer" />
+
+					<field name="complete_state" label="fill_state" type="ref-oid" sqlType="integer" />		
+
+					<field name="first_sl_period" label="cv_in_sl" type="line" />
+
+					<field name="cv_in_sl" label="cv_in_sl" type="line" />
+
+					<field name="cv_pc_in_interview" label="cv_pc_in_interview" type="line" />
+
+					<field name="cv_having_good_level" label="cv_pc_in_interview" type="line" />
+
+					<field name="period_before_agreement" label="period_before_agreement" type="line" />
+
+					<field name="recruitment_cost" label="recruitment_cost" type="line" />
+
+					
+
+					
+
+					<field name="hr_staff_need_identification" label="hr_staff_need_identification" type="line" />
+
+					<field name="cv_in_sl_quality" label="cv_in_sl_quality" type="line" />
+
+					<field name="cv_in_interview_quality" label="cv_in_interview_quality" type="line" />
+
+					<field name="satisfaction_with_candidate" label="satisfaction_with_candidate" type="line" />
+
+					<field name="recruitment_budget_followed" label="recruitment_budget_followed" type="line" />
+
+					<field name="instant_comment" label="instant_comment" type="text" />
+
+										
+				</fields>
+			</table>
+
+			
+
+			
+
+			<table name="rct_delayed_feedback">
+
+				<key mode="record">
+
+					<field name="oid" type="oid" />
+
+				</key>
+
+				
+
+				<key mode="completed_count">
+
+					<field name="vacancy_oid" type="integer" value="%{property:vacancy_oid}" />
+
+					<field name="fill_state" type="integer" value="1" />
+
+				</key>
+
+				<fields mode="completed_count">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+
+				</fields>
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				<query type="select" mode="email_data">
+
+					SELECT
+
+						_fb._oid AS _feedback_oid,
+
+						CONCAT_WS(' ',_cd._first_name, _cd._last_name) AS _candidate_name,
+
+						CONCAT_WS(' ',_user._first_name, _user._last_name) AS _full_name,
+
+						_vc._name AS _vacancy_name,
+
+						_user._email AS _to
+
+					FROM _rct_delayed_feedback _fb
+
+					LEFT JOIN _user ON _user._oid = _fb._filled_by
+
+					LEFT JOIN _rct_candidate _cd ON _fb._candidate_oid = _cd._oid
+
+					LEFT JOIN _rct_vacancy _vc ON _vc._oid = _fb._vacancy_oid
+
+					WHERE
+
+						_fb._notification_state = '0'
+
+					AND
+
+						_fb._launch_date <= NOW()
+
+				</query>
+
+			
+
+				<fields mode="email_data">
+
+					<field name="candidate_name" label="candidate_name" type="line" is_transient="true" />
+
+					<field name="full_name" label="full_name" type="line" is_transient="true" />
+
+					<field name="vacancy_name" label="vacancy_name" type="line" is_transient="true" />
+
+					<field name="to" label="to" type="line" is_transient="true" />
+
+					<field name="subject" label="subject" type="line" is_transient="true" />
+
+					<field name="body" label="body" type="line" is_transient="true" />
+
+				</fields>
+
+				
+
+				
+
+				
+
+				<key mode="change_notification_state">
+
+					<field name="notification_state" type="integer" value="0" />
+
+					<field name="launch_date" type="date" relation="LTE" value="now" />
+
+				</key>			
+
+				<fields mode="change_notification_state">
+
+					<field name="notification_state"  type="integer" value="1" />
+
+				</fields>
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				<sort mode="client_list">
+
+					<field name="scheduled_on" type="timestamp" direction="DESC" />
+
+				</sort>
+
+				<key mode="client_list">
+
+					<field name="vacancy_oid" label="vacancy_oid" type="integer" show="hidden" value="%{property:vacancy_oid}" />
+
+					<field name="filled_by" label="filled_by" type="ref-oid" value="%{user:oid}" />
+
+					<field name="launch_date" label="launch_date" type="date" relation="LTE" value="now" />
+
+				</key>
+
+				<fields mode="client_list">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." />
+
+					<field name="filled_by" label="filled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					<field name="scheduled_by" label="scheduled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" value="now" show="hidden" />
+
+					<field name="launch_date" label="launch_date" type="date" format="%d %B %Y" />
+
+					<field name="fill_state" label="fill_state" type="ref-oid" />		
+
+				</fields>
+
+				
+
+				
+
+				
+
+				<sort mode="admin_list">
+
+					<field name="scheduled_on" type="timestamp" direction="DESC" />
+
+				</sort>
+
+				<key mode="admin_list">
+
+					<field name="vacancy_oid" label="vacancy_oid" type="integer" show="hidden" value="%{property:vacancy_oid}" />
+
+				</key>
+
+				<fields mode="admin_list">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." />
+
+					<field name="filled_by" label="filled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					<field name="scheduled_by" label="scheduled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" value="now" show="hidden" />
+
+					<field name="launch_date" label="launch_date" type="date" format="%d %B %Y" />
+
+					<field name="fill_state" label="fill_state" type="ref-oid" />		
+
+				</fields>
+
+				
+
+				<fields mode="schedule">
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." />
+
+					<field name="filled_by" label="filled_by" type="text-choice" control="select" multiple="false" ds="rct_vacancy.internal_clients" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." />
+
+					
+
+					<field name="launch_date" label="launch_date" type="date" default="now+6 months" />
+
+					
+
+					<field name="scheduled_by" label="scheduled_by" type="ref-oid" value="%{user:oid}" show="hidden" />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" value="now" show="hidden" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="integer" show="hidden" value="%{property:vacancy_oid}" />
+
+					<field name="fill_state" label="fill_state" type="ref-oid" sqlType="integer" show="hidden" value="0" />
+
+					<field name="notification_state" label="notification_state" type="integer" show="hidden" value="0" />
+
+				</fields>
+
+				
+
+				<key mode="view">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />	
+
+				</key>
+
+				<fields mode="view">
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." show="hidden" />
+
+					
+
+					<field name="scheduled_by" label="scheduled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." show="hidden" />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" show="hidden" />
+
+					
+
+					<field name="filled_by" label="filled_by" type="ref-oid" sqlType="integer" show="hidden" /> <!-- Saisi par -->
+
+					
+
+					<field name="filled_by" label="filled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a user..." show="hidden" />
+
+					<field name="filled_on" label="filled_on" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" show="hidden" />
+
+					
+
+					<field name="launch_date" label="launch_date" type="date" format="%d %B %Y" show="hidden" />
+
+					
+
+					<field name="fill_state" label="fill_state" type="ref-oid" sqlType="integer" show="hidden" />
+
+	
+
+					
+
+					
+
+					<field name="still_in_office" label="still_in_office" type="text-choice" list="recruitment.boolean_list" control="select" sqlType="integer" multiple="false" prompt="still_in_office..." />
+
+					
+
+					<field name="integration_degree" label="integration_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="integration_degree..." />
+
+					<field name="job_ownership_degree" label="job_ownership_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="job_ownership_degree..." />
+
+					<field name="learning_ease" label="learning_ease" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="learning_ease..." />
+
+					<field name="autonomy_degree" label="autonomy_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="autonomy_degree..." />
+
+					<field name="recruit_satisfaction" label="recruit_satisfaction" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="recruit_satisfaction..." />
+
+					
+
+					<field name="comment" label="comment" type="text" />
+
+				</fields>
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				<key mode="complete_client">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />	
+
+				</key>
+
+				<fields mode="complete_client">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />	
+
+					
+
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.vacancy_candidates" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" prompt="select a candidate..." show="hidden" isEdit="no"  />
+
+					
+
+					<field name="still_in_office" label="still_in_office" type="text-choice" list="recruitment.boolean_list" control="radio" sqlType="integer" multiple="false" prompt="still_in_office..." value="1" />
+
+					
+
+					<field name="integration_degree" label="integration_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="integration_degree..." />
+
+					<field name="job_ownership_degree" label="job_ownership_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="job_ownership_degree..." />
+
+					<field name="learning_ease" label="learning_ease" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="learning_ease..." />
+
+					<field name="autonomy_degree" label="autonomy_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="autonomy_degree..." />
+
+					<field name="recruit_satisfaction" label="recruit_satisfaction" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="recruit_satisfaction..." />
+
+					
+
+					<field name="comment" label="comment" type="text" multilines="auto" size="255" />
+
+					
+
+					
+
+
+
+				</fields>
+
+				
+
+				
+
+				<key mode="complete_client_process">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />	
+
+				</key>
+
+				<fields mode="complete_client_process">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+						
+
+					<field name="still_in_office" label="still_in_office" type="text-choice" list="recruitment.boolean_list" control="radio" sqlType="integer" multiple="false" prompt="still_in_office..." /	>
+
+					
+
+					<field name="integration_degree" label="integration_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="integration_degree..." />
+
+					<field name="job_ownership_degree" label="job_ownership_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="job_ownership_degree..." />
+
+					<field name="learning_ease" label="learning_ease" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="learning_ease..." />
+
+					<field name="autonomy_degree" label="autonomy_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="autonomy_degree..." />
+
+					<field name="recruit_satisfaction" label="recruit_satisfaction" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="recruit_satisfaction..." />
+
+					
+
+					<field name="comment" label="comment" type="text" multilines="auto" size="255" />
+
+
+
+					<field name="filled_on" label="filled_on" type="timestamp" value="now" show="hidden" />					
+
+					<field name="fill_state" label="fill_state" type="ref-oid" sqlType="integer" show="hidden" value="1" />
+
+					
+
+					<field name="notification_state" label="notification_state" type="integer" show="hidden" value="1" />
+
+				</fields>
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+				
+
+	
+
+				<fields>
+
+					
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />		
+
+					<field name="candidate_oid" label="candidate_oid" type="ref-oid" sqlType="integer" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" />
+
+					
+
+					<field name="scheduled_by" label="scheduled_by" type="ref-oid" sqlType="integer" />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" />
+
+					
+
+					<field name="filled_by" label="filled_by" type="ref-oid" sqlType="integer" /> <!-- Saisi par -->
+
+					<field name="filled_on" label="filled_on" type="timestamp" /> <!-- Saisi le -->
+
+					
+
+					<field name="launch_date" label="launch_date" type="date" />
+
+					<field name="fill_state" label="fill_state" type="ref-oid" sqlType="integer" />
+
+					
+
+					
+
+					<field name="still_in_office" label="still_in_office" type="text-choice" list="recruitment.boolean_list" control="select" sqlType="integer" multiple="false" prompt="still_in_office..." />
+
+					
+
+					<field name="integration_degree" label="integration_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="integration_degree..." />
+
+					<field name="job_ownership_degree" label="job_ownership_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="job_ownership_degree..." />
+
+					<field name="learning_ease" label="learning_ease" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="learning_ease..." />
+
+					<field name="autonomy_degree" label="autonomy_degree" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="autonomy_degree..." />
+
+					<field name="recruit_satisfaction" label="recruit_satisfaction" type="text-choice" list="recruitment.rating" control="select" sqlType="integer" multiple="false" prompt="recruit_satisfaction..." />
+
+					
+
+					<field name="comment" label="comment" type="text" />
+
+					
+
+					<field name="notification_state" label="notification_state" type="integer" />
+
+										
+
+				</fields>
+
+			</table>
+
+			
+
+		
+		
+		</tables>
+
+
+
+		
+	</data>
+
+</nxl>

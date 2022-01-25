@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _directory_town SET _oid=".$record->getFieldValue("oid","DB","NULL").",_town_name=".$record->getFieldValue("town_name","DB","NULL").",_country_oid=".$record->getFieldValue("country_oid","DB","NULL").",_cp=".$record->getFieldValue("cp","DB","NULL")." WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

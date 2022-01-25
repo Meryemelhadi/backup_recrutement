@@ -1,0 +1,201 @@
+<?xml version="1.0"?> 
+<!-- 
+
+___________________________________
+Presence Media | Rabat
+___________________________________
+Package   : Gestion des recrutements
+Module    : Cvthèque
+Composant : Taglib pour les fiches candidats ... fourre-tout
+Auteur    : Nadir Elasri
+Version   : 0.1
+___________________________________
+
+-->
+
+<include file = "../../vacancies/components/vacancy_lib.comp.nxl"/>
+
+<xo:taglib 
+	uri					= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_lib.comp"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_lib.comp"
+	
+	xmlns:vacancy_lib	= "http://www.presencemedia.com/recruitment/vacancies/components/vacancy_lib.comp"
+	
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:ds			= "http://www.nxfrontier.com/nxl/ds"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"	
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+	
+	<!-- Prévisualisation de la fiche CV -->
+	<xo:tag name="details">
+		
+		<xo:param name="candidate_oid_param" 	value="#request:candidate_oid#" />
+		<xo:param name="preview_type_param" 	value="#request:type#" />
+		<xo:param name="ds_details"				value="rct_candidate.details@recruitment" />
+		<xo:param name="property_record"		value="page.record" />
+		
+		<xo:param name="previous_op_label" value="#string:back_to_candidates#" />
+		<xo:param name="previous_operation" value="candidates" />
+		<xo:param name="previous_operation_btn_name" value="previous_operation" />
+		<xo:param name="previous_operation_param_name" value="oid" />
+		<xo:param name="previous_operation_param_value" value="#property:vacancy_oid#" />
+		
+		<block>
+			
+			<button:set name="#{$previous_operation_btn_name}#" operation="#{$previous_operation}#">
+				<button:param name="#{$previous_operation_param_name}#" value="#{$previous_operation_param_value}#" />
+			</button:set>		
+		
+			<set name="property:previous_op_label" value="#{$previous_op_label}#" />
+			<set name="property:candidate_oid" value="#{$candidate_oid_param}#" />
+			<ds:load media="db" ds="#{$ds_details}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+					
+		</block>
+	</xo:tag>
+	
+	
+	<!-- Prévisualisation du CV ou de la lettre de motivation -->
+	<xo:tag name="preview">
+
+		<xo:param name="application_name"/>
+		<xo:param name="service_class" 			value="lib.recruitment.candidates.services.directory" />
+		<xo:param name="candidate_oid_param" 	value="#request:candidate_oid#" />
+		<xo:param name="preview_type_param" 	value="#request:type#" />
+		
+		<xo:param name="template_preview" 	value="recruitment.candidates.components.preview" />
+		
+		<block>
+				
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "preview"
+					params		= "#{$candidate_oid_param}#,#{$preview_type_param}#"
+				/>
+			</load>
+			
+			<tpl:screen 
+				xmlns		= "http://www.nxfrontier.com/tpl/tpml"  
+				xmlns:tpl	= "http://www.nxfrontier.com/tpl/tpml"
+				name		= "#{$application_name}#_preview" 
+				trace		= "yes">
+				<load view="#{$template_preview}#" />
+			</tpl:screen>
+			
+			<display view="#{$application_name}#_preview"/>
+					
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="download">
+		
+		<xo:param name="service_class" value="lib.recruitment.candidates.services.directory" />
+		<xo:param name="candidate_oid_param" value="#request:candidate_oid#" />
+		<xo:param name="preview_type_param" value="#request:type#" />
+		
+		<block>
+			
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "download"
+					params		= "#request:candidate_oid#,#request:type#"
+				/>
+			</load>
+					
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="associate_to_vacancy">
+	
+		<xo:param name="application_name" />
+		
+		<xo:param name="ds_add_vacancy_assoc" 	value="rct_candidate_vacancy.add_assoc@recruitment" />
+		<xo:param name="ds_get_vacancy_assoc" 	value="rct_candidate_vacancy.get_assoc@recruitment" />
+		<xo:param name="ds_add_log" 			value="rct_candidate_action.record@recruitment" />
+		
+		<xo:param name="property_record" 		value="page.record" />
+		
+		<xo:param name="candidate_oid_param" value="#request:candidate_oid#" />
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		
+		<xo:param name="template_vacancy_assoc_record" value="recruitment.candidates.components.vacancy_assoc" />
+		<xo:param name="ds_change_application_type" value="rct_vacancy.change_application_type@recruitment" />
+		
+		<block>
+			
+			<set name="property:candidate_oid" value="#{$candidate_oid_param}#" />
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<ds:store ds="#{$ds_add_vacancy_assoc}#" media="db" mode="insert" />
+			<this:addlog
+				ds_add_log			= "#{$ds_add_log}#"
+				candidate_oid		= "#property:candidate_oid#"
+				user_oid			= "#user:oid#"
+				action_oid			= "3"
+				ref_oid				= "#property:vacancy_oid#"
+				additional_infos	= ""
+			/>
+			
+			
+			
+			<vacancy_lib:add_candidate_vacancy_log
+				candidate_oid 		= "#property:candidate_oid#"
+				vacancy_oid			= "#property:vacancy_oid#"
+				action_oid			= "0" />
+			
+			<set name="property:application_type" value="0" />
+			<ds:store ds="#{$ds_change_application_type}#" media="db" mode="update" />
+
+			<button:set name="unlink_candidate" operation="unlink_candidate">
+				<button:param name="filterKey" value="#request:filterKey#" encode="true" />
+			</button:set>
+			
+			<ds:load media="db" ds="#{$ds_get_vacancy_assoc}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+			
+			<tpl:screen 
+				xmlns		= "http://www.nxfrontier.com/tpl/tpml"  
+				xmlns:tpl	= "http://www.nxfrontier.com/tpl/tpml"
+				name		= "#{$application_name}#_vacancy_assoc" 
+				trace		= "yes">
+				<load view="#{$template_vacancy_assoc_record}#" />
+			</tpl:screen>
+			
+			<display view="#{$application_name}#_vacancy_assoc"/>
+			
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="addlog">
+	
+		<xo:param name="ds_add_log" />
+		
+		<xo:param name="candidate_oid" />
+		<xo:param name="user_oid" />
+		<xo:param name="action_oid" />
+		<xo:param name="ref_oid" />
+		<xo:param name="additional_infos" />
+		
+		<block>
+			
+			<ds:store ds="#{$ds_add_log}#" media="db" mode="insert">
+				<ds:record>
+					<ds:field name="candidate_oid"		value="#{$candidate_oid}#" />
+					<ds:field name="user_oid"			value="#{$user_oid}#" />
+					<ds:field name="action_oid"			value="#{$action_oid}#" />
+					<ds:field name="ref_oid"			value="#{$ref_oid}#" />
+					<ds:field name="additional_infos"	value="#{$additional_infos}#" />
+				</ds:record>
+			</ds:store>
+
+		</block>
+				
+	</xo:tag>
+
+</xo:taglib>

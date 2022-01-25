@@ -1,0 +1,15 @@
+<table class="associated-files">
+{records:attached_files.records}
+	{record}
+	<tr {if:#record.is_last#}class="last"{/if}>
+		<td class="label"><a href="{=download.url}{record.url_key}">{field.html:file_name}</a></td>
+		<td class="operations operations-1">
+			<a class="s-icon si-page-white-put" href="{=download.url}{record.url_key}" alt="{string:"action_download"}"><span>{string:"action_download"}</span></a>
+		</td>
+	</tr>		
+	{/record}
+{/records}
+</table>
+{no_record}
+<div class="empty-records">{string:"empty_attached_files_general"}</div>
+{/no_record}

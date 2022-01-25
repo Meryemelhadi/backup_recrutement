@@ -1,0 +1,74 @@
+<!--! {require:css/rct.css:skin} -->
+
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_list"}</div>
+	</div>
+</div>
+
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			
+			<div class="pm-grid-outer-wrapper">
+				<div class="pm-button-wrapper clear-both">
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMDH.toggle('search-panel'); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-zoom">{string:"search"}</span></span>
+					</a>
+					<span class="pm-button-sep"></span>
+					<a class="pm-button btn-with-icon" href="{=xls_export.url}">
+						<span class="btn-bg"><span class="s-icon si-page-white-excel">{string:"xls_export"}</span></span>
+					</a>
+					<span class="pm-button-sep"></span>
+					<a class="pm-button btn-with-icon" href="{=statistics.url}">
+						<span class="btn-bg"><span class="s-icon si-chart-bar">{string:"statistics"}</span></span>
+					</a>
+				</div>
+
+				{include:common/search}
+			
+				<!--! {records:page.records} -->
+				<div class="pm-grid-wrapper">
+				<table class="pm-grid with-borders">
+					<!--! {record} -->
+					
+					<!--! {if:record.is_first} -->
+					<tr>
+						<!--!{fields}-->
+						<th class="{if:#field.is_last}last-cell{/if}{if:#field.is_first}first-cell{/if}">{field.label}</th>
+						<!--!{/fields}-->
+					</tr>
+					<!--! {/if} -->
+
+					
+
+					<tr class="tb-row-step-{field.object:current_step}">
+						<!--!{fields}-->
+						<td class="{if:#field.is_last}last-cell{/if}{if:#field.is_first}first-cell{/if}">
+							
+							{if:#field.type# == 'date'}
+								{if:#field.status# == 'ok'}<div class="simple-wrapper">{field.html}</div>{/if}
+							{elseif:#field.name# == "progress_level_meta"}
+								<div class="simple-wrapper">{field.html:progress_level}{if:#field.html:progress_level_meta# != ''} ({field.html:progress_level_meta}){/if}</div>
+							{else}
+								<div class="simple-wrapper">{field}</div>
+							{/if}
+							
+							
+						</td>
+						<!--!{/fields}-->						
+					</tr>
+					<!--! {/record} -->
+				</table>
+				</div>
+				<!--! {/records} -->
+
+				{include:common/grid_empty}
+				
+				{include:common/pagination}
+			</div>
+		</td>
+		
+	</tr>
+</table>

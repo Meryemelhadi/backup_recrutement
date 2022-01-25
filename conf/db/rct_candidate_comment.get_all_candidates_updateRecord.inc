@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate_comment SET _candidate_oid=".$record->getFieldValue("candidate_oid","DB","NULL"); ?>

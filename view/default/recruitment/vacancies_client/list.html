@@ -1,0 +1,255 @@
+<!--! {require:css/recruitment/recruitment.css:skin} -->
+<link rel="stylesheet" type="text/css" href="/nx/controls/font-awesome/css/font-awesome-bs.min.css">
+<link href="/nx/controls/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"  media="all" />
+<link rel="stylesheet" type="text/css" href="/nx/skins/default/css/recruitment/cvtheque_bs.css">
+<link href="/nx/skins/default/css/recruitment/cvtheque.css" rel="stylesheet" type="text/css"  media="all" />
+<style>
+.dropdown-menu>li>a {
+	padding: 3px 15px !important;
+	cursor:pointer;
+}
+</style>
+<script language="php">
+//pagination
+$items_search = __('items_search');
+</script>
+
+<div class="pm-page-title-wrapper" id="title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title font-blue-vacancy" style="color:#4a79cc !important;"><h1 class="no-margin">{string:"page_title_list"}</h1></div>
+	</div>
+</div>
+
+{include:common.messages_log}
+{include:common.message_help}
+
+<div class="row"  id="content-row">
+	<div class="container-fluid">
+		<div class="pull-right">
+			<div class="round_button blue" title="{string:'xls_export'}"  onclick="document.location.href='{=xls_export.url}'; return window.stopEvent(event);" style="background:rgb(74, 121, 204) !important;">
+				<!--<i class="fa fa-file-excel-o" aria-hidden="true"></i>-->
+				<img src="/nx/skins/lightsky/img/xls.png" style="width: 28px;">
+			</div>
+			<div class="round_button blue" title="{string:'add'}"  onclick="document.location.href='{=add.url}'; return window.stopEvent(event);" style="background:rgb(74, 121, 204) !important;" >+</div>
+		</div>
+	</div>
+				
+						
+	
+		<!--! {records:page.records} -->
+		
+			
+		
+	<div class="container-fluid candidate-list list">
+		<h4 style="color: #647C93 !important;margin-top:0px;">{string:"Validated vacancies"}</h4>
+		<!--! {record} -->
+			<script language="php">
+				$oid = $_nx_record->oid->object;
+				$editUrlBase = 'directory.php?nxo=edit&mode=page&filterKey='.urlencode($this->getProperty('filterKey'));
+				$editUrl = $editUrlDir.'void-'.$oid.'/'.$editUrlBase.$_nx_record->getUrlKey();
+				$candidateUrl = $this->getProperty('candidates.url').$oid;
+	
+				$col2=false;
+				$col3=false;
+				if($_nx_record->subsidiary_oid->object !='0' || $_nx_record->service_oid->object !='0' || $_nx_record->duty_station_oid->object !='0' ||$_nx_record->establishment->object !='') $col2=true;
+			</script>
+
+			<div class="panel panel-default" style="margin: 25px 0;">
+				<div class="panel-heading candidate-panel poste-panel"  onclick="document.location='{var:editUrl}';">
+					
+					<i class="icon-folder-open font-blue-vacancy" style="color:gray ; float: left; margin-right: 10px; font-size: 20px;"></i>
+					
+					<div class="panel-content">
+						<span>
+							<span class="vc-list_name" style="float:left">
+								{field:name} {if:#field.object:code# != ""} - N° {field:code}{/if}
+							</span>
+							{if:%field.object:manager_oid% == %user:oid%}
+								<div class="star-five yellow" style="margin-left: 10px;float: left;margin-top: 5px;" title="{string:'Poste dont je suis le recruteur'}"></div>
+							{/if}
+							
+							<span class="right" style="margin-right: 10px;">
+								{if:#field:opening_date# != '-/-/-'}<i class="icon-calendar" style="color:gray; float: left; margin-right: 5px; font-size: 15px;"></i>
+								{field.label:opening_date} : {field:opening_date}
+								{/if}
+							</span>
+							
+						</span>
+						
+					</div>
+					
+				</div>
+				<div class="row" style="padding:10px;">
+					<div class="col-md-11 first-col">
+						<div class="row">
+							<!--<div class="col-md-{if:#var:col3# && #var:col2#}4{elseif:#var:col3# || #var:col2#}6{else}12{/if}">-->
+							<div class="col-md-4" >
+								<ul class="list-item-infos-right">
+									<li class="text-left item-info" title="{string:'number_candidates'} : {field:candidates_count}" style="cursor:pointer" onclick="document.location.href='{=candidates.url}{field:oid}'">
+										<i class="fa fa-users font-green-cvt-icon" aria-hidden="true"></i>
+										<span class="field-label font-green-cvt">{string:"number_candidates"} :</span> <strong class="field-content candidate_count font-green-cvt" style="font-size:18px;">{field:candidates_count}</strong>
+									</li>
+									<li class="text-left item-info" title="{string:'recruited'} : {field:rekrute_count}/{field:number} {string:'to recruit'}">
+										<i class="fa fa-thumbs-up font-green-cvt-icon" aria-hidden="true"></i>
+										<span class="field-label font-green-cvt">{string:"recruited"} :</span> <span class="field-content font-green-cvt"><strong style="font-size:18px;">{field:rekrute_count}/{field:number}</strong> {string:"to recruit"}</span>
+									</li>
+								</ul>
+							</div>
+							<!--<div class="col-md-{if:#var:col3#}4{else}6{/if}" {if:!#var:col2#}style="display:none"{/if} >-->
+							
+							<div class="col-md-4 {if:%field.html:contract_type_oid% == 'Stage' }card-bleu{/if}" >
+								<ul class="list-item-infos-right">
+									{if:%field.html:contract_type_oid% == 'Stage'}
+									<li class="text-left item-info" title="{string:'recruited'} : {field:rekrute_count}/{field:number} {string:'to recruit'}">
+										<span class="font-blue-vacancy" style="font-weight: bold;color: #7FBA00;font-size: 20px;float: left;margin-right: 5px; top: -5px; position: relative;" title="Stage">S</span>
+										<span class="field-label font-blue-vacancy"></span> <span class="field-content font-blue-vacancy"> {string:"Stage"}</span>
+									</li>
+									{/if}
+									
+									<!--<li class="text-left item-info" title="{field.label:subsidiary_oid} : {field:subsidiary_oid}">
+										<i class="fa fa-th-large" aria-hidden="true"></i>
+										<span>{field.label:subsidiary_oid} :</span> <span class="field-content">{field:subsidiary_oid}</span>
+									</li>
+									<li class="text-left item-info" title="{field.label:service_oid} : {field:service_oid}">
+										<span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+										<span class="field-label">{field.label:service_oid} :</span> <span class="field-content">{field:service_oid}</span>
+									</li>
+									<li class="text-left item-info" title="{field.label:duty_station_oid} : {field:duty_station_oid}">
+										<i class="fa fa-map-marker" aria-hidden="true"></i>
+										<span class="field-label">{field.label:duty_station_oid} :</span> <span class="field-content">{field:duty_station_oid}</span>
+									</li>
+									<li class="text-left item-info" title="{field.label:establishment} : {field:establishment}">
+										<i class="fa fa-building" aria-hidden="true"></i>
+										<span class="field-label">{field.label:establishment} :</span> <span class="field-content">{field:establishment}</span>
+									</li>-->
+								</ul>
+							</div>
+							<!--<div class="col-md-{if:#var:col2#}4{else}6{/if}" {if:!#var:col3#}style="display:none"{/if}>-->
+							<div class="col-md-4" >
+								<div class="text-left">
+									<ul class="list-item-infos-right">
+										<li class="text-left item-info" title="{string:'application_type'} : {field:application_type}">
+											<i class="fa fa-newspaper-o" aria-hidden="true"></i>
+											<span class="field-label">{string:"application_type"} :</span> <span class="field-content">{field:application_type}</span>
+										</li>
+										
+										<li class="text-left item-info" title="{string:'field:manager_oid'} : {field:manager_oid}">
+											<i class="icon-user" aria-hidden="true"></i>
+											<span class="field-label">{string:"field:manager_oid"} :</span> <span class="field-content"> {field:manager_oid}</span>
+										</li>
+									</li>
+									</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">
+						
+						<div class="btn-group button_bs_right" role="group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+						
+							<ul class="dropdown-menu" style="right:0px;left:initial;">
+							<!--
+								{if:#field:key_readonly# == 0 or #field:key_recrute# != 0 or #field:key_total_control# !=0}
+								<li>
+									
+									<a href="{var:editUrl}" title="{string:'edit_helper'}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit_helper"}</a>
+								</li>
+								{/if}
+								{if:#field:key_readonly# == 0 or #field:key_recrute# != 0 or #field:key_total_control# !=0}
+								<li>
+									<a href='{var:candidateUrl}' title="{string:'users_helper'}"><span class="icon-group" aria-hidden="true"></span>&nbsp;&nbsp;{string:"users_helper"}</a>
+								</li>
+								{/if}-->
+								
+								<li>
+									
+									<a href="{var:editUrl}" title="{string:'edit_helper'}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit_helper"}</a>
+								</li>
+								
+								<li>
+									<a href='{var:candidateUrl}' title="{string:'users_helper'}"><span class="icon-group" aria-hidden="true"></span>&nbsp;&nbsp;{string:"users_helper"}</a>
+								</li>
+				
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="row candidate-history clear-both" style="display:none;" id="slidingDiv_{field:oid}">
+					<div class="col-md-6">
+						<div class="column-inner">
+							<div class="candidate-history-title title-first">{string:'viewer_list'}</div>
+										{field:viewers}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="column-inner">
+							<div class="candidate-history-title title-first">{string:'comments'}</div>
+										{field:comment}
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--! {/record} -->
+	</div>
+		
+
+		</div>
+				
+		<!--! {/records} -->
+		
+		<!--! {records:page.pending_records} -->
+		<div class="container-fluid candidate-list list">
+			<h4 style="color: #647C93 !important; margin-top:0px;">Postes en attente de validation</h4>	
+				<div class="vacancies-validation-wrapper">
+					<div>
+						{if:records.count > 0}
+						<a class="vacancies-validation-title" href="javascript:void(0)" onclick="PMDH.toggle(PMDH.getNextSibling(this));">{string:"title_pending_vacancies"}</a>
+						{else}
+						{include:common/grid_empty}
+						{/if}
+						<div class="entries">
+							<!--! {record} -->
+							<a href="javascript:void(0)" onclick="document.location.href='{=edit_request.url}{record.url_key}'">[{field:workflow_state}] <strong>{field:name} ({field:number})</strong>, {string:"by"} {field:requested_by} {string:"date_prefix_lc"} {field:request_date}</a>
+							<!--! {/record} -->
+						</div>
+					</div>
+				</div>
+		</div>
+		<!--! {/records} -->
+		
+				
+</div>
+
+<script>
+	function toogleClass(ele, class1) {
+	  ele = document.getElementById(ele);
+	  var classes = ele.className;
+	  var regex = new RegExp('\\b' + class1 + '\\b');
+	  var hasOne = classes.match(regex);
+	  class1 = class1.replace(/\s+/g, '');
+	  if (hasOne)
+		ele.className = classes.replace(regex, '');
+	  else
+		ele.className = classes +' '+class1;
+	}
+</script>
+
+<div class="theme-config">
+    <div class="theme-config-box" id="config-box">
+        <div id="spin-icon" onclick="toogleClass('config-box', 'show');" style="background: rgb(74, 121, 204) !important;">
+			<span class="glyphicon glyphicon-search" id="" style="color: white;" aria-hidden="true"></span>
+        </div>
+        <div class="skin-setttings">
+            <div class="title blue-vacancy-background" onclick="toogleClass('config-box', 'show');">Recherche</div>
+            <div class="setings-item">
+					<div class="widget">
+						{include:recruitment/vacancies/components/search/search_get_bs}
+					</div>
+            </div>
+        </div>
+    </div>
+</div>

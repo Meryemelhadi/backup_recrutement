@@ -1,0 +1,15 @@
+<?php $list=array(
+'relevance_rate' => 'Pertinence de recherche Full-text',
+'first_name' => 'First name',
+'last_name' => 'Last name',
+'town_oid' => 'City',
+'diploma' => 'Diploma',
+'institution' => 'School',
+'studies_level' => 'Academic level',
+'years_of_practice' => 'Experience',
+'profile' => 'Profile',
+'update_date' => 'Last update',
+'vacancy_name' => 'Vacancy',
+'relevance' => 'Relevance',
+'category_oid' => 'Category',
+); ?>

@@ -1,0 +1,94 @@
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_feedback"}</span></span>
+</a>
+{/content}
+
+{record:page.record}
+<div class="pm-grid-outer-wrapper">
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	
+	<div class="form-notification">{string:"delayed_feedback_concerning"} <strong>{field:candidate_oid}</strong>, {string:"to_be_filled_by"} <strong>{field:filled_by}</strong> {string:"date_prefix_lc"} {field:launch_date} ({if:#field.object:fill_state#=='0'}<span class="s-state s-icon si-time">{string:"waiting_to_complete"}</span>{else}<span class="s-state s-icon si-tick">{string:"feedback_completed"}</span>{/if})<br/><span class="meta">{field.label:scheduled_by} {field:scheduled_by} {string:"date_prefix_lc"} {field:scheduled_on}</span></div>
+
+	<div class="record_wrapper">
+		<div class="record">
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:still_in_office} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:still_in_office}</div>
+				</div>
+			</div>
+			
+			{if:#field.object:still_in_office# == '1'}
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:integration_degree} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:integration_degree}</div>
+				</div>
+			</div>
+			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:job_ownership_degree} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:job_ownership_degree}</div>
+				</div>
+			</div>
+			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:learning_ease} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:learning_ease}</div>
+				</div>
+			</div>
+			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:autonomy_degree} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:autonomy_degree}</div>
+				</div>
+			</div>
+			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:recruit_satisfaction} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:recruit_satisfaction}</div>
+				</div>
+			</div>
+			{elseif:#field.object:still_in_office# == '0'}			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:comment} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:comment}</div>
+				</div>
+			</div>
+			{/if}
+			
+
+
+
+
+		</div>
+	</div>
+	
+
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+</div>
+{/record}

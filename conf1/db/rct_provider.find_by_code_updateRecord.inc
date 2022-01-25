@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_provider SET _oid=".$record->getFieldValue("oid","DB","NULL")." WHERE ".$this->getWhereClause("_code","'".$props->getProperty("provider_code","",true)."'",'LIKE','OR','%','%',true,false,'|','false'); ?>

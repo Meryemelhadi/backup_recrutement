@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_candidate_client WHERE _key='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."' AND _val=_rct_candidate_client._candidate_oid"; ?>

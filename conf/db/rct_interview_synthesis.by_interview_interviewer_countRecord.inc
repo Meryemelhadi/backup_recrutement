@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_interview_synthesis WHERE _interview_oid='".$props->getProperty("interview_oid","",true)."' AND _user_oid='".$props->getProperty("interview_by_oid","",true)."'"; ?>

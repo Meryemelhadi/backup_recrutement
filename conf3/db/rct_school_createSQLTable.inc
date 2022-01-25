@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_school(_oid INT AUTO_INCREMENT NOT NULL,_code TEXT,_label TEXT,PRIMARY KEY(_oid))"; ?>

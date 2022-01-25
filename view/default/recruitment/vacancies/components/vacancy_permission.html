@@ -1,0 +1,80 @@
+<div style="display: block;" id="help" class="help"> 
+	<div style="display: block;" id="permission_help" class="tab-help">{string:'permission_help'}</div>
+ </div>
+<div class="pm-bxm-box-content">
+    <div class="pm-bx-form">
+
+        <div class="columns-layout clear-both">
+            <div class="column-1">
+                <div id="group_1" class="form-group">
+                    <div class="section-title-wrapper">
+                        <h3 class="section-title inline-block">{string:"total_control"}</h3>
+                    </div>
+                    <div class="record_wrapper">
+                        <div class="record">
+                            <div id="field_creator" class="control-main-wrapper ">
+                                <div class="control-label-wrapper">
+                                    <div class="control-label">{field.label:creator}</div>
+                                </div>
+                                <div class="control-wrapper" id="creator-control-wrapper">
+                                    <div class="control" id="creator-control">
+                                        {field:creator}
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="field_creator" class="control-main-wrapper ">
+                                <div class="control-label-wrapper">
+                                    <div class="control-label">{field.label:rh_oid}</div>
+                                </div>
+                                <div class="control-wrapper" id="creator-control-wrapper">
+                                    <div class="control" id="creator-control">
+                                        {field:rh_oid}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-main-wrapper">
+                                <div class="control-label-wrapper">
+                                    <div class="control-label">{string:"total_control"}</div>
+                                </div>
+                                <div style="float:left;width:100%">
+                                    {if:(#field.object:creator# == #user:oid#) || (#field.object:manager_oid# == #user:oid#)}
+                                    <div class="control">{field:groups_user_total_control}</div>
+                                    {else}
+                                    <div class="control">{field.html:groups_user_total_control}</div>
+                                    <div class="control" style="display:none">{field:groups_user_total_control}</div>
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+             <div class="column-2">
+                 <div id="group_2" class="form-group">
+                     <div class="section-title-wrapper">
+                         <h3 class="section-title inline-block">{string:"title_readonly"}</h3>
+                     </div>
+                    <div class="record_wrapper">
+                        <div class="record">
+
+                            <div class="control-main-wrapper">
+                                <div class="control-label-wrapper">
+                                    <div class="control-label">{string:"readOnly"}</div>
+                                </div>
+                                <div style="float:left;width:100%">
+                                    {if:(#field.object:creator# == #user:oid#) || (#field.object:manager_oid# == #user:oid#)}
+                                    <div class="control">{field:groups_user_readonly}</div>
+                                    {else}
+                                    <div class="control">{field.html:groups_user_readonly}</div>
+                                    <div class="control" style="display:none">{field:groups_user_readonly}</div>
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+</div>

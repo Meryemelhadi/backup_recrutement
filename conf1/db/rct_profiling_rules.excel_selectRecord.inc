@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_index,_name,_profiling_on,_form_field,_profiling_value_for,_keywords,_not_keywords,_cand_channel,_category_oid,_profile,_provider,_establishment FROM _rct_profiling_rules WHERE ".$this->getWhereClause("_name",$this->getFieldParam("name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false')." ORDER BY _index ASC,_name ASC "; ?>

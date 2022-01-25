@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_client SET _oid=".$record->getFieldValue("oid","DB","NULL")." WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

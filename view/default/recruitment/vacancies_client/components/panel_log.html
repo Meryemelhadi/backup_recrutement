@@ -1,0 +1,26 @@
+<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+	<div class="pm-bxm-box">
+	
+		<div class="box-simple-title">
+			<h3>{string:"vacancy_log"}</h3>
+		</div>
+	
+		<div class="pm-bxm-box-content">
+			{records:candidate_log.records}
+			<div class="table-list-wrapper">
+				<table class="table-list">
+					{record}
+					<tr{if:record.is_last} class="last"{/if}>
+						<td class="entry"><strong>{field:action_oid}</strong> le {field:date} par {field:user_oid}</td>
+					</tr>
+					{/record}
+				</table>
+			</div>
+			{/records}
+			{no_record}
+			<div class="empty-records">{string:"empty_log_list"}</div>
+			{/no_record}
+		</div>
+		
+	</div>
+</div>

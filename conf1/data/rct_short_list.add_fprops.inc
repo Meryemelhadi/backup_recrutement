@@ -1,0 +1,10 @@
+<?php $properties["fprops"]=array(
+array('name'=>'name','label'=>'name','type'=>'text','srcName'=>'name','ufname'=>'_name','qname'=>'rct_short_list_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'created_by','type'=>'text','value'=>$GLOBALS["_NX_user"]->getProperty("oid","",true),'show'=>false,'label'=>'created_by','srcName'=>'created_by','ufname'=>'_created_by','qname'=>'rct_short_list_created_by','sqltype'=>'integer','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'creation_date','type'=>'datetime','value'=>'now','show'=>false,'label'=>'creation_date','srcName'=>'creation_date','ufname'=>'_creation_date','qname'=>'rct_short_list_creation_date',),
+array('name'=>'vacancy_oid','type'=>'text','value'=>$props->getProperty("vacancy_oid","",true),'show'=>false,'label'=>'vacancy_oid','srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_short_list_vacancy_oid','sqltype'=>'integer','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'is_visible','type'=>'text_choice','value'=>'0','show'=>false,'label'=>'is_visible','srcName'=>'is_visible','ufname'=>'_is_visible','qname'=>'rct_short_list_is_visible','list'=>'recruitment.boolean_list','control'=>'select','sqltype'=>'integer','multiple'=>false,'default'=>'0','isKey'=>'secondary','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),);
+$properties["falias"]=array('name'=>'name','_name'=>'name','created_by'=>'created_by','_created_by'=>'created_by','creation_date'=>'creation_date','_creation_date'=>'creation_date','vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid','is_visible'=>'is_visible','_is_visible'=>'is_visible',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_short_list.add','table'=>'_rct_short_list');
+ ?>

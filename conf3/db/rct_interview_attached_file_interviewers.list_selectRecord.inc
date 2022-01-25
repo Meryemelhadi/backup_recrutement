@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_interview_oid,_file_name,_file FROM _rct_interview_attached_file_interviewers WHERE _interview_oid='".$props->getProperty("oid","",true)."'"; ?>

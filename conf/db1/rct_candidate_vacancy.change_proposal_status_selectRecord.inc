@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _status,_proposal_acceptance_date,_proposal_acceptance_state FROM _rct_candidate_vacancy WHERE ".$this->getWhereClause("_candidate_oid","'".$props->getProperty("candidate_oid","",true)."'",'=','OR','','',true,false,'|')." AND _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."'"; ?>

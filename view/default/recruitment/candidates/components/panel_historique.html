@@ -1,0 +1,26 @@
+{content:creation_date}
+<div class="table-list-wrapper log-table">
+    <table class="table-list">
+        <tr>
+            <td class="entry"><b>{string:"created_date"}</b>{field:creation_date}</td>
+        </tr>
+    </table>
+</div>
+{/content}
+
+{records:candidate_log.records}
+ {if:records.count > 0}
+	<div class="table-list-wrapper log-table">
+		<table class="table-list">
+			{record}
+			<tr>
+				<td class="entry"><strong>{field:action_oid}</strong> {if:#field.object:action_oid# ==16} {field.html:vacancy_oid}{/if} {if:#field:user_oid# !=NULL} par {field:user_oid}{/if} le {field:date} {if:#field.object:ref_oid#!=null && #field.object:ref_oid#!=0 }(Poste:{field.html:ref_oid}){/if}{field:additional_infos}</td>
+			</tr>
+			{/record}
+		</table>
+	</div>
+ {else}
+	{=creation_date}
+ {/if}
+{/records}
+

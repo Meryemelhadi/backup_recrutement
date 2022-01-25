@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate SET _reading_state='".$props->getProperty("reading_state","",true)."' WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

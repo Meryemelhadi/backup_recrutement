@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _directory_group WHERE _group_type='direction'"; ?>

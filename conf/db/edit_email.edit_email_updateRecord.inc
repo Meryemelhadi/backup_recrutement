@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy SET ." WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

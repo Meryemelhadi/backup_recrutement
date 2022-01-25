@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_app_connected SET _oid=".$record->getFieldValue("oid","DB","NULL").",_name=".$record->getFieldValue("name","DB","NULL")." WHERE _active_app='1'"; ?>

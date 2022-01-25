@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy_readonly SET _oid=".$record->getFieldValue("oid","DB","NULL").",_progress_level=".$record->getFieldValue("progress_level","DB","NULL")." WHERE _oid='".$props->getProperty("vacancy_oid","",true)."'"; ?>

@@ -1,0 +1,2 @@
+<?php $properties["query"]="INSERT INTO _journal_file_attachements(_article_id,_file_name) VALUES('".$props->getProperty("object_oid","",true)."',".
+"'".$props->getProperty("file_name","",true)."')"; ?>

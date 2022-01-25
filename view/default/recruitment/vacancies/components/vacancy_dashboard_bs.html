@@ -1,0 +1,27 @@
+<form:field-wrapper>
+	<form:field-label>{string:"title_delay_open_close"}</form:field-label>
+	<form:field-control>
+		<p class="form-control-static">{field.html:delay_between_open_and_close}</p>
+	</form:field-control>
+</form:field-wrapper>
+
+<form:field-wrapper>
+	<form:field-label>{string:"title_delay_close_office_taking"}</form:field-label>
+	<form:field-control>
+		<p class="form-control-static">{field.html:delay_between_close_and_taking_office} {string:"days"}</p>
+	</form:field-control>
+</form:field-wrapper>
+
+<form:field-wrapper>
+	<form:field-label>{string:"title_instant_feedback"}</form:field-label>
+	<form:field-control>
+		<p class="form-control-static">{=instant_feedback_count}</p>
+	</form:field-control>
+</form:field-wrapper>
+
+<form:field-wrapper>
+	<form:field-label>{string:"title_delayed_feedback"}</form:field-label>
+	<form:field-control>
+		<p class="form-control-static">{=delayed_feedback_count}</p>
+	</form:field-control>
+</form:field-wrapper>

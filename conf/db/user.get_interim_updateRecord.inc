@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _user SET _interim=".$record->getFieldValue("interim","DB","NULL")." WHERE _oid='".$props->getProperty("user_oid","",true)."'"; ?>

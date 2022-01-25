@@ -1,0 +1,15 @@
+<?php $list=array(
+'0' => 'Associé au poste',
+'1' => 'Mis en short-list',
+'2' => 'Proposé au manager',
+'3' => 'Contacté par email',
+'4' => 'En entretien',
+'5' => 'Accepté par le manager',
+'6' => 'Refusé par le manager',
+'7' => 'Accepté pour le poste',
+'8' => 'Rejeté',
+'9' => 'Proposition envoyée',
+'10' => 'Proposition acceptée',
+'11' => 'Proposition refusée',
+'12' => 'Noté',
+); ?>

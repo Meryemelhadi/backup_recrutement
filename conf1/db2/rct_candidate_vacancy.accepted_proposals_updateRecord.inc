@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate_vacancy SET _proposal_acceptance_date=".$record->getFieldValue("proposal_acceptance_date","DB","NOW()"); ?>

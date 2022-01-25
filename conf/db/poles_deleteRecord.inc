@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _directory_group WHERE _group_type='pole'"; ?>

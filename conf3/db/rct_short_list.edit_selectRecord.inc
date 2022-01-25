@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name FROM _rct_short_list WHERE _oid='".$props->getProperty("sl_oid","",true)."'"; ?>

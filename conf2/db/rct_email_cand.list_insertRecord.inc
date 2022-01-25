@@ -1,0 +1,6 @@
+<?php $properties["query"]="INSERT INTO _rct_email(_oid,_creation_date,_candidate_oid,_created_by,_email_type,_email_title) VALUES(".$record->getFieldValue("oid","DB","NULL").",".
+$record->getFieldValue("creation_date","DB","NOW()").",".
+$record->getFieldValue("candidate_oid","DB","NULL").",".
+$record->getFieldValue("created_by","DB","NULL").",".
+$record->getFieldValue("email_type","DB","1").",".
+$record->getFieldValue("email_title","DB","NULL").")"; ?>

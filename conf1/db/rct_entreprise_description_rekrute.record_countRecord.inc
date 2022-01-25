@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_entreprise_description_rekrute WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

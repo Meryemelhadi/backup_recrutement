@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<application
+	name		= "manage_candidate_etats" 
+	path		= "/recruitment/admin/"
+	protected	= "user" 
+	permissions = "default"
+	cache		= "no" 
+	lang		= "fr"
+	skin		= "lightsky"
+	application = "candidate_etats"
+	table		= "rct_candidate_etat"
+	base_data	= "rct_candidate_etat"
+	string_base = "Etat"
+	role = "editor"
+		xmlns="http://www.nxfrontier.com/nxl/page"
+	/>
+
+	<include_once file="/data_model/candidate_etats.data.nxl" />
+	<include_once file = "/strings/all.nxl"/>
+
+</nxl>

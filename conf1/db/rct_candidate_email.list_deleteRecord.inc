@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_candidate_email WHERE _candidate_oid='".$this->getParamValue("oid","","request",",")."'"; ?>

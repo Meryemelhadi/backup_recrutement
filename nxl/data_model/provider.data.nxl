@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+
+			<table name="rct_provider">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+	
+				<fields mode="search">
+					<field name="name" label="name" type="line" />
+				</fields>
+				<key mode="find_by_code">
+					<field name="code" label="oid" type="line" relation="LIKE" value="%{property:provider_code}" />
+				</key>
+				<sort mode="find_by_code">
+					<field name="name" direction="asc" />
+				</sort>
+				
+				<fields mode="find_by_code">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+				</fields>
+				
+				<key mode="find_by_email">
+					<field name="email" label="email" type="line" relation="LIKE" value="%{property:provider_email}" />
+				</key>
+				<fields mode="find_by_email">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+				</fields>
+				<key mode="find_by_name">
+					<field name="name" label="name" type="line" relation="LIKE" value="%{property:provider_name}" />
+				</key>
+				<fields mode="find_by_name">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="provider_username" label="provider_username" type="line" />
+					<field name="provider_password" label="provider_password" type="line" />
+				</fields>
+				
+				<key mode="ds_list"></key>
+
+				<sort mode="ds_list">
+					<field name="name" direction="asc" />
+				</sort>
+				
+				<pages mode="list" alias="page" pageOffset="%{get:page}" recordsPerPage="10" />
+				<key mode="list">
+					<field name="name" label="name" type="line" relation="LIKE" />
+				</key>
+				<sort mode="list">
+					<field name="name" direction="asc" />
+				</sort>
+				<fields mode="list">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+					<field name="email" label="email" type="line" />
+					<field name="web" label="web" type="line" />
+					<field name="contact_name" label="contact_name" type="line" />
+					<field name="color" label="color" type="line" size="20" control="colorpicker" show="hide" />
+					<!--<field name="adress" label="adress" type="text" />-->
+				</fields>
+	
+				<sort>
+					<field name="name" direction="asc" />
+				</sort>
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+
+					<field name="code" label="code" type="line" />
+					<field name="contact_name" label="contact_name" type="line" />
+					<field name="email" label="email" type="line" />
+					<field name="provider_username" label="provider_username" type="line" />
+					<field name="provider_password" label="provider_password" type="line" />
+					<field name="web" label="web" type="line" />
+					<field name="color" label="color" type="line" size="20" control="colorpicker" show="show" />
+					<field name="adress" label="adress" type="text" size="255" multiLines="auto" />
+					<field name="notes" label="notes" type="text" size="255" multiLines="auto" />
+				</fields>
+			</table>
+
+			
+
+			<!-- 
+
+				RELATION : VACANCY <=> Provider
+				
+			-->
+			<table name="rct_vacancy_provider">
+
+				<query mode="find_relation" type="select">
+
+					SELECT
+						_rct_vacancy_provider._oid,
+						_rct_vacancy_provider._vacancy_oid,
+						_rct_vacancy_provider._provider_oid
+
+					FROM 
+						_rct_vacancy_provider
+
+					LEFT JOIN _rct_vacancy ON _rct_vacancy_provider._vacancy_oid = _rct_vacancy._oid
+					LEFT JOIN _rct_provider ON _rct_vacancy_provider._provider_oid = _rct_provider._oid
+
+					WHERE
+						(
+							_rct_vacancy._code = '".$this->getProperty("vacancy_code")."' OR
+							_rct_vacancy._name = '".$this->getProperty("vacancy_code")."' OR
+							_rct_vacancy_provider._ref = '".$this->getProperty("vacancy_code")."'
+						)
+
+					AND
+						_rct_provider._code = '".$this->getProperty("provider_code")."'
+
+				</query>
+
+				<fields mode="find_relation">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="provider_oid" label="provider_oid" type="ref-oid" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" />
+				</fields>
+		
+				<query mode="email_data" type="select">
+
+					SELECT
+
+						_rct_provider._email AS _to,
+						_rct_vacancy_provider._email_title AS _subject,
+						_rct_vacancy_provider._email_content AS _body,
+						_files._files AS _files
+
+					FROM
+						_rct_vacancy_provider				
+
+					LEFT JOIN (
+
+						SELECT 
+
+							_vacancy_provider_oid, 
+							GROUP_CONCAT(_file_name SEPARATOR '|||') as _files 
+
+						FROM 
+							_rct_vacancy_provider_attached_file 
+
+						WHERE 
+							_vacancy_provider_oid = '".$this->getProperty("vacancy_provider_oid")."'
+
+						GROUP BY 
+							_vacancy_provider_oid) AS _files
+
+						ON _files._vacancy_provider_oid = _rct_vacancy_provider._oid
+
+					LEFT JOIN
+						_rct_provider ON _rct_provider._oid = _rct_vacancy_provider._provider_oid
+
+					WHERE
+						_rct_vacancy_provider._oid = '".$this->getProperty("vacancy_provider_oid")."'
+				</query>
+
+				<fields mode="email_data">
+
+					<field name="to" label="to" type="line" is_transient="true" />
+					<field name="subject" label="subject" type="line" is_transient="true" />
+					<field name="body" label="body" type="line" is_transient="true" />
+					<field name="files" label="files" type="line" is_transient="true" />
+
+				</fields>
+				
+				<key mode="unlink_provider_poste">
+					<field name="vacancy_oid" type="integer" relation="EQ" value="%{property:oid}" />
+				</key>
+
+				<fields mode="unlink_provider_poste">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+				</fields>
+				
+				<key mode="get_relation">
+					<field name="vacancy_oid" type="ref-oid" relation="EQ" value="%{property:vacancy_oid}" />
+					<field name="provider_oid" type="ref-oid" relation="EQ" value="%{property:provider_oid}" />
+				</key>
+
+				<key mode="list">
+					<field name="vacancy_oid" type="ref-oid" relation="EQ" value="%{property:vacancy_oid}" />
+				</key>
+
+				<sort mode="list">
+					<field name="request_date" type="timestamp" direction="DESC" />
+				</sort>
+
+				<fields mode="list">	
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" show="hidden" />
+					<field name="vacancy_provider" label="vacancy_provider" type="expression" value="{field.object:oid}" isKey="secondary" /> <!-- Clé nécessaire au DML view, utile pour ne pas créer de confusion avec le paramètre 'oid' -->
+
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+
+					<field name="requested_by" label="requested_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+					<field name="request_date" label="request_date" type="datetime" format="%d/%m/%Y &amp;agrave; %H:%M" />
+
+					<field 
+						name			= "candidates_list" 
+						label			= "candidates_list" 
+						type			= "records" 
+						ds				= "handler:recruitment.candidates.by_provider"
+						ds_record		= "db:recruitment.candidates.by_provider"
+						key				= "oid"
+						load_on_empty	= "true"
+						fkey			= "assoc_oid"
+						view			= "recruitment.vacancies.subforms.candidates_list"
+						edit_view		= "recruitment.vacancies.subforms.candidates_list"
+					/>		
+
+				</fields>
+
+				<key mode="view">
+					<field name="oid" type="oid" value="%{property:vacancy_provider_oid}" />
+				</key>
+
+				<fields mode="view">	
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid" sqlType="integer" />
+
+					<field name="requested_by" label="requested_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list@recruitment" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" />
+
+					<field name="request_date" label="request_date" type="datetime" format="%d %B %Y &amp;agrave; %H:%M" />	
+					<field name="email_title" label="email_title" type="line" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+
+					<field name="active" label="active" type="boolean" />
+					<field name="salaire" label="salaire" type="line" />
+					<field name="descriptionEntreprise" label="descriptionEntreprise" type="rich-text" csslayout="normal-layout"  />
+					<field name="descriptionPoste" label="descriptionPoste" type="rich-text" csslayout="normal-layout" />
+					<field name="descriptionProfil" label="descriptionProfil" type="rich-text" csslayout="normal-layout" />
+					<field name="date" label="date" type="date" format="%d/%m/%Y" value="now" />
+					<field name="duree" label="duree" type="line" />
+					<field name="nombrePoste" label="nombrePoste" type="line" /> 
+					<field name="startDate" label="startDate" type="date" format="%d/%m/%Y" />
+					<field name="endDate" label="endDate" type="date" format="%d/%m/%Y" />
+				</fields>
+	
+				<fields mode="cron_add">	
+				
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid" sqlType="integer" />
+	
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." is_transient="true" />
+	
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" show="hidden" value="%{property:vacancy_oid}" />
+					<field name="request_date" label="request_date" type="datetime" value="now" show="hidden" />
+	
+				</fields>
+
+				<fields mode="add">	
+
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" prompt="select provider ..." ds_field_value="oid" sqlType="integer" />
+
+					<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." is_transient="true" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" show="hidden" value="%{property:vacancy_oid}" />
+					<field name="requested_by" label="requested_by" type="integer" show="hidden" value="%{user:oid}" />
+					<field name="request_date" label="request_date" type="datetime" value="now" show="hidden" />	
+					<field name="email_title" label="email_title" type="line" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="from_email" type="line" />
+					<field name="to_email" type="line" />
+
+					<field name="active" label="active" type="boolean"  />
+					<field name="salaire" label="salaire" type="line" />
+					<field name="descriptionEntreprise" label="descriptionEntreprise" type="rich-text" csslayout="normal-layout"  />
+					<field name="descriptionPoste" label="descriptionPoste" type="rich-text" csslayout="normal-layout" />
+					<field name="descriptionProfil" label="descriptionProfil" type="rich-text" csslayout="normal-layout" />
+					<field name="date" label="date" type="date" format="%d/%m/%Y" value="now" />
+					<field name="duree" label="duree" type="line" />
+					<field name="nombrePoste" label="nombrePoste" type="line" /> 
+					<field name="startDate" label="startDate" type="date" format="%d/%m/%Y" />
+					<field name="endDate" label="endDate" type="date" format="%d/%m/%Y" />
+				</fields>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" />
+					<field name="ref" label="ref" type="line"/>	
+					<field name="requested_by" label="requested_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="request_date" label="request_date" type="datetime" />
+					<field name="email_title" label="email_title" type="line" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />
+					<field name="from_email" type="line" />
+					<field name="to_email" type="line" />
+
+					<field name="active" label="Actif" type="boolean" control="checkbox_boolean"/>
+					<field name="salaire" label="salaire" type="line" />
+					<field name="descriptionEntreprise" label="descriptionEntreprise" type="rich-text" csslayout="normal-layout"  />
+					<field name="descriptionPoste" label="descriptionPoste" type="rich-text" csslayout="normal-layout" />
+					<field name="descriptionProfil" label="descriptionProfil" type="rich-text" csslayout="normal-layout" />
+					<field name="date" label="date" type="date" format="%d/%m/%Y" value="now" />
+					<field name="duree" label="duree" type="line" />
+					<field name="nombrePoste" label="nombrePoste" type="line" /> 
+					<field name="startDate" label="startDate" type="date" format="%d/%m/%Y" />
+					<field name="endDate" label="endDate" type="date" format="%d/%m/%Y" />
+
+				</fields>
+			</table>
+
+			<table name="rct_vacancy_provider_attached_file">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+
+				<key mode="get_record">
+					<field name="oid" type="oid" relation="EQ" value="%{property:oid}" />
+				</key>
+
+				<key mode="by_vacancy_provider">
+					<field name="vacancy_provider_oid" type="ref-oid" relation="EQ" value="%{property:vacancy_provider_oid}" />
+				</key>			
+
+				<fields mode="add_record">
+					<field name="vacancy_provider_oid" type="ref-oid" value="%{property:object_oid}" />
+					<field name="file_name" type="line" value="%{property:file_name}" />
+				</fields>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="vacancy_provider_oid" label="vacancy_provider_oid" type="ref-oid" isKey="secondary" sqlType="integer" />
+					<field name="file_name" label="file_name" type="line" />
+				</fields>
+			</table>	
+
+
+			<!-- 
+
+				RELATION : Candidate <=> Provider
+
+				utile lorsque l'association est faite en direct dans la fiche recruteur, ou non liée à un dossier...
+			
+			-->
+			<table name="rct_candidate_provider">
+				<key mode="find_relation">
+					<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" sqlType="integer" value="%{property:candidate_oid}"/>
+					<field name="provider" label = "provider" type="ref-oid"  value="%{property:provider_oid}"/>
+				</key>
+
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+				
+				<key mode="list">
+					<field name="candidate_oid" type="ref-oid" value="%{property:oid|0}"/>
+				</key>
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="candidate_oid" label="candidate_oid" type="ref-oid" isKey="secondary" show="hidden" />
+					<field name="provider" label = "provider" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+				</fields>		
+			</table>
+
+		</tables>
+
+		<views>
+
+			<view name="rct_prestataire_vacancy" table="rct_vacancy_provider">
+				<!--<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+	
+				<fields mode="search">
+					<field name="ref" label="ref" type="line" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+				</fields>
+
+				<key mode="ds_list"></key>
+				
+				<pages mode="list" alias="page" pageOffset="%{get:page}" recordsPerPage="10" />
+				<key mode="list">
+					<field name="vacancy_oid" type="ref-oid" relation="EQ" value="%{property:vacancy_oid}" />
+					<field name="ref" label="ref" type="line" relation="LIKE" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" relation="EQ-OR-NULL" />
+				</key>
+
+				<sort mode="list">
+					<field name="request_date" type="timestamp" direction="DESC" />
+				</sort>
+
+				<fields mode="list">	
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" show="hidden" />
+
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+
+					<field name="ref" label="ref" type="line"/>
+
+				</fields>
+	
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" show="hidden" default="%{property:vacancy_oid}"/>
+
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+
+					<field name="ref" label="ref" type="line"/>
+				</fields>-->
+
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+	
+				<fields mode="search">
+					<field name="ref" label="ref" type="line" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+					
+				</fields>
+				
+				<key mode="ds_list">
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" value="%{property:vacancy_oid}"/>
+				</key>
+				<key mode="list">
+					<field name="ref" label="ref" type="line" relation="LIKE" />
+					<field name="provider_oid" label="provider_oid" type="text-choice" relation="EQ-OR-NULL" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" value="%{property:vacancy_oid}" />
+				</key>
+				<fields mode="list">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="ref" label="ref" type="line"/>
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+					<field name="from_email" type="line"  />
+					<field name="to_email" type="line" />
+				</fields>
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="ref" label="ref" type="line"/>
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" value="%{property:vacancy_oid}" show="hidden" />
+					<field name="from_email" type="line"  />
+					<field name="to_email" type="line" />
+
+					<field name="active" label="active" type="boolean" />
+					<field name="salaire" label="salaire" type="line" />
+					<field name="descriptionEntreprise" label="descriptionEntreprise" type="rich-text" csslayout="normal-layout"  />
+					<field name="descriptionPoste" label="descriptionPoste" type="rich-text" csslayout="normal-layout" />
+					<field name="descriptionProfil" label="descriptionProfil" type="rich-text" csslayout="normal-layout" />
+					<field name="date" label="date" type="date" format="%d/%m/%Y" value="now" />
+					<field name="duree" label="duree" type="line" />
+					<field name="nombrePoste" label="nombrePoste" type="line" /> 
+					<field name="startDate" label="startDate" type="date" format="%d/%m/%Y" />
+					<field name="endDate" label="endDate" type="date" format="%d/%m/%Y" />
+
+				</fields>
+
+				<!-- search by reference for NxCV_StoreCV -->
+				<key mode="search_by_ref">
+					<field name="ref" label="ref" type="line" value="%{property:ref}" />
+				</key>
+
+				<fields mode="search_by_ref">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" show="hidden" default="%{property:vacancy_oid}"/>
+
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+
+					<field name="ref" label="ref" type="line"/>
+				</fields>
+
+				<!-- search by reference for NxCV_StoreCV -->
+				<key mode="search_by_email">
+					<or>
+						<field name="from_email" type="line" value="%{property:email}" />
+						<field name="to_email" type="line" value="%{property:email}" />
+					</or>
+				</key>
+
+				<fields mode="search_by_email">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" show="hidden" default="%{property:vacancy_oid}"/>
+
+					<field name="provider_oid" label="provider_oid" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+
+					<field name="ref" label="ref" type="line"/>
+					<field name="from_email" type="line"  />
+					<field name="to_email" type="line" />
+				</fields>
+			
+			</view>
+		
+
+			<view 
+				name	= "recruitment.candidates.by_provider"
+				table	= "rct_candidate" 
+				handler	= "lib.recruitment.vacancies.records.candidates.providers.list">
+
+				<fields>
+
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="candidate_oid" label="candidate_oid" type="expression" value="{field.object:oid}" isKey="secondary" />
+					<field name="assoc_oid" type="integer" isKey="secondary" />
+					<field name="first_name" label="first_name"  type="line" />
+					<field name="last_name" label="last_name"  type="line" />
+					<field name="age" label="age" type="line" is_transient="true" />
+					<field name="town_name" label="town_name" type="line" is_transient="true" />
+					<field name="diploma_type" label="diploma_type" type="line" is_transient="true" />
+					<field name="institution" label="institution" type="line" is_transient="true" />
+					<field name="cv_path" label="cv_path" type="line" />
+					<field name="years_of_practice" label="years_of_practice" type="integer" />
+					<field name="keywords" label="keywords" type="text" multiLines="auto" show="hidden" />
+					<field name="summary_keywords" label="summary_keywords" type="expression" field="keywords" control_html="summary" />
+					<field name="rating" label="rating" type="integer" />
+					<field name="status" label="status" type="text-choice" list="recruitment.candidate_vacancy_action" control="select" sqlType="integer" />
+					<field name="is_visible" label="is_visible" type="text-choice" list="recruitment.boolean_list" control="checkbox" multiple="false" default="0" sqlType="integer" isKey="secondary" />		
+
+				</fields>
+
+			</view>
+
+		</views>
+
+	</data>
+
+</nxl>

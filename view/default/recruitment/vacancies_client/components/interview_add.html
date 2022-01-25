@@ -1,0 +1,51 @@
+{content:buttons}
+	<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-application-side-contract">{=previous_op_label}</span></span>
+	</a>
+	<span class="pm-button-sep"></span>
+	<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-date-add">{string:"submit"}</span></span>
+	</a>
+{/content}
+
+
+{form:page.record}
+<script>
+	window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=previous_operation.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+
+<div class="pm-grid-outer-wrapper" id="add-interview-wrapper">
+
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	
+	
+	<div class="record_wrapper">
+		<div class="record">
+			<!--!{fields}-->
+			<div class="control-main-wrapper {if:#field.type# == 'records' || #field.csslayout# == 'normal-layout'}normal-layout-control{/if}">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label} :</div>
+				</div>
+				<div class="control-wrapper" id="{field.name}-control-wrapper">
+					<div class="control" id="{field.name}-control">{field}</div>
+					{if:field.is_help}
+					<div class="tooltip">{field.help}</div>
+					{/if}
+				</div>
+			</div>
+			<!--!{/fields}-->
+		</div>
+	</div>
+	
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+
+</div>
+{/form}

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _application_type FROM _rct_vacancy_readonly WHERE _oid='".$props->getProperty("vacancy_oid","",true)."'"; ?>

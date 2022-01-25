@@ -1,0 +1,67 @@
+<fieldset>
+<div class="pm-bxm-box-wrapper">
+	<div class="pm-bxm-box">
+	
+		<div class="box-simple-title">
+			<h3>{string:"candidate_tests"}</h3>
+		</div>
+
+		<div class="pm-bxm-box-content">
+			
+			{=tests}
+			<br/>
+			{form:candidate_tests.record}
+			<div class="add_test" >
+				<div class="pm-bx-form pm-bx-form-normal-layout">
+					<div class="record_wrapper">
+						<div class="record" id="control_test">
+							<div class="control-main-wrapper">
+	
+								<table class="table-list">
+									<tr>
+										<td class="entry" style="width:50%">
+											<div class="control-label-wrapper">
+												<div class="control-label">{field.label:test_oid} :</div>
+											</div>
+											<div class="control-wrapper">
+												<div class="control" id="available-tests-control">
+													{field:test_oid}
+													{field:pourcentage}<span class="control-label-wrapper-inline">{field.label:pourcentage}</span>
+												</div>
+											</div>
+										</td>
+									</tr>
+									<!-- <tr>
+										<td class="entry" style="width:50%">
+											<div class="control-wrapper">
+												<div class="control" id="available-pourcent-control">
+													{field:pourcentage}<span class="control-label-wrapper-inline">{field.label:pourcentage}</span>
+												</div>
+											</div>
+										</td>
+									</tr>
+ -->								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				{/form}
+				<div class="pm-button-wrapper clear-both">
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="Generis.Recruitment.addTest('control_test','test_oid' ,'pourcentage', 'add_test', '{=add_test.url}', 'test_oid'); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-add">{string:"add_test"}</span></span>
+					</a>
+					<div id="test-button-loader" style="display:none;"></div>
+				</div>
+				
+			</div>
+			
+			
+		</div>
+		
+	</div>
+</div>
+
+
+
+
+			

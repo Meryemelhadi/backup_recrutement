@@ -1,0 +1,8 @@
+<?php $properties["fprops"]=array(
+array('name'=>'candidate_oid','label'=>'candidate_oid','type'=>'text_choice','value'=>$props->getProperty("candidate_oid","",true),'show'=>false,'srcName'=>'candidate_oid','ufname'=>'_candidate_oid','qname'=>'rct_candidate_vacancy_candidate_oid','isProp'=>'key','isKey'=>'secondary','sqltype'=>'integer','list'=>'candidate_oid','control'=>'select','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'vacancy_oid','label'=>'vacancy_oid','type'=>'text','isKey'=>'secondary','sqltype'=>'integer','value'=>$props->getProperty("vacancy_oid","",true),'show'=>false,'srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_candidate_vacancy_vacancy_oid','isProp'=>'val','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'integration_date','label'=>'integration_date','type'=>'date','srcName'=>'integration_date','ufname'=>'_integration_date','qname'=>'rct_candidate_vacancy_integration_date','onSubmitCheck'=>"checkDate('%3\$s',%1\$s.%2\$s_day,%1\$s.%2\$s_month,%1\$s.%2\$s_year,%4\$s)",),);
+$properties["falias"]=array('candidate_oid'=>'candidate_oid','_candidate_oid'=>'candidate_oid','key'=>'candidate_oid','vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid','val'=>'vacancy_oid','integration_date'=>'integration_date','_integration_date'=>'integration_date',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_candidate_vacancy.edit_integration_date','table'=>'_rct_candidate_vacancy');
+ ?>

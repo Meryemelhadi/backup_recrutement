@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _user WHERE _oid<>'".$props->getProperty("creator","",true)."'"; ?>

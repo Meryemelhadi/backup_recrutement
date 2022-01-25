@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_email_sample WHERE _oid='".$props->getProperty("oid","",true)."'"; ?>

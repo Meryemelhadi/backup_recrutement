@@ -1,0 +1,298 @@
+<!--! {require:css/rct.css:skin} -->
+{form:page.record}
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=back.url}','content'); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+</a>
+
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.display(dlg_deleteConfig{record.index}, event); return false;">
+	<span class="btn-bg"><span class="s-icon si-delete">{string:"delete"}</span></span>
+</a>
+
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+</a>
+{/content}
+<script>
+	window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };	
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=back.url}", target : "content", skipConfirm:false, labels : { ok : "{string:'dlg_success'}" } };
+	
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+	
+	window.dlg_deleteConfig{record.index} = { title : "{string:'dlg_delete_title'}", message : "{string:'dlg_delete_content'}", viewMode : "okCancel", url : "{=delete.url}{record.url_key}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+	
+</script>
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_edit"}: {field.html:nom_societe}</div>
+	</div>
+</div>
+
+<div class="pm-bxm-wrapper">
+	<table class="pm-bxm">
+		<tr>
+			<td class="pm-bxm-main-column">	
+				
+				<div class="pm-button-wrapper clear-both pm-bxm-top-button-wrapper">					
+					{=buttons}
+				</div>
+				
+				<div class="pm-bxm-box-wrapper">
+					<div class="pm-bxm-box">
+						
+						<div class="box-title-wrapper box-title-green">
+							<div class="box-title">
+								<h3>{string:"profil_general_informations"}</h3>
+							</div>
+						</div>
+						<div class="pm-bxm-box-content">
+							<div class="columns-layout clear-both">	
+								<div class="column-1">
+
+									<div class="pm-bx-form">
+										
+										<div class="record_wrapper">
+											<div class="record">
+											
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper">
+														<div class="control-label">{field.label:nom_societe}</div>
+													</div>
+													<div class="control-wrapper">
+														<div class="control">{field:nom_societe}</div>
+													</div>
+												</div>
+												
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper">
+														<div class="control-label">{field.label:site_web}</div>
+													</div>
+													<div class="control-wrapper">
+														<div class="control">{field:site_web}</div>
+													</div>
+												</div>
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper">
+														<div class="control-label">{field.label:adresse}</div>
+													</div>
+													<div class="control-wrapper">
+														<div class="control">{field:adresse}</div>
+													</div>
+												</div>
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper">
+														<div class="control-label">{field.label:ville}</div>
+													</div>
+													<div class="control-wrapper">
+														<div class="control">{field:ville}</div>
+													</div>
+												</div>
+												
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper">
+														<div class="control-label">{field.label:tel}</div>
+													</div>
+													<div class="control-wrapper">
+														<div class="control">{field:tel}</div>
+													</div>
+												</div>
+												
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper">
+														<div class="control-label">{field.label:email}</div>
+													</div>
+													<div class="control-wrapper">
+														<div class="control">{field:email}</div>
+													</div>
+												</div>
+												
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper">
+														<div class="control-label">{field.label:fax}</div>
+													</div>
+													<div class="control-wrapper">
+														<div class="control">{field:fax}</div>
+													</div>
+												</div>								
+																					
+											</div>
+										</div>
+										
+									</div>
+
+								</div>
+
+							</div>
+						</div>		
+						
+					</div>
+				</div>
+				
+				
+			
+				<div class="pm-bxm-box-wrapper">
+					<div class="pm-bxm-box">
+						
+						<div class="box-title-wrapper box-title-green">
+							<div class="box-title">
+								<h3>{string:"representant_informations"}</h3>
+							</div>
+						</div>
+						<div class="pm-bxm-box-content">
+							
+							<div class="columns-layout clear-both">	
+								<div class="column-1">
+
+									<div class="pm-bx-form">
+										
+										<div class="record_wrapper">
+											<div class="record">
+											
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper" >
+														<div class="control-label" >{string:"rep_first_name"}</div>
+													</div>
+													<div class="control-wrapper" >
+														<div class="control">{field:rep_first_name}</div>
+													</div>
+												</div>
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper" >
+														<div class="control-label">{string:"rep_last_name"}</div>
+													</div>
+													<div class="control-wrapper" >
+														<div class="control">{field:rep_last_name}</div>
+													</div>
+												</div>
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper" >
+														<div class="control-label">{string:"rep_fonction"}</div>
+													</div>
+													<div class="control-wrapper" >
+														<div class="control">{field:rep_fonction}</div>
+													</div>
+												</div>
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper" >
+														<div class="control-label">{string:"rep_tel_fixe"}</div>
+													</div>
+													<div class="control-wrapper" >
+														<div class="control">{field:rep_tel_fixe}</div>
+													</div>
+												</div>
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper" >
+														<div class="control-label">{field.label:tel}</div>
+													</div>
+													<div class="control-wrapper" >
+														<div class="control">{field:rep_tel_mobile}</div>
+													</div>
+												</div>
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper">
+														<div class="control-label">{field.label:fax}</div>
+													</div>
+													<div class="control-wrapper" >
+														<div class="control">{field:rep_fax}</div>
+													</div>
+												</div>
+												<div class="control-main-wrapper">
+													<div class="control-label-wrapper"  >
+														<div class="control-label">{field.label:email}</div>
+													</div>
+													<div class="control-wrapper" >
+														<div class="control">{field:rep_email}</div>
+													</div>
+												</div>															
+																																
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>						
+					</div>
+				</div>
+
+				<div class="pm-button-wrapper clear-both pm-bxm-bottom-button-wrapper">					
+					{=buttons}
+				</div>
+						
+			</td>
+			<td class="pm-bxm-side-column">
+
+				<div class="pm-bxm-box-wrapper">
+					<div class="pm-bxm-box">
+					
+						<div class="box-title-wrapper box-title-orange">
+							<div class="box-title">
+								<h3>{string:"profil_logo"}</h3>
+							</div>
+						</div>
+						
+						<div class="pm-bxm-box-content">
+						
+							<div class="photo-panel">
+								{if:#field.object:photo# == ''}
+									<div class="dg-cell-wrapper"><img src="/nx/skins/lightsky/img/unknown_user.png" /></div>
+									
+
+								{else}
+														
+								{field.html:photo}
+								{/if}
+							</div>
+
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="pm-bxm-box-wrapper">
+					<div class="pm-bxm-box">
+					
+						<div class="box-simple-title">
+							<h3>{string:"new_logo"}</h3>
+						</div>
+						
+						<div class="pm-bxm-box-content">
+						
+							<div class="pm-bx-form">
+								<div class="record_wrapper">
+									<div class="record">
+										<div class="control-main-wrapper normal-layout-control">
+											<div class="control-wrapper">
+												<div class="control"><div class="photo-panel">{field:logo}</div></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						
+						</div>			
+						
+					</div>
+				</div>
+
+			</td>
+		</tr>
+	</table>
+</div>
+{/form}
+
+<script>
+(function() {
+	var el = document.getElementById('photo_image_choice_file');
+	if( typeof el != 'undefined' && el != null ) {
+		el.removeAttribute('size');
+	}
+	var form = document.getElementById('form_directory_employees_edit');
+	var el = form.elements['photo'];
+	if( typeof el != 'undefined' && el != null ) {
+		el.removeAttribute('size');
+	}
+})();
+</script>

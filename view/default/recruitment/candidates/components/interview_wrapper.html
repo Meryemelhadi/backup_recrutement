@@ -1,0 +1,71 @@
+ <style>
+#test-menu {
+    background: none repeat scroll 0 0 transparent;
+    bottom: -5px;
+    margin: 0 auto 0 0px;
+    position: relative;
+    width: 430px;
+}
+#test-menu li {
+    
+    display: block;
+    float: left;
+    margin: 5px;
+    padding: 0;
+    
+    text-decoration: none;
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+	border:0px solid #fff;
+	background:#f6f6f6;
+	height:21px;
+}
+#test-menu li a {
+    
+    
+    color: #7895BB;
+    font-size: 13px;
+    
+    padding: 4px;
+    text-decoration: none;
+}
+
+#test-menu li a:hover {
+    background: #E8EAEC;
+	text-decoration: none;
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    
+}
+#test-menu li.active {
+    background:#E8EAEC;
+	font-weight: bold;
+
+</style>
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		{record:vacancy_title_record}
+		<div class="pm-title">{string:"vacancy"}: {field.html:name}{if:#field.object:code# != ''} (N° {field.html:code}){/if}</div>
+		{/record}		
+	</div>
+</div>
+<div id="page-navigation">			
+</div>
+
+<table class="directory-card-table">
+	<tr>
+		<td class="directory-card-main-column">
+		
+			{=page.content}
+		
+		</td>
+		<td class="directory-card-side-column">
+			<br/><br/><br/><br/><br/><br/><br/>
+			<div class="notice-message notice-message-with-icon png_bg">
+				<p>{string:"page_message_planification"}</p>
+				<p>{string:"page_details_planification"}</p>
+								</div>
+		</td>
+	</tr>
+</table>

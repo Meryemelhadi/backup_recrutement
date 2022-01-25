@@ -1,0 +1,55 @@
+<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+	<a 
+		class="pm-button btn-with-icon" 
+		href="javascript:void(0);" 
+		onclick="ajax_navigate(event,'{=request_provider.url}','content'); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-add">{string:"request_provider"}</span></span>
+	</a>
+</div>
+
+<div class="directory-card-main-content clear-both">
+
+	<!--! {records:page.records} -->
+	<!--! {record} -->
+	<div class="directory-card-main-content short-list {if:#record.is_last#}last-short-list{/if} clear-both">
+		<div class="short-list-wrapper">
+			<div class="short-list-header clear-both">
+				<div class="short-list-title">	<strong>{field:provider_oid}</strong> ({string:"date_prefix"} {field:request_date} {string:"by"} {field:requested_by}) <strong><span id="candidates-count-{record.index}"></span> {string:"candidates_count"}</strong></div>
+				
+				<div class="short-list-operations">
+					<a 
+						class="action s-icon si-email" 
+						onclick="ajax_navigate(event,'{=view_provider.url}{record.url_key}','content'); return false;" 
+						href="javascript:void(0);"><span>{string:"read_request_mail"}</span></a>
+					&nbsp;<a 
+						class="action s-icon si-application-split" 
+						onclick="PMDH.toggle('short-list-content-{record.index}', 'appear'); return false;" 
+						href="javascript:void(0);"><span>{string:"Afficher/Masquer"}</span></a>
+				</div>
+			</div>
+			<div class="short-list-content" {if:record.is_first != true}style="display:none"{/if} id="short-list-content-{record.index}">
+				{field:candidates_list}
+			</div>
+			<script>
+				(function() {
+					var counter = document.getElementById('candidates-count-{record.index}');
+					var childs = PMDH.getImmediateChilds(document.getElementById('short-list-content-{record.index}'));
+					if( PMDH.hasClassName(childs[0], 'empty-records') ) {
+						counter.innerHTML = 0;
+					} else {
+						counter.innerHTML = childs.length;
+					}				
+				})();
+			</script>
+		</div>
+	</div>
+	<!--! {/record} -->
+	<!--! {/records} -->
+	{no_record}
+	<div class="empty-records">{string:"empty_requested_providers"}</div>
+	{/no_record}
+</div>
+
+
+
+

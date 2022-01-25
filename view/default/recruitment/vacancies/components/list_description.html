@@ -1,0 +1,90 @@
+<script>
+	window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{=back.url}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+</script>
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"description_example"}</div>
+	</div>
+</div>
+
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			
+			<div class="pm-grid-outer-wrapper">
+				
+				<div class="generis-toolbar-wrapper">
+					<div class="generis-toolbar">
+						<a class="s-icon si-add" href="javascript:void(0);" onclick="ajax_navigate(event,'{=add.url}','content'); return false;"><span>{string:"add_example"}</span></a>
+						<a class="s-icon si-application-side-contract" href="javascript:void(0);" onclick="ajax_navigate(event,'{=back.url}','content');  return false;"><span>{string:"back_announce"}</span></a>
+					</div>
+				</div>
+
+			
+				<!--! {records:page.records} -->
+				{if:records.count>0}
+				<div class="pm-grid-wrapper">
+				<table class="pm-grid">
+					<!--! {record} -->
+					{include:common/grid_header}
+					<tr class="grid-row row_{record.even_odd}"
+					onclick="ajax_navigate(event,'{=edit.url}{record.url_key}','content')">
+						<!--!{fields}-->
+						<td><div class="simple-wrapper">{field}</div></td>
+						<!--!{/fields}-->
+						<td class="operations operations-2">
+						<div class="simple-wrapper">
+							<script>
+							window.dlg_deleteConfig{record.index} = { title : "{string:'dlg_delete_title_description'}", message : "{string:'dlg_delete_content_description'}", viewMode : "okCancel", url : "{=delete.url}{record.url_key}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+							</script>
+							<a href="javascript:void(0);" class="s-icon si-page-white-edit" title="{string:'edit'}" onclick="ajax_navigate(event,'{=edit.url}{record.url_key}','content')">
+								<span class="x-hidden">{string:"edit"}</span>
+							</a>
+							<a href="javascript:void(0);" class="s-icon si-delete" title="{string:'delete'}" onclick="PMModalbox.display(dlg_deleteConfig{record.index}, event)">
+								<span class="x-hidden">{string:"delete"}</span>
+							</a>
+						</div>
+						</td>
+						
+					</tr>
+					<!--! {/record} -->
+				</table>
+				</div>
+				{/if}
+				<!--! {/records} -->
+
+				{no_record}
+					<div class="empty-records">{string:"empty_description"}</div>
+				{/no_record}
+				
+				{include:common/pagination}
+			</div>
+		</td>
+
+		<td class="right-column">
+			
+			<div class="notice-message notice-message-with-icon png_bg">
+				<p>{string:"page_message_description"}</p>
+				<p>{string:"page_message_description_details"}</p>
+			</div>
+
+			<div class="nipple-box nbt-legend">				
+				<div class="box-title"><h4>{string:"legend"}</h4></div>
+				<div class="border-nipple"></div>
+				<div class="nipple"></div>
+
+				<div class="box-content">
+					<ul class="legend-list">
+						<li><span class="l-icon s-icon si-page-white-edit"></span><span class="legend"><span class="dots">|</span> {string:"edit_helper"}</span></li>
+						<li><span class="l-icon s-icon si-delete"></span><span class="legend"><span class="dots">|</span> {string:"delete_helper"}</span></li>
+					</ul>
+				</div>
+			</div>
+
+		</td>
+	</tr>
+</table>
+
+<script>
+	PMDH.Skin.LightSky.Grid.init();
+</script>

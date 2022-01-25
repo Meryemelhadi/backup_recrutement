@@ -1,0 +1,30 @@
+{content:buttons}
+	<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}&mode=ajax','content'); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_warnings"}</span></span>
+	</a>
+	<span class="pm-button-sep"></span>
+	<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-date-add">{string:"submit"}</span></span>
+	</a>
+{/content}
+
+
+{form:page.record}
+<script>
+	window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=previous_operation.url}&mode=ajax", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+
+<div class="pm-grid-outer-wrapper">
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	{include:common/record}
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+</div>
+{/form}

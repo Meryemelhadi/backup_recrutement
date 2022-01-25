@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_date,_institution,_description FROM _rct_education WHERE _oid=".$this->getFieldParam("oid","null",",",$record,"")." GROUP BY _date,_institution  ORDER BY _date DESC "; ?>

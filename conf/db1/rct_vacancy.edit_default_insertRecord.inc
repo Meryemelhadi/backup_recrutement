@@ -1,0 +1,29 @@
+<?php $properties["query"]="INSERT INTO _rct_vacancy(_oid,_name,_number,_creator,_category_oid,_contract_type_oid,_mission_start_date,_suited_recruitment_date,_taking_office_date,_code,_archive_state,_manager_oid,_client_oid,_current_step,_progress_level,_closing_date,_duty_station_oid,_direction,_pole,_service_oid,_subsidiary_oid,_application_type,_opening_date,_groups_user_readonly,_groups_user_total_control,_internship_title,_internship_start,_internship_end,_executive_committee_presentation) VALUES(".$record->getFieldValue("oid","DB","NULL").",".
+$record->getFieldValue("name","DB","NULL").",".
+$record->getFieldValue("number","DB","NULL").",".
+$record->getFieldValue("creator","DB","NULL").",".
+$record->getFieldValue("category_oid","DB","NULL").",".
+$record->getFieldValue("contract_type_oid","DB","NULL").",".
+$record->getFieldValue("mission_start_date","DB","NOW()").",".
+$record->getFieldValue("suited_recruitment_date","DB","NOW()").",".
+$record->getFieldValue("taking_office_date","DB","NOW()").",".
+$record->getFieldValue("code","DB","NULL").",".
+$record->getFieldValue("archive_state","DB","NULL").",".
+$record->getFieldValue("manager_oid","DB","NULL").",".
+$record->getFieldValue("client_oid","DB","NULL").",".
+$record->getFieldValue("current_step","DB","NULL").",".
+$record->getFieldValue("progress_level","DB","NULL").",".
+$record->getFieldValue("closing_date","DB","NOW()").",".
+$record->getFieldValue("duty_station_oid","DB","NULL").",".
+$record->getFieldValue("direction","DB","NULL").",".
+$record->getFieldValue("pole","DB","NULL").",".
+$record->getFieldValue("service_oid","DB","NULL").",".
+$record->getFieldValue("subsidiary_oid","DB","NULL").",".
+$record->getFieldValue("application_type","DB","0").",".
+$record->getFieldValue("opening_date","DB","NOW()").",".
+$record->getFieldValue("groups_user_readonly","DB","NULL").",".
+$record->getFieldValue("groups_user_total_control","DB","NULL").",".
+$record->getFieldValue("internship_title","DB","NULL").",".
+$record->getFieldValue("internship_start","DB","NOW()").",".
+$record->getFieldValue("internship_end","DB","NOW()").",".
+$record->getFieldValue("executive_committee_presentation","DB","0").")"; ?>

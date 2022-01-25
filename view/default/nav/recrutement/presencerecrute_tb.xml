@@ -1,0 +1,37 @@
+<cont:nav_section 
+	title		= "Tableaux de bord" 
+	permission	= "$isRH || $isRHClient || $isAdmin"
+	iconCls		= "icon-chart-pie"
+	xmlns:cont	= "http://www.presencemedia.ma/container/container">
+	
+		<cont:nav_link 
+			title		= "Synthèse des intégrations" 
+			app-title	= "Langues" 
+			icon-class	= "icon-app" 
+			url			= "/recruitment/dashboards/integrations_synthesis.php"
+			target		= "document"
+			qtip-title	= "Synthèse des intégrations"
+			qtip-text	= "Synthèse des intégrations"
+		/>
+		
+		<cont:nav_link 
+			title		= "Check-list recrutement" 
+			app-title	= "Check-list recrutement" 
+			icon-class	= "icon-app" 
+			url			= "/recruitment/dashboards/recruitments_checklist.php"
+			target		= "document"
+			qtip-title	= "Check-list recrutement"
+			qtip-text	= "Check-list recrutement"
+		/>
+		
+		<cont:nav_link 
+			title		= "Synthèse des recrutements" 
+			app-title	= "Synthèse des recrutements" 
+			icon-class	= "icon-app" 
+			url			= "/recruitment/dashboards/recruitments_synthesis.php"
+			target		= "document"
+			qtip-title	= "Synthèse des recrutements"
+			qtip-text	= "Synthèse des recrutements"
+		/>
+
+</cont:nav_section>

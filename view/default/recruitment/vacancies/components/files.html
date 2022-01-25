@@ -1,0 +1,20 @@
+<div class="pm-bxm-box-wrapper">
+	<div class="pm-bxm-box">
+		
+		<div class="box-simple-title">
+			<h3 class="double-padding">{string:"title_associated_files"}</h3>
+		</div>
+		
+		<div class="pm-bxm-box-content" id="associated-files">
+
+			{include:recruitment/vacancies/components/files_attached}
+            {include:recruitment/vacancies/components/files_add}
+			
+			<script>
+				Generis.Recruitment.appendAssocFilesHandlers('associated-files');
+			</script>
+		
+		</div>
+
+	</div>
+</div>

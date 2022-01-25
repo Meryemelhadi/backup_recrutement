@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("CREATE TABLE IF NOT EXISTS _rct_candidate_tags(_oid INT AUTO_INCREMENT NOT NULL,_name TEXT,PRIMARY KEY(_oid))",); ?>

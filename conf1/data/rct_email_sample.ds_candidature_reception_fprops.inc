@@ -1,0 +1,11 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','isEdit'=>false,'show'=>false,'srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_email_sample_oid','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'name','label'=>'name','type'=>'text','csslayout'=>'normal-layout','srcName'=>'name','ufname'=>'_name','qname'=>'rct_email_sample_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'type_email','label'=>'type_email','type'=>'text_choice','list'=>'recruitment.email_type.all@recruitment','control'=>'select','multiple'=>false,'sqltype'=>'varchar(5)','srcName'=>'type_email','ufname'=>'_type_email','qname'=>'rct_email_sample_type_email','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'email_title','label'=>'email_title','type'=>'text','size'=>'500','csslayout'=>'normal-layout','srcName'=>'email_title','ufname'=>'_email_title','qname'=>'rct_email_sample_email_title','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'email_content','label'=>'email_content','type'=>'rich_text','csslayout'=>'normal-layout','srcName'=>'email_content','ufname'=>'_email_content','qname'=>'rct_email_sample_email_content','control'=>'rich_text','onSubmitCheck'=>"checkRichText('%3\$s','%2\$s',%4\$s,%1\$s.%2\$s)",),
+array('name'=>'docs','label'=>'docs','type'=>'text_choice','control'=>'checkbox','multiple'=>true,'columns'=>'2','controlLayout'=>'table','ds'=>'db:email_docs.ds_list@recruitment','ds_format'=>'{field:name}','ds_field_value'=>'oid','sqltype'=>'varchar(255)','srcName'=>'docs','ufname'=>'_docs','qname'=>'rct_email_sample_docs','list'=>'docs','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','name'=>'name','_name'=>'name','type_email'=>'type_email','_type_email'=>'type_email','email_title'=>'email_title','_email_title'=>'email_title','email_content'=>'email_content','_email_content'=>'email_content','docs'=>'docs','_docs'=>'docs',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_email_sample.ds_candidature_reception','table'=>'_rct_email_sample');
+ ?>

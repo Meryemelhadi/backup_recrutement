@@ -1,0 +1,3 @@
+{if:#property:redirect# != 'list' && #property:redirect# != ''}
+{ title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=redirect_url.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } }
+{/if}

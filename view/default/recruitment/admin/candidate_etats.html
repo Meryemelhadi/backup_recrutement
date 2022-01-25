@@ -1,0 +1,141 @@
+{require:css/workflow/workflow.css}
+
+{content:page.content}
+<!-- config css du module -->
+{include:common.page_css}
+
+<?php
+$workflow = $this->getProperty('workflow');
+?>
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title"><?php echo __($workflow->title); ?></div>
+	</div>
+</div>
+
+{include:common.messages_log}
+{include:common.message_help}
+
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			
+			<div class="pm-grid-outer-wrapper">
+				
+				<div class="generis-toolbar-wrapper">
+					<div class="generis-toolbar">
+
+						{include:common/list_buttons}
+
+						<a class="s-icon si-zoom" href="javascript:void(0);" onclick="PMDH.toggle('search-panel', 'appear'); return false;"><span>{string:"search"}</span></a>
+					</div>
+				</div>
+
+				{include:common/search_get}
+
+				<div class="tab_panel">
+					{if: %property:tab_title%}
+						<div class="tab_header">
+							<div class="tab_title">{=tab_title}</div>
+							<div class="tab_help">{=tab_help}</div>
+						</div>
+					{/if}
+
+					<div class="tab_content {tab_id}">
+
+					<!--! {records:page.records} -->
+				{if:records.count>0}
+				<div class="pm-grid-wrapper">
+				<table class="pm-grid">
+					<!--! {record} -->
+{content:operations}
+					{include:common/list_record_buttons}
+{/content}
+
+					{include:common/grid_header}
+					<tr class="grid-row row_{record.even_odd}"
+					onclick="ajax_navigate(event,'{var:edit_url}{record.url_key}&mode=ajax','content')" style="{if:%field.object:color%}border-left:solid 6px {field.object:color}{/if}">
+						<!--!{fields}-->
+						<td><div class="simple-wrapper">{field}</div></td>
+						<!--!{/fields}-->
+						<td class="operations operations-2" onclick="window.event.cancelBubble = true;if(event.stopPropagation) event.stopPropagation();return false;"><div class="simple-wrapper">{=operations}</div></td>
+						
+					</tr>
+					<!--! {/record} -->
+				</table>
+				</div>
+				{/if}
+				<!--! {/records} -->
+				{no_record}
+				<div class="tab_empty"><?php
+					$msg = $this->getProperty('tab_empty_list_msg');
+					if(!$msg)
+						$msg = __('empty_list');
+					echo $msg;
+				?>
+				</div>
+				{/no_record}
+				
+				{include:common/pagination}
+					</div>
+				</div>
+			</div>
+		</td>
+
+		<td class="right-column">
+			
+			<div class="notice-message notice-message-with-icon png_bg">
+				{if: %property:workflow.description% }
+					{=workflow.description}
+				{else}
+					<p>{string:"page_message_list"}</p>
+					<p>{string:"page_message_list_details"}</p>
+				{/if}
+			</div>
+
+			{if: %property:tab_infos% }
+				<div class="workflow-summary">
+					<h4>Etat des demandes :</h4>
+					<ul>{=tab_infos}</ul>
+				</div>
+			{/if}
+
+		<script language="php">
+		if(isset($legend) && count($legend)) {
+		</script>
+			<div class="nipple-box nbt-legend">				
+				<div class="box-title"><h4>{string:"legend"}</h4></div>
+				<div class="border-nipple"></div>
+				<div class="nipple"></div>
+
+				<div class="box-content">
+					<ul class="legend-list">
+					<script language="php">
+					foreach($legend as $id=>$icon)
+					{
+						$name = __($id);
+					</script>
+						<li><span class="l-icon s-icon {var:icon}"></span><span class="legend"><span class="dots">|</span> {var:name}</span></li>
+					<script language="php">
+					}
+					</script>
+					</ul>
+				</div>
+			</div>
+		<script language="php">
+		}
+		</script>
+
+		</td>
+	</tr>
+</table>
+{/content}
+
+<script language="php">
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=='ajax') {
+</script>
+	{=page.content}
+{else}
+	{include:page}
+{/if}

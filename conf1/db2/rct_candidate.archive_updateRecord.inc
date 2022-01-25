@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate SET _archive_state='1' WHERE ".$this->getWhereClause("_oid",$this->getFieldParam("oid","null","|",$record,""),'=','OR','','',true,false,'|','false'); ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_file FROM _rct_email_docs WHERE _dest='1' ORDER BY _index ASC,_name ASC "; ?>

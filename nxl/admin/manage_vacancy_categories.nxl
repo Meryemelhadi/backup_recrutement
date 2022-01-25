@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../datamodel/all.data.nxl"/>
+<include file = "components/table.comp.nxl"/>
+
+<composant 
+	xmlns				= "http://www.nxfrontier.com/admin/table.comp" 
+
+	name				= "manage_vacancy_categories"
+	path				= "/recruitment/admin/"
+	skin				= "#global:RECRUITMENT_SKIN:generis#"
+	strings				= "recruitment_manage_vacancy_categories"
+
+	ds_search			= "rct_vacancy_category.search"
+	ds_list				= "rct_vacancy_category.list"
+	ds_edit				= "rct_vacancy_category.record"
+	ds_view				= "rct_vacancy_category.record"
+	ds_add				= "rct_vacancy_category.record"
+	ds_add_process		= "rct_vacancy_category.record"
+	ds_delete			= "rct_vacancy_category.record"
+	
+	template_list			= "configuration.list"
+	template_add_record		= "configuration.add"
+	template_edit_record	= "configuration.edit"
+	template_email			= "directory.configuration.directory_mail"
+	template_view_record	= "directory.configuration.directory_config_view">
+	
+	<i8n:strings 
+		name		= "recruitment_manage_vacancy_categories" 
+		lang		= "fr" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Gestion des catégories de poste (C.S.P.)" />
+		
+		<i8n:string id="add" value="Ajouter une catégorie de poste" />
+		<i8n:string id="search" value="Rechercher une catégorie de poste" />
+		<i8n:string id="page_title_list" value="Gestion des catégories de poste (C.S.P.)" />
+		<i8n:string id="page_title_add" value="Ajout d'une nouvelle catégorie de poste (C.S.P.)" />
+		<i8n:string id="page_title_edit" value="Edition de la catégorie de poste sélectionnée (C.S.P.)" />
+		<i8n:string id="page_title_view" value="Libellé de la catégorie de poste sélectionnée (C.S.P.)"  />
+
+		<i8n:string id="page_message_list" value="Voici la liste des catégories de poste" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d'ajouter l'intitulé d'une nouvelle catégorie de poste" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier l'intitulé de la catégorie sélectionnée" />
+		<i8n:string id="page_message_view" value="Intitulé de la catégorie sélectionnée" />
+		
+		<i8n:string id="page_message_list_details" value="Cliquer sur catégorie de recrutement pour modifier son intitulé" />
+		<i8n:string id="page_message_add_details" 
+		value="Après avoir rempli le formulaire, cliquer sur le bouton 'Enregistrer' afin d'enregistrer l'intitulé de la catégorie" />
+		<i8n:string id="page_message_edit_details" 
+		value="Cliquer sur 'Enregistrer' pour valider les modifications et revenir à la liste des catégories de poste, ou sur 'Liste des catégories de poste' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" 
+		value="Cliquer sur 'Liste des catégories de poste' pour revenir à la liste des types de poste" />
+		
+		<i8n:string id="field:name" value ="Intitulé" />
+
+		<i8n:string id="legend" value="Légende" />
+		<i8n:string id="empty_list" value="Aucune catégorie de poste n'est référencée dans la base de données" />
+
+		<i8n:string id="edit_helper" value="Modifier l'intitulé de la catégorie" />
+		<i8n:string id="delete_helper" value="Supprimer la catégorie de poste" />
+
+		<i8n:string id="back" value="Liste des catégories de poste" />
+		<i8n:string id="items_search" value="Catégorie(s) trouvée(s)" />
+
+	</i8n:strings>
+
+</composant>
+
+</nxl>

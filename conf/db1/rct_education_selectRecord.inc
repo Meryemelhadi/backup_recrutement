@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_diploma,_diploma_type,_institution,_date,_description FROM _rct_education ORDER BY _date DESC "; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate_vacancy SET _oid=".$record->getFieldValue("oid","DB","NULL").",_etat_oid=".$record->getFieldValue("etat_oid","DB","NULL")." WHERE _candidate_oid='".$this->getParamValue("oid","","request",",")."' AND _vacancy_oid=".$this->getFieldParam("vacancy_oid","null",",",$record,""); ?>

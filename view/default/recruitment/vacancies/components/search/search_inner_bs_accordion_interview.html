@@ -1,0 +1,138 @@
+<?php
+$search_candidate = $this->getProperty('search_candidate');
+$search_vacancy = $this->getProperty('search_vacancy');
+$search_type = $this->getProperty('search_type');
+
+?>
+<div class="search-panel-inner-wrapper" style="background:transparent">
+	<!--! {form:page.search} -->
+	
+{var:search=false}
+		<div class="panel-group" id="search-accordion">
+			<!--! {form:page.search} -->
+			<div class="form-inline row">
+				<div class="form-group col-md-12" id="candidate_oid-control-wrapper">
+				{$highlightClass=''} 
+				<?php 
+					if($search_candidate != '?' && $search_candidate != ''){
+						$highlightClass='highlight-class';
+						$search=true;
+				?>
+				<script>
+					document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag"><?php print $candidate_list[$search_candidate]; ?><span onclick="cancelSearch(\'candidate_oid\')">X<span></button>';
+				</script>
+				<?php
+					}
+				?>
+				
+				<div class="{$highlightClass}" style="padding:5px">
+					<select type="select" class="form-control" name="candidate_oid" style="width:100%">
+						<option value="?">Candidat ... </option>
+						<?php foreach($candidate_list as $oid => $name){
+						print '<option value="'.$oid.'"';
+						if($oid == $search_candidate) print " selected";
+						print " >".$name."</option>";
+						 } ?>
+					</select>
+				</div>
+				</div>
+			</div>
+			<div class="form-inline row">
+				<div class="form-group col-md-12">
+				{$highlightClass=''} 
+				{if:(#var:search_vacancy# != '')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					<script>
+						{if:%var:search_vacancy% == -2}
+							document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">Entretiens pour mes postes ouverts<span onclick="cancelSearch(\'vacancy_oid\')">X<span></button>';
+						{else}
+							document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag"><?php print $vacancy_list[$search_vacancy]; ?><span onclick="cancelSearch(\'vacancy_oid\')">X<span></button>';
+						{/if}
+					</script>
+					
+				{/if}
+				
+				<div class="{$highlightClass}" style="padding:5px">
+					<select type="select" class="form-control" name="vacancy_oid" style="width:100%; margin-top:10px">
+						<option value="?">Poste ... </option>
+						<option value="-2" <?php if(-2 == $_nx_record->vacancy_oid->object) print " selected";?>>{string:"Entretiens pour mes postes ouverts"}</option>
+						<?php foreach($vacancy_list as $oid => $name){
+						print '<option value="'.$oid.'"';
+						if($oid == $search_vacancy) print " selected";
+						print " >".$name."</option>";
+						 } ?>
+					</select>
+				</div>
+				
+				</div>
+			</div>
+			<div class="form-inline row">
+				<div class="form-group col-md-12" id="interview_type-control-wrapper">
+				{$highlightClass=''} 
+				<?php 
+					if($search_type != '?' && $search_type != ''){
+						$highlightClass='highlight-class';
+						$search=true;
+				?>
+				<script>
+					document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag"><?php print $type_list[$search_type]; ?><span onclick="cancelSearch(\'interview_type\')">X<span></button>';
+				</script>
+				<?php
+					}
+				?>
+				
+				<div class="{$highlightClass}" style="padding:5px">
+					<select type="select" class="form-control" name="interview_type" style="width:100%; margin-top:10px;">
+						<option value="?">Type d'entretien ... </option>
+						<?php foreach($type_list as $oid => $name){
+						print '<option value="'.$oid.'"';
+						if($oid == $search_type) print " selected";
+						print " >".$name."</option>";
+						 } ?>
+					</select>
+				</div>
+				</div>
+			</div>
+			<!--! {/form} -->
+		</div>
+		
+		<script language="javascript" type="text/javascript">
+		//<![CDATA[
+		 if(document.getElementById('form_rct_interview_search2') !== null)
+			window.currentFormI = document.getElementById('form_rct_interview_search2');
+		 else window.currentFormI = document.getElementById('form_rct_interview_search_drh2');
+
+		 if(window.currentFormI)
+		 {
+			window.content_form_handler = new window.Generis.Forms(window.currentFormI);
+		 }
+		 
+		 function cancelSearch(field){
+			document.getElementsByName(field)[0].value="?";
+			window.currentFormI.submit();
+		 }
+		 
+		//]]>
+		</script>
+		<div class="clear-both">
+			<button type="button" class="btn btn-primary btn-block orange-interview-background" onclick="console.log(window.currentFormI);window.currentFormI.submit();" style="float:right">
+				 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;
+				 {string:"search"}
+			</button>
+						
+			<button type="button" class="btn btn-default btn-block" onclick="document.location.href='{=list.url}'" style="float:left; margin-bottom: 5px;">
+				 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;
+				 {string:"Annuler la recherche"}
+			</button>
+		</div>
+
+</div>
+		</div>
+	<!--! {/form} -->
+</div>
+{if:%var:search%}
+	<script type="text/javascript">
+		//document.getElementById('config-box').className += ' show';
+	</script>
+{/if}

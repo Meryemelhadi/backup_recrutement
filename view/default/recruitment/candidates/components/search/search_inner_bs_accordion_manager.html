@@ -1,0 +1,210 @@
+<?php
+//DebugBreak();
+(sizeof($_SESSION["recruitment_default_search"]) == 1 && $_SESSION["recruitment_default_search"][0] == "" )?  $recruitment_default_search = 0 : $recruitment_default_search = $_SESSION["recruitment_default_search"];
+$index = 0;
+$search = false;
+$page_search = $this->getProperty('page.search');
+$etat_list = $page_search->etat_oid->list;
+$provider_list = $page_search->provider->list;
+$vacancy_list = $page_search->vacancy->list;
+
+?>
+<style type="text/css">
+.saved_search_class select{
+    border-radius: 5px;
+    padding: 3px;
+	font-weight:normal;
+}
+.saved_search_class{
+    padding: 0px;
+    margin-top: 5px;
+	display: inline-block;
+}
+.search-toolbar{
+	background: #EAF7CE; 
+	text-align:right ; 
+	padding: 5px 5px 0px 5px;
+}
+.search-toolbar a{
+	float:right; 
+	padding-right: 20px;
+	font-weight: normal;
+}
+.search-toolbar span{
+	border:none;
+}
+</style>
+
+
+<div class="search-panel-inner-wrapper" style="background:transparent">
+	<!--! {form:page.search} -->
+	<script language="javascript" type="text/javascript">
+	//<![CDATA[
+	 window.currentForm = document.getElementById('form_rct_candidate_manager_search');
+	 if(window.currentForm)
+	 {
+		window.content_form_handler = new window.Generis.Forms(window.currentForm);
+	 }
+
+	 
+	//]]>
+	</script>
+	{var:search=false}
+	{var:collapse=0}
+	<table class="pm-search-grid">
+		<div class="panel-group" id="search-accordion">
+		 {if: %var:recruitment_default_search% == 0 || in_array(#field.name:full_text_search# , %var:recruitment_default_search%)}
+			{$highlightClass=''} 
+			{if:(#field.object:full_text_search# != #field.default:full_text_search#)}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				<script language="javascript" type="text/javascript">
+					document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:full_text_search}<span onclick="window.formObj.changefield(\'full_text_search\' , \'\')">X<span></button>';
+				</script>
+			{/if}
+			<div class="list-group-item full-text-input {$highlightClass}">
+				<div class="control-wrapper" id="{field.name:full_text_search}-control-wrapper">
+					<div class="control" id="{field.name:full_text_search}-control">{field.form:full_text_search}</div>
+				</div>
+			</div>
+		  {/if}
+		  <br>
+		  <div class="panel panel-default" id="panel1" style="display:none">
+			<div class="panel-heading panel-search" data-toggle="collapse" data-target="#collapse1">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse1">{string:"info_perso"}</a>
+			  </h4>
+			</div>
+			<div id="collapse1" class="panel-collapse collapse">
+			  <ul class="list-group">
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:first_name# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel1").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:first_name# != #field.default:first_name#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=1}
+					<script>
+						document.getElementById("collapse1").className += ' in';
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:first_name}<span onclick="window.formObj.changefield(\'first_name\' , \'\')">X<span></button>';
+					</script>
+					
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:first_name}-control-wrapper">
+						<div class="control" id="{field.name:first_name}-control">{field.form:first_name}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:last_name# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel1").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:last_name# != #field.default:last_name#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{if:%var:collapse% != 1}
+						<script>
+							document.getElementById("collapse1").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:last_name}<span onclick="window.formObj.changefield(\'last_name\' , \'\')">X<span></button>';
+					</script>
+					{var:collapse=1}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:last_name}-control-wrapper">
+						<div class="control" id="{field.name:last_name}-control">{field.form:last_name}</div>
+					</div>
+				</li>
+				{/if}
+				
+			  </ul>
+
+			</div>
+		  </div>
+		
+		  <div class="panel panel-default" id="panel5" style="display:none">
+			<div class="panel-heading panel-search" data-parent="#search-accordion" data-toggle="collapse" data-target="#collapse5">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse5">{string:"manager_vacancy"}</a>
+			  </h4>
+			</div>
+			<div id="collapse5" class="panel-collapse collapse">
+			  <ul class="list-group">
+				
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:vacancy# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel5").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:vacancy# != #field.default:vacancy#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 5}
+						<script>
+							document.getElementById("collapse5").className += ' in';
+						</script>
+					{/if}
+			
+					<script>
+					{if:%field.object:vacancy% == -1}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">Candidatures spontanées<span onclick="window.formObj.changefield(\'vacancy\' , \'?\')">X<span></button>';
+					{elseif:%field.object:vacancy% == -2}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">Candidatures pour mes postes ouverts<span onclick="window.formObj.changefield(\'vacancy\' , \'?\')">X<span></button>';
+					{elseif:%field.object:vacancy% == -3}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">Candidatures pour les postes ouverts<span onclick="window.formObj.changefield(\'vacancy\' , \'?\')">X<span></button>';
+					{else}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:vacancy}<span onclick="window.formObj.changefield(\'vacancy\' , \'?\')">X<span></button>';
+					{/if}
+					</script>
+				{/if}
+		
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:vacancy}-control-wrapper">
+						<div class="control" id="{field.name:vacancy}-control">
+							<select type="select" class="form-control" name="vacancy">
+								<option value="?">{field.prompt:vacancy}</option>
+								<?php foreach($vacancy_list as $oid => $name){
+								print '<option value="'.$oid.'"';
+								if($oid == $_nx_record->vacancy->object) print " selected";
+								print " >".$name."</option>";
+								 } ?>
+							</select>
+						</div>
+					</div>
+				</li>
+				{/if}
+			  </ul>
+
+			</div>
+		  </div>
+	</table>
+	<div class="clear-both">
+		<button type="button" class="btn btn-primary btn-block green-cvthque-background" onclick="document.getElementById('form_rct_candidate_manager_search').submit();" style="float:right">
+		 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;
+		 {string:"search"}
+		</button>
+		{if:%var:saved_search%}
+		<script type="text/javascript">
+			document.getElementById('btn_delete_search').style.display= 'inline-block';
+		</script>
+		{/if}
+		{if:%var:search%}
+			<script type="text/javascript">
+				//document.getElementById('config-box').className += ' show';
+			</script>
+		{/if}
+		
+		<button type="button" class="btn btn-default btn-block" onclick="ajax_navigate(event,'{=search.url}&mode=ajax','content'); return false;" style="float:left; margin-top: 5px;">
+		 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;
+		 {string:"Annuler la recherche"}
+		</button>
+		<input type="submit" style="width:0px; height: 0px; border: none; padding: 0px; font-size: 0px;" value="" name="dummy_submit" />
+		
+		<button class="btn btn-primary btn-block green-cvthque-background" style="display:none; margin-top: 5px; background: rgb(90, 156, 93) !important" onclick="window.setUrlField();window.save_searchConfig.exec(); this.blur(); return false;"  id="btn_add_search"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp;&nbsp;{string:'save search'}</button>
+		<div class="saved_search_class" id="saved_search" title="{string:'title_select_search'}" style="display:block">
+		
+		
+	</div>
+	<!--! {/form} -->
+</div>

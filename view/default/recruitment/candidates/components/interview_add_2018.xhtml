@@ -1,0 +1,258 @@
+    <p:page
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://www.presencemedia.ma/views/page2"
+        xmlns:form1="http://www.presencemedia.ma/views/form"
+        xmlns:form="http://www.presencemedia.ma/views/form2_bs"
+        xmlns:record="http://www.presencemedia.ma/views/record#skin"
+        enveloppe="page_bs"
+        >
+	
+	<link href="/nx/controls/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/nx/skins/lightsky/css/theme_bs.css" rel="stylesheet" type="text/css" media="all">
+
+    <p:head>
+        <p:title>
+        </p:title>
+        <p:resources>
+			<style type="text/css">
+			.black .panel{
+				background-color: #fff !important;
+				width: 350px !important;
+				height: 225px;
+			}
+			#group_interviews{
+				display:none;
+			}
+			</style>
+		</p:resources>
+        
+    </p:head>
+
+    <p:body>
+       
+        {include:common.messages_log}
+        {include:common.message_help}
+
+
+
+{content:buttons}
+	{if:#property:from_vac# !=1 && #property:from_home# !=1 && #property:from_calendar# !=1}
+	<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=previous_operation.url}&tab=recruitement_card'">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+		{string:"back_to_candidate"}
+	</button>
+	{/if}
+	{if:#property:from_vac# ==1}
+	<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=previous_operation.url}'">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+		{string:"back_to_vacancy"}
+	</button>
+	{/if}
+	{if:#property:from_home# ==1}
+	<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=previous_operation.url}'">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+		{string:"back_to_home"}
+	</button>
+	{/if}
+	{if:#property:from_calendar# ==1}
+	<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=previous_operation.url}'">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+		{string:"back_to_calendar"}
+	</button>
+	{/if}
+	{if:%property:show_config%}
+	<div class="btn-group button_bs_right" role="group">
+	
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span class="glyphicon glyphicon-cog"></span>
+		</button>
+		
+		<ul class="dropdown-menu" style="right:0px ; left:initial;">
+			<li>
+				<a href="{=meeting_rooms.url}" ><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span>&nbsp;&nbsp;{string:"meeting_rooms"}</a>
+			</li>
+			<li><a href="{=email_samples.url}" ><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;&nbsp;{string:"email_samples"}</a></li>
+			<li><a href="{=attached_files.url}"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>&nbsp;&nbsp;{string:"attached_files_title"}</a></li>
+
+		</ul>
+	</div>
+	{/if}
+	<span class="pm-button-sep"></span>
+	<button type="button" class="btn btn-default right submit_marge" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+		<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;&nbsp;
+		{string:"submit"}
+	</button>
+	
+{/content}
+{record:candidate.record}
+	{content:candidate_etat}
+		<div id="field_etat_oid" class="form-group form-group-bs field-type-text_choice ">
+			<div class="control-label-wrapper-bs">
+				<label for="etat_oid" class="control-label-bs control-label">{field.label:etat_oid} :</label>
+			</div>
+			<div class="form-control-bs" id="etat_oid-control">
+				{field.form:etat_oid}
+			</div>
+		</div>
+	{/content}		
+	{content:cv_preview}
+		<iframe src="{field.string:cv_path:url}"
+			width="100%" height="800" frameborder="0" marginwidth="0" marginheight="0" align="top" hspace="0" vspace="0" scrolling="0">
+			<object width="100%" height="2000">      
+			  <param name="MOVIE" value="{field.string:cv_path:url}.swf">      
+			  <param name="PLAY" value="true">      
+			  <param name="LOOP" value="true">      
+			  <param name="QUALITY" value="high">      
+			  <embed src="{field.string:cv_path:url}.swf" width="100%" height="2000"      
+			   play="true" align="" loop="true" quality="high"      
+			   TYPE="application/x-shockwave-flash"      
+			   PLUGINSPAGE="[[http://www.macromedia.com/go/getflashplaye]r]">      
+			  </embed>      
+			</object>
+		</iframe>
+	{/content}
+{/record}
+{content:interviews}
+{include:recruitment/candidates/components/calendar/interviews}
+{/content}
+        <form:record id="content_form" record="page.record">
+			<script>
+				document.getElementById('page_title').innerHTML = '<h1 class="title_interview">'+unescape("{string:'page_title_add_interview'}")+' : {field.html:candidate_oid}</h1>';
+				if (typeof document.getElementById('page-bread-crumb') === "undefined") {
+					document.getElementById('page-bread-crumb').innerHTML += ' > <span class="png_bg"><a class="nav-item" href="#">'+document.getElementById('page_title').innerHTML+'</a></span>';
+				}
+				window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+				window.dlg_successConfig = {};
+				window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+			</script>
+			
+            <form:main>
+							
+				<form:toolbar>
+					<div class="btn-group btn-group-width">
+					   {=buttons}
+				   </div> 
+				</form:toolbar>
+				<form:tabs>
+				 <form:tab id="planification" title="{string:'planification'}">
+					<form:panels>
+						<form:panel xxtitle="Profil Candidat">
+							<form:columns>
+								<form:column index="1">
+									<form:group title="{string:'planification'}">
+										{if:#property:from_vac# ==1 || #property:from_home# ==1 || #property:from_calendar# ==1}
+										<form:field name="candidate_oid"/>
+										{/if}
+										
+										<form:field name="interview_by_oid"/>
+										<form:column index="1">
+											<form:field name="date"/>
+										</form:column>
+										<form:column index="2">
+											<form:field name="time_start"/>
+											<form:field name="time_end"/>
+										</form:column>
+										<form:field name="interview_type"/>
+										<form:field name="location"/>
+									</form:group>
+									<form:group title=" ">
+										<form:field name="interview_feedback"/>
+										<form:field name="interview_etat"/>
+									</form:group>
+								</form:column>
+								<form:column index="2">
+									<form:group title="{string:'informations'}">
+										<form:field name="vacancy_oid"/>
+										{=candidate_etat}
+									</form:group>
+									<!--<form:group title=" ">
+										<form:field name="interview_feedback"/>
+									</form:group>-->
+									<form:group id="interviews" title="{string:'other_interviews'}{=date_interview}">
+										<div id="interviews">
+										{=interviews}
+										</div>
+									</form:group>
+									<!--<form:group title="{string:'comment'}">
+										<form:field-no-label name="comment"/>
+									</form:group>-->
+								</form:column>
+							</form:columns>
+
+						</form:panel>
+					</form:panels>
+				</form:tab>
+				
+				<!--<form:tab id="comment" title="{string:'comment'}">
+					<form:panels>
+						<form:panel>
+							<form:field name="comment"/>
+						</form:panel>
+					</form:panels>
+				</form:tab>-->
+				<form:tab id="candidat_email" title="{string:'candidat_email'}">
+					<form:panels>
+						<form:panel>
+							<div id="email-candidate-wrapper">
+								<form:field name="candidate_email_not"/>
+								<div id="email-candidate-wrapper-fields">
+									<form:field name="default_email"/>
+									<form:field name="email_title"/>
+									<form:field name="email_content"/>
+									<form:field name="email_docs"/>
+									<form:field-no-label name="attached_files_candidate"/>
+								</div>
+							</div>
+						</form:panel>
+					</form:panels>
+				</form:tab>
+				
+				<form:tab id="interviewer_email" title="{string:'interviewer_email'}">
+					<form:panels>
+						<form:panel>
+							<div id="email-interviewer-wrapper">
+								<form:field name="interviewer_email_not"/>
+								<div id="email-interviewer-wrapper-fields">
+									<form:field name="user_default_email"/>
+									<form:field name="user_email_title"/>
+									<form:field name="user_email_content"/>
+									<form:field name="user_email_docs"/>
+									<form:field-no-label name="attached_files_interviewer"/>
+								</div>
+							</div>
+						</form:panel>
+					</form:panels>
+				</form:tab>
+				{record:candidate.record}
+				{if:%field.string:cv_path:url%}
+				<form:tab id="cv" title="{string:'cv'}">
+					{=cv_preview}
+				</form:tab>
+				{/if}
+				{/record}
+				<script>
+					console.log('kkkk');
+					window.interviews_url = "{=interviews.url}";
+					window.onloadForm2 = function()
+					{
+						window.formObj = new window.Generis.form_interview('{=submit.id}',true);
+					}
+					if(typeof window.Generis.form_interview == "undefined")
+					{
+						setTimeout(function(){
+							window.ajax_load('/nx/skins/lightsky/js/recruitment/form_interview.js','form_interview_js');
+							window.ajax_onload(window.onloadForm2,'form_interview_js');
+						} , 2000);
+					}
+					else
+						window.onloadForm2();
+
+				</script>
+			</form:tabs>
+			
+         </form:main>
+		 
+    </form:record>
+    </p:body>
+
+</p:page>

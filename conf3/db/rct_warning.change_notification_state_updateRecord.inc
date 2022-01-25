@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_warning SET _notification_state='1' WHERE _notification_state='0' AND _date<=NOW()"; ?>

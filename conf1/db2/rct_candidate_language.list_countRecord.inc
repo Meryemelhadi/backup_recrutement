@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_candidate_language WHERE _candidate_oid='".$props->getProperty("oid","0",true)."' GROUP BY _lang "; ?>

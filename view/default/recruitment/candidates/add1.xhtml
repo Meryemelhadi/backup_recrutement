@@ -1,0 +1,128 @@
+<p:page
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://www.presencemedia.ma/views/page2"
+        xmlns:form1="http://www.presencemedia.ma/views/form"
+        xmlns:form="http://www.presencemedia.ma/views/form2"
+        xmlns:record="http://www.presencemedia.ma/views/record#skin"
+        enveloppe="page"
+        >
+    <script language="php"><![CDATA[
+		$workflow = $this->getProperty('workflow');
+
+	]]></script>
+
+
+    <script language="javascript">
+
+        window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "?nxo=list", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+
+        window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+        window.dlg_successConfig = { skipConfirm: true, title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=edit.url}", evalConfig : true, target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+        window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+
+
+    </script>
+
+
+    <p:head>
+        <p:title>
+              {string:"page_title_add_candidate"}
+        </p:title>
+        <p:description>{string:"page_message_add"}</p:description>
+        <p:help></p:help>
+
+
+        <!-- <p:resources>
+            <p:resource type="css" path="css/ged/ged.css" />
+        </p:resources>
+ -->
+    </p:head>
+
+
+
+    <p:body>
+        <style>
+            {=app.form.css}
+
+        </style>
+
+        <script>
+            {=app.form.js}
+        </script>
+
+        {include:common.messages_log}
+        {include:common.message_help}
+		{content:buttons}
+            <span class="pm-button-sep"></span>
+            <a class="pm-button " href="{=submit.url}" onclick="if(window.content_form.onsubmit(window.content_form,'submit')){window.content_form.action='{=submit.url}';window.content_form.submit();}this.blur(); return false;" id="">
+                <span class="btn-bg">
+                    <span class="s-icon si-disk">{string:'save'}</span>
+                </span>
+            </a>
+        {/content}
+
+        <form:record id="content_form" record="page.record">
+            <form:main>
+                <form:toolbar>
+                    <form:cancel for="content_form" behaviour="navigate" url="{=back.url}{=filterKey}" iconCls="si-application-side-contract">{string:"back"}</form:cancel>
+                    {=buttons}
+                </form:toolbar>
+
+                        <form:panels>
+                            <form:panel title="{string:'general_infos'}" id="title-green">
+                                <form:columns>
+                                    <form:column index="1">
+                                        <form:group title="{string:'profile_infos'}">
+                                            <form:field name="first_name"/>
+                                            <form:field name="last_name"/>
+                                            <form:field name="civility"/>
+                                            <form:field name="gender"/>
+                                            <form:field name="date_of_birth" />
+                                            <form:field name="nationality" />
+                                        </form:group>
+                                        <form:group title="{string:'candidate_infos'}">
+
+                                            <form:field name="studies_level"/>
+
+                                        </form:group>
+
+                                    </form:column>
+
+                                    <form:column index="2">
+                                        <form:group title="{string:'coordinates'}">
+                                            <form:field name="email"/>
+                                            <form:field name="mobile"/>
+                                            <form:field name="phone_1"/>
+                                            <form:field name="phone_2"/>
+                                            <form:field name="zip"/>
+                                            <form:field name="country_oid"/>
+                                            <form:field name="town_oid"/>
+                                        </form:group>
+										<form:group title="{string:'vacancy'}">
+                                            <form:field name="vacancies_oid"/>
+                                        </form:group>
+
+                                    </form:column>
+
+                                </form:columns>
+
+                            </form:panel>
+                        </form:panels>
+
+
+                <form:toolbar>
+                    <form:cancel for="form1" behaviour="navigate" url="{=back.url}" iconCls="si-application-side-contract">{string:"back"}</form:cancel>
+                    {include:common.form_buttons}
+                </form:toolbar>
+
+            </form:main>
+
+        </form:record>
+		<script type="text/javascript">
+            window.onload =function(){window.ajax_load('/nx/skins/default/js/recruitment/form_candidate_add.js','form_candidate_add_js');}
+        </script>
+
+    </p:body>
+</p:page>

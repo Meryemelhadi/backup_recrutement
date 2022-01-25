@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy_readonly SET _oid=".$record->getFieldValue("oid","DB","NULL").",_name=".$record->getFieldValue("name","DB","NULL").",_code=".$record->getFieldValue("code","DB","NULL")." WHERE _workflow_state='2' AND _archive_state<>'1'"; ?>

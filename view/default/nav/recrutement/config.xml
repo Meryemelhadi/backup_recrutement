@@ -1,0 +1,38 @@
+<cont:nav_section
+	title="Configuration"
+	xtype="nx_nav_panel" 
+	iconCls="icon-config"
+	xmlns:cont="http://www.presencemedia.ma/container/container">
+
+	<cont:nav_branch 
+		title		= "Configuration profil"
+		app-title	= "Configuration profil"
+		iconCls		= "icon-config">
+		<cont:nav_link 
+			title="Mon profil"
+			url="/user/profile_editor.php?pagemode=minimal"
+			app-title="Administration &gt; Mon profil"
+			iconCls="icon-user"
+			qtip-title="Mes infos"
+			qtip-text="Ma fiche utilisateur" 	
+		/> 	
+	</cont:nav_branch>
+
+	<cont:permission permission="$isDirection || $isAdmin">
+		<cont:nav_branch 
+			title		= "Configuration Portail"
+			app-title	= "Configuration Portail"
+			iconCls		= "icon-config">
+	
+			<cont:nav_link 
+				title="Editeur d\'apparences"
+				url="/admin/skin_editor/skin_editor.php?pagemode=minimal"
+				app-title="Editeur d\'apparences"
+				iconCls="icon-skineditor"
+				qtip-title="Thème de l\'intranet"
+				qtip-text="Gestion des apparences de l\'intranet" 	
+			/> 
+		</cont:nav_branch>
+	</cont:permission>
+
+</cont:nav_section>

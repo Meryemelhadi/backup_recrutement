@@ -1,0 +1,325 @@
+    <p:page
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://www.presencemedia.ma/views/page2"
+        xmlns:form1="http://www.presencemedia.ma/views/form"
+        xmlns:form="http://www.presencemedia.ma/views/form2"
+        xmlns:record="http://www.presencemedia.ma/views/record#skin"
+        enveloppe="page"
+        >
+    <script language="php"><![CDATA[
+		$workflow = $this->getProperty('workflow');
+		$candidate = $this->getProperty('page.record');
+		]]></script>
+
+    <p:head>
+        <p:title>
+        </p:title>
+        <p:resources>
+            <!-- <p:resource type="css" path="css/ged/ged.css" /> -->
+	    <p:resource type="js" path="/nx/skins/default/js/recruitment/form_candidate.js" />
+        </p:resources>
+        
+    </p:head>
+
+    <p:body>
+
+        <style>
+            {=app.form.css}
+
+        </style>
+
+        <script>
+            {=app.form.js}
+        </script>
+
+        {include:common.messages_log}
+        {include:common.message_help}
+
+        {content:panel_files}
+            {include:recruitment/candidates/components/panel_files}
+        {/content}
+
+        {content:interviews}
+            {include:recruitment/candidates/components/panel_interviews}
+        {/content}
+
+        {content:tests}
+        {include:recruitment/candidates/components/panel_tests2}
+        {/content}
+
+        {content:update_resume}
+        {include:recruitment/candidates/components/panel_update_resume}
+        {/content}
+
+        {content:comments_part}
+        {include:recruitment/candidates/components/comments_part}
+        {/content}
+
+        {content:emails}
+        {include:recruitment/candidates/components/panel_emails}
+        {/content}
+
+        {content:emails_received}
+        {include:recruitment/candidates/components/received_emails}
+        {/content}
+
+        {content:vacancies_list}
+        {include:recruitment/vacancies/components/vacancies_list}
+        {/content}
+
+        {content:panel_cv_preview}
+        {include:recruitment/candidates/components/panel_cv_preview}
+        {/content}
+
+        {content:panel_toolbox}
+        {include:recruitment/candidates/components/panel_toolbox}
+        {/content}
+
+        {content:buttons_cv}
+        {include:recruitment/candidates/components/edit_buttons_cv}
+        {/content}
+
+        {content:button_save}
+        {include:recruitment/candidates/components/edit_button_save}
+        {/content}
+
+        {content:button_associer}
+        {include:recruitment/candidates/components/edit_button_associer}
+        {/content}
+
+        {content:buttons_send_to_collab}
+        <span class="pm-button-sep"></span>
+        <a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.loadFromUrl({ title:'{string:'send_to_client_title'}',width:550,url: '{=send_to_client.url}{record.url_key}'}, event); return false;" style="float:right">
+            <span class="btn-bg"><span class="s-icon si-send">{string:"send_to_collab"}</span></span>
+        </a>
+        <span class="pm-button-sep"></span>
+        {/content}
+
+	{content:button_delete}
+        {include:recruitment/candidates/components/panel_delete}
+        {/content}
+
+        {content:buttons}
+        {include:recruitment/candidates/components/edit_buttons}
+        {/content}
+
+        {content:upload_file}
+        {include:recruitment/candidates/components/upload_file}
+        {/content}
+
+        {content:historique}
+        {include:recruitment/candidates/components/panel_historique}
+        {/content}
+
+        <form:record id="content_form" record="page.record">
+			<script>
+			document.getElementById('page_title').innerHTML = 'Fiche candidat : {field.html:first_name} {field.html:last_name} ';
+            document.getElementById('page-bread-crumb').innerHTML += ' > <span class="png_bg"><a class="nav-item" href="#">'+document.getElementById('page_title').innerHTML+'</a></span>';
+			</script>
+            <form:main>
+                <table class="table-edit">
+                    <tr>
+                        <td>
+                            <form:toolbar>
+                               {=buttons}
+                               {=buttons_send_to_collab}
+			       {=button_delete}
+                            </form:toolbar>
+                            <form:tabs>
+                            <form:tab id="cv" title="{string:'cv'}">
+                                <form:panels>
+                                    <form:panel title="{string:'cv'}">
+                                        {=buttons_cv}
+                                        {=panel_cv_preview}
+                                    </form:panel>
+                                </form:panels>
+                            </form:tab>
+                            <form:tab id="recruitement_card" title="{string:'recruitement card'}">
+                                <form:panels>
+                                    <form:panel title="{string:'recruitement card'}">
+                                        <form:columns>
+                                            <form:column index="1">
+                                                <form:group title="{string:'comments'}">
+                                                    {=comments_part}
+                                                </form:group>
+                                                <form:group title="{string:'upload_file'}">
+                                                    {=panel_files}
+                                                </form:group>
+                                            </form:column>
+                                            <form:column index="2" location="right">
+                                                <form:group title="{string:'candidate_interviews'}">
+                                                    {=interviews}
+                                                </form:group>
+                                                <form:group id="test_cand" title="{string:'candidate_tests'}">
+                                                    {=tests}
+                                                </form:group>
+                                                <form:group title="{string:'recrutement'}">
+                                                    <form:field name="relevance"/>
+                                                    <form:field name="sources"/>
+                                                    <form:field name="application_type"/>
+                                                    <form:field name="archive_state"/>
+                                                    <form:field name="cand_channel"/>
+                                                    <form:field name="establishment"/>
+                                                </form:group>
+
+                                            </form:column>
+                                        </form:columns>
+
+                                    </form:panel>
+                                </form:panels>
+                            </form:tab>
+                                <form:tab id="general_infos" title="{string:'candidate_infos'}">
+                                    <form:panels>
+                                        <form:panel title="{string:'candidate_infos'}">
+                                            <form:columns>
+                                                <form:column index="1">
+                                                    <form:group title="{string:'profile_infos'}">
+
+                                                        <form:field name="last_name"/>
+                                                        <form:field name="first_name"/>
+                                                        <form:field name="civility"/>
+                                                        <form:field name="gender"/>
+                                                        <form:field name="date_of_birth"/>
+
+                                                        <form:field name="nationality"/>
+
+                                                    </form:group>
+                                                    <form:group title="{string:'candidate_infos'}">
+                                                        <form:field name="studies_level"/>
+                                                    </form:group>
+
+                                                </form:column>
+                                                <form:column index="2">
+                                                    <form:group title="{string:'coordinates'}">
+                                                        <form:field name="email"/>
+                                                        <form:field name="mobile"/>
+                                                        <form:field name="phone_1"/>
+                                                        <form:field name="phone_2"/>
+                                                        <form:field name="zip"/>
+                                                        <form:field name="country_oid"/>
+                                                        <form:field name="town_oid"/>
+                                                    </form:group>
+
+                                                </form:column>
+                                            </form:columns>
+
+                                        </form:panel>
+                                        <form:panel title="{string:'education_infos'}">
+                                            <form:columns>
+                                                <form:column index="1">
+                                                    <form:group title="{string:'education_entries_1'}">
+
+                                                        <form:field-no-label name="education_entries"/>
+
+                                                    </form:group>
+                                                    <form:group title="{string:'bachelor'}">
+                                                        <form:field name="bachelor_year"/>
+                                                    </form:group>
+
+                                                </form:column>
+                                                <form:column index="2">
+                                                    <form:group title="{string:'languages'}">
+                                                        <form:field-no-label name="language_entries"/>
+                                                    </form:group>
+                                                    <form:group title="{string:'education_entries_2'}">
+                                                        <form:field-no-label name="education_entries_2"/>
+                                                    </form:group>
+
+                                                </form:column>
+                                            </form:columns>
+
+                                        </form:panel>
+                                        <form:panel title="{string:'experiences'}">
+                                            <form:columns>
+                                                <form:column index="1">
+                                                    <form:group title="{string:'experiences'}">
+
+                                                        <form:field-no-label name="employment_entries"/>
+
+                                                    </form:group>
+
+                                                </form:column>
+                                                <form:column index="2">
+                                                    <form:group title="{string:'training'}">
+                                                        <form:field-no-label name="training_entries"/>
+                                                    </form:group>
+
+                                                </form:column>
+                                            </form:columns>
+
+                                        </form:panel>
+                                    </form:panels>
+                                </form:tab>
+
+                                <form:tab id="emails" title="{string:'emails'}">
+                                    {=emails}
+                                    {=emails_received}
+                                </form:tab>
+
+                                <form:tab id="vacancies" title="{string:'vacancies'}">
+                                    <form:panels>
+                                        <form:panel title="{string:'title_vacancies'}" cls="box-title-green">
+                                            <form:group>
+												<div id="add_vacancy_wrapper">
+													<div id="add_vacancy_wrapper2">
+														<form:field name="available_vacancies"/>
+														{=button_associer}
+													</div>
+												</div>
+												</form:group>
+												<div class="vancancies_wrapper">
+													{=vacancies_list}
+												</div>
+                                        </form:panel>
+                                    </form:panels>
+                                </form:tab>
+                                <form:tab id="historique" title="{string:'historique'}">
+                                    <form:panels>
+                                        <form:panel title="{string:'historique'}" cls="box-title-green">
+                                                {=historique}
+                                        </form:panel>
+                                    </form:panels>
+                                </form:tab>
+                        </form:tabs>
+                        <!-- <form:toolbar>
+                            {=buttons}
+                            {=buttons_send_to_collab}
+                        </form:toolbar>
+ -->                    </td>
+                    <td class="td-toolbox">
+                        <form:panel title="{string:'toolbox'}" id="toolbox">
+
+                            <form:group title="{string:'HR management'}" >
+                                <form:field name="hr_manager" />
+                            </form:group>
+                            <form:group title="{string:'candidate_etat'}">
+                                <form:field name="etat_oid"/>
+                            </form:group>
+                            <form:group title="{string:'qualification CV'}">
+                                <form:field name="available_delai"/>
+                                <form:field name="available_from"/>
+                                <form:field name="salary_min"/>
+                                <form:field name="salary_max"/>
+                                <form:field name="profile"/>
+                                <form:field name="category_oid"/>
+                                <form:field name="years_of_practice"/>
+                            </form:group>
+
+                        </form:panel>
+                    </td>
+                </tr>
+            </table>
+         </form:main>
+    </form:record>
+    {=update_resume}
+    {=upload_file}
+
+    <script type="text/javascript">
+	var edit_url = "{=submit.url}";
+        window.ajax_load('/nx/skins/default/js/recruitment/form_candidate.js','form_candidate_js');
+    </script>
+
+
+
+    </p:body>
+</p:page>

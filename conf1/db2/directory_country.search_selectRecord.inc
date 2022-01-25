@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _country_name FROM _directory_country GROUP BY _country_name  ORDER BY _country_name ASC "; ?>

@@ -1,0 +1,82 @@
+<script>
+	window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+
+	window.dlg_submitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+	
+	window.dlg_submitContinueConfig = { title : "{string:'dlg_wait_title'}", url:"{=submit_continue.url}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		{record:vacancy_title_record}
+		<div class="pm-title">{string:"vacancy"}: {field:name}{if:#field.object:code# != ''} (N° {field:code}){/if}</div>
+		{/record}		
+	</div>
+</div>
+
+<div class="directory-card-wrapper">
+<div class="directory-card clear-both">
+	<table class="directory-card-table">
+		<tr>
+			<td class="directory-card-main-column">
+			
+				{=page.content}
+			
+			</td>
+			<td class="directory-card-side-column">
+				
+				<div class="dcs-menu-outer-wrapper">
+					<div class="dcs-menu-wrapper">
+						<ul class="dcs-menu">
+						
+								
+							<li class="back-btn"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=list.url}','content'); return false;"><span>{string:"back_to_vacancies"}</span></a></li>
+						
+							<li class="{if:#property:current_operation# == 'edit'}active{/if}"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=edit.url}','content'); return false;"><span>{string:"title_general_infos"}</span></a></li>
+							<li class="{if:#property:current_operation# == 'requirements'}active{/if}"><a
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=requirements.url}','content'); return false;"><span>{string:"title_requirements"}</span></a></li>
+							<li class="{if:#property:current_operation# == 'candidates'}active{/if}"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=candidates.url}','content'); return false;"><span>{string:"title_candidates"}</span></a></li>
+							
+							<li class="last{if:#property:current_operation# == 'annonces'} active{/if}"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=annonces.url}','content'); return false;"><span>{string:"title_annonce"}</span></a></li>
+
+							<li class="{if:#property:current_operation# == 'calendar'}active{/if}"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=calendar.url}','content'); return false;"><span>{string:"title_calendar"}</span></a></li>
+							
+							<li class="{if:#property:current_operation# == 'recruitment_providers'}active{/if}"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=recruitment_providers.url}','content'); return false;"><span>{string:"title_recruitment_providers"}</span></a></li>
+							<!--<li class="{if:#property:current_operation# == 'synthesis'}active{/if}"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=synthesis.url}','content'); return false;"><span>{string:"title_synthesis"}</span></a></li>-->
+							<li class="{if:#property:current_operation# == 'feedback'} active{/if}"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=feedback.url}','content'); return false;"><span>{string:"title_evaluation"}</span></a></li>	
+							<li class="last{if:#property:current_operation# == 'warning'} active{/if}"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=warning.url}','content'); return false;"><span>{string:"title_warnings"}</span></a></li>		
+							<li class="last{if:#property:current_operation# == 'history'} active{/if}"><a 
+								href="javascript:void(0);" 
+								onclick="ajax_navigate(event,'{=history.url}','content'); return false;"><span>{string:"title_history"}</span></a></li>	
+							
+						</ul>
+					</div>
+				</div>
+			
+			</td>
+		</tr>
+	</table>
+</div>
+</div>

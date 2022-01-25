@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("DROP TABLE IF EXISTS _rct_announcement","DROP TABLE IF EXISTS _journal","DROP TABLE IF EXISTS _journal_categories","DROP TABLE IF EXISTS _journal_file_attachements",); ?>

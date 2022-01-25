@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_interview_attached_file WHERE _interview_oid='".$props->getProperty("interview_oid","",true)."'"; ?>

@@ -1,0 +1,123 @@
+<script>
+	window.dlg_scheduleInstantFeedbackCfg = { title:"{string:'schedule_instant_feedback_title'}", url: "{=schedule_instant_feedback.url}", width:550 }
+	window.dlg_scheduleDelayedFeedbackCfg = { title:"{string:'schedule_delayed_feedback_title'}", url: "{=schedule_delayed_feedback.url}", width:550 }
+</script>
+
+<div class="directory-card-main-content clear-both">
+	<div class="directory-card-column-1">
+		<div class="directory-card-column-w">
+	
+			<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+				<div class="pm-bxm-box">
+					<div class="box-simple-title">
+						<h3 class="double-padding">{string:"section_title_instant_feedback"}</h3>
+					</div>		
+					<div class="pm-bxm-box-content">
+						<!--! {records:instant_feedback.records} -->
+						<!--! {record} -->
+						<script>
+							window.dlg_deleteConfig_instant{record.index} = { 
+								title : "{string:'dlg_delete_title_feedback'}",
+								message : "{string:'dlg_delete_content_feedback'}", 
+								viewMode : "okCancel", 
+								url : "{=delete_instant_feedback.url}{record.url_key}", 
+								target : "content", 
+								labels : { 
+									ok : "{string:'dlg_ok'}", 
+									cancel : "{string:'dlg_cancel'}" 
+							} };
+						</script>
+						
+						<div class="feedback-entry-wrapper">
+							<div class="feedback-entry">
+								<div class="feedback-entry-infos">
+									{field.label:scheduled_by} <strong>{field:scheduled_by}</strong> {string:"date_prefix_lc"} {field:scheduled_on}
+								</div>								
+								<div class="feedback-entry-toolbar">
+									{if:#field.object:fill_state#=='0'}
+									<a 
+										class="action s-icon si-page-white-edit" 
+										onclick="ajax_navigate(event,'{=complete_instant_feedback.url}{record.url_key}','content'); this.blur(); return false;" 
+										href="javascript:void(0);"><span>{string:"compelete_feedback"}</span></a>
+									</a>
+									{else}
+									<a 
+										class="action s-icon si-page-white-text" 
+										onclick="ajax_navigate(event,'{=view_instant_feedback.url}{record.url_key}','content'); this.blur(); return false;" 
+										href="javascript:void(0);"><span>{string:"view_feedback"}</span></a>
+									</a>
+									{/if}
+								</div>
+							</div>
+						</div>			
+						<!--! {/record} -->
+						<!--! {/records} -->
+						{no_record}
+						<div class="empty-records">{string:"empty_instant_feedback_list"}</div>
+						{/no_record}
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="directory-card-column-2">
+		<div class="directory-card-column-w">
+	
+			<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+				<div class="pm-bxm-box">
+					<div class="box-simple-title">
+						<h3 class="double-padding">{string:"section_title_delayed_feedback"}</h3>
+					</div>				
+					<div class="pm-bxm-box-content">
+						<!--! {records:delayed_feedback.records} -->
+						<!--! {record} -->
+						<script>
+							window.dlg_deleteConfig_delayed{record.index} = { 
+								title : "{string:'dlg_delete_title_feedback'}",
+								message : "{string:'dlg_delete_content_feedback'}", 
+								viewMode : "okCancel", 
+								url : "{=delete_delayed_feedback.url}{record.url_key}", 
+								target : "content", 
+								labels : { 
+									ok : "{string:'dlg_ok'}", 
+									cancel : "{string:'dlg_cancel'}" 
+							} };
+						</script>
+						
+						<div class="feedback-entry-wrapper">
+							<div class="feedback-entry">
+								<div class="feedback-entry-infos">
+									{string:"feedback_candidate"} <strong>{field:candidate_oid}</strong>
+								</div>
+								<div class="feedback-entry-toolbar">
+									{if:#field.object:fill_state#=='0'}
+									<a 
+										class="action s-icon si-page-white-edit" 
+										onclick="ajax_navigate(event,'{=complete_delayed_feedback.url}{record.url_key}','content'); this.blur(); return false;" 
+										href="javascript:void(0);"><span>{string:"compelete_feedback"}</span></a>
+									</a>
+									{else}
+									<a 
+										class="action s-icon si-page-white-text" 
+										onclick="ajax_navigate(event,'{=view_delayed_feedback.url}{record.url_key}','content'); this.blur(); return false;" 
+										href="javascript:void(0);"><span>{string:"view_feedback"}</span></a>
+									</a>
+									{/if}
+								</div>
+							</div>
+						</div>
+						<!--! {/record} -->
+						<!--! {/records} -->
+						{no_record}
+						<div class="empty-records">{string:"empty_delayed_feedback_list"}</div>
+						{/no_record}
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+</div>

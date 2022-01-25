@@ -1,0 +1,21 @@
+{record:page.record}
+
+	<div class="comment-wrapper_{field:oid}">
+		<table style="width:100%">
+			<tr>
+				<td style="width:98%">
+					<div class="comment"><span class="comment_author">{field:user_oid}</span>: {field:comment}</div>
+				</td>
+				<td style="width:2%,align:right"> 
+				<input type="button" class="s-icon si-cross" href="javascript:void(0);" onclick="Generis.Recruitment.deleteComment('{field:oid}', '{=delete_comment.url}'); this.blur(); return false;" value="" style="cursor: pointer; background-color:transparent; border:solid 0px"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="comment_date">{field:date}</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+{/record}

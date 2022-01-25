@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_fields FROM _rct_search_params WHERE _is_default='1'"; ?>

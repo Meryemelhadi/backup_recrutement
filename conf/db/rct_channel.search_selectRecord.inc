@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _name,_establishment FROM _rct_channel"; ?>

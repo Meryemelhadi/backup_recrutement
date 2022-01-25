@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy_comment SET _interview_oid=".$record->getFieldValue("interview_oid","DB","NULL").",_date=".$record->getFieldValue("date","DB","NOW()").",_synthesis_oid=".$record->getFieldValue("synthesis_oid","DB","NULL").",_date_eval=".$record->getFieldValue("date_eval","DB","NOW()"); ?>

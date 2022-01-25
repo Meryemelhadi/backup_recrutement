@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _lm FROM _rct_candidate_email WHERE _oid='".$props->getProperty("oid","",true)."'"; ?>

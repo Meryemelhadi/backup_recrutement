@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_filled_by,_scheduled_by,_scheduled_on,_fill_state,_completed_by,_completed_on,_complete_state FROM _rct_instant_feedback WHERE _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."' AND _filled_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."' ORDER BY _scheduled_on DESC "; ?>

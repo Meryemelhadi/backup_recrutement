@@ -1,0 +1,43 @@
+<div class="pm-bxm-box-wrapper">
+	<div class="pm-bxm-box">
+	
+		<div class="box-simple-title">
+			<h3 class="double-padding">{string:"title_vacancy_announcements_internet"}</h3>
+		</div>
+	
+		<div class="pm-bxm-box-content">
+			<div class="table-list-wrapper">
+				
+				<table class="table-list">
+				{records:announcements_internet.records}
+					{record}
+					<tr {if:#record.is_last#}class="last"{/if}>
+						<td class="label"><strong>{field.html:intitule}</strong> ({string:"by"} {field:created_by} {string:"date_prefix_lc"} {field:creation_date})</td>
+						
+						
+						
+						
+					</tr>
+					{/record}
+				{/records}
+				</table>
+				{no_record}
+				<div class="empty-records">{string:"empty_announcements"}</div>
+				{/no_record}
+				
+				<div class="add-file-wrapper">
+					<div class="add-file-title">
+						<a href="javascript:void(0);" class="action s-icon si-add af-add-action" onclick="ajax_navigate(event,'{=announcement_add.url}','content'); this.blur(); return false;"><span>{string:"action_add_announcement_internet"}</span></a>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+	</div>
+</div>
+
+
+
+

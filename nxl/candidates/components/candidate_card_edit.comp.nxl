@@ -1,0 +1,251 @@
+<?xml version="1.0"?> 
+<!-- 
+
+___________________________________
+Presence Media | Rabat
+___________________________________
+Package   : Gestion des recrutements
+Module    : Cvthèque
+Composant : Fiche candidat en édition
+Auteur    : Nadir Elasri
+Version   : 0.1
+___________________________________
+
+-->
+<include file = "candidate_card_lib.comp.nxl"/>
+
+<xo:taglib 
+	uri					= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_edit.comp"
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:ds			= "http://www.nxfrontier.com/nxl/ds"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_edit.comp"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"	
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<!-- ================= COMPONENT ================ -->
+
+	
+		<xo:tag name="edit">
+	
+		
+		<xo:param name="application_name" />
+		
+		<xo:param name="service_class"				value="lib.recruitment.candidates.services.directory" />
+
+		<xo:param name="ds_edit"					value="rct_candidate.edit@recruitment" />
+		<xo:param name="ds_get_log"					value="rct_candidate_action.by_candidate_oid@recruitment" />
+		<xo:param name="ds_mark_as_read"			value="rct_candidate.mark_as_read@recruitment" />
+		<xo:param name="ds_candidate_etats"		value="rct_candidate_etat_assoc.candidate_etats@recruitment" />
+		<xo:param name="ds_candidate_etats_add"		value="rct_candidate_etat_assoc.add@recruitment" />
+		<xo:param name="ds_candidate_vacancies"		value="rct_candidate_vacancy.candidate_vacancies@recruitment" />
+
+		<xo:param name="ds_candidate_tests_add"		value="rct_candidate_test_assoc.add@recruitment" />
+		<xo:param name="ds_candidate_tests"		value="rct_candidate_test_assoc.candidate_tests@recruitment" />
+		<xo:param name="ds_candidate_interviews"	value="rct_interview.candidate_interviews@recruitment" />
+		<xo:param name="ds_comments_list" value="rct_candidate_comment.record"/>   
+
+		<xo:param name="ds_attached_files_base" value="rct_candidate_files"/>
+		
+		<xo:param name="property_records" 				value="page.records"/>
+		
+		<xo:param name="property_record" 				value="page.record"/>
+		
+		<xo:param name="candidate_vacancies_records" 	value="candidate_vacancies.records"/>
+
+		<xo:param name="candidate_tests_records" 	value="candidate_tests.records"/>
+		<xo:param name="candidate_tests_record" 	value="candidate_tests.record"/>
+		<xo:param name="candidate_interviews_records" 	value="candidate_interviews.records"/>
+		<xo:param name="candidate_etats_records" 	value="candidate_etats.records"/>
+		<xo:param name="candidate_etats_record" 	value="candidate_etats.record"/>
+		<xo:param name="candidate_log_records" 			value="candidate_log.records"/>
+		<xo:param name="comments_records" value="comments.records"/>
+				
+		<xo:param name="btn_previous_operation" value="list" />
+
+		<block>
+		
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "insertReadState"
+					params		= "#user:oid#,#request:oid#"
+				/>
+			</load>
+		
+			
+			<ds:store ds="#{$ds_mark_as_read}#" media="db" mode="update" />
+		
+			<!-- Paramètre pour le chargement des DS -->
+			
+			<set name="property:candidate_oid" value="#request:oid#" />			
+			<ds:load media="db" ds="#{$ds_edit}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+
+			
+			<ds:load media="db" ds="#{$ds_candidate_vacancies}#" property="#{$candidate_vacancies_records}#" multiple="yes" addProperties="no" />
+
+			<!-- attached files -->
+			<ds:load media="db" ds="#{$ds_attached_files_base}#.list" property="attached_files.records" multiple="yes" addProperties="no" />	
+			
+			<button:set name="add_attached_files" operation="add_attached_files">
+				<button:param name="candidate_oid" value="#request:oid#" />								
+			</button:set>
+		
+
+			<ds:load media="db" ds="#{$ds_candidate_tests}#" property="#{$candidate_tests_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_candidate_etats}#" property="#{$candidate_etats_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="empty" ds="#{$ds_candidate_tests_add}#" property="#{$candidate_tests_record}#" multiple="no" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_candidate_interviews}#" property="#{$candidate_interviews_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_get_log}#" property="#{$candidate_log_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="empty" ds="#{$ds_candidate_etats_add}#" property="#{$candidate_etats_record}#" multiple="no" addProperties="no" />
+			<!-- Liste des commentaires -->
+			<ds:load media="db" ds="#{$ds_comments_list}#" property="#{$comments_records}#" multiple="yes" addProperties="no" />
+
+			<button:set name="previous_operation" operation="#{$btn_previous_operation}#" params="#request:filterKey#">
+				
+				<button:param name="mode" value="ajax" />
+			
+			</button:set>
+			
+			<button:set name="unlink_candidate" operation="unlink_candidate">
+				<button:param name="filterKey" value="#request:filterKey#" encode="true" />
+			</button:set>
+
+			<button:set name="associate_to_vacancy" operation="associate_to_vacancy">			
+				<button:param name="candidate_oid" value="#request:oid#" />								
+			</button:set>
+
+			<button:set name="add_comment" operation="add_comment">
+				<button:param name="oid" value="#request:oid#" />
+			</button:set>
+
+			<button:set name="delete_comment" operation="delete_comment">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+			
+			<button:set name="download_cv" operation="download">
+				<button:param name="type" value="cv" />
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+			
+			<button:set name="download_cl" operation="download">
+				<button:param name="type" value="cl" />
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+			
+			<button:set name="preview_cv" operation="preview">
+				<button:param name="type" value="cv" />
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+			
+			<button:set name="edit" operation="edit">
+				<button:param name="oid" value="#property:candidate_oid#" />
+			</button:set>
+			
+			<button:set name="preview_cl" operation="preview">
+				<button:param name="type" value="cl" />
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+
+			<button:set name="add_etat" operation="add_etat">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+
+			<button:set name="delete_etat" operation="delete_etat"/>
+			
+			<button:set name="send_to_client" operation="send_to_client">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+			
+			<button:set name="add_interview" operation="interview@recruitment:add_interview">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+
+			<button:set name="add_test" operation="add_test">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+
+			<button:set name="attached_files" operation="attached_files">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+
+			<button:set name="delete_attached_file" operation="delete_attached_file">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+
+			<button:set name="edit_etat" operation="edit_etat">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+
+			<button:set name="delete_comment" operation="delete_comment">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+
+
+			<button:set name="delete_test" operation="delete_test">
+				<button:param name="candidate_oid" value="#property:candidate_oid#" />
+			</button:set>
+
+			
+			<button:set name="edit_interview" operation="interview@recruitment:edit_interview" />
+
+			<button:set name="submit" step="process">
+				<button:param name="filterKey" value="#request:filterKey#" encode="true" />
+			</button:set>
+			
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="process">
+	
+		<xo:param name="service_class" value="lib.recruitment.candidates.services.directory" />
+		
+		<xo:param name="ds_edit" value="rct_candidate.edit@recruitment" />
+		<xo:param name="ds_edit_process" value="rct_candidate.edit_process@recruitment" />
+		<xo:param name="ds_add_log" value="rct_candidate_action.record@recruitment" />
+		
+		<block>
+			<!--<ds:store ds="#{$ds_edit_process}#" media="db" mode="update">
+				<ds:load media="post" ds="#{$ds_edit}#" multiple="no" addProperties="no"/>
+			</ds:store>
+			
+			<load>
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "uploadFiles"
+					params		= "#request:oid#"
+				/>
+			</load>-->
+			<set name="var:candidateOid">
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "#{$service_class}#"
+					method		= "saveExistingCV"
+					params		= ""
+				/>
+			</set>		
+			
+			<card_lib:addlog
+				xmlns:card_lib		= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_lib.comp"
+				ds_add_log			= "#{$ds_add_log}#"
+				candidate_oid		= "#var:candidateOid#"
+				user_oid			= "#user:oid#"
+				action_oid			= "1"
+				ref_oid				= ""
+				additional_infos	= ""
+			/>
+			
+			<set name="property:candidate_oid" value="#var:candidateOid#" />
+			
+		
+		</block>
+		
+	</xo:tag>
+	
+</xo:taglib>

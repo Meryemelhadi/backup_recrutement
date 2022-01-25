@@ -1,0 +1,109 @@
+<!--! {require:js/forms.js:skin} -->
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_list"}</div>
+	</div>
+</div>
+
+{include:common/search_condition}
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			
+			<div class="pm-grid-outer-wrapper">
+				
+				<div class="generis-toolbar-wrapper">
+					<div class="generis-toolbar">
+						<a onclick="ajax_navigate(event,'{=add.url}','content'); return false;" href="javascript:void(0);" class="s-icon si-add"><span>{string:"add"}</span></a>
+						<a onclick="PMDH.toggle('search-panel', 'appear'); return false;" href="javascript:void(0);" class="s-icon si-zoom"><span>{string:"search"}</span></a>
+						<a href="{=xls.url}" class="s-icon si-page-white-excel"><span>{string:"xls_export"}</span></a>
+						{if:#property:showSearch# == 'yes'}
+						<a class="s-icon si-arrow-refresh" href="javascript:void(0);" onclick="ajax_navigate(event,'{=list.url}','content'); return false;"><span>{string:"cancel_search"}</span></a>
+						{/if}
+					</div>
+				</div>
+				{include:common/search}
+				<div class="alphabet-filter clear-both">
+					
+				
+					<?php $url=$link=htmlentities($this->getProperty("search.url")); ?>
+					<a href="javascript:void(0)" onclick="ajax_navigate(event, '{$url}', 'content')" class="first <?php if( !isset($_REQUEST['ltr']) ) { ?>active<?php } ?>"><span>...</span></a>					
+					<?php for($i=97;$i<=122;$i++) { $c = strtoupper(chr($i)); $url=$link.'&ltr='.$c; ?>
+					<?php $class=''; ?>
+					<?php if($i==122) $class='last'; ?>
+					<?php if( $_REQUEST['ltr'] == $c ) $class.=' active'; ?>
+					
+					<a href="javascript:void(0)" onclick="ajax_navigate(event, '{$url}', 'content')" class="{$class}"><span>{$c}</span></a>
+					<?php } ?>
+				</div>
+
+				<!--! {records:page.records} -->
+				<div class="directory-grid-wrapper">
+					<table class="directory-grid">
+						<!--! {record} -->
+						<tr class="directory-grid-row columns-layout width-padding">
+							<td class="dg-photo">
+							{if:#field.object:logo#==''}
+								<div class="dg-cell-wrapper"><img src="/nx/skins/lightsky/img/unknown_user_small.png" /></div>
+							{else}
+								<div class="dg-cell-wrapper">{field:logo}</div>
+							{/if}
+							</td>
+							<td class="dg-identity" onclick="ajax_navigate(event,'{=view.url}{record.url_key}','content')">
+
+								<div class="dg-cell-wrapper">
+									<span class="field-content title-color">
+										<strong>{field:nom_societe}</strong>
+									</span>
+									<br/>
+									<span class="field-content">{field:site_web}</span>
+								</div>
+							</td>
+							<td class="dg-column" onclick="ajax_navigate(event,'{=view.url}{record.url_key}','content')">
+								<div class="dg-cell-wrapper">
+									<span class="field-label">{string:"representant"}:</span> <span class="field-content">{field:rep_first_name} {field:rep_last_name}</span>
+									<br/>
+									<span class="field-label">{field.label:rep_tel_mobile}:</span> <span class="field-content">{field:rep_tel_mobile}</span>
+									<br/>
+									<span class="field-label">{field.label:rep_email}:</span> <span class="field-content">{field:rep_email}</span>
+								</div>
+							</td>
+							<td class="dg-operations dg-2-operations"><div class="dg-cell-wrapper">
+								<a class="s-icon si-page-white-edit" onclick="ajax_navigate(event,'{=edit.url}{record.url_key}','content');" href="javascript:void(0);"><span>{string:"edit"}</span></a>
+							</div>
+							</td>
+						</tr>
+						<!--! {/record} -->
+					</table>
+				</div>
+				<!--! {/records} -->
+				{include:common/grid_empty}
+				{include:common/pagination}
+			</div>
+		</td>
+
+		<td class="right-column">
+			{include:common/page_message_list}
+			<div class="nipple-box nbt-legend">
+				<div class="box-title"><h4>{string:"legend"}</h4></div>
+				<div class="border-nipple"></div>
+				<div class="nipple"></div>
+
+				<div class="box-content">
+					<ul class="legend-list">
+						<li><span class="l-icon s-icon si-page-white-edit"></span><span class="legend"><span class="dots">|</span> {string:"edit_helper"}</span></li>
+					</ul>
+				</div>
+			</div>
+
+		</td>
+	</tr>
+</table>
+<script>
+	PMDH.Skin.LightSky.Grid.init('', {
+		wrapperClass	: 'directory-grid-wrapper',
+		gridClass		: 'directory-grid',
+		gridRowClass	: 'directory-grid-row'
+	});
+</script>

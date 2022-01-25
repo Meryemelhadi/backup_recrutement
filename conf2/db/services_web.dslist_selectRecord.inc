@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name FROM _rct_services_web WHERE _active_app='1' ORDER BY _name ASC "; ?>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+	
+	<include_once file = "/all.nxl"/>
+
+	<include file = "components/cron.comp.nxl"/>
+
+	<main 
+		xmlns				= "http://www.presencemedia.com/recruitment/vacancies/components/cron.comp" 
+	
+		name				= "cron"
+		path				= "/recruitment/vacancies/"
+		skin				= "#global:SALESFORCE_SKIN:generis#"
+		strings				= "recruitment_vacancies_cron"> 
+
+		<i8n:strings 
+			name		= "recruitment_vacancies_cron" 
+			lang		= "fr" 
+			inherit		= "recruitment_default_strings"
+			xmlns		= "http://www.w3.org/1999/xhtml"
+			xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+			<i8n:string id="hello" value="Bonjour" />			
+			<i8n:string id="delayed_feedback_email_subject" value="Evaluation à froid de " />
+			<i8n:string id="delayed_feedback_email_chunk1" value="Vous êtes prié de saisir une évaluation à froid concernant le recrutement de" />
+			<i8n:string id="delayed_feedback_email_chunk2" value="pour le poste" />
+			<i8n:string id="delayed_feedback_email_chunk3" value="Connectez-vous sur l'intranet afin de la remplir" />
+			<i8n:string id="delayed_feedback_email_chunk4" value="Cordialement," />
+			
+			<i8n:string id="warning_title" value="Rappel: " />
+			<i8n:string id="warning_chunk1" value="Le rappel suivant a été programmé dans l'intranet RH:" />
+			
+	
+		</i8n:strings>	
+	</main>
+</nxl>

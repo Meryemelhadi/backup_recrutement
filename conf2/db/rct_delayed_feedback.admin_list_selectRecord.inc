@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_filled_by,_scheduled_by,_scheduled_on,_launch_date,_fill_state FROM _rct_delayed_feedback WHERE _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."' ORDER BY _scheduled_on DESC "; ?>

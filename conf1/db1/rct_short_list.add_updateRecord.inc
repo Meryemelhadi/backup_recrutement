@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_short_list SET _name=".$record->getFieldValue("name","DB","NULL").",_created_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."',_creation_date=NOW(),_vacancy_oid='".$props->getProperty("vacancy_oid","",true)."',_is_visible='0'"; ?>

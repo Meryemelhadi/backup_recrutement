@@ -1,0 +1,40 @@
+<div id="field_closing_date" class="control-main-wrapper ">
+	<div class="control-label-wrapper" style="position:relative">
+		<div class="control-label">Clôture :</div>
+		<div class="help-tip">
+			<p>Date de fermeture du poste</p>
+		</div>
+	</div>
+	<div class="control-wrapper" id="closing_date-control-wrapper">
+		<div class="control" id="closing_date-control">
+			<div class="datepicker_wrapper" style="position: relative;">
+				<input id="closing_date_5" name="closing_date" style="width:auto;padding-right:0;" value="" xclass="datetimepicker date" xreadonly="readonly">
+				<img style="position: relative; left: -19px; top: 1px;" class="inputExtension" title="Ouvrir le calendrier" src="/nx/controls/datepicker/images/calendar.png">
+			</div>
+			<script type="text/javascript">
+				if (((typeof DateFormat == "undefined") || (typeof DateFormat.parseFormat == "undefined")) && (typeof ajax_require != "undefined"))
+				{
+					ajax_require("/nx/controls/datepicker/prototype-date-extensions.js","prototype-date-extensions");
+				}
+				if (((typeof Control == "undefined") || (typeof Control.DatePicker == "undefined")) && (typeof ajax_require != "undefined"))
+				{
+					ajax_require("/nx/controls/datepicker/datepicker.js","datepicker");
+				}
+
+				if (typeof ajax_require != "undefined")
+				{
+					ajax_onload(function(){ajax_onload(function(){
+						try {
+							new window.Control.DatePicker(document.getElementById('closing_date_5'), { icon: '/nx/controls/datepicker/images/calendar.png', locale:'fr_FR', timePicker:false, timePickerAdjacent: false, use24hrs: true });
+						} catch(e) {
+							if(console && console.log) console.log('cant find date element closing_date_5');
+						}
+
+					},"datepicker")},"prototype-date-extensions");
+				}
+			</script>
+		</div>
+	</div>
+</div>
+</div>
+</div>

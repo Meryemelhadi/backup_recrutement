@@ -1,0 +1,42 @@
+<?xml version="1.0"?> 
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="rct_candidate_files">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+								
+				<pages mode="list" alias="page" pageOffset="%{get:page}" recordsPerPage="50" />
+				<key mode="list">
+					<field name="candidate_oid" label="candidate" type="ref-oid" isKey="primary" isEdit="no" show="hidden" value="%{request:oid}"/>
+				</key>
+				<fields mode="list">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="candidate_oid" label="candidate" type="ref-oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="file" label="file" type="file" />
+				</fields>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="candidate_oid" label="candidate" type="ref-oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="file" label="file" type="file" />
+				</fields>
+			</table>
+		
+		</tables>
+	</data>
+</nxl>

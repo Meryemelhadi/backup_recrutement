@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name FROM _rct_service WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

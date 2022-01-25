@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_email_sample WHERE _type_email='3'"; ?>

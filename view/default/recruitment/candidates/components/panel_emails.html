@@ -1,0 +1,123 @@
+<script language="php">
+		$emails = new PersistentCollection('rct_email_cand.list','db',array('candidate_oid',$_REQUEST['oid']));
+		if($emails->isOk())
+			$this->setProperty('page.records',$emails->records);
+
+		$actions = array(
+			'add_email' => array('name'=>('add_email'),'iconCls'=>'si-email-go','dialog'=> array('nxo' => 'emails:add','target'=>'content-emails')),
+			// 'add_sms'=>array('nxo'=>'emails:add','iconCls'=>'si-add','id'=>'content-emails')
+		);
+		$listOperations = array(
+			'edit'=>array('nxo'=>'emails:display','iconCls'=>'si-page-white','id'=>'content-emails'),
+			//'delete'=>array('nxo'=>'emails:delete','iconCls'=>'si-delete','confirm'=>true)
+		);
+		$tabId='emails';
+		$opPar='nxo';
+		$this->setProperty('nxo','nxo');
+		$title = "Emails envoyés au candidat";
+		
+	</script>
+
+<form:group title="{var:title}">
+	<form:toolbar>
+		<div class="btn-group btn-group-width">
+			<button type="button" class="btn btn-default button_bs_right button_bs_margin" onclick="document.location.href='javascript:window.action__Config.exec();'">
+			<span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;&nbsp;{string:"Envoi email au candidat"}
+		</button>
+	   </div> 
+	</form:toolbar>
+
+	<div class="pm-bxm-box-content" id="content-emails">
+			{records:page.records}
+			{if:records.count>0}
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+						
+						{record}
+						{if:record.index == 0}
+							{fields}
+								<th>{field.label}</th>
+							{/fields}
+						{/if}
+						{/record}
+						</tr>
+					 </thead>
+					{record}
+						<tr class="row-{record.index} grid-row row_{record.even_odd}">
+						{fields}
+							{if:#field.name != 'email_content'}
+								<td class="cell-{field.index} cell-{field.name}"><div class="simple-wrapper">{field}</div></td>
+							{/if}
+						{/fields}
+
+						<td class="operations operations-2">
+							<div class="simple-wrapper">
+								<a href="javascript:void(0);" title="Modifier" onclick="ajax_navigate(event,'?nxo=emails:display&amp;oid={field:oid}&amp;mode=ajax','content-emails')"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></a>
+							</div>
+						</td>
+
+						</tr>
+					{/record}
+				</table>
+			</div>
+			{/if}
+			{/records}
+
+			<div class="pm-grid-outer-wrapper">
+
+				{no_record}
+				<div class="tab_empty"><?php
+					$msg = $this->getProperty('tab_empty_list_msg');
+					if(!$msg)
+						$msg = __('emails_empty_list');
+					echo $msg;
+				?>
+				</div>
+				{/no_record}
+			</div>		
+					
+		
+		</div>
+
+</form:group>
+
+<script type="text/javascript" language="Javascript">
+//<![CDATA[
+
+ window.action__Config = 
+ { 
+	exec:function() 
+	{
+	// check data and open dialog with dates
+	// if(window.form1.onsubmit(window.form1,'add_email'))
+	PMModalbox.loadFromUrl(window.action__Config, null);
+	},
+
+	 // dialog params : used by MB for opening the dialog
+	 title : "Envoi email au candidat",
+	 url: '?nxo=emails:add&dialogId=add_email&submitDesc=action__Config&mode=ajax&src={=src}', 
+	 message : "enter parameters", 
+	 viewMode : "cancel", 
+	 target : "content", 
+	 width : 600,
+	 height:500,
+	 labels : { cancel : "Annuler" },
+
+	 // this form params : used by the dialogue for submitting the form if user clicks on ok in dialog
+	 //form:window.form1,
+	 actionUrl:'?nxo=add_email',
+	 submit:function()
+	{
+		 // called from dialog
+		 if(window.form1.onsubmit(window.form1,'add_email'))
+		 {
+		 window.form1.action='?nxo=add_email';
+		 window.form1.submit();
+		 }
+	}
+ };
+ 
+//]]>
+</script>

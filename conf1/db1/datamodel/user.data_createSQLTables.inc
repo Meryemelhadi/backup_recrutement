@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("CREATE TABLE IF NOT EXISTS _user()",); ?>

@@ -1,0 +1,14 @@
+{if:pages.several_pages || pages.nb_records > 0}
+<div class="pm-pagination clear-both">
+	{if:pages.several_pages}
+	<ul class="pages">
+		
+	</ul>
+	{/if}
+	{if:pages.nb_records > 0}
+	<div class="items-count">
+		<span class="pm-pagination-records-count"><strong>{pages.nb_records}</strong> {string:"items_search"}</span>
+	</div>
+	{/if}
+</div>
+{/if}

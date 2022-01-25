@@ -1,0 +1,222 @@
+{content:page.content}
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		{record:vacancy_title_record}
+		<div class="pm-title">
+			{string:"vacancy"}: {field.html:name}{if:#field.object:code# != ''} (N° {field.html:code}){/if}
+			{if:#field.object:current_step# != 0 || #field.object:progress_level# != 0}
+				<br/>
+				{if:#field.object:current_step# != 0} {field.label:current_step}: {field.html:current_step}, {/if}
+				{if:#field.object:progress_level# != 0} {field.label:progress_level}: {field.html:progress_level}{/if}
+			{/if}
+		</div>
+		{content:vtitle}{field.html:name}{/content}
+		{/record}		
+	</div>
+</div>
+{content:buttons}
+<div class="btn-group button_bs_right" role="group">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	<span class="glyphicon glyphicon-menu-hamburger"></span>
+	&nbsp;{string:"actions_vacancy"}</button>
+	
+	<ul class="dropdown-menu">
+		<li><a onclick="document.location.href='{=edit.url}&mode=page'"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"title_general_infos"}</a></li>
+		<li><a onclick="document.location.href='{=candidates.url}&from_vac=1&mode=page'"><span class="fa fa-users"></span>&nbsp;&nbsp;{string:"title_candidates"}</a></li>
+		<li><a onclick="document.location.href='{=calendar.url}&mode=page'"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;{string:"title_calendar"}</a></li>
+		<li><a onclick="document.location.href='{=warning.url}&mode=page'"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;&nbsp;{string:"title_warnings"}</a></li>
+		<li><a onclick="document.location.href='{=history.url}&mode=page'"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;&nbsp;{string:"title_history"}</a></li>
+		{if: %property:use_multiposting% && %property:multiposting_url% }
+		<li><a href="{=multiposting_url}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>&nbsp;&nbsp;{string:"multiposting_access"}</a></li>
+		{/if}
+		<li><a onclick="PMModalbox.display(dlg_deleteConfig{record.index}, event);"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>&nbsp;&nbsp;{string:"dlg_delete_definitly"}</a></li>
+		<li><a onclick="PMModalbox.display(dlg_archiveConfig{record.index}, event);"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;&nbsp;{string:"archive_helper"}</a></li>
+		<li><a href="{=applicant.url}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;Candidats</a></li>
+		<li><a href="{=calendar.url}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;Entretiens</a></li>
+		<li><a href="{=candidate_add.url}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;Ajouter Candidat</a></li>
+	</ul>
+	
+</div>
+<button type="button" class="btn btn-default right submit_marge" onclick="PMFormSubmit.submit(this, dlg_submitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;&nbsp;
+	{string:"submit"} </button>
+{/content}
+<script>
+	window.dlg_scheduleInstantFeedbackCfg = { title:"{string:'schedule_instant_feedback_title'}", url: "{=schedule_instant_feedback.url}", width:550 }
+	window.dlg_scheduleDelayedFeedbackCfg = { title:"{string:'schedule_delayed_feedback_title'}", url: "{=schedule_delayed_feedback.url}", width:550 }
+</script>
+
+{if:%property:from_home%}
+<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=back_to_home.url}'">
+	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+	{string:"back_to_home"}
+</button>
+{else}
+<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=list.url}'">
+	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+	{string:"back"}
+</button>
+{/if}
+{=buttons}
+	
+<!--! {require:css/rct.css:skin} -->
+<div class="directory-card-main-content clear-both feedback_content">
+	<div class="directory-card-column-1">
+		<div class="directory-card-column-w">
+	
+			<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+				<div class="pm-bxm-box">
+					<div class="box-simple-title">
+						<h3 class="double-padding">{string:"section_title_instant_feedback"}</h3>
+					</div>		
+					<div class="pm-bxm-box-content">
+						<div class="grid-links-toolbar">
+							<a 
+								class="action s-icon si-add" 
+								onclick="PMModalbox.loadFromUrl(window.dlg_scheduleInstantFeedbackCfg, event); return false;" 
+								href="javascript:void(0);"><span>{string:"schedule_instant_feedback"}</span></a>
+						</div>
+						<!--! {records:instant_feedback.records} -->
+						<!--! {record} -->
+						<script>
+							window.dlg_deleteConfig_instant{record.index} = { 
+								title : "{string:'dlg_delete_title_feedback'}",
+								message : "{string:'dlg_delete_content_feedback'}", 
+								viewMode : "okCancel", 
+								url : "{=delete_instant_feedback.url}{record.url_key}", 
+								target : "content", 
+								labels : { 
+									ok : "{string:'dlg_ok'}", 
+									cancel : "{string:'dlg_cancel'}" 
+							} };
+						</script>
+						
+						<div class="feedback-entry-wrapper">
+							<div class="feedback-entry">
+								<div class="feedback-entry-infos">
+									{string:"to_be_filled_by"} <strong>{field:filled_by}</strong>
+								</div>
+								<div class="feedback-entry-meta">
+									{field.label:scheduled_by} <u>{field:scheduled_by}</u>, {string:"date_prefix_lc"} {field:scheduled_on}
+								</div>
+								<div class="feedback-entry-infos">
+									{if:#field.object:fill_state#=='0'}
+									<span class="s-state s-icon si-time">{string:"waiting_to_complete"}</span>
+									{else}
+									<span class="s-state s-icon si-tick">{string:"feedback_completed"}</span>
+									{/if}
+								</div>
+								
+								{if:#field.object:complete_state#=='1'}
+								<div class="feedback-entry-infos">
+									<span class="s-state s-icon si-tick">{string:"feedback_completed_by"} <strong>{field:completed_by}</strong> {string:"date_prefix_lc"} {field:completed_on}</span>
+								</div>
+								{/if}
+								
+								<div class="feedback-entry-toolbar">
+									<a 
+										class="action s-icon si-page-white-edit" 
+										onclick="ajax_navigate(event,'{=complete_instant_feedback.url}{record.url_key}','content'); this.blur(); return false;" 
+										href="javascript:void(0);"><span>{string:"compelete_feedback"}</span></a>
+									</a>&nbsp;
+									<a 
+										class="action s-icon si-delete" 
+										onclick="PMModalbox.display(dlg_deleteConfig_instant{record.index}, event);" 
+										href="javascript:void(0);"><span>{string:"delete"}</span></a>
+									</a>
+								</div>
+							</div>
+						</div>			
+						<!--! {/record} -->
+						<!--! {/records} -->
+						{no_record}
+						<div class="empty-records">{string:"empty_instant_feedback_list"}</div>
+						{/no_record}
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="directory-card-column-2">
+		<div class="directory-card-column-w">
+	
+			<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+				<div class="pm-bxm-box">
+					<div class="box-simple-title">
+						<h3 class="double-padding">{string:"section_title_delayed_feedback"}</h3>
+					</div>				
+					<div class="pm-bxm-box-content">
+						<div class="grid-links-toolbar">
+							<a 
+								class="action s-icon si-add" 
+								onclick="PMModalbox.loadFromUrl(window.dlg_scheduleDelayedFeedbackCfg, event); return false;" 
+								href="javascript:void(0);"><span>{string:"schedule_delayed_feedback"}</span></a>
+						</div>
+						<!--! {records:delayed_feedback.records} -->
+						<!--! {record} -->
+						<script>
+							window.dlg_deleteConfig_delayed{record.index} = { 
+								title : "{string:'dlg_delete_title_feedback'}",
+								message : "{string:'dlg_delete_content_feedback'}", 
+								viewMode : "okCancel", 
+								url : "{=delete_delayed_feedback.url}{record.url_key}", 
+								target : "content", 
+								labels : { 
+									ok : "{string:'dlg_ok'}", 
+									cancel : "{string:'dlg_cancel'}" 
+							} };
+						</script>
+						
+						<div class="feedback-entry-wrapper">
+							<div class="feedback-entry">
+								<div class="feedback-entry-infos">
+									{field.label:candidate_oid} <strong>{field:candidate_oid}</strong>, {string:"to_be_filled_by"} <strong>{field:filled_by}</strong> {string:"date_prefix_lc"} <strong>{field:launch_date}</strong>
+								</div>
+								<div class="feedback-entry-meta">
+									{field.label:scheduled_by} <u>{field:scheduled_by}</u>, {string:"date_prefix_lc"} {field:scheduled_on}
+								</div>
+								<div class="feedback-entry-infos">
+									{if:#field.object:fill_state#=='0'}
+									<span class="s-state s-icon si-time">{string:"waiting_to_complete"}</span>
+									{else}
+									<span class="s-state s-icon si-tick">{string:"feedback_completed"}</span>
+									{/if}
+								</div>
+								<div class="feedback-entry-toolbar">
+									<a 
+										class="action s-icon si-page-white-text" 
+										onclick="ajax_navigate(event,'{=view_delayed_feedback.url}{record.url_key}','content'); this.blur(); return false;"
+										href="javascript:void(0);"><span>{string:"view_feedback"}</span></a>
+									</a>&nbsp;
+									<a 
+										class="action s-icon si-delete"
+										onclick="PMModalbox.display(window.dlg_deleteConfig_delayed{record.index}, event);" 
+										href="javascript:void(0);"><span>{string:"delete"}</span></a>
+									</a>
+								</div>
+							</div>
+						</div>
+						<!--! {/record} -->
+						<!--! {/records} -->
+						{no_record}
+						<div class="empty-records">{string:"empty_delayed_feedback_list"}</div>
+						{/no_record}
+					</div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+</div>
+
+{/content}
+<script language="php">
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=='page') {
+</script>
+	{include:page_bs}
+{else}
+	{=page.content}
+{/if}

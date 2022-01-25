@@ -1,0 +1,268 @@
+<?xml version="1.0"?> 
+<!-- 
+	
+	NXL Taglib 
+
+	description: 
+
+-->
+<xo:taglib uri="http://www.nxfrontier.com/admin/table.comp"
+	xmlns:xo="http://www.nxfrontier.com/xo/core"
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl="http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl="http://www.nxfrontier.com/tpl/tpml"
+	xmlns:this="http://www.nxfrontier.com/portal/user/login/login.comp"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"	
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	>
+
+	<!-- ================= COMPONENT ================ -->
+
+	<xo:tag name="composant">
+	
+		<!-- Component params ... -->
+
+		<!-- component parameters -->
+		<!-- @param string site mode	defines page and application settings related to this part of the site.
+			ex. skin or page name etc. Loads setting from site_config lib.	-->
+		<xo:param name="site_mode" value="user" />
+
+		<!-- @param string user_service		which user type (login service) -->
+		<xo:param name="user_service" value="user" />
+
+		<xo:param name="path" />
+		<xo:param name="skin" value="intranet"/>
+
+		<xo:param name="name" />
+		<xo:param name="application_name" value="#{$path}##{$name}#_"/>
+
+		<xo:param name="strings" />
+
+		<xo:param name="ds_list" />
+		<xo:param name="ds_search" />
+		<xo:param name="ds_edit" />
+		<xo:param name="ds_edit_process" value="#{$ds_edit}#" />
+		<xo:param name="ds_view" />
+		<xo:param name="ds_add" />
+		<xo:param name="ds_add_process" value="#{$ds_add}#" />
+		<xo:param name="ds_delete" />
+		
+		<xo:param name="record_search" value="page.search"/>
+		<xo:param name="property_records" value="page.records"/>
+		<xo:param name="property_record" value="page.record"/>
+
+		<xo:param name="template_search"/>
+		<xo:param name="template_list"/>
+		<xo:param name="template_add_record"/>
+		<xo:param name="template_edit_record"/>
+		<xo:param name="template_view_record" value="#{$template_edit_record}#"/>
+
+				
+		<!-- pages -->
+		
+		<!-- protected="#{$user_service}#" -->
+		<pages xmlns="http://www.nxfrontier.com/nxl/page">
+			<page	name="#{$name}#" 
+					protected="#{$user_service}#" 
+					permissions="?-rh"
+					path="#{$path}#"
+					cache="no" 
+					lang="fr"
+					skin="#{$skin}#"
+				>
+				<exec logic="#{$application_name}#" strings="#{$strings}#">
+				</exec>
+			</page>
+		</pages>
+		
+		<!-- logic -->
+		<logic xmlns="http://www.nxfrontier.com/nxl/nxl"
+		   xmlns:ds="http://www.nxfrontier.com/nxl/ds"
+		   xmlns:button="http://www.nxfrontier.com/nxl/button">
+		
+			<application name="#{$application_name}#">
+				<operation name="list">
+					<step name="display">	
+						<code>
+							<tags_library:filter_key 
+								ds_search		= "#{$ds_search}#"
+								searchData		= "searchData"
+								filterKey		= "filterKey"
+								record_search	= "#{$record_search}#"
+							/>
+							
+							<ds:load media="db" ds="#{$ds_list}#" property="#{$property_records}#" multiple="yes" addProperties="no"  record="#$searchData#"/>
+							
+							<!-- buttons -->
+							<button:set name="add_ajax" operation="new_ajax" >
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>								
+							</button:set>
+							
+							<button:set name="add" operation="new_ajax" >
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>								
+							</button:set>
+
+							<button:set name="delete" operation="delete" />
+							
+							<button:set name="edit_ajax" operation="edit_ajax" >
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>								
+							</button:set>
+
+							<button:set name="edit" operation="edit_ajax" >
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>								
+							</button:set>
+							
+							<button:set name="submit" operation="list">
+								<button:param name="mode" value="page" />
+							</button:set>
+							
+							<button:set name="search" operation="list">
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+								<button:param name="mode" value="ajax" />
+							</button:set>
+
+							<button:set name="view" operation="details" >
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>								
+							</button:set>
+
+							<set name="var:viewMode" value="'page'" />
+							<if condition="in_array(#get:mode#,array('page','ajax'))">
+								<set name="var:viewMode" value="#get:mode#" />
+							</if>
+							
+							<choose>
+								<when test="$viewMode == 'page'">
+									<display view="#{$application_name}#_list"/>
+								</when>
+								<otherwise>
+									<display view="#{$application_name}#_list_ajax"/>
+								</otherwise>
+							</choose>
+						</code>
+					</step>
+				</operation>
+			
+
+				<operation name="details">
+					<step name="input">	
+						<code>
+							<ds:load media="db" ds="#{$ds_view}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+
+							<set name="page_message" value="#string:page_message_show#" />
+		
+							<!-- buttons -->
+							<button:set name="back" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+							
+							<display view="#{$application_name}#_show"/>
+						</code>
+					</step>					
+				</operation>
+
+				<operation name="edit_ajax">
+					<step name="input">	
+						<code>
+							<ds:load media="db" ds="#{$ds_edit}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+
+							<set name="page_message" value="#string:page_message_edit#" />
+		
+							<!-- buttons -->
+							<button:set name="back" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+
+							<button:set name="submit" step="process" />
+							
+							<form view="#{$application_name}#_edit"/>
+						</code>
+					</step>
+					<step name="process">	
+						<code>
+							<ds:store ds="#{$ds_edit_process}#" media="db" mode="update">
+								<ds:load media="post" ds="#{$ds_edit}#" multiple="no" addProperties="no"/>
+							</ds:store>
+
+							<redirect operation="list">
+								<url_param name="mode" value="page"/>
+							</redirect>
+
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="delete">
+					<step name="process">	
+						<code>
+							<!--[ load empty record for form -->
+							<ds:delete ds="#{$ds_delete}#" media="db" />	
+											
+							<redirect operation="list">
+								<url_param name="mode" value="ajax"/>
+							</redirect>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="new_ajax">
+					<step name="input">
+						<code>
+							<ds:load media="empty" ds="#{$ds_add}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+
+							<set name="page_message" value="#string:page_message_add#" />
+
+							<!-- buttons -->
+							<button:set name="back" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+
+							<button:set name="submit" step="process" />
+							
+							<form view="#{$application_name}#_add"/>
+						</code>
+					</step>
+					<step name="process">
+						<code>
+						
+							<ds:store ds="#{$ds_add_process}#" media="db" mode="insert">
+								<ds:load media="post" ds="#{$ds_add}#" multiple="no" addProperties="no"/>
+							</ds:store>
+
+							<redirect operation="list">
+								<url_param name="mode" value="ajax"/>
+							</redirect>
+						</code>
+					</step>
+				</operation>
+			</application>
+		</logic>
+		
+		<!-- views -->
+		<tpl:screens xmlns="http://www.nxfrontier.com/tpl/tpml"  xmlns:tpl="http://www.nxfrontier.com/tpl/tpml" skin="default">
+			  
+			<tpl:screen name="#{$application_name}#_list" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_list}#" />
+				</zone>
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_list_ajax" trace="yes">
+				<load view="#{$template_list}#" />
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_edit" trace="yes">
+				<load view="#{$template_edit_record}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_show" trace="yes">
+				<load view="#{$template_view_record}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_add" trace="yes">
+				<load view="#{$template_add_record}#" />
+			</tpl:screen>
+
+		</tpl:screens>
+		
+	</xo:tag>
+</xo:taglib>

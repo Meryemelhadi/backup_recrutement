@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_vacancy_oid,_creation_date FROM _rct_email WHERE _oid in('".$props->getProperty("cat.enum","",true)."') ORDER BY _date DESC "; ?>

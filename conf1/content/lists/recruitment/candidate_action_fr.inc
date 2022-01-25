@@ -1,0 +1,18 @@
+<?php $list=array(
+'0' => 'Création',
+'1' => 'Modification',
+'2' => 'Archivage',
+'3' => 'Association au poste',
+'4' => 'Planification d\'entretien',
+'5' => 'Envoi à un client',
+'6' => 'Entretien supprimé',
+'7' => 'Envoi email candidat',
+'8' => 'Changement état',
+'9' => 'Ajout de commentaire',
+'10' => 'Suppression de commentaire',
+'11' => 'Mise à jour du CV',
+'12' => 'Ajout de test',
+'13' => 'Ajout de fichier attaché',
+'14' => 'Dissociation du poste',
+'15' => 'Service Web',
+); ?>

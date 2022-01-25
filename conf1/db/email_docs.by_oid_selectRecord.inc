@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_file,_dest FROM _rct_email_docs WHERE _oid='".$props->getProperty("oid","",true)."' ORDER BY _index ASC,_name ASC "; ?>

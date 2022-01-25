@@ -1,0 +1,42 @@
+<cont:permission permission="$isAdmin">
+	<cont:nav_branch 
+		title		= "Configuration du compte"
+		app-title	= "Configuration du compte"
+		iconCls		= "icon-config">
+	
+		<cont:nav_link  
+			title="Gestion des utilisateurs"
+			app-title="Annuaires &gt; Gérer Annuaire RH"
+			url="/admin/users_directory.php?pagemode=minimal"
+			icon-class="icon-addressbook"
+			qtip-title="Annuaire des collaborateurs"
+			qtip-text="Annuaire des collaborateurs"		
+		/>	
+		<cont:nav_link 
+			title="Editeur d\'apparences"
+			url="/admin/skin_editor/skin_editor.php?pagemode=minimal"
+			app-title="Editeur d\'apparences"
+			iconCls="icon-skineditor"
+			qtip-title="Thème de l\'intranet"
+			qtip-text="Gestion des apparences de l\'intranet" 	
+		/> 
+
+		<cont:nav_link 
+			title="Gérer les Editos"
+			iconCls="icon-validate"
+			app-title="Edito &gt; Gérer"
+			url="/communication/edito2/validation.php?pagemode=minimal"
+			qtip-title="Gestion des Editos & Mots de Directeurs"
+			qtip-text="Gérer les Editos & Mots de Directeurs"
+		/>  
+		<cont:nav_link 
+			title="Catégories"
+			app-title=" Edito &gt; Catégories"
+			iconCls="icon-categ"
+			url="/communication/edito2/categories.php?pagemode=minimal"
+			qtip-title="Gestion des catégories des Editos & Mots de Directeurs"
+			qtip-text="Gérer les catégories des Editos & Mots de Directeurs" 
+		/> 
+
+	</cont:nav_branch>
+</cont:permission>

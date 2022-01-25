@@ -1,0 +1,107 @@
+{records:page.records}
+{record}
+<div class="pm-bx-subform-wrapper">													
+	<div class="pm-bx-form">
+		<div class="record_wrapper">
+			<div class="record">
+				
+				<!-- 
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:employment_end_date}</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper">
+						<div class="control" id="{field.name}-control">
+							{field.form:employment_end_date}
+						</div>
+					</div>
+				</div>
+ -->				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper" style="float:left;width:auto">
+						<div class="control-label">{field.label:employment_start_date}</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper" style="float:left">
+						<div class="control" id="{field.name}-control">
+							{field.form:employment_start_date}
+						</div>
+					</div>
+					<div class="control-label-wrapper" style="float:left;width:auto;margn-rght:10px;">
+						<div class="control-label">{field.label:employment_end_date}</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper" style="float:left">
+						<div class="control" id="{field.name}-control">
+							 {field.form:employment_end_date}
+						</div>
+					</div>
+				</div>
+								
+				<div class="control-main-wrapper normal-layout-control">
+					<div class="control-wrapper" id="{field.name}-control-wrapper">
+						<div class="control" id="{field.name}-control">
+							{field.form:employment_content}
+						</div>
+					</div>
+				</div>
+
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:employment_job}</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper">
+						<div class="control" id="{field.name}-control">
+							{field.form:employment_job}
+						</div>
+					</div>
+				</div>
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:employment_company}</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper">
+						<div class="control" id="{field.name}-control">
+							{field.form:employment_company}
+						</div>
+					</div>
+				</div>
+
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper" style="float:left;width:auto">
+						<div class="control-label">{field.label:salary_min_exp}</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper" style="float:left">
+						<div class="control" id="{field.name}-control">
+							{field.form:salary_min_exp}
+						</div>
+					</div>
+					<div class="control-label-wrapper" style="float:left;width:auto;margn-rght:10px;">
+						<div class="control-label">{field.label:salary_max_exp}</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper" style="float:left">
+						<div class="control" id="{field.name}-control">
+							 {field.form:salary_max_exp}
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		
+		<div class="record-actions">
+			<a href="javascript:void(0);" onclick="(
+				function(aElement) {
+					PMDH.getNextSibling(aElement).checked=true;
+					PMDH.getParentElementByClassName(aElement,'pm-bx-subform-wrapper').style.display='none';
+				})(this);" class="action delete-action s-icon si-cross"><span>{string:"delete_experience"}</span></a>
+			<input type="checkbox" class="delete-control-checkbox" name="{record.id}__delete__" value="delete" style="display:none" />
+		</div>
+		
+	</div>
+</div>
+{fields:all}
+{if:field.hidden}
+	{field.form}
+{/if}
+{/fields}
+{/record}
+{/records}

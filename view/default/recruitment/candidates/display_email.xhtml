@@ -1,0 +1,97 @@
+ <p:page
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://www.presencemedia.ma/views/page2"
+        xmlns:form1="http://www.presencemedia.ma/views/form"
+        xmlns:form="http://www.presencemedia.ma/views/form2_bs"
+        xmlns:record="http://www.presencemedia.ma/views/record#skin"
+        enveloppe="page_bs"
+        >
+	<script language="php"><![CDATA[
+		$workflow = $this->getProperty('workflow');
+		$state = $workflow->getState();
+		$title = __($workflow->model->getMeta('title','',$state));
+	]]></script>
+
+	<p:head>
+		<p:title>{var:title}</p:title>
+		<p:description>{string:"page_message_edit"}</p:description>
+		<p:help></p:help>
+
+
+		<!-- <p:resources>
+			<p:resource type="css" path="css/ged/ged.css" />
+		</p:resources>
+ -->
+	</p:head>
+
+	<p:body>
+		<style>
+			{=app.form.css}
+		</style>
+
+		<script>
+			{=app.form.js}
+		</script>
+
+		<script language="php">
+			$is_admin=true;
+		</script>
+
+		{include:common.messages_log}
+		{include:common.message_help}
+
+		{include:workflow.GenericForm@workflow}
+
+		{content:_attachements_}
+			<!--! {records:page.record_attachements} -->
+			{if:records.count>0}
+			<div class="control-main-wrapper">
+				<div class="attached-files-label">
+				{string:'attached_files_title_dissociation'} :
+				</div>
+				<div>
+					<div class="control" id="{field.name}-control">
+						<!--! {record} -->
+						<div class="attached-file-control-wrapper">
+							<input type="checkbox" name="delete_file_attachement[]" value="{get_field:oid}{field}{/get_field}" />
+							{get_field:file_name}{field}{/get_field}
+						</div>
+						<!--! {/record} -->
+					</div>
+				</div>
+			</div>
+			{/if}
+			<!--! {/records} -->
+		{/content}
+
+
+		<form:record id="form1" record="page.record">
+			<form:main>
+				<form:toolbar>
+					{include:common.form_buttons_bs}
+				</form:toolbar>
+
+				<script language="php"><![CDATA[
+
+				$formDesc = $workflow->model->getFormDesc($this->getProperty('form.desc','record'));
+
+				$f = new GenericForm($_nx_record,$workflow->ctxt,$form,$this);
+				$f->main($formDesc);
+
+				]]></script>
+			</form:main>
+		</form:record>
+
+<script>
+	// Generis.Recruitment.appendAssocFilesHandlers('assoc-files-control');
+	Generis.Recruitment.emailSampleHandler({
+		fieldname: 'default_email', 
+		element: 'field_email_title',
+		emailTitleField: 'email_title',
+		emailContentField:'email_content',
+		url: '?nxo=emails:get_email_sample'});
+
+</script>
+
+	</p:body>
+</p:page>

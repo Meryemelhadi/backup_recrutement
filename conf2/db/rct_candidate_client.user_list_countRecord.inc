@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_candidate_client,_rct_candidate_proposed_to WHERE _rct_candidate_proposed_to._key='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."' AND _rct_candidate_proposed_to._val=_rct_candidate_client._candidate_oid"; ?>

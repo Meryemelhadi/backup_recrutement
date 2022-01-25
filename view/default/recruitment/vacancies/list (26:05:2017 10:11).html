@@ -1,0 +1,386 @@
+{content:page.content}
+<!--! {require:css/recruitment/recruitment.css:skin} -->
+{require:css/recruitment/vacancies.css:skin}
+
+<script>
+	/* set current page BC */
+	container.bc.resetLink();
+</script>
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_list"}</div>
+	</div>
+</div>
+<script language="php">
+	$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+</script>
+{include:common/search_condition}
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			<div class="pm-grid-outer-wrapper">
+				<div onclick="PMDH.toggle('search-panel', 'appear'); return false;">
+					<div class="generis-toolbar-wrapper">
+						<div class="generis-toolbar">
+							<a class="s-icon si-add" href="javascript:void(0);" onclick="document.location.href='{=add.url}'; return window.stopEvent(event);" onclickX="ajax_navigate(event,'{=add.url}','content'); return false;"><span>{string:"add"}</span></a>
+							<a class="s-icon si-zoom" href="javascript:void(0);" onclick="PMDH.toggle('search-panel', 'appear'); return false;"><span>{string:"search"}</span></a>
+							{if:#property:showSearch# == 'yes'}
+							<a class="s-icon si-arrow-refresh" href="javascript:void(0);" onclick="ajax_navigate(event,'{=list.url}','content'); return false;"><span>{string:"cancel_search"}</span></a>
+							{/if}
+							<a class="s-icon si-page-white-excel" onclick="document.location.href='{=xls_export.url}'; return window.stopEvent(event);" href="javascript:void(0);"><span>{string:"xls_export"}</span></a>
+						</div>
+					</div>
+					
+					<?php $this->setProperty('forceDisplay','no'); ?>
+					<div onclick="return window.stopEvent(event);">
+					{include:common/search_get}
+					</div>
+				</div>
+				
+				<!--! {records:page_pending.records} -->
+		
+				{if:records.count>0}
+				<div class="vacancies-validation-wrapper">
+					<div>
+						<a class="vacancies-validation-title" href="javascript:void(0)" onclick="PMDH.toggle(PMDH.getNextSibling(this));">{string:"title_pending_vacancies"}</a>
+						<div class="entries" style="display:none">
+							<!--! {record} -->
+							<a href="javascript:void(0)" onclick="ajax_navigate(event,'{=validate.url}{record.url_key}','content');">[{field:workflow_state}] <strong>{field:name} ({field:number})</strong>, {string:"by"} {field:requested_by} {string:"date_prefix_lc"} {field:request_date}</a>
+							<!--! {/record} -->
+						</div>
+					</div>
+				</div>
+				{/if}
+			
+				<!--! {/records} -->
+
+		<script language="php">
+		 $etat = '';
+		$first = true;
+		</script>
+
+				<!--! {records:page.records} -->
+				{if:records.count > 0}
+				<script language="php">
+					$editUrl = $this->getProperty('edit.url');
+					$editUrlDir = dirname($editUrl).'/';
+					$editUrlBase = 'directory.php?nxo=edit&mode=page&filterKey='.urlencode($this->getProperty('filterKey'));
+					$candidatesUrlBase = 'directory.php?nxo=candidates&mode=page&filterKey='.urlencode($this->getProperty('filterKey'));
+				</script>
+					
+				<div class="directory-grid-wrapper" id="vacancy-directory-grid" onmouseoverX="Effect.BlindUp('search-panel',{duration:1.0});">
+				
+					<!--! {record} -->
+	
+<script language="php">
+	if(!$this->getProperty('no_project')){
+		$vacancy_project_record = $_nx_record->vacancy_project->html;
+		$vacancy_project_record_object = $_nx_record->vacancy_project->object;
+
+		if($vacancy_project!=$vacancy_project_record)
+		{
+			
+			if(!$first) {
+				echo '</div></div></div><br>';
+			}
+			$first = false;
+			$vacancy_project = $vacancy_project_record;
+			echo '<div class="directory-card-main-content clear-both">';
+			echo '<div class="project-wrapper">';
+			echo '<div class="project-header clear-both">';
+			if($vacancy_project_record_object != null && $vacancy_project_record_object != 0)
+				echo '<div class="project-title pm-title" style="font-size:18px !important;">'.__('vacancy_project')." :   ".$vacancy_project_record.'	</div><br><br>';
+			else echo '<div class="project-title pm-title" style="font-size:18px !important;"> '. __("other_vacancies").'</div><br><br>';
+			
+</script>
+<table class="directory-grid directory-grid-header">
+	<tr class="directory-grid-header-row columns-layout columns-layout-4 width-padding width-white-border">
+		<th class="dg-column"><div class="dg-cell-wrapper">{string:"title_v_identity"}</th>
+		<th class="dg-column elastic"><div class="dg-cell-wrapper">{string:"title_localization"}</div></th>
+		<th class="dg-column elastic"><div class="dg-cell-wrapper">{string:"title_v_state"}</div></th>
+		<th class="dg-column elastic"><div class="dg-cell-wrapper">{string:"title_dates"}</div></th>
+		<th class="dg-column elastic dg-3-operations"><div class="dg-cell-wrapper">{string:"title_actions"}</div></th>
+	</tr>
+</table>
+<script language="php">
+		}
+	}
+</script>
+		
+<script language="php">
+
+	/*$etat_record = $_nx_record->progress_level->html;
+	if($etat!=$etat_record)
+	{
+		$etat = $etat_record;
+		echo  '<h3 class="grid-header">'.$etat_record.'</h3>';*/
+</script>
+		<!--<table class="directory-grid directory-grid-header">
+			<tr class="directory-grid-header-row columns-layout columns-layout-4 width-padding width-white-border">
+				<th class="dg-column"><div class="dg-cell-wrapper">{string:"title_v_identity"}</th>
+				<th class="dg-column elastic"><div class="dg-cell-wrapper">{string:"title_localization"}</div></th>
+				<th class="dg-column elastic"><div class="dg-cell-wrapper">{string:"title_v_state"}</div></th>
+				<th class="dg-column elastic"><div class="dg-cell-wrapper">{string:"title_dates"}</div></th>
+				<th class="dg-operations dg-3-operations">&nbsp;</th>
+			</tr>
+		</table>-->
+
+<script language="php">
+	//}
+</script>
+
+					<table class="directory-grid">
+						<script language="php">
+							$oid = $_nx_record->oid->object;
+							$editUrl = $editUrlDir.'void-'.$oid.'/'.$editUrlBase.$_nx_record->getUrlKey();
+							$candidateUrl = $editUrlDir.'void-'.$oid.'/'.$candidatesUrlBase.$_nx_record->getUrlKey();
+						</script>
+						{if:#property:use_multiposting# == true}
+							{if:#field.object:multiposting_status# == 'Active' || #field.object:multiposting_status# == 'Active+Incomplete' || #field.object:multiposting_status# == 'Update'}
+							<tbody class="marge_green">
+							{elseif:#field.object:multiposting_status# == 'Incomplete' || #field.object:multiposting_status# == 'New' || #field.object:multiposting_status# == 'Validation Pending'}
+							<tbody class="marge_orange">
+							{elseif:#field.object:multiposting_status# == 'Expired'}
+							<tbody class="marge_gray">
+							{elseif:#field.object:multiposting_status# == 'Draft'}
+							<tbody class="marge_yellow">
+							{else}
+							<tbody>
+							{/if}
+						{/if}
+
+                            <tr class="directory-grid-row columns-layout columns-layout-4 width-padding width-white-border row_{record.even_odd}">
+                                <td class="dg-column" onclick="document.location.href='{var:editUrl}'">
+                                {if:%field.object:manager_oid% == %user:oid%}
+                                    <div class="star-five yellow" style="float:right;position:relative;top:-10px;" title="{string:'Poste dont je suis le recruteur'}"></div>
+                                {/if}
+                                {if:%field.html:contract_type_oid% == 'Stage'}
+                                    <span style="font-weight:bold;color:#7FBA00;float:right;position:relative;top:-10px;font-size:16px;" title="Stage">S</span>
+                                {/if}
+
+                                    <div class="dg-cell-wrapper">
+                                        <span class="field-content"><strong>{field:name}</strong></span>
+                                        <!--{if:#field.object:number# != ''}
+                                        <span class="field-content">({field:number})</span>
+                                        {/if}-->
+                                        <br/>
+                                        <span class="field-content">{field:category_oid}{if:#field.object:category_oid# != '' && #field.object:contract_type_oid#}, {/if}{field:contract_type_oid}</span>
+                                        {if:#field.object:code# != ""}
+                                        <br/>
+                                        <span class="field-content">{string:"code_no"} {field:code}</span>
+                                        {/if}
+                                        <br/>
+                                        <span class="field-content">{string:"field:manager_oid"} : {field:manager_oid}</span>
+
+                                    </div>
+
+                                </td>
+
+                                <td class="dg-column elastic" onclick="document.location.href='{var:editUrl}'">
+                                    <div class="dg-cell-wrapper">
+                                        <span class="field-label">{field.label:subsidiary_oid} :</span> <span class="field-content">{field:subsidiary_oid}</span>
+                                        <br/>
+                                        <span class="field-label">{field.label:service_oid} :</span> <span class="field-content">{field:service_oid}</span>
+                                        <br/>
+                                        <span class="field-label">{field.label:duty_station_oid} :</span> <span class="field-content">{field:duty_station_oid}</span>
+                                        <br/>
+                                        <span class="field-label">{field.label:establishment} :</span> <span class="field-content">{field:establishment}</span>
+                                    </div>
+                                </td>
+                                <td class="dg-column elastic" onclick="document.location.href='{var:editUrl}'">
+                                    <div class="dg-cell-wrapper">
+                                        {if:#field.object:current_step# != 0}<span class="field-label">{field.label:current_step} :</span> <span class="field-content">{field:current_step}</span>
+                                        <br/>{/if}
+                                        <!--<span class="field-label">{field.label:progress_level} :</span> <span class="field-content">{field:progress_level}{if:#field:progress_level_meta# != ''} ({field:progress_level_meta}){/if}</span>
+                                        <br/>-->
+										
+										<span class="field-label">{string:"recruited"} :</span> <span class="field-content">{field:rekrute_count}/{field:number} {string:"to recruit"}</span>
+                                        <br/>
+                                        <span class="field-label">{string:"application_type"} :</span> <span class="field-content">{field:application_type}</span>
+                                        <br/>
+										{if:#property:use_multiposting# == true}
+											{if:#field.html:multiposting_clics# != "#"}
+											<span class="field-label">{field.label:multiposting_status} :</span> <span class="field-content">{field:multiposting_status}{field:status_pourcent}</span>
+											<br/>
+											{/if}
+										{/if}
+                                        <div style="float:right">
+                                            <span class="field-label">{string:"number_candidates"} :</span> <span class="field-content candidate_count">{field:candidates_count}</span>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="dg-column elastic">
+                                    <div class="dg-cell-wrapper">
+                                        <span class="field-label">{field.label:opening_date} :</span>
+                                        <span class="field-content">
+                                        {if:#field:opening_date# != '-/-/-'}{field:opening_date}{else}-{/if}
+                                        </span>
+                                        <br/>
+                                        <span class="field-label">{field.label:closing_date} :</span>
+                                        <span class="field-content">
+                                        {if:#field:closing_date# != '-/-/-'}{field:closing_date}{else}-{/if}
+                                        </span>
+                                        <br/>
+										{if:#property:use_multiposting# == true}
+											{if:#field.html:multiposting_clics# != "#"}
+											<span class="field-label"><a>{field.label:multiposting_clics} :</span>
+											<span class="field-content">
+											{field.html:multiposting_clics}
+											</span>
+											<br/>
+											{/if}
+											{if:#field.html:multiposting_clics# != "#"}
+											<span class="field-label"><a href="{var:PORTAL_URL_PREFIX}/recruitmentmp/posting.php?nxo=edit&from_void=1&oid={field:multiposting_oid}">{string:"multiposting_url"}</a></span>
+
+											<br/>
+											{/if}
+										{/if}
+                                        <span class="field-content">&nbsp;</span>
+                                    </div>
+                                </td>
+
+                                <td class="dg-operations dg-3-operations">
+
+                                    {if:#field:key_readonly# == 0 or #field:key_recrute# != 0 or #field:key_total_control# !=0}
+                                        <div class="dg-cell-wrapper">
+
+                                            <script>
+                                            window.dlg_deleteConfig{record.index} = {
+                                                title : "{string:'dlg_delete_title'}",
+                                                message : "{string:'dlg_delete_content'}",
+                                                viewMode : "okCancel",
+                                                url : "{=delete.url}{record.url_key}",
+                                                target : "content",
+                                                labels : {
+                                                    ok : "{string:'dlg_ok'}",
+                                                    cancel : "{string:'dlg_cancel'}"
+                                            } };
+
+                                            /*window.dlg_archiveConfig{record.index} = {
+                                                title : "{string:'dlg_archive_title'}",
+                                                message : "{string:'dlg_archive_content'}",
+                                                viewMode : "okCancel",
+                                                url : "{=archive.url}{record.url_key}",
+                                                target : "content",
+                                                labels : {
+                                                    ok : "{string:'dlg_ok'}",
+                                                    cancel : "{string:'dlg_cancel'}"
+                                            } };*/
+
+                                            window.dlg_preview{record.index} = {
+                                                title:'{string:'preview_cv_title'} {field.html:first_name} {field.html:last_name}',
+                                                fullscreen: true,
+                                                url: '{=preview_cv.url}{record.url_key}'
+                                            };
+
+                                            </script>
+
+                                            <a
+                                                class="s-icon si-page-white-edit"
+                                                href="{var:editUrl}"
+                                                title="{string:'edit_helper'}">
+                                                <span>{string:"edit_helper"}</span>
+                                            </a>
+                                            <a
+                                                class="s-icon si-group"
+                                                href="javascript:void(0);"
+                                                onclick="ajax_navigate(event,'{var:candidateUrl}','content');"
+                                                title="{string:'users_helper'}">
+                                                <span>{string:"users_helper"}</span>
+                                            </a>
+                                            <!--<a
+                                                class="s-icon si-page-white-zip"
+                                                href="javascript:void(0);"
+                                                onclick="PMModalbox.display(dlg_archiveConfig{record.index}, event);"
+                                                title="{string:'archive_helper'}">
+                                                <span>{string:"archive_helper"}</span>
+                                            </a>-->
+                                            <!--<a
+                                                class="s-icon si-delete"
+                                                href="javascript:void(0);"
+                                                onclick="PMModalbox.display(dlg_deleteConfig{record.index}, event);"
+                                                title="{string:'delete_helper'}">
+                                                <span>{string:"delete_helper"}</span>
+                                            </a>-->
+
+                                        </div>
+                                    {/if}
+                                </td>
+                            </tr>
+                        </tbody>
+					</table>
+					<!--! {/record} -->
+				</div>
+				{/if}
+				<!--! {/records} -->
+
+				{include:common/grid_empty}
+				{include:common/pagination}
+			
+			</div>
+		</td>
+
+		<td class="right-column">
+			
+			{include:common/page_message_list}
+			<div class="nipple-box nbt-legend">
+				<div class="box-title"><h4>{string:"legend"}</h4></div>
+				<div class="border-nipple"></div>
+				<div class="nipple"></div>
+
+				<div class="box-content">
+					<ul class="legend-list">
+						<li><span class="l-icon s-icon si-page-white-edit"></span><span class="legend"><span class="dots">|</span> {string:"edit_helper"}</span></li>
+						<!--<li><span class="l-icon s-icon si-page-white-zip"></span><span class="legend"><span class="dots">|</span> {string:"archive_helper"}</span></li>-->
+						<!--<li><span class="l-icon s-icon si-delete"></span><span class="legend"><span class="dots">|</span> {string:"delete_helper"}</span></li>-->
+						<li><span class="l-icon s-icon si-group"></span><span class="legend"><span class="dots">|</span> {string:"users_helper"}</span></li>
+					</ul>
+				</div>
+			</div>
+			{if:#property:use_multiposting# == true}
+				{if:#property:count_multiposting# >0}
+				<br/><br/>
+				<div class="nipple-box nbt-legend">
+					<div class="status-box box-title"><h4>{string:"multiposting-status-color"}</h4></div>
+					<div class="border-nipple"></div>
+					<div class="nipple"></div>
+
+					<div class="box-content">
+						<ul class="legend-list">
+							<li><div class="color-div color_yellow"></div><span class="legend color_legend"><span class="dots">|</span> <span class="span_status">{string:"Draft"}</span></span></li>
+							<li><div class="color-div color_green"></div><span class="legend color_legend"><span class="dots">|</span> <span class="span_status">{string:"Active"}, {string:"Active+Incomplete"}, {string:"Update"}</span></span></li>
+							<li><div class="color-div color_orange"></div><span class="legend color_legend"><span class="dots">|</span> <span class="span_status">{string:"New"}, {string:"Incomplete"}, {string:"Validation Pending"}</span></span></li>
+							<li><div class="color-div color_gray"></div><span class="legend color_legend"><span class="dots">|</span> <span class="span_status">{string:"Expired"}</span></span></li>
+
+						</ul>
+					</div>
+				</div>
+				{/if}
+			{/if}
+		</td>
+	</tr>
+</table>
+
+<script>
+	PMDH.Skin.LightSky.Grid.init('', {
+		wrapperClass	: 'directory-grid-wrapper',
+		gridClass		: 'directory-grid',
+		gridRowClass	: 'directory-grid-row'
+	});
+	window.stopEvent = function(evt) {
+		evt = evt || window.event;
+		if(evt.stopPropagation)evt.stopPropagation(); else evt.cancelBubble=true;
+		return false;
+	}
+</script>
+
+{/content}
+
+<?php
+if(isset($_GET['mode']) && $_GET['mode']!='page') {
+?>
+	{=page.content}
+{else}
+	{include:page}
+{/if}

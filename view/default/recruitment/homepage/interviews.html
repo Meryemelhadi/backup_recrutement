@@ -1,0 +1,28 @@
+<script language="php">
+	$interviews = new PersistentCollection('rct_interview.by_user_day_future@recruitment','handler');
+	$this->setProperty('interviews.records',$interviews->records);
+	$etat = '';
+	$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+</script>
+
+{records:interviews.records}
+<div class="homepage-box box-theme-orange">
+	<h4 class="homepage-box-title">{string:"Mes Entretiens aujourd'hui"}</h4>
+	<div class="homepage-box-articles-list">
+	
+		{record}
+		<div class="article {if:record.is_first}first{/if} clear-both">
+			<div class="article-title"><a href="{var:PORTAL_URL_PREFIX}/recruitment/vacancies/admin/directory_2.php?nxo=my_calendar&mode=page&pagemode=minimal">
+			<span> de {field:time_start} à {field:time_end} : {field:candidate_oid}</span></a></div>
+		</div>
+		{/record}
+		{no_record}
+		<div class="article {if:record.is_first}first{/if} clear-both">
+			<div class="article-title">{string:"Vous n'avez pas d'entretien programmé aujourd'hui"}.</div>
+		</div>
+		{/no_record}
+	
+	</div>
+
+</div>
+{/records}		

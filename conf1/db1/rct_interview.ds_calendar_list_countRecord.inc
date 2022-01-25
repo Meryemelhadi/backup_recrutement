@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_interview WHERE _vacancy_oid='".$this->getParamValue("oid","","request",",")."' AND _date>='".$this->getParamValue("start_date","","request",",")."' AND _date<='".$this->getParamValue("end_date","","request",",")."'"; ?>

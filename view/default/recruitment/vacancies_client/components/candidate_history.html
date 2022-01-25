@@ -1,0 +1,46 @@
+<div class="candidate-history-wrapper" id="candidate_history_{$currentGroup}_{record.index}" style="display:none;">
+	<div class="candidate-history clear-both">
+			
+		<div class="column-1">
+			<div class="column-inner">
+				<div class="candidate-history-title title-first">{string:"title_candidate_comments"}</div>
+				<form method="post" action="#">
+				{field:candidate_comments}			
+				<div class="add-comment-wrapper">
+					<div class="add-comment">
+						<div class="add-comment-inner">
+							<textarea rows="3" cols="30" name="add_comment_zone" class="add_comment_zone" type="text" class="text"></textarea>
+						</div>
+					</div>
+					<div class="add-comment-process clear-both">
+						<a 
+							class="pm-button btn-with-icon" 
+							href="javascript:void(0);" 
+							onclick="Generis.Recruitment.addComment(this, 'add_comment_zone', '{=add_candidate_comment.url}{record.url_key}'); this.blur(); return false;">
+							<span class="btn-bg"><span class="s-icon si-comment-add">{string:"post_comment"}</span></span>
+						</a>
+						<div style="display: none;" id="vacancy-button-loader"></div>
+					</div>
+				</div>
+				</form>
+				
+			</div>
+		</div>
+
+		<div class="column-2">
+			<div class="column-inner">
+				<div class="candidate-history-title title-first">{string:"title_candidate_summary"}</div>
+				<ul class="candidate-history-content">					
+					<li>{field.label:ci_acceptance_state}: <strong>{field:ci_acceptance_state}</strong></li>
+					<li>{field.label:job_acceptance_state}: <strong>{field:job_acceptance_state}</strong></li>
+					<li>{field.label:proposal_acceptance_state}: <strong>{field:proposal_acceptance_state}</strong></li>
+				</ul>			
+				<div class="candidate-history-title">{string:"title_candidate_log"}</div>
+				{field:candidate_log}
+				<div class="candidate-history-title">{string:"title_candidate_interviews"}</div>
+				{field:candidate_interviews}
+			</div>
+		</div>
+		
+	</div>
+</div>

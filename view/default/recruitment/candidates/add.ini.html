@@ -1,0 +1,85 @@
+{content:menu}
+<div id="nav">
+<ul>
+	<li class="current" id="general_infos">
+		<a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('general_infos','general_infos_div')">
+			<b>{string:"general_infos"}</b>
+		</a>
+	</li>
+	<li class="" id="education_infos">
+		<a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('education_infos','education_infos_div')">
+			<b>{string:"education_infos"}</b>
+		</a>
+	</li>
+	<li class="" id="experiences">
+		<a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('experiences','experiences_div')">
+			<b>{string:"experiences"}</b>
+		</a>
+	</li>
+
+
+</ul>
+</div>
+{/content}
+{form:page.record}
+
+<script>
+	window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+
+	window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", evalConfig: true, message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"new_candidate_doc"}</div>
+	</div>
+</div>
+
+<div class="pm-bxm-wrapper wide-column">
+	<table class="pm-bxm">
+		<tr>
+			<td class="pm-bxm-main-column">	
+				
+				<div class="pm-button-wrapper clear-both pm-bxm-top-button-wrapper">					
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.validate(this, dlg_backConfig, event); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+					</a>
+					<span class="pm-button-sep"></span>
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+					</a>
+
+					</br>
+
+					{=menu}
+				</div>
+				
+				{include:recruitment/candidates/components/panel_general}
+				{include:recruitment/candidates/components/panel_education}
+				{include:recruitment/candidates/components/panel_experience}
+				<div id="cv_div" style="display:none">
+				
+				</div>
+				<div class="pm-button-wrapper clear-both pm-bxm-bottom-button-wrapper">					
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.validate(this, dlg_backConfig, event); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+					</a>
+					<span class="pm-button-sep"></span>
+					<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+					</a>
+				</div>
+						
+			</td>
+			<td class="pm-bxm-side-column">
+				{include:recruitment/candidates/components/panel_upload_cv}
+						
+			</td>
+		</tr>
+	</table>
+</div>
+{/form}

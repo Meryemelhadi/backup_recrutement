@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate SET _cv_path=".$record->getFieldValue("cv_path","DB","NULL").",_first_name=".$record->getFieldValue("first_name","DB","NULL").",_last_name=".$record->getFieldValue("last_name","DB","NULL")." WHERE _oid='".$props->getProperty("candidate_oid","",true)."'"; ?>

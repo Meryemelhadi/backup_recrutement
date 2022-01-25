@@ -1,0 +1,120 @@
+<script language="php">
+	$my_vacancies = new PersistentCollection('rct_vacancy.my_hp_list@recruitment','handler');
+	$this->setProperty('my_vacancies.records',$my_vacancies->records);
+
+	$managerLabel = __('Resp. RH');
+	$clientLabel = __('Client interne');
+	$progressLabel = __('Phase');
+	$etat = '';
+</script>
+{records:my_vacancies.records}
+	<div class="homepage-box box-theme-blue">
+		<h4 class="homepage-box-title">{string:"Mes Postes à Pourvoir"}</h4>
+		<div class="homepage-box-articles-list">
+		
+			{record}
+			<?php
+				$title = $_nx_record->name->html;
+				$code = $_nx_record->code->object;
+				if($code)
+					$title.= " ($code)";
+
+				$subtitle = '';
+				$clients=$_nx_record->client_oid->html;
+				if($clients)
+				{
+					if($subtitle)
+						$subtitle .=', ';
+
+					$subtitle.= $clientLabel.' : '.$clients;
+				}
+				
+				$etat_record = $_nx_record->progress_level->object;
+				$etat_label = $_nx_record->progress_level->html;
+				if($etat!=$etat_record)
+				{
+					$etat = $etat_record;
+					echo  '<h3 class="grid-header">'.$etat_label.'</h3>';
+				}
+				$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+			?>
+			<div class="article {if:record.is_first}first{/if} clear-both">
+				<div class="article-title"><a href="{var:PORTAL_URL_PREFIX}/recruitment/vacancies/admin/void-{field:oid}/directory.php?mode=page&nxo=edit&oid={field:oid}">
+				<span>{$title}</span></a></div>
+				<div class="description">{$subtitle}</div>
+				<div class="candidates" style="text-align:right"><a href="{var:PORTAL_URL_PREFIX}/recruitment/vacancies/admin/void-{field:oid}/directory.php?mode=page&nxo=candidates&pagemode=minimal&oid={field:oid}">
+				<span>{field:count} candidats</span></a></div>
+			</div>
+			{/record}
+			{no_record}
+			<div class="article {if:record.is_first}first{/if} clear-both">
+				<div class="article-title">{string:"Vous n'avez pas encore de poste ouvert dans la base"}.</div>
+			</div>
+			{/no_record}
+
+		
+		</div>
+	
+	</div>
+{/records}		
+
+<?php
+	$vacancies = new PersistentCollection('rct_vacancy.hp_list@recruitment','handler');
+	$this->setProperty('vacancies.records',$vacancies->records);
+
+	$etat = '';
+?>
+{records:vacancies.records}
+	<div class="homepage-box box-theme-blue">
+		<h4 class="homepage-box-title">{string:"Postes en suivi / lecture"}</h4>
+		<div class="homepage-box-articles-list">
+	
+			{record}
+			<?php
+				$title = $_nx_record->name->html;
+				$code = $_nx_record->code->object;
+				if($code)
+					$title.= " ($code)";
+
+				$subtitle = $_nx_record->manager_oid->html;
+				if($subtitle)
+					$subtitle = $managerLabel.' : '.$subtitle;
+
+				$clients=$_nx_record->client_oid->html;
+				if($clients)
+				{
+					if($subtitle)
+						$subtitle .=', ';
+
+					$subtitle.= $clientLabel.' : '.$clients;
+				}
+
+				$etat_record = $_nx_record->progress_level->object;
+				$etat_label = $_nx_record->progress_level->html;
+				if($etat!=$etat_record)
+				{
+					$etat = $etat_record;
+					echo  '<h3 class="grid-header">'.$etat_label.'</h3>';
+				}
+				$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+
+			?>
+			<div class="article {if:record.is_first}first{/if} clear-both">
+				<div class="article-title"><a href="{var:PORTAL_URL_PREFIX}/recruitment/vacancies/admin/void-{field:oid}/directory.php?mode=page&nxo=edit&oid={field:oid}">
+				<span>{$title}</span></a></div>
+				<div class="description">{$subtitle}</div>
+				<div class="candidates" style="text-align:right"><a href="{var:PORTAL_URL_PREFIX}/recruitment/vacancies/admin/void-{field:oid}/directory.php?mode=page&nxo=candidates&pagemode=minimal&oid={field:oid}">
+				<span>{field:count} candidats</span></a></div>
+			</div>
+			{/record}
+			{no_record}
+			<div class="article {if:record.is_first}first{/if} clear-both">
+				<div class="article-title">{string:"Pas de suivi ou lecture sur d'autres postes"}.</div>
+			</div>
+			{/no_record}
+
+		
+		</div>
+	
+	</div>
+{/records}		

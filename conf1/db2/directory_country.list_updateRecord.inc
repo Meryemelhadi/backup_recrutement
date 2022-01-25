@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _directory_country SET _oid=".$record->getFieldValue("oid","DB","NULL").",_country_name=".$record->getFieldValue("country_name","DB","NULL")." WHERE ".$this->getWhereClause("_country_name",$this->getFieldParam("country_name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false'); ?>

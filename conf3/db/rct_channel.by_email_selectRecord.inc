@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_to_email,_establishment FROM _rct_channel WHERE ".$this->getWhereClause("_to_email","'".$props->getProperty("email","",true)."'",'LIKE','OR','%','%',true,false,'|','false'); ?>

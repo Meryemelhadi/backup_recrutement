@@ -1,0 +1,26 @@
+
+	<div class="pm-bxm-box-content">
+		{records:vacancy_history.records}
+		<!--<div class="table-list-wrapper">
+			<table class="table-list">
+				{record}
+				<tr>
+					<td class="entry"><strong>{field:progress_level}</strong>{if:trim(#field:progress_level_meta#) != ''} ({field:progress_level_meta}){/if}</td>
+				</tr>
+				{/record}
+			</table>
+		</div>-->
+		<div class="table-list-wrapper log-table">
+			<table class="table-list">
+				{record}
+				<tr>
+					<td class="entry"><strong>{field:progress_level}</strong> {if:trim(#field:progress_level_meta#) != ''} ({field:progress_level_meta}){/if} </td>
+				</tr>
+				{/record}
+			</table>
+		</div>
+		{/records}
+		{no_record}
+		<div class="empty-records">{string:"empty_vacancy_history_list"}</div>
+		{/no_record}
+	</div>

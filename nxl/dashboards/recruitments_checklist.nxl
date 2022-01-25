@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<nxl 
+	version				= "1.0" 
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl"
+	package				= "recruitment">
+
+	<include_once file = "/data_model/all.nxl"/>
+	<include_once file = "/strings/all.nxl"/>
+
+	<include file = "components/dashboard.comp.nxl"/>
+
+	<main 
+	
+		xmlns					= "http://www.presencemedia.com/recruitment/dashboards/components/dashboard.comp"
+	
+		name					= "recruitments_checklist"
+		path					= "/recruitment/dashboards/"
+		strings					= "recruitment.dashboards.recruitments_checklist"
+		skin					= "#global:SALESFORCE_SKIN:generis#"
+
+		ds_search				= "rct_vacancy.dashboards.recruitments_checklist.search"
+		ds_list					= "rct_vacancy.dashboards.recruitments_checklist.list"
+		ds_export_list			= "rct_vacancy.dashboards.recruitments_checklist.list"
+		
+		template_list			= "recruitment.dashboards.list_check"
+		template_xls_export		= "recruitment.dashboards.list_excel">
+
+	</main>
+</nxl>

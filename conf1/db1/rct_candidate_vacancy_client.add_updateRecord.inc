@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate_vacancy_client SET _candidate_oid='".$props->getProperty("candidate_oid","",true)."',_vacancy_oid='".$props->getProperty("vacancy_oid","",true)."',_proposed_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."',_proposal_date=NOW(),_comment=".$record->getFieldValue("comment","DB","NULL"); ?>

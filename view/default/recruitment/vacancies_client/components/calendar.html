@@ -1,0 +1,33 @@
+<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+	<a 
+		class="pm-button btn-with-icon" 
+		href="javascript:void(0);" 
+		onclick="ajax_navigate(event,'{=add_interview.url}','content'); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-add">{string:"add_interview"}</span></span>
+	</a>
+</div>
+
+<div class="directory-card-main-content clear-both">
+
+	<div id="interviews-calendar"></div>
+	
+	<div class="calendar-legend">
+		<div class="calendar-legend-label">
+			<span>{string:"legend"} :</span>
+		</div>
+		<div class="clear-both calendar-legend-entry">
+			<div class="entry legend-status-1"></div><div class="label">{string:"accepted_interview"}</div>
+		</div>
+		<div class="clear-both calendar-legend-entry">
+			<div class="entry legend-status-0"></div><div class="label">{string:"pending_interview"}</div>
+		</div>
+		<div class="clear-both calendar-legend-entry">
+			<div class="entry legend-status-2"></div><div class="label">{string:"refused_interview"}</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	window.interviewsCalendar = new PMCalendar(new Date(), 'interviews-calendar', 'interviewsCalendar', '{=interviews_list.url}');
+	window.interviewsCalendar.getCalendarHTML(0);
+</script>

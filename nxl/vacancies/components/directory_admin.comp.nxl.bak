@@ -1,0 +1,2693 @@
+<?xml version="1.0"?> 
+
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../../datamodel/all.data.nxl"/>
+<include file = "../../candidates/components/candidate_card_lib.comp.nxl"/>
+<include file = "email_lib.comp.nxl"/>
+<include file = "vacancy_lib.comp.nxl"/>
+<include file = "interview_lib.comp.nxl"/>
+<include file = "short_list_lib.comp.nxl"/>
+<include file = "provider_lib.comp.nxl"/>
+<include file = "feedback_lib.comp.nxl"/>
+<include file = "warning_lib.comp.nxl"/>
+
+<xo:taglib 		   
+	uri					= "http://www.presencemedia.com/recruitment/vacancies/components/directory_admin.comp"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/vacancies/components/directory_admin.comp"
+	
+	xmlns:candidate_lib		= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_lib.comp"
+	xmlns:email_lib			= "http://www.presencemedia.com/recruitment/vacancies/components/email_lib.comp"
+	xmlns:vacancy_lib		= "http://www.presencemedia.com/recruitment/vacancies/components/vacancy_lib.comp"
+	xmlns:interview_lib 	= "http://www.presencemedia.com/recruitment/vacancies/components/interview_lib.comp"
+	xmlns:short_list_lib 	= "http://www.presencemedia.com/recruitment/vacancies/components/short_list_lib.comp"
+	xmlns:provider_lib 		= "http://www.presencemedia.com/recruitment/vacancies/components/provider_lib.comp"
+	xmlns:feedback_lib 		= "http://www.presencemedia.com/recruitment/vacancies/components/feedback_lib.comp"
+	xmlns:warning_lib 		= "http://www.presencemedia.com/recruitment/vacancies/components/warning_lib.comp"
+	
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<xo:tag name="main">
+	
+		<xo:param name="site_mode" value="user" />
+		<xo:param name="user_service" value="user" />
+		<xo:param name="path" />
+		<xo:param name="skin" value="intranet" />
+
+		<xo:param name="name" />
+		<xo:param name="application_name" value="#{$path}##{$name}#_"/>
+
+		<xo:param name="strings" />
+		
+		<xo:param name="service_class" />
+
+		<xo:param name="ds_list" />
+		<xo:param name="ds_permission_control" />
+		<xo:param name="ds_permission_readonly" />
+		<xo:param name="ds_search" />
+		<xo:param name="ds_add" />
+		<xo:param name="ds_add_process" />
+		<xo:param name="ds_edit" />
+		<xo:param name="ds_edit_process" />
+		<xo:param name="ds_edit_fib" />
+		<xo:param name="ds_edit_fib_process" />
+		
+		<xo:param name="ds_get_title" />
+		<xo:param name="ds_delete" />
+		<xo:param name="ds_archive" />
+		<xo:param name="ds_add_log" />
+		<xo:param name="ds_get_log" />
+		
+		<xo:param name="ds_add_file" />
+		<xo:param name="ds_attached_files" />
+		<xo:param name="ds_list_candidates" />
+		
+		<xo:param name="ds_pending_list" />
+		<xo:param name="ds_pending_item" />
+		<xo:param name="ds_validate_vacancy" />
+		
+		<xo:param name="ds_vacancy_max_oid" />
+		<xo:param name="ds_export_list" />
+		<xo:param name="ds_export_plan" />
+		<xo:param name="ds_attached_files" />
+		<xo:param name="ds_attached_files_add" />
+		<xo:param name="ds_attached_files_remove" />
+		<xo:param name="ds_attached_files_download" />
+		<xo:param name="ds_announcement_attached_files_add" />
+		
+		<xo:param name="ds_interviews_validation_list" />
+		<xo:param name="ds_interviews_list" />
+		<xo:param name="ds_interview_add" />
+		<xo:param name="ds_interview_add_process" />
+		<xo:param name="ds_interview_edit" />
+		<xo:param name="ds_interview_edit_process" />
+		<xo:param name="ds_interview_validate" />
+		<xo:param name="ds_interview_validate_process" />
+		
+		<xo:param name="ds_interview_attached_files" />
+		<xo:param name="ds_interview_attached_files_add" />
+		<xo:param name="ds_interview_attached_files_remove" />
+		<xo:param name="ds_interview_attached_files_download" />
+		
+		<xo:param name="ds_accepted_proposals" />
+		<xo:param name="ds_selected_candidates" />
+		
+		<xo:param name="ds_instant_feedback_count" />
+		<xo:param name="ds_delayed_feedback_count" />
+		
+		<xo:param name="ds_change_contrat_signing" />
+		<xo:param name="ds_change_hire_date" />
+		
+		<xo:param name="ds_change_integration_note" />
+		<xo:param name="ds_change_integration_plan" />
+		
+		
+		
+		<xo:param name="ds_announcements_internet" />
+		<xo:param name="ds_announcements_intranet" />
+		<xo:param name="ds_announcement_add" />
+		<xo:param name="ds_article_add_intranet" />
+		<xo:param name="ds_article_add_internet" />
+		<xo:param name="ds_vacancy_history" />
+		
+		
+		
+		<xo:param name="ds_comments_list" />
+		<xo:param name="ds_comment" />
+		<xo:param name="ds_add_comment" />
+		<xo:param name="ds_get_comment" />
+		
+		<xo:param name="ds_add_log" />
+		<xo:param name="ds_get_log" />
+		
+		<xo:param name="ds_get_email_sample" />
+		
+		<xo:param name="record_search" value="page.search"/>
+		<xo:param name="property_records" value="page.records"/>
+		<xo:param name="property_pending_records" value="page_pending.records" />
+		<xo:param name="property_record" value="page.record"/>
+		<xo:param name="attached_files_records" value="attached_files.records"/>
+		<xo:param name="interview_synthesis_records" value="interview_synthesis.records"/>
+		<xo:param name="comments_records" value="comments.records"/>
+		<xo:param name="candidate_log_records" value="candidate_log.records"/>
+		
+		<xo:param name="property_accepted_proposals_records" value="accepted_proposals.records" />
+		<xo:param name="property_selected_candidates_records" value="selected_candidates.records" />
+		
+		<xo:param name="property_instant_feedback_count_records" value="instant_feedback_count.records" />
+		<xo:param name="property_delayed_feedback_count_records" value="delayed_feedback_count.records" />
+		<xo:param name="property_announcements_intranet_records" value="announcements_intranet.records" />
+		<xo:param name="property_announcements_internet_records" value="announcements_internet.records" />
+		<xo:param name="vacancy_history_records" value="vacancy_history.records" />
+		
+		<xo:param name="interviews_path" value="interviews" />
+		<xo:param name="vacancies_path" value="vacancies/directory" />
+		<xo:param name="announcement_path" value="journal" />
+
+		
+		
+		<xo:param name="service_class_annonce"/>
+		
+		<xo:param name="template_list"/>
+		<xo:param name="template_add"/>
+		<xo:param name="template_edit"/>
+		<xo:param name="template_readonly"/>
+		<xo:param name="template_edit_wrapper"/>
+		<xo:param name="template_pdf_wrapper"/>
+		
+		<xo:param name="template_redirect"/>
+		<xo:param name="template_validation_redirect"/>
+		<xo:param name="template_requirements"/>
+		<xo:param name="template_calendar"/>
+		<xo:param name="template_candidates"/>
+		<xo:param name="template_shorts_list"/>
+		<xo:param name="template_candidates_search_results"/>
+		
+		<xo:param name="template_recruitment_providers"/>
+		<xo:param name="template_synthesis"/>
+		<xo:param name="template_feedback"/>
+		<xo:param name="template_feedback_schedule"/>
+		<xo:param name="template_comment"/>
+		
+		<xo:param name="template_send_to_ic" />
+		<xo:param name="template_send_sl_to_ic" />
+		
+		
+		
+		<xo:param name="template_short_lists"/>
+		<xo:param name="template_short_list_add"/>
+		<xo:param name="template_short_list_edit"/>
+		<xo:param name="template_short_list_add_candidates"/>
+		
+		<xo:param name="template_candidate_details" />
+		
+		<xo:param name="template_interviews_list"/>
+		<xo:param name="template_interview_add"/>
+		<xo:param name="template_interview_edit"/>
+		<xo:param name="template_interview_validate"/>
+		<xo:param name="template_interview_synthesis_add"/>
+		<xo:param name="template_interview_synthesis_edit"/>
+		<xo:param name="template_interview_synthesis_view"/>
+		<xo:param name="template_interview_synthesis_pdf"/>
+		<xo:param name="template_email_sample"/>
+		
+		<xo:param name="template_feedback_write"/>
+		<xo:param name="template_feedback_view"/>
+		
+		<xo:param name="template_provider_add"/>
+		<xo:param name="template_provider_view"/>
+		
+		<xo:param name="template_email_add"/>
+		<xo:param name="template_email_view"/>
+		
+		<xo:param name="template_warning" />
+		<xo:param name="template_warning_schedule" />
+		<xo:param name="template_warning_edit" />
+		
+		<xo:param name="template_announcement_add" />
+		
+		<xo:param name="template_handle_proposal" />
+		
+		<xo:param name="template_view" />
+		
+		<xo:param name="template_modalbox_form" />
+
+		<xo:param name="template_xls_export" />
+
+		<xo:param name="template_history" />
+
+		<xo:param name="template_announcement" />
+		
+		<!-- protected="#{$user_service}#" -->
+		<pages xmlns="http://www.nxfrontier.com/nxl/page">
+			<page	
+				name		= "#{$name}#" 
+				protected	= "#{$user_service}#" 
+				permissions	= "?-rh"
+				path		= "#{$path}#"
+				cache		= "no" 
+				lang		= "fr"
+				skin		= "#{$skin}#">
+				<exec logic="#{$application_name}#" strings="#{$strings}#">
+				</exec>
+			</page>
+		</pages>
+		
+		<!-- logic -->
+		<logic 
+			xmlns			= "http://www.nxfrontier.com/nxl/nxl"
+		   	xmlns:ds		= "http://www.nxfrontier.com/nxl/ds"
+		   	xmlns:button	= "http://www.nxfrontier.com/nxl/button">
+		
+			<application name="#{$application_name}#">
+		
+		
+		<operation name="list">
+					
+			<step name="list">	
+						
+				<code>
+					<tags_library:filter_key 
+								ds_search		= "#{$ds_search}#"
+								searchData		= "searchData"
+								filterKey		= "filterKey"
+								record_search	= "#{$record_search}#"
+							/>
+							
+							<set name="property:alphabet_filter" value="#request:alphabet_filter#" />
+							<!-- Liste des dossiers --> 
+							<set name="var:vacanciesList">
+								<ds:load media="db" ds="#{$ds_list}#" property="#{$property_records}#" multiple="yes" addProperties="no"  record="#$searchData#" />
+                            </set> 
+							<ds:foreach records="#$vacanciesList#" item="vacancy">  
+								<!-- Identifiant du dossier -->
+									<set name="property:vacancy_id">                               
+										<ds:field name="oid" format="object" record="#$vacancy#"/>
+									</set>
+							<!-- Liste des candidats -->                             
+							<set name="var:candidatesList">
+								<ds:load media="db" ds="#{$ds_list_candidates}#" property="" multiple="yes" addProperties="no" />
+                            </set>    
+							<!-- Nombre des candidats -->                             
+							<set name="var:candidatescount">                            
+								<ds:record_count records="#var:candidatesList#" />
+							</set>   
+							<ds:setField name="candidates_count" record="#$vacancy#" value="#$candidatescount#" />
+                            </ds:foreach>
+    
+							
+							
+							<ds:load media="db" ds="#{$ds_pending_list}#" property="#{$property_pending_records}#" multiple="yes" addProperties="no" />
+							
+							<button:set name="add" operation="add" >
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="edit" operation="edit" >
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+
+							
+							<button:set name="xls_export" operation="'xls_export_#property:recruitement_profile|default#'" params="#property:filterKey#" />
+							
+							<button:set name="archive" operation="archive" >
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+									
+							<button:set name="delete" operation="delete">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="validate" operation="validate">
+								<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+														
+							<button:set name="search" operation="list">
+								<button:param name="is_search" value="true" />
+								<button:param name="mode" value="ajax" />
+							</button:set>
+							<button:set name="list" operation="list">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+							<if condition="#request:is_search# == 'true'">
+								<set name="property:is_search" value="true" />
+							</if>
+							
+							<tags_library:display_view 
+								application_name	= "#{$application_name}#"
+								plain_page			= "_list_ajax"
+								wrapped_page		= "_list"
+							/>
+						</code>
+					</step>
+				</operation>
+				
+
+
+				<operation name="xls_export_default">
+					<step name="xls_export">
+						<code>
+							<set name="var:searchData">
+								<ds:load media="request" ds="#{$ds_search}#" property="#{$record_search}#" multiple="no" addProperties="no"/>
+							</set>
+							
+							<ds:load media="handler" ds="#{$ds_export_list}#" property="#{$property_records}#" multiple="yes" addProperties="yes" record="#$searchData#" />
+
+							<display view="#{$application_name}#_xls" type="XLS" />
+						</code>
+					</step>
+				</operation>
+
+				<operation name="xls_export_lydec">
+					<step name="xls_plan_export">
+						<code>
+							<set name="var:searchData">
+								<ds:load media="request" ds="#{$ds_search}#" property="#{$record_search}#" multiple="no" addProperties="no"/>
+							</set>
+							
+							<ds:load media="handler" ds="#{$ds_export_plan}#" property="#{$property_records}#" multiple="yes" addProperties="yes" record="#$searchData#" />
+
+							<display view="#{$application_name}#_xls" type="XLS" />
+						</code>
+					</step>
+				</operation>
+
+
+				<operation name="validate">
+					<step name="validate">
+						<code>
+							<ds:load media="db" ds="#{$ds_pending_item}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+
+							<!-- buttons -->
+							<button:set name="list" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+							
+							<button:set name="edit" operation="edit">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+
+							<button:set name="validate_demand" step="process">
+								<button:param name="validation_key" value="2" />
+							</button:set>
+							<button:set name="refuse_demand" step="process">
+								<button:param name="validation_key" value="3" />
+							</button:set>
+							
+							<form view="#{$application_name}#_view"/>
+						</code>
+					</step>
+					<step name="process">
+						<code>
+							
+							<ds:store ds="#{$ds_validate_vacancy}#" media="db" mode="update" />
+							
+							<set name="var:validation_state" value="28" />
+							<if condition="#request:validation_key# == '3'">
+								<set name="var:validation_state" value="29" />
+							</if>
+						
+							<vacancy_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								vacancy_oid			= "#request:oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "#var:validation_state#"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="add">
+					
+									<step name="add">
+						
+										<code>
+							
+											<ds:load media="empty" ds="#{$ds_add}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+
+							
+										<!-- buttons -->
+							
+											<button:set name="list" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+
+							<button:set name="submit" step="process">
+								<button:param name="redirect" value="list" />
+							</button:set>
+							<button:set name="submit_continue" step="process">
+								<button:param name="redirect" value="edit" />
+							</button:set>
+							
+							<form view="#{$application_name}#_add"/>
+						</code>
+					</step>
+					<step name="process">
+						<code>
+						
+							<ds:store ds="#{$ds_add_process}#" media="db" mode="insert">
+								<ds:load media="post" ds="#{$ds_add}#" multiple="no" addProperties="no"/>
+							</ds:store>
+							
+							
+							<set name="var:last_oid_record">
+								<ds:load media="db" ds="#{$ds_vacancy_max_oid}#" multiple="no" addProperties="no"/>
+							</set>
+
+							<set name="property:lastInsertId">
+								<ds:field name="oid" record="#var:last_oid_record#"/>
+							</set>
+							
+							
+							
+							
+							
+							<!--<set name="property:lastInsertId">
+								<ds:insert_id media="db" />
+							</set>-->
+							
+							<set name="property:redirect" value="#request:redirect#" />
+							
+							<button:set name="redirect_url" operation="edit">
+								<button:param name="oid" value="#property:lastInsertId#" />
+							</button:set>
+														
+							<vacancy_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								vacancy_oid			= "#property:lastInsertId#"
+								user_oid			= "#user:oid#"
+								action_oid			= "0"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							
+							<display view="#{$application_name}#_redirect"/>
+							
+						</code>
+					</step>
+				
+							</operation>
+				
+				<operation name="announcement_add_intranet">
+					<step name="announcement_add_intranet">
+						<code>
+						
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "announcement"
+							/>
+						
+							<set name="property:vacancy_oid" value="#request:oid#" />
+						
+							<ds:load media="empty" ds="#{$ds_article_add_intranet}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+	
+							<button:set name="previous_operation" operation="announcement">
+								<button:param name="oid" value="#property:vacancy_oid#" />
+							</button:set>
+	
+							<button:set name="submit" step="process">
+								<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+							</button:set>
+							
+							<display view="#{$application_name}#_announcement_add"/>
+						</code>
+					</step>
+					<step name="process">
+						<code>
+						
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							
+							<set name="var:article">
+								<ds:load media="post" ds="#{$ds_article_add_intranet}#" multiple="no" addProperties="no"/>
+							</set>
+						
+							<ds:store ds="#{$ds_article_add_intranet}#" media="db" mode="insert" record="#var:article#" />
+							
+							<set name="property:lastInsertId">
+								<ds:insert_id media="db" />
+							</set>
+							
+							<!-- Upload des fichiers -->
+							<set name="var:path" value="#{$announcement_path}#" />
+							<set name="var:handler" value="#{$ds_announcement_attached_files_add}#" />
+							<load>
+								<bean:call
+									xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+									class		= "#{$service_class}#"
+									method		= "uploadAnnouncementFiles"
+									params		= "#property:lastInsertId#,#var:handler#,#var:path#"
+								/>
+							</load>	
+							
+							
+							
+							<set name="var:article_title">
+								<ds:field name="title" record="#var:article#"/>
+							</set>							
+							<set name="var:article_content">
+								<ds:field name="article_content" record="#var:article#"/>
+							</set>
+							<set name="var:article_type">
+								<ds:field name="type" record="#var:article#"/>
+							</set>
+
+							<ds:store ds="#{$ds_announcement_add}#" media="db" mode="insert">
+								<ds:record>
+									<ds:field name="ann_title"		value="#var:article_title#" />
+									<ds:field name="ann_content"	value="#var:article_content#" />
+									<ds:field name="type"	value="#var:article_type#" />
+									<ds:field name="ref_oid"		value="#property:lastInsertId#" />
+								</ds:record>
+							</ds:store>
+							
+							<set name="property:lastInsertId">
+								<ds:insert_id media="db" />
+							</set>
+							
+														
+							<vacancy_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								vacancy_oid			= "#property:vacancy_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "30"
+								ref_oid				= "#property:lastInsertId#"
+								additional_infos	= ""
+							/>
+							
+						</code>
+					</step>
+				</operation>
+
+				<operation name="announcement_add_internet">
+					<step name="announcement_add_internet">
+						<code>
+						
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "edit"
+							/>
+						
+							<set name="property:vacancy_oid" value="#request:oid#" />
+						
+							<ds:load media="empty" ds="#{$ds_article_add_internet}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+	
+							<button:set name="previous_operation" operation="announcement">
+								<button:param name="oid" value="#property:vacancy_oid#" />
+							</button:set>
+	
+							<button:set name="submit" step="process">
+								<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+							</button:set>
+							
+							<display view="#{$application_name}#_announcement_add"/>
+						</code>
+					</step>
+					<step name="process">
+						<code>
+						
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							
+							<set name="var:article">
+								<ds:load media="post" ds="#{$ds_article_add_internet}#" multiple="no" addProperties="no"/>
+							</set>
+						
+							<ds:store ds="#{$ds_article_add_internet}#" media="db" mode="insert" record="#var:article#" />
+							
+							<set name="property:lastInsertId">
+								<ds:insert_id media="db" />
+							</set>
+							
+							<!-- Upload des fichiers -->
+							<set name="var:path" value="#{$announcement_path}#" />
+							<set name="var:handler" value="#{$ds_announcement_attached_files_add}#" />
+							<load>
+								<bean:call
+									xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+									class		= "#{$service_class}#"
+									method		= "uploadAnnouncementFiles"
+									params		= "#property:lastInsertId#,#var:handler#,#var:path#"
+								/>
+							</load>	
+							
+							
+							
+							<set name="var:article_title">
+								<ds:field name="title" record="#var:article#"/>
+							</set>							
+							<set name="var:article_content">
+								<ds:field name="article_content" record="#var:article#"/>
+							</set>
+							<set name="var:article_type">
+								<ds:field name="type" record="#var:article#"/>
+							</set>
+							
+							<set name="var:article_provider">
+								<ds:field name="provider_oid" record="#var:article#"/>
+							</set>
+							
+							<ds:store ds="#{$ds_announcement_add}#" media="db" mode="insert">
+								<ds:record>
+									<ds:field name="ann_title"		value="#var:article_title#" />
+									<ds:field name="ann_content"	value="#var:article_content#" />
+									<ds:field name="ref_oid"		value="#property:lastInsertId#" />
+									<ds:field name="type"		value="#var:article_type#" />
+									<ds:field name="provider_oid"		value="#var:article_provider#" />
+								</ds:record>
+							</ds:store>
+							
+							<set name="property:lastInsertId">
+								<ds:insert_id media="db" />
+							</set>
+							
+														
+							<vacancy_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								vacancy_oid			= "#property:vacancy_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "30"
+								ref_oid				= "#property:lastInsertId#"
+								additional_infos	= ""
+							/>
+							NxLog('before bean call');
+							<load>
+								<bean:call
+									xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+									class		= "#{$service_class_annonce}#"
+									method		= "postJobBoard"
+									params		= "#var:article#"
+								/>
+							</load>
+							NxLog('after bean call');
+						</code>
+					</step>
+				</operation>
+				
+	
+
+				<operation name="edit">
+					
+						<step name="edit">	
+						
+							<code>
+						
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "edit"
+							/>
+							
+							<set name="property:vacancy_oid" value="#request:oid#" />
+							
+							<!-- Formulaire d'édition -->
+							<set name="var:vacancy">
+							<ds:load media="db" ds="#{$ds_edit}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							</set>
+							<!-- Identifiant du dossier -->
+							<set name="property:vacancy_id">                               
+										<ds:field name="oid" format="object" record="#$vacancy#"/>
+							</set>
+							<!-- Permission -->
+							<set name="var:permission_control">
+								<ds:load media="db" ds="#{$ds_permission_control}#" property="" multiple="yes" addProperties="no" />
+                            </set>
+							<!-- Vérifier la permission -->
+							<set name="var:verif_permission_control">                            
+								<ds:record_count records="#var:permission_control#" />
+							</set> 
+							 
+							 
+							<!-- infos générales et statistiques -->
+							<ds:load media="db" ds="#{$ds_accepted_proposals}#" property="#{$property_accepted_proposals_records}#" multiple="yes" addProperties="no" />
+							<ds:load media="db" ds="#{$ds_selected_candidates}#" property="#{$property_selected_candidates_records}#" multiple="yes" addProperties="no" />
+							<ds:load media="db" ds="#{$ds_instant_feedback_count}#" property="#{$property_instant_feedback_count_records}#" multiple="yes" addProperties="no" />
+							<ds:load media="db" ds="#{$ds_delayed_feedback_count}#" property="#{$property_delayed_feedback_count_records}#" multiple="yes" addProperties="no" />
+							
+							<set name="property:vacancy_oid" value="#request:oid#" />
+							
+							
+							<!-- Liste des fichiers attachés à un dossier -->
+							<ds:load media="db" ds="#{$ds_attached_files}#" property="#{$attached_files_records}#" multiple="yes" addProperties="no" />
+							
+							<!-- Liste des commentaires -->
+							<ds:load media="db" ds="#{$ds_comments_list}#" property="#{$comments_records}#" multiple="yes" addProperties="no" />
+							
+							
+							<!-- Intialisation des boutons -->
+							<button:set name="list" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+							<button:set name="add_comment" operation="add_comment">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+							
+							<button:set name="edit" operation="edit">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+							
+							<button:set name="submit" step="process" />							
+							
+							<button:set name="download" operation="download" />	
+							
+							
+							<button:set name="change_contrat_signing" operation="change_contrat_signing">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+							
+							<button:set name="change_hire_date" operation="change_hire_date">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+							
+							<button:set name="change_integration_plan" operation="change_integration_plan">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+							
+							<button:set name="change_integration_note" operation="change_integration_note">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+							
+							
+							
+											
+							
+							<!--<display view="#{$application_name}#_edit"/>-->
+							
+							
+							<!--<tags_library:display_view 
+								application_name	= "#{$application_name}#"
+								plain_page			= ""
+								wrapped_page		= ""
+							/>-->
+							
+							
+							
+							<set name="var:viewMode" value="ajax" />
+							<if condition="in_array(#get:mode#,array('page','ajax'))">
+								<set name="var:viewMode" value="#get:mode#" />
+							</if>
+							<!-- Createur du dossier -->
+							<set name="var:creator">                               
+										<ds:field name="creator" format="object" record="#$vacancy#"/>
+							</set>
+							
+							<choose>
+								<when test="$viewMode == 'page' and ($verif_permission_control == '1' or $creator == #user:oid#)">
+												<display view="#{$application_name}#_edit_page" />
+								</when>
+								<when test="$viewMode == 'page' and ($verif_permission_control == '0' or $creator != #user:oid#)">
+									<display view="#{$application_name}#_readonly_page" />
+								</when>
+								<when test="$viewMode != 'page' and ($verif_permission_control == '1' or $creator == #user:oid#)">
+									<display view="#{$application_name}#_edit" />
+								</when>
+								<otherwise>
+									<display view="#{$application_name}#_readonly" />
+								</otherwise>
+							</choose>		
+							
+						</code>
+					</step>
+					<step name="process">	
+						<code>
+							
+							<ds:store ds="#{$ds_edit_process}#" media="db" mode="update">
+								<ds:load media="post" ds="#{$ds_edit}#" multiple="no" addProperties="no"/>
+							</ds:store>
+							
+							<!-- Upload des fichiers -->
+							<set name="var:path" value="#{$vacancies_path}#" />
+							<set name="var:handler" value="#{$ds_attached_files_add}#" />
+							<load>
+								<bean:call
+									xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+									class		= "#{$service_class}#"
+									method		= "uploadFiles"
+									params		= "#request:oid#,#var:handler#,#var:path#"
+								/>
+							</load>
+							
+							<!-- Suppression des fichiers -->
+							<set name="var:handler" value="#{$ds_attached_files_remove}#" />
+							<load>
+								<bean:call
+									xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+									class		= "#{$service_class}#"
+									method		= "removeFiles"
+									params		= "#request:oid#,#var:handler#,#var:path#"
+								/>
+							</load>
+							
+							<!-- Log de l'édition -->
+							<vacancy_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								vacancy_oid			= "#request:oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "2"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+														
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				
+				
+				<operation name="change_contrat_signing">
+					<step name="change_contrat_signing">	
+						<code>
+						
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<set name="property:assoc_oid" value="#request:assoc_oid#" />
+
+							<ds:load media="db" ds="#{$ds_change_contrat_signing}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							
+							<button:set name="submit" step="process">
+								<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+								<button:param name="assoc_oid" value="#property:assoc_oid#" />
+							</button:set>
+							
+							<button:set name="previous_operation" operation="edit">
+								<button:param name="oid" value="#property:vacancy_oid#" />
+							</button:set>
+							
+							<display view="#{$application_name}#_modalbox_form"/>
+						
+						</code>
+					</step>
+					<step name="process">	
+						<code>
+						
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<set name="property:assoc_oid" value="#request:assoc_oid#" />
+							
+							<ds:store ds="#{$ds_change_contrat_signing}#" media="db" mode="update">
+								<ds:load media="post" ds="#{$ds_change_contrat_signing}#" multiple="no" addProperties="no"/>
+							</ds:store>
+						
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="change_hire_date">
+					<step name="change_hire_date">	
+						<code>							
+							
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<set name="property:assoc_oid" value="#request:assoc_oid#" />
+						
+							<ds:load media="db" ds="#{$ds_change_hire_date}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							
+							<button:set name="submit" step="process">
+								<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+								<button:param name="assoc_oid" value="#property:assoc_oid#" />
+							</button:set>
+							
+							<button:set name="previous_operation" operation="edit">
+								<button:param name="oid" value="#property:vacancy_oid#" />
+							</button:set>
+							
+							<display view="#{$application_name}#_modalbox_form"/>
+							
+						</code>
+					</step>
+					<step name="process">	
+						<code>
+
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<set name="property:assoc_oid" value="#request:assoc_oid#" />
+							
+							<ds:store ds="#{$ds_change_hire_date}#" media="db" mode="update">
+								<ds:load media="post" ds="#{$ds_change_hire_date}#" multiple="no" addProperties="no"/>
+							</ds:store>
+						
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				
+				
+				
+				<operation name="change_integration_note">
+					<step name="change_contrat_signing">	
+						<code>
+						
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<set name="property:assoc_oid" value="#request:assoc_oid#" />
+
+							<ds:load media="db" ds="#{$ds_change_integration_note}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							
+							<button:set name="submit" step="process">
+								<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+								<button:param name="assoc_oid" value="#property:assoc_oid#" />
+							</button:set>
+							
+							<button:set name="previous_operation" operation="edit">
+								<button:param name="oid" value="#property:vacancy_oid#" />
+							</button:set>
+							
+							<display view="#{$application_name}#_modalbox_form"/>
+						
+						</code>
+					</step>
+					<step name="process">	
+						<code>
+						
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<set name="property:assoc_oid" value="#request:assoc_oid#" />
+							
+							<ds:store ds="#{$ds_change_integration_note}#" media="db" mode="update">
+								<ds:load media="post" ds="#{$ds_change_integration_note}#" multiple="no" addProperties="no"/>
+							</ds:store>
+						
+						</code>
+					</step>
+				</operation>
+				
+				
+				<operation name="change_integration_plan">
+					<step name="change_integration_plan">	
+						<code>
+						
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<set name="property:assoc_oid" value="#request:assoc_oid#" />
+
+							<ds:load media="db" ds="#{$ds_change_integration_plan}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							
+							<button:set name="submit" step="process">
+								<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+								<button:param name="assoc_oid" value="#property:assoc_oid#" />
+							</button:set>
+							
+							<button:set name="previous_operation" operation="edit">
+								<button:param name="oid" value="#property:vacancy_oid#" />
+							</button:set>
+							
+							<display view="#{$application_name}#_modalbox_form"/>
+						
+						</code>
+					</step>
+					<step name="process">	
+						<code>
+						
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<set name="property:assoc_oid" value="#request:assoc_oid#" />
+							
+							<ds:store ds="#{$ds_change_integration_plan}#" media="db" mode="update">
+								<ds:load media="post" ds="#{$ds_change_integration_plan}#" multiple="no" addProperties="no"/>
+							</ds:store>
+						
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+						
+				<operation name="requirements">
+					<step name="requirements">	
+						<code>
+						
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "requirements"
+							/>
+							
+							<!-- Formulaire d'édition -->
+							<ds:load media="db" ds="#{$ds_edit_fib}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							
+							<!-- Intialisation des boutons -->
+							<button:set name="submit" step="process" />							
+							<button:set name="submit_continue" step="process">
+								<button:param name="redirect" value="requirements" />
+							</button:set>
+							
+							<button:set name="requirements" operation="requirements">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>	
+							
+							<display view="#{$application_name}#_requirements"/>
+						</code>
+					</step>
+					<step name="process">	
+						<code>
+							
+							<ds:store ds="#{$ds_edit_fib_process}#" media="db" mode="update">
+								<ds:load media="post" ds="#{$ds_edit_fib}#" multiple="no" addProperties="no"/>
+							</ds:store>
+							
+							<!-- Log de l'édition -->
+							<vacancy_lib:addlog
+								ds_add_log			= "#{$ds_add_log}#"
+								vacancy_oid			= "#request:oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "2"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				<operation name="calendar">
+					<step name="calendar">	
+						<code>						
+												
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "calendar"
+							/>
+							
+							<ds:load media="db" ds="#{$ds_interviews_validation_list}#" property="#{$property_records}#" multiple="yes" addProperties="no" />							
+							
+							<button:set name="interviews_list" operation="interviews_list">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+							
+							<button:set name="add_interview" operation="add_interview">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+							
+							<button:set name="validate_interview" operation="validate_interview">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+														
+							<display view="#{$application_name}#_calendar"/>
+							
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="interviews_list">
+					<step name="interviews_list">	
+						<code>
+						
+							<interview_lib:interviews_list 
+								application_name="#{$application_name}#" 
+							/>
+							
+							<display view="#{$application_name}#_interviews_list"/>
+							
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="add_interview">
+					<step name="add_interview">	
+						<code>
+							
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "calendar"
+							/>	
+							
+							<interview_lib:add_interview
+								application_name="#{$application_name}#" 
+							/>							
+							
+							<display view="#{$application_name}#_interview_add"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="add_interview_process">
+					<step name="add_interview_process">	
+						<code>						
+							
+							<interview_lib:add_interview_process
+								application_name="#{$application_name}#" 
+							/>
+
+							<foreach sequence="#var:lastOids#" index="i" item="value">
+							
+								<script language="php">
+									$lastOid = $value[0];
+									$candidateOid = $value[1];
+								</script>
+																
+								<vacancy_lib:add_candidate_vacancy_log
+									candidate_oid 		= "#var:candidateOid#"
+									vacancy_oid			= "#property:vacancy_oid#"
+									action_oid			= "4"
+									ref_oid				= "#var:lastOid#" />
+								
+							</foreach>
+							
+							<vacancy_lib:change_progress_level
+								vacancy_oid 	= "#property:vacancy_oid#"
+								progress_level 	= "6"
+							/>
+
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="delete_interview">
+					<step name="delete_interview">
+						<code>
+							<interview_lib:delete />
+							
+							<vacancy_lib:addlog
+								vacancy_oid			= "#request:vacancy_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "22"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							
+							<redirect operation="calendar">
+								<url_param name="oid" value="#property:vacancy_oid#"/>
+							</redirect>
+						</code>
+					</step>
+				</operation>
+						
+					
+				<operation name="edit_interview">
+					<step name="edit_interview">	
+						<code>
+
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "calendar"
+							/>
+							<interview_lib:edit_interview
+								application_name="#{$application_name}#" 
+							/>							
+							
+							<display view="#{$application_name}#_interview_edit"/>
+							
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="edit_interview_process">
+					<step name="edit_interview_process">	
+						<code>
+						
+							<interview_lib:edit_interview_process
+								application_name="#{$application_name}#" 
+							/>
+														
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="interview_download">
+					<step name="interview_download">
+						<code>
+						
+							<interview_lib:interview_download
+								application_name="#{$application_name}#" 
+							/>
+													
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="validate_interview">
+					<step name="validate_interview">	
+						<code>						
+														
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "calendar"
+							/>
+							
+							<set name="property:vacancy_oid" value="#request:oid#" />
+							<set name="property:interview_oid" value="#request:interview_oid#" />
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+							
+							<ds:load media="db" ds="#{$ds_interview_validate}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							
+							<button:set name="back_to_calendar" operation="calendar">
+								<button:param name="oid" value="#property:vacancy_oid#" />
+							</button:set>							
+							
+							<button:set name="accept" step="validate_interview_process">
+								<button:param name="validation_oid" value="1" />
+								<button:param name="interview_oid" value="#property:interview_oid#" />
+								<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+								<button:param name="candidate_oid" value="#property:candidate_oid#" />
+							</button:set>
+							
+							<button:set name="refuse" step="validate_interview_process">
+								<button:param name="validation_oid" value="2" />
+								<button:param name="interview_oid" value="#property:interview_oid#" />
+								<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+								<button:param name="candidate_oid" value="#property:candidate_oid#" />
+							</button:set>		
+							
+							<display view="#{$application_name}#_interview_validate"/>
+							
+						</code>
+					</step>
+					<step name="validate_interview_process">	
+						<code>
+						
+							<set name="property:vacancy_oid" value="#request:vacancy_oid#" />
+							<set name="property:candidate_oid" value="#request:candidate_oid#" />
+							<set name="property:interview_oid" value="#request:interview_oid#" />
+							<set name="property:validation_state" value="#request:validation_oid#" />
+							
+							<ds:store ds="#{$ds_interview_validate_process}#" media="db" mode="update" />
+							
+							<set name="var:validation_state_log" value="17" />
+							<if condition="#request:validation_oid# == '1'">
+								<set name="var:validation_state_log" value="13" />
+							</if>
+							
+							<vacancy_lib:add_candidate_vacancy_log
+								candidate_oid 		= "#property:candidate_oid#"
+								vacancy_oid			= "#property:vacancy_oid#"
+								action_oid			= "#var:validation_state_log#"
+								ref_oid				= "#property:interview_oid#" />
+							
+							<if condition="#request:validation_oid# == '1'">
+								<vacancy_lib:change_progress_level
+									vacancy_oid 	= "#property:vacancy_oid#"
+									progress_level 	= "6"	
+								/>
+							</if>
+							
+							<choose>
+								<when test="#request:validation_oid# == '1'">
+									<redirect operation="edit_interview">
+										<url_param name="oid" value="#request:vacancy_oid#"/>
+										<url_param name="interview_oid" value="#request:interview_oid#"/>
+									</redirect>
+								</when>
+								<otherwise>
+									<redirect operation="calendar">
+										<url_param name="oid" value="#request:vacancy_oid#"/>
+									</redirect>
+								</otherwise>
+							</choose>							
+							
+						</code>
+					</step>
+				</operation>
+			
+				<operation name="add_interview_synthesis">
+					<step name="add_interview_synthesis">	
+						<code>	
+							
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+								current_operation	= "calendar"
+							/>
+							<interview_lib:add_interview_synthesis
+								application_name="#{$application_name}#" 
+							/>							
+							<display view="#{$application_name}#_interview_synthesis_add"/>
+							
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="add_interview_synthesis_process">
+					<step name="add_interview_synthesis_process">	
+						<code>
+						
+							
+							<interview_lib:add_interview_synthesis_process
+								application_name="#{$application_name}#" 
+							/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="edit_interview_synthesis">
+					<step name="edit_interview_synthesis">	
+						<code>	
+							
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+								current_operation	= "calendar"
+							/>
+							<interview_lib:edit_synthesis
+								application_name="#{$application_name}#" 
+							/>							
+							<display view="#{$application_name}#_interview_synthesis_edit"/>
+							
+						</code>
+					</step>
+				</operation>
+					
+				<operation name="edit_interview_synthesis_process">
+					<step name="edit_interview_synthesis_process">	
+						<code>						
+							
+							<interview_lib:edit_synthesis_process
+								application_name="#{$application_name}#" 
+							/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				<operation name="view_interview_synthesis">
+					<step name="view_interview_synthesis">	
+						<code>
+						
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+								current_operation	= "calendar"
+							/>
+							<interview_lib:view_interview_synthesis
+								application_name="#{$application_name}#" 
+							/>							
+							<display view="#{$application_name}#_interview_synthesis_view"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="pdf_interview_synthesis">
+					<step name="pdf_interview_synthesis">	
+						<code>
+						
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+								current_operation	= "calendar"
+							/>
+							<interview_lib:pdf_interview_synthesis
+								application_name="#{$application_name}#" 
+							/>							
+							<display view="#{$application_name}#_interview_synthesis_pdf"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				<operation name="pdf_export">
+					<step name="pdf_export">	
+						<code>	
+							<load>
+								<bean:call
+									xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+									class		= "#{$service_class}#"
+									method		= "pdf_export"
+									params		= "#request:oid#,#request:vacancy_oid#,#request:interview_oid#,#request:user_oid#"
+								/>
+							</load>
+							<redirect operation="edit_interview">
+								<url_param name="oid" value="#request:vacancy_oid#"/>
+								<url_param name="interview_oid" value="#request:interview_oid#"/>
+							</redirect>
+						</code>
+					</step>
+				</operation>
+				
+				
+
+				<operation name="candidates">
+					<step name="candidates">	
+						<code>						
+												
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "candidates"
+							/>
+							
+							<vacancy_lib:candidates_list />
+							<button:set name="shorts" operation="shorts_list">
+								<button:param name="oid" value="#property:vacancy_oid#"/>
+								<button:param name="filterKey" value="#request:filterKey#" encode="true"/>
+							</button:set>	
+							<display view="#{$application_name}#_candidates"/>
+						</code>
+					</step>
+				</operation>
+
+				<operation name="shorts_list">
+					<step name="shorts_list">	
+						<code>						
+												
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "candidates"
+							/>
+							
+							<vacancy_lib:shorts_list />
+													
+							<display view="#{$application_name}#_shorts_list"/>
+						</code>
+					</step>
+				</operation>
+				
+				
+				<operation name="candidates_search_results">
+					<step name="candidates_search_results">	
+						<code>						
+												
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "candidates"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>
+							
+							<vacancy_lib:candidates_search_results />
+													
+							<display view="#{$application_name}#_candidates_search_results"/>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="candidate_add_interview">
+					<step name="candidate_add_interview">	
+						<code>
+							
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "candidates"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>
+							
+							<interview_lib:add_interview
+								application_name	= "#{$application_name}#"
+								previous_op_label	= "#string:back_to_candidates#"
+								previous_operation	= "candidates"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+								ds_interview_add	= "rct_interview.candidate_add@recruitment"
+							/>							
+							
+							<display view="#{$application_name}#_interview_add"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="candidate_add_interview_process">
+					<step name="candidate_add_interview_process">	
+						<code>						
+							
+							<interview_lib:add_interview_process
+								application_name="#{$application_name}#" 
+							/>
+							
+							<vacancy_lib:add_candidate_vacancy_log
+								candidate_oid 		= "#property:candidate_oid#"
+								vacancy_oid			= "#property:vacancy_oid#"
+								action_oid			= "4"
+								ref_oid				= "#var:oid#" />
+
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="rate_candidate">
+					<step name="rate_candidate">	
+						<code>
+						
+							<vacancy_lib:rate_candidate />
+							
+							<redirect operation="candidates">
+								<url_param name="oid" value="#property:vacancy_oid#"/>
+							</redirect>							
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="change_candidate_status">
+					<step name="change_candidate_status">	
+						<code>
+						
+							<vacancy_lib:change_candidate_status />
+							
+							<if condition="#property:status_value# == '7'"> <!-- En cas d'acceptation -->
+								<vacancy_lib:change_progress_level
+									vacancy_oid 	= "#property:vacancy_oid#"
+									progress_level 	= "9"	
+								/>
+							</if>
+							
+							<if condition="#property:status_value# == '18'"> <!-- En cas d'annulation de sélection -->
+								<vacancy_lib:change_progress_level
+									vacancy_oid 	= "#property:vacancy_oid#"
+									progress_level 	= "10"	
+								/>
+							</if>
+														
+							<redirect operation="candidates">
+								<url_param name="oid" value="#property:vacancy_oid#"/>
+							</redirect>							
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="handle_proposal">
+					<step name="handle_proposal">	
+						<code>
+						
+							<vacancy_lib:handle_proposal />
+							<display view="#{$application_name}#_handle_proposal"/>						
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="handle_proposal_process">
+					<step name="handle_proposal_process">	
+						<code>
+						
+							<vacancy_lib:handle_proposal_process />
+							
+							<set name="var:progress_level_value" value="7" /> <!-- acceptation -->
+							<if condition="#property:status_value# == '11'">
+								<set name="var:progress_level_value" value="8" />
+							</if>
+							
+							<vacancy_lib:change_progress_level
+								vacancy_oid 	= "#property:vacancy_oid#"
+								progress_level 	= "#var:progress_level_value#"	
+							/>	
+										
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<operation name="unlink_candidate">
+					<step name="unlink_candidat">	
+						<code>
+						
+							<vacancy_lib:unlink_candidate />
+							
+							<redirect operation="candidates">
+								<url_param name="oid" value="#property:vacancy_oid#"/>
+							</redirect>
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<operation name="send_to_ic">
+					<step name="send_to_ic">	
+						<code>
+						
+						
+							<vacancy_lib:send_to_ic />
+							<display view="#{$application_name}#_send_to_ic"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="send_to_ic_process">
+					<step name="send_to_ic_process">	
+						<code>
+						
+							<vacancy_lib:send_to_ic_process />
+							
+							<vacancy_lib:change_progress_level
+								vacancy_oid 	= "#property:vacancy_oid#"
+								progress_level 	= "4"	
+							/>
+												
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<operation name="send_sl_to_ic">
+					<step name="send_sl_to_ic">	
+						<code>
+						
+							<short_list_lib:send_to_ic />
+							<display view="#{$application_name}#_send_sl_to_ic"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="send_sl_to_ic_process">
+					<step name="send_sl_to_ic_process">	
+						<code>
+						
+							<short_list_lib:send_to_ic_process />
+							
+							<vacancy_lib:change_progress_level
+								vacancy_oid 	= "#property:vacancy_oid#"
+								progress_level 	= "5"	
+							/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+												
+				<operation name="add_short_list">
+					<step name="add_short_list">	
+						<code>
+						
+							<short_list_lib:add />							
+							<display view="#{$application_name}#_short_list_add"/>
+							
+						</code>
+					</step>
+					<step name="add_short_list_process">	
+						<code>
+						
+							<short_list_lib:add_process />
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="edit_short_list">
+					<step name="edit_short_list">	
+						<code>
+						
+							<short_list_lib:edit />
+							<display view="#{$application_name}#_short_list_edit"/>
+							
+						</code>
+					</step>
+					<step name="edit_short_list_process">	
+						<code>
+						
+							<short_list_lib:edit_process />
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				<operation name="add_to_short_list">
+					<step name="add_to_short_list">	
+						<code>
+						
+							<short_list_lib:add_candidates />
+							
+							<display view="#{$application_name}#_short_list_add_candidates"/>
+							
+						</code>
+					</step>
+					<step name="add_to_short_list_process">	
+						<code>
+						
+							<short_list_lib:add_candidates_process />
+							
+						</code>
+					</step>
+				</operation>
+				
+				<!-- Prévisualisation des pièces jointes (CV, LM) -->
+				<operation name="preview">
+					<step name="preview">	
+						<code>	
+												
+							<candidate_lib:preview
+								application_name	= "#{$application_name}#"
+							/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="candidate_details">
+					<step name="candidate_details">	
+						<code>	
+							
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "candidates"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>
+												
+							<candidate_lib:details
+								application_name	= "#{$application_name}#"
+							/>
+							
+							<display view="#{$application_name}#_candidate_details"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="unlink_candidate_sl">
+					<step name="unlink_candidate_sl">	
+						<code>
+												
+							<short_list_lib:unlink_candidate
+								application_name	= "#{$application_name}#"
+							/>
+							
+							<redirect operation="candidates">
+								<url_param name="oid" value="#property:vacancy_oid#"/>
+							</redirect>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="delete_sl">
+					<step name="delete_sl">	
+						<code>
+												
+							<short_list_lib:delete
+								application_name	= "#{$application_name}#"
+							/>
+							
+							<vacancy_lib:addlog
+								vacancy_oid			= "#property:vacancy_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "31"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							
+							<redirect operation="candidates">
+								<url_param name="oid" value="#property:vacancy_oid#"/>
+							</redirect>
+							
+						</code>
+					</step>
+				</operation>
+								
+				<!-- 
+					Gestion des emails envoyés aux candidats
+				-->
+				<operation name="add_email">
+					<step name="add_email">	
+						<code>
+							
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "candidates"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>
+									
+							<email_lib:add
+								application_name	= "#{$application_name}#" 
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>							
+							
+							<display view="#{$application_name}#_email_add"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="add_email_process">
+					<step name="add_email_process">	
+						<code>						
+							
+							<email_lib:add_process
+								application_name="#{$application_name}#" 
+							/>
+							
+							<if condition="#request:email_type# == '2'"> <!-- Changement de phase en cas d'envoi de propositions -->
+								<vacancy_lib:change_progress_level
+									vacancy_oid 	= "#property:vacancy_oid#"
+									progress_level 	= "11"
+								/>
+							</if>
+
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="view_mail">
+					<step name="view_mail">	
+						<code>
+						
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "candidates"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>					
+												
+							<email_lib:view	/>
+							
+							<display view="#{$application_name}#_email_view"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="email_download">
+					<step name="email_download">
+						<code>
+						
+							<email_lib:download application_name="#{$application_name}#" />
+													
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="get_email_sample">
+					<step name="get_email_sample">
+						<code>
+							<ds:load media="db" ds="#{$ds_get_email_sample}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+							<display view="#{$application_name}#_email_sample"/>
+						</code>
+					</step>
+				</operation>
+
+				<operation name="recruitment_providers">
+					<step name="recruitment_providers">	
+						<code>						
+												
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "recruitment_providers"
+							/>
+							
+							<provider_lib:list />
+							
+							<display view="#{$application_name}#_recruitment_providers"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="request_provider">
+					<step name="request_provider">	
+						<code>
+							
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "recruitment_providers"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>
+									
+							<provider_lib:request />
+							
+							<display view="#{$application_name}#_provider_add"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="request_provider_process">
+					<step name="request_provider_process">	
+						<code>						
+							
+							<provider_lib:request_process application_name="#{$application_name}#" />
+							
+							<vacancy_lib:change_progress_level
+								vacancy_oid 	= "#property:vacancy_oid#"
+								progress_level 	= "2"	
+							/>
+
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="view_provider">
+					<step name="view_provider">	
+						<code>
+						
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "recruitment_providers"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>					
+												
+							<provider_lib:view	/>
+							
+							<display view="#{$application_name}#_provider_view"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="provider_download">
+					<step name="provider_download">
+						<code>
+						
+							<provider_lib:download application_name="#{$application_name}#" />
+													
+						</code>
+					</step>
+				</operation>
+
+				<operation name="feedback">
+					<step name="feedback">	
+						<code>					
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "feedback"
+							/>
+							<feedback_lib:list />
+							<display view="#{$application_name}#_feedback"/>
+						</code>
+					</step>
+				</operation>				
+				
+				<operation name="schedule_instant_feedback">
+					<step name="schedule_instant_feedback">	
+						<code>
+							<feedback_lib:schedule />						
+							<display view="#{$application_name}#_feedback_schedule"/>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="schedule_instant_feedback_process">
+					<step name="schedule_instant_feedback_process">	
+						<code>
+							<feedback_lib:schedule_process />
+							<set name="var:oid">
+								<ds:insert_id media="db" />
+							</set>							
+							<vacancy_lib:addlog
+								vacancy_oid			= "#property:vacancy_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "18"
+								ref_oid				= "#var:oid#"
+								additional_infos	= ""
+							/>
+						</code>
+					</step>
+				</operation>				
+
+				<operation name="schedule_delayed_feedback">
+					<step name="schedule_delayed_feedback">	
+						<code>
+							<feedback_lib:schedule
+								ds_schedule			= "rct_delayed_feedback.schedule@recruitment"
+								submit_operation	= "schedule_delayed_feedback_process" 
+							 />				
+							<display view="#{$application_name}#_feedback_schedule"/>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="schedule_delayed_feedback_process">
+					<step name="schedule_delayed_feedback_process">	
+						<code>
+							<feedback_lib:schedule_process 
+								ds_schedule	= "rct_delayed_feedback.schedule@recruitment"
+							/>
+							<set name="var:oid">
+								<ds:insert_id media="db" />
+							</set>							
+							<vacancy_lib:addlog
+								vacancy_oid			= "#property:vacancy_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "19"
+								ref_oid				= "#var:oid#"
+								additional_infos	= ""
+							/>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="delete_instant_feedback">
+					<step name="delete_instant_feedback">	
+						<code>
+							<feedback_lib:delete ds_delete="rct_instant_feedback.record@recruitment" />
+							<vacancy_lib:addlog
+								vacancy_oid			= "#request:vacancy_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "20"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							<redirect operation="feedback">
+								<url_param name="oid" value="#request:vacancy_oid#"/>
+							</redirect>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="delete_delayed_feedback">
+					<step name="delete_delayed_feedback">	
+						<code>
+							<feedback_lib:delete ds_delete="rct_delayed_feedback.record@recruitment" />
+							<vacancy_lib:addlog
+								vacancy_oid			= "#request:vacancy_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "21"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							<redirect operation="feedback">
+								<url_param name="oid" value="#request:vacancy_oid#"/>
+							</redirect>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="complete_instant_feedback">
+					<step name="complete_instant_feedback">	
+						<code>
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "feedback"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>
+							<feedback_lib:complete />
+							<display view="#{$application_name}#_feedback_write"/>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="complete_instant_feedback_process">
+					<step name="complete_instant_feedback_process">	
+						<code>
+							<feedback_lib:complete_process />
+						</code>
+					</step>
+				</operation>
+
+				<operation name="view_delayed_feedback">
+					<step name="view_delayed_feedback">	
+						<code>
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "feedback"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>
+							<feedback_lib:view />
+							<display view="#{$application_name}#_feedback_view"/>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="warning">
+					<step name="warning">	
+						<code>					
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "warning"
+							/>
+							<warning_lib:list />
+							<display view="#{$application_name}#_warning"/>
+						</code>
+					</step>
+				</operation>	
+				<operation name="history">
+					<step name="history">	
+						<code>
+							
+							<set name="property:vacancy_oid" value="#request:oid#" />
+							<!-- Historique -->
+							<ds:load media="db" ds="#{$ds_get_log}#" property="#{$candidate_log_records}#" multiple="yes" addProperties="no" />
+							
+							<!-- Historique du dossier -->
+							<ds:load media="db" ds="#{$ds_vacancy_history}#" property="#{$vacancy_history_records}#" multiple="yes" addProperties="no" />
+							
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "history"
+							/>
+
+							<display view="#{$application_name}#_history"/>
+						</code>
+					</step>
+				</operation>	
+
+				<operation name="announcement">
+					<step name="announcement">	
+						<code>
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "announcement"
+							/>
+
+							<set name="property:vacancy_oid" value="#request:oid#" />
+							
+							<ds:load media="db" ds="#{$ds_announcements_intranet}#" property="#{$property_announcements_intranet_records}#" multiple="yes" addProperties="no" />
+							<ds:load media="db" ds="#{$ds_announcements_internet}#" property="#{$property_announcements_internet_records}#" multiple="yes" addProperties="no" />
+							
+							<button:set name="announcement_add_intranet" operation="announcement_add_intranet">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+
+							<button:set name="announcement_add_internet" operation="announcement_add_internet">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+
+							<display view="#{$application_name}#_announcement"/>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="schedule_warning">
+					<step name="schedule_warning">	
+						<code>
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "warning"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>
+							<warning_lib:schedule />
+							<display view="#{$application_name}#_warning_schedule"/>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="schedule_warning_process">
+					<step name="schedule_warning_process">	
+						<code>
+							<warning_lib:schedule_process />
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="edit_warning">
+					<step name="edit_warning">	
+						<code>
+							<vacancy_lib:init_operation
+								ds_get_title		= "#{$ds_get_title}#"
+								current_operation	= "warning"
+								vacancy_oid_param	= "#request:vacancy_oid#"
+							/>
+							<warning_lib:edit />
+							<display view="#{$application_name}#_warning_edit"/>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="edit_warning_process">
+					<step name="edit_warning_process">	
+						<code>
+							<warning_lib:edit_process />
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="delete_warning">
+					<step name="delete_warning">	
+						<code>
+							<warning_lib:delete />
+							<vacancy_lib:addlog
+								vacancy_oid			= "#request:vacancy_oid#"
+								user_oid			= "#user:oid#"
+								action_oid			= "26"
+								ref_oid				= ""
+								additional_infos	= ""
+							/>
+							<redirect operation="warning">
+								<url_param name="oid" value="#request:vacancy_oid#"/>
+							</redirect>
+						</code>
+					</step>
+				</operation>
+				
+				<operation name="add_candidate_comment">
+					<step name="add_candidate_comment">	
+						<code>
+						
+							<vacancy_lib:add_candidate_comment />							
+							<display view="#{$application_name}#_comment"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<operation name="add_comment">
+					<step name="add_comment">
+						<code>
+							
+							<ds:store ds="#{$ds_add_comment}#" media="db" mode="insert">
+								<ds:load media="post" ds="#{$ds_comment}#" multiple="no" addProperties="no"/>
+							</ds:store>
+														
+							<set name="property:comment_oid">
+								<ds:insert_id media="db" />
+							</set>
+							
+							<ds:load media="db" ds="#{$ds_get_comment}#" property="#{$property_record}#" multiple="no" addProperties="no" />
+							
+							<display view="#{$application_name}#_comment"/>			
+						</code>
+					</step>
+				</operation>
+
+				<operation name="download">
+					<step name="download">
+						<code>
+							
+							<set name="var:path" value="#{$vacancies_path}#" />
+							<set name="var:handler" value="#{$ds_attached_files_download}#" />
+							<set name="var:oidField" value="vacancy_oid" />
+							<load>
+								<bean:call
+									xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+									class		= "#{$service_class}#"
+									method		= "download"
+									params		= "#request:oid#,#request:vacancy_oid#,#var:path#,#var:handler#,#var:oidField#"
+								/>
+							</load>
+													
+						</code>
+					</step>
+				</operation>
+								
+				<operation name="delete">
+					<step name="delete">	
+						<code>
+							
+							<ds:delete ds="#{$ds_delete}#" media="db" />
+							
+							<!-- @todo : Supprimer toutes les dépendances d'un dossier -->	
+											
+							<redirect operation="list">
+								<url_param name="mode" value="ajax"/>
+							</redirect>
+							
+						</code>
+					</step>
+				</operation>
+				
+				
+				
+				
+				
+				
+				
+				
+				<operation name="archive">
+					<step name="archive">	
+						<code>
+
+							<ds:store ds="#{$ds_archive}#" media="db" mode="update" />
+							
+							<redirect operation="list">
+								<url_param name="mode" value="ajax"/>
+							</redirect>
+							
+							<!--
+							<set name="var:oids" value="#request:oid#" />
+							<script language="php">
+								$oids = explode('|', $oids);
+							</script>
+							
+							<foreach sequence="$oids" index="i" item="value">
+								<vacancy_lib:addlog
+									ds_add_log			= "#{$ds_add_log}#"
+									vacancy_oid		= "#$value#"
+									user_oid			= "#user:oid#"
+									action_oid			= "2"
+									ref_oid				= ""
+									additional_infos	= ""
+								/>
+							</foreach>
+							
+							<redirect operation="list">
+								<url_param name="mode" value="ajax"/>
+							</redirect>
+							-->
+							
+						</code>
+					</step>
+				</operation>
+				
+			</application>
+		</logic>
+		
+		
+					<!-- views -->
+		
+					<tpl:screens xmlns="http://www.nxfrontier.com/tpl/tpml"  xmlns:tpl="http://www.nxfrontier.com/tpl/tpml" skin="default">
+			  
+			
+					<tpl:screen name="#{$application_name}#_list" trace="yes" inherit="page">
+				
+						<zone>
+					
+							<load view="#{$template_list}#" />
+			
+						</zone>
+			
+					</tpl:screen>
+
+			
+					<tpl:screen name="#{$application_name}#_list_ajax" trace="yes">
+				
+						<load view="#{$template_list}#" />
+			
+					</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_add" trace="yes">
+				<load view="#{$template_add}#" />
+			</tpl:screen>
+					
+			<tpl:screen name="#{$application_name}#_edit" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_edit}#" />
+				</zone>
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_readonly" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_readonly}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_readonly_page" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_readonly}#" />
+				</zone>				
+				<zone>
+					<load view="#{$template_edit_wrapper}#" />
+				</zone>			
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_edit_page" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_edit}#" />
+				</zone>				
+				<zone>
+					<load view="#{$template_edit_wrapper}#" />
+				</zone>			
+			</tpl:screen>
+
+			
+			
+			<tpl:screen name="#{$application_name}#_redirect" trace="yes">
+				<load view="#{$template_redirect}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_validation_redirect" trace="yes">
+				<load view="#{$template_validation_redirect}#" />
+			</tpl:screen>
+			
+			
+			<tpl:screen name="#{$application_name}#_requirements" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>	
+					<load view="#{$template_requirements}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_calendar" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_calendar}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_candidates" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_candidates}#" />
+				</zone>
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_shorts_list" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_shorts_list}#" />
+				</zone>
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_candidates_search_results" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_candidates_search_results}#" />
+				</zone>
+			</tpl:screen>			
+			
+			<tpl:screen name="#{$application_name}#_recruitment_providers" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_recruitment_providers}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_provider_add" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_provider_add}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_provider_view" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_provider_view}#" />
+				</zone>
+			</tpl:screen>
+			
+			
+			
+			
+			
+			<tpl:screen name="#{$application_name}#_synthesis" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_synthesis}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_feedback" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_feedback}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_comment" trace="yes">
+				<load view="#{$template_comment}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interviews_list" trace="yes">
+				<load view="#{$template_interviews_list}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_add" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_interview_add}#" />
+				</zone>
+			</tpl:screen>			
+			
+			<tpl:screen name="#{$application_name}#_interview_edit" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_interview_edit}#" />
+				</zone>
+			</tpl:screen>			
+			
+			<tpl:screen name="#{$application_name}#_interview_validate" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_interview_validate}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_synthesis_add" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_interview_synthesis_add}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_synthesis_edit" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_interview_synthesis_edit}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_synthesis_view" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_interview_synthesis_view}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_interview_synthesis_pdf" trace="yes" inherit="#{$template_pdf_wrapper}#">
+				<zone>
+					<load view="#{$template_interview_synthesis_pdf}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_candidate_details" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_candidate_details}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_email_view" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_email_view}#" />
+				</zone>
+			</tpl:screen>
+			
+			
+			<tpl:screen name="#{$application_name}#_email_sample" trace="yes">
+				<load view="#{$template_email_sample}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_short_lists" trace="yes">
+				<load view="#{$template_short_lists}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_short_list_edit" trace="yes">
+				<load view="#{$template_short_list_edit}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_short_list_add" trace="yes">
+				<load view="#{$template_short_list_add}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_short_list_add_candidates" trace="yes">
+				<load view="#{$template_short_list_add_candidates}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_feedback_schedule" trace="yes">
+				<load view="#{$template_feedback_schedule}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_handle_proposal" trace="yes">
+				<load view="#{$template_handle_proposal}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_view" trace="yes">
+				<load view="#{$template_view}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_modalbox_form" trace="yes">
+				<load view="#{$template_modalbox_form}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_send_to_ic" trace="yes">
+				<load view="#{$template_send_to_ic}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_send_sl_to_ic" trace="yes">
+				<load view="#{$template_send_sl_to_ic}#" />
+			</tpl:screen>
+			
+			
+			
+			
+			<!-- 
+				Template d'envoi et de lecture des emails
+			-->			
+			<tpl:screen name="#{$application_name}#_email_add" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_email_add}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_feedback_write" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_feedback_write}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_feedback_view" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_feedback_view}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_announcement_add" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_announcement_add}#" />
+				</zone>
+			</tpl:screen>
+			
+			
+			
+			
+			
+			
+			<tpl:screen name="#{$application_name}#_warning" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_warning}#" />
+				</zone>
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_warning_schedule" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_warning_schedule}#" />
+				</zone>
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_warning_edit" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_warning_edit}#" />
+				</zone>
+			</tpl:screen>
+			
+			<tpl:screen name="#{$application_name}#_xls" trace="yes">
+				<load view="#{$template_xls_export}#" />
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_history" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_history}#" />
+				</zone>
+			</tpl:screen>
+			<tpl:screen name="#{$application_name}#_announcement" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_announcement}#" />
+				</zone>
+			</tpl:screen>
+			
+			
+			
+
+		</tpl:screens>
+		
+	</xo:tag>
+</xo:taglib>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_channel(_oid INT AUTO_INCREMENT NOT NULL,_name VARCHAR(200),_to_email VARCHAR(200),_establishment TEXT,PRIMARY KEY(_oid))"; ?>

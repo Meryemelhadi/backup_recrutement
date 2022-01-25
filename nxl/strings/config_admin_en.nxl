@@ -1,0 +1,784 @@
+<nxl xmlns="http://www.nxfrontier.com/nxl/nxl">
+
+	<i8n:strings 
+		name		= "recruitment_manage_candidate_categories" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of applicant categories" />
+		
+		<i8n:string id="add" value="Add an applicant category" />
+		<i8n:string id="search" value="Search an applicant category" />
+		<i8n:string id="page_title_list" value="Configuration of applicant categories" />
+		<i8n:string id="page_title_add" value="Add new applicant category" />
+		<i8n:string id="page_title_edit" value="Edit selected category" />
+		<i8n:string id="page_title_view" value="Label of selected category" />
+
+		<i8n:string id="page_message_list" value="List of applicant categories" />
+		<i8n:string id="page_message_add" value="Please add here the label of d'a new applicant category" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the category" />
+		<i8n:string id="page_message_view" value="Label of selected category" />
+		
+		<i8n:string id="page_message_list_details" value="Please click on applicant category for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please click on 'Save' button after typing the label of the category" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of applicant categories, or on 'Applicant categories list' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Applicant categories list' for coming back to the list of applicant categories" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No applicant category found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the category" />
+		<i8n:string id="delete_helper" value="Delete an applicant category" />
+
+		<i8n:string id="back" value="Applicant categories list" />
+		<i8n:string id="items_search" value="Categorie(s) found" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_candidate_tests" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of applicant tests" />
+		
+		<i8n:string id="add" value="Add a test" />
+		<i8n:string id="search" value="Search a applicant test" />
+		<i8n:string id="page_title_list" value="Configuration of applicant tests" />
+		<i8n:string id="page_title_add" value="Add a new applicant test" />
+		<i8n:string id="page_title_edit" value="Edit of selected test" />
+		<i8n:string id="page_title_view" value="Label of selected test" />
+
+		<i8n:string id="page_message_list" value="List of applicant tests" />
+		<i8n:string id="page_message_add" value="Please add here the label of a new applicant test" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the test" />
+		<i8n:string id="page_message_view" value="Label of the test" />
+		
+		<i8n:string id="page_message_list_details" value="Please click on applicant test for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the label of the test" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of applicant tests, or on 'Applicant tests list' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Applicant tests list' for coming back to the list of applicant tests" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No applicant test found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the test" />
+		<i8n:string id="delete_helper" value="Delete the applicant test" />
+
+		<i8n:string id="back" value="Applicant tests list" />
+		<i8n:string id="items_search" value="Test(s) found in the database" />
+
+	</i8n:strings>
+
+
+	<i8n:strings 
+		name		= "recruitment_manage_contract_types" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of contract types" />
+		
+		<i8n:string id="add" value="Add a contract type" />
+		<i8n:string id="search" value="Search a contract type" />
+		<i8n:string id="page_title_list" value="Configuration of contract types" />
+		<i8n:string id="page_title_add" value="Add a new contract type" />
+		<i8n:string id="page_title_edit" value="Edit of selected contract type" />
+		<i8n:string id="page_title_view" value="Label of the contract type" />
+		<i8n:string id="page_title_validation" value="Validation of contract type" />
+
+		<i8n:string id="page_message_list" value="List of contract types" />
+		<i8n:string id="page_message_add" value="Please add here a new contract type" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the contract type" />
+		<i8n:string id="page_message_view" value="Label of the contract type" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on a contract for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the label of the contract type" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of contract types, or on \'Contract type list\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'contract type list' for coming back to the list of contract types" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No contract type found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the contract type" />
+		<i8n:string id="delete_helper" value="Delete this contract type" />
+
+		<i8n:string id="back" value="Contract type list" />
+		<i8n:string id="items_search" value="Type(s) found in the database" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_countries" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of country" />
+		
+		<i8n:string id="add" value="Add a country" />
+		<i8n:string id="search" value="Search a country" />
+		<i8n:string id="page_title_list" value="Configuration of country" />
+		<i8n:string id="page_title_add" value="Add a new country" />
+		<i8n:string id="page_title_edit" value="Edit of selected label of country" />
+		<i8n:string id="page_title_view" value="Label of the country" />
+		<i8n:string id="page_title_validation" value="Validation of the label" />
+
+		<i8n:string id="page_message_list" value="List of countries" />
+		<i8n:string id="page_message_add" value="Please add here a new country" />
+		<i8n:string id="page_message_edit" value="Please modify here the country" />
+		<i8n:string id="page_message_view" value="Country" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on a country for modifying its label" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the label of the  country" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of countries, or on \'Country list\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Country list' for coming back to the list" />
+		
+		<i8n:string id="field:country_name" value ="Country" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No country found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the country" />
+		<i8n:string id="delete_helper" value="Delete the country" />
+
+		<i8n:string id="back" value="Country list" />
+		<i8n:string id="items_search" value="Country(ies) found in the database" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_duty_stations" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of duty stations" />
+		
+		<i8n:string id="add" value="Add a duty station" />
+		<i8n:string id="search" value="Search a duty station" />
+		<i8n:string id="page_title_list" value="Configuration of duty stations" />
+		<i8n:string id="page_title_add" value="Add a new duty station" />
+		<i8n:string id="page_title_edit" value="Edit of selected duty station" />
+		<i8n:string id="page_title_view" value="Label of the duty stations" />
+		<i8n:string id="page_title_validation" value="Validation of duty stations" />
+
+		<i8n:string id="page_message_list" value="List of duty stations" />
+		<i8n:string id="page_message_add" value="Please add here a new duty station" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the duty station" />
+		<i8n:string id="page_message_view" value="Label of the duty station" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on a duty station for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the label of the duty station" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of duty stations, or on \'Duty station list\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Duty station list' for coming back to the list of duty stations" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No duty station found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the duty station" />
+		<i8n:string id="delete_helper" value="Delete this duty station" />
+
+		<i8n:string id="back" value="Duty station list" />
+		<i8n:string id="items_search" value="Lieu(s) found in the database" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_email_samples" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of email templates" />
+		
+		<i8n:string id="add" value="Add an email template" />
+		<i8n:string id="search" value="Search an email template" />
+		<i8n:string id="page_title_list" value="Configuration of email templates" />
+		<i8n:string id="page_title_add" value="Add of a new email template" />
+		<i8n:string id="page_title_edit" value="Edition of the email template" />
+		<i8n:string id="page_title_view" value="Informations on the email template" />
+		<i8n:string id="page_title_validation" value="Validation of the email template" />
+
+		<i8n:string id="page_message_list" value="List of email templates" />
+		<i8n:string id="page_message_add" value="Please add here a new email template" />
+		<i8n:string id="page_message_edit" value="Please modify here the email template" />
+		<i8n:string id="page_message_view" value="Email template" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on an email template for updating its content" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the email template" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of email templates, or on \'email template list\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'email template list' for coming back to the list of email templates" />
+		
+		<i8n:string id="field:name" value ="Template name" />
+		<i8n:string id="field:email_title" value ="Email title" />
+		<i8n:string id="field:email_content" value ="Content" />
+		<i8n:string id="field:type_email" value ="Email type" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No email template found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify template content" />
+		<i8n:string id="delete_helper" value="Delete the email template" />
+
+		<i8n:string id="back" value="email template list" />
+		<i8n:string id="items_search" value="Template(s) found in the database" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_interview_default_criterias" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of appraisal criterias" />
+		
+		<i8n:string id="add" value="Add an appraisal criteria" />
+		<i8n:string id="search" value="Search an appraisal criteria" />
+		<i8n:string id="page_title_list" value="Configuration of appraisal criterias" />
+		<i8n:string id="page_title_add" value="Add of a new appraisal criteria" />
+		<i8n:string id="page_title_edit" value="Edit of selected appraisal criteria" />
+		<i8n:string id="page_title_view" value="Label of selected appraisal criteria" />
+		<i8n:string id="page_title_validation" value="Validation of appraisal criteria" />
+
+		<i8n:string id="page_message_list" value="List of appraisal criterias" />
+		<i8n:string id="page_message_add" value="Please add here a new appraisal criteria" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of critère" />
+		<i8n:string id="page_message_view" value="appraisal criteria" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on an appraisal criteria de recrutement for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the appraisal criteria" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of appraisal criterias, or on 'Appraisal criterias list' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Appraisal criterias list' for coming back to the list of appraisal criterias" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No appraisal criteria found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the criteria" />
+		<i8n:string id="delete_helper" value="Delete the appraisal criteria" />
+
+		<i8n:string id="back" value="Appraisal criterias list" />
+		<i8n:string id="items_search" value="criteria(s) found in the database" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_keywords" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of keywords" />
+		
+		<i8n:string id="add" value="Add a keyword" />
+		<i8n:string id="search" value="Search a keyword" />
+		<i8n:string id="page_title_list" value="Configuration of keywords" />
+		<i8n:string id="page_title_add" value="Add a new keyword" />
+		<i8n:string id="page_title_edit" value="Edit of selected keyword" />
+
+		<i8n:string id="page_message_list" value="List of keywords" />
+		<i8n:string id="page_message_add" value="Please add here the label of a new keyword" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the keyword" />
+		<i8n:string id="page_message_view" value="Label of the keyword" />
+		
+		<i8n:string id="page_message_list_details" value="Please click on a keyword for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the label of the keyword" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of keywords, or on 'Liste des keywords' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Liste des keywords' for coming back to the list" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No keyword found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the keyword" />
+		<i8n:string id="delete_helper" value="Delete the keyword" />
+
+		<i8n:string id="back" value="Liste des keywords" />
+		<i8n:string id="items_search" value="Keyword(s) found in the database" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_languages" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of languages" />
+		
+		<i8n:string id="add" value="Add a language" />
+		<i8n:string id="search" value="Search a language" />
+		<i8n:string id="page_title_list" value="Configuration of languages" />
+		<i8n:string id="page_title_add" value="Add new language" />
+		<i8n:string id="page_title_edit" value="Edit selectedngue" />
+		<i8n:string id="page_title_view" value="Label of selected language" />
+
+		<i8n:string id="page_message_list" value="List of languages" />
+		<i8n:string id="page_message_add" value="Please add here the label of d'a new language" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the language" />
+		<i8n:string id="page_message_view" value="Label of selected language" />
+		
+		<i8n:string id="page_message_list_details" value="Please click on une language for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please click on 'Save' button after typing the label of the language" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of languages, or on 'Liste des languages' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Liste des languages' for coming back to the list" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No language found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the language" />
+		<i8n:string id="delete_helper" value="Delete the language" />
+
+		<i8n:string id="back" value="List of languages" />
+		<i8n:string id="items_search" value="language(s) found" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_providers" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of recruitment agencies" />
+		
+		<i8n:string id="add" value="Add a recruitment agency" />
+		<i8n:string id="search" value="Search a recruitment agency" />
+		<i8n:string id="page_title_list" value="Configuration of recruitment agencies" />
+		<i8n:string id="page_title_add" value="Add a new recruitment agency" />
+		<i8n:string id="page_title_edit" value="Edit selected recruitment agency" />
+		<i8n:string id="page_title_view" value="Label of the recruitment agency" />
+		<i8n:string id="page_title_validation" value="Validation of recruitment agency" />
+
+		<i8n:string id="page_message_list" value="List of recruitment agencies" />
+		<i8n:string id="page_message_add" value="Please use thiss form for adding a new recruitment agency to be used when managing job ad references in vacancies" />
+		<i8n:string id="page_message_edit" value="Please modify here informations on recruitment agency" />
+		<i8n:string id="page_message_view" value="Détails on recruitment agency" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on a recruitment agency for displaying its details" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the new recruitment agency" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of recruitment agencies, or on \'Recruitment agency list\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Recruitment agency list' for coming back to the list of recruitment agencies" />
+		
+		<i8n:string id="field:name" value ="Name" />
+		<i8n:string id="field:email" value ="Email" />
+		<i8n:string id="field:adress" value ="Adress" />
+		<i8n:string id="field:contact_name" value ="Contact" />
+		<i8n:string id="field:notes" value ="Notes" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No agency found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify informations" />
+		<i8n:string id="delete_helper" value="Delete the agency record" />
+		
+		<i8n:string id="field:code" value="Code" />
+
+		<i8n:string id="back" value="Recruitment agency list" />
+		<i8n:string id="items_search" value="agency(ies) found in the database" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_recruitment_reasons" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of recruitment reasons" />
+		
+		<i8n:string id="add" value="Add a recruitment reason" />
+		<i8n:string id="search" value="Search a recruitment reason" />
+		<i8n:string id="page_title_list" value="Configuration of recruitment reasons" />
+		<i8n:string id="page_title_add" value="Add a new recruitment reason" />
+		<i8n:string id="page_title_edit" value="Edit of selected recruitment reason" />
+
+		<i8n:string id="page_message_list" value="List of recruitment reasons" />
+		<i8n:string id="page_message_add" value="Please add here the label of a new recruitment reason" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the recruitment reason" />
+		<i8n:string id="page_message_view" value="Label of the recruitment reason" />
+		
+		<i8n:string id="page_message_list_details" value="Please click on a recruitment reason for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the label of the recruitment reason" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of recruitment reasons, or on 'Recruitment reasons list' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Recruitment reasons list' for coming back to the list" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No recruitment reason found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the recruitment reason" />
+		<i8n:string id="delete_helper" value="Delete the recruitment reason" />
+
+		<i8n:string id="back" value="Recruitment reasons list" />
+		<i8n:string id="items_search" value="Motif(s) de recrutement found in the database" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_services" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of services" />
+		
+		<i8n:string id="add" value="Add a service" />
+		<i8n:string id="search" value="Search a service" />
+		<i8n:string id="page_title_list" value="Configuration of services" />
+		<i8n:string id="page_title_add" value="Add a new service" />
+		<i8n:string id="page_title_edit" value="Edit of selected service" />
+		<i8n:string id="page_title_view" value="Label of the service" />
+		<i8n:string id="page_title_validation" value="Validation of service" />
+
+		<i8n:string id="page_message_list" value="List of services" />
+		<i8n:string id="page_message_add" value="Please add here a new service" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the service" />
+		<i8n:string id="page_message_view" value="Label of the service" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on a service for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the label of the service" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of services, or on \'Liste des services\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Liste des services' for coming back to the list" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No service found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the service" />
+		<i8n:string id="delete_helper" value="Delete this service" />
+
+		<i8n:string id="back" value="Liste des services" />
+		<i8n:string id="items_search" value="service(s) found in the database" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_subsidiaries" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of subsidiaries" />
+		
+		<i8n:string id="add" value="Add a subsidiary" />
+		<i8n:string id="search" value="Search a subsidiary" />
+		<i8n:string id="page_title_list" value="Configuration of subsidiaries" />
+		<i8n:string id="page_title_add" value="Add new subsidiary" />
+		<i8n:string id="page_title_edit" value="Edit selected subsidiary" />
+		<i8n:string id="page_title_view" value="Information on subsidiary" />
+		<i8n:string id="page_title_validation" value="Validating selected subsidiary" />
+
+		<i8n:string id="page_message_list" value="List of subsidiaries" />
+		<i8n:string id="page_message_add" value="Please add here a new subsidiary" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the subsidiary" />
+		<i8n:string id="page_message_view" value="Label of selected subsidiary" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on une subsidiary for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the label of the subsidiary" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of subsidiaries, or on \'Subsidiaries list\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Subsidiaries list' for coming back to the list" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No subsidiary found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the subsidiary" />
+		<i8n:string id="delete_helper" value="Delete la subsidiary" />
+
+		<i8n:string id="back" value="Subsidiaries list" />
+		<i8n:string id="items_search" value="Subsidiary(ies) found" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_towns" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of towns" />
+		
+		<i8n:string id="add" value="Add a town" />
+		<i8n:string id="search" value="Search a town" />
+		<i8n:string id="page_title_list" value="Configuration of towns" />
+		<i8n:string id="page_title_add" value="Add new town" />
+		<i8n:string id="page_title_edit" value="Edit selected town" />
+		<i8n:string id="page_title_view" value="Information on town" />
+		<i8n:string id="page_title_validation" value="Validating selected town" />
+
+		<i8n:string id="page_message_list" value="List of towns" />
+		<i8n:string id="page_message_add" value="Please add here a new town" />
+		<i8n:string id="page_message_edit" value="Please modify here la town" />
+		<i8n:string id="page_message_view" value="Town" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on une town for modifying its label" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the nom the town" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of towns, or on \'Town list\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Town list' for coming back to the list" />
+		
+		<i8n:string id="field:town_name" value ="Town" />
+		<i8n:string id="field:country_oid" value ="Country" />
+		<i8n:string id="field.prompt:country_oid" value ="Select a country ..." />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No town found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the town name" />
+		<i8n:string id="delete_helper" value="Delete the town" />
+
+		<i8n:string id="back" value="Town list" />
+		<i8n:string id="items_search" value="Town(s) found" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_vacancy_categories" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of Job categories" />
+		
+		<i8n:string id="add" value="Add a job category" />
+		<i8n:string id="search" value="Search a job category" />
+		<i8n:string id="page_title_list" value="Configuration of job categories" />
+		<i8n:string id="page_title_add" value="Add new job category" />
+		<i8n:string id="page_title_edit" value="Edit selected category" />
+		<i8n:string id="page_title_view" value="Label of selected category" />
+
+		<i8n:string id="page_message_list" value="List of job categories" />
+		<i8n:string id="page_message_add" value="Please add here the label of d'a new job category" />
+		<i8n:string id="page_message_edit" value="Please modify here the label of the category" />
+		<i8n:string id="page_message_view" value="Label of selected category" />
+		
+		<i8n:string id="page_message_list_details" value="Please click on category for updating its text value" />
+		<i8n:string id="page_message_add_details" 
+		value="Please click on 'Save' button after typing the label of the category" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of Job categories, or on 'Liste des Job categories' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'Liste des Job categories' for coming back to the list of types de poste" />
+		
+		<i8n:string id="field:name" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No job category found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the label of the category" />
+		<i8n:string id="delete_helper" value="Delete la job category" />
+
+		<i8n:string id="back" value="Liste des Job categories" />
+		<i8n:string id="items_search" value="Catégorie(s) found" />
+
+	</i8n:strings>
+
+	<i8n:strings 
+		name		= "recruitment_manage_schools" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of schools" />
+		
+		<i8n:string id="add" value="Add a school" />
+		<i8n:string id="search" value="Search a school" />
+		<i8n:string id="page_title_list" value="Configuration of schools" />
+		<i8n:string id="page_title_add" value="Add new school" />
+		<i8n:string id="page_title_edit" value="Edit selected school" />
+		<i8n:string id="page_title_view" value="Information on school" />
+		<i8n:string id="page_title_validation" value="Validating selected school" />
+
+		<i8n:string id="page_message_list" value="List of schools" />
+		<i8n:string id="page_message_add" value="Please add here a new school" />
+		<i8n:string id="page_message_edit" value="Please modify here la school" />
+		<i8n:string id="page_message_view" value="school" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on une school for modifying its label" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the nom the school" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of schools, or on \'school list\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'school list' for coming back to the list" />
+		
+		<i8n:string id="field:code" value ="Code" />
+		<i8n:string id="field:label" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No school found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the school name" />
+		<i8n:string id="delete_helper" value="Delete the school" />
+
+		<i8n:string id="back" value="school list" />
+		<i8n:string id="items_search" value="school(s) found" />
+
+	</i8n:strings>
+	
+	<i8n:strings 
+		name		= "recruitment_manage_diplomas" 
+		lang		= "en" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Configuration of diplomas" />
+		
+		<i8n:string id="add" value="Add a diploma" />
+		<i8n:string id="search" value="Search a diploma" />
+		<i8n:string id="page_title_list" value="Configuration of diplomas" />
+		<i8n:string id="page_title_add" value="Add new diploma" />
+		<i8n:string id="page_title_edit" value="Edit selected diploma" />
+		<i8n:string id="page_title_view" value="Information on diploma" />
+		<i8n:string id="page_title_validation" value="Validating selected diploma" />
+
+		<i8n:string id="page_message_list" value="List of diplomas" />
+		<i8n:string id="page_message_add" value="Please add here a new diploma" />
+		<i8n:string id="page_message_edit" value="Please modify here la diploma" />
+		<i8n:string id="page_message_view" value="diploma" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Please click on une diploma for modifying its label" />
+		<i8n:string id="page_message_add_details" 
+		value="Please fill up the form and click on 'Save' button for adding the nom the diploma" />
+		<i8n:string id="page_message_edit_details" 
+		value="Please click on 'Save' for validating changes and coming back to the list of diplomas, or on \'diploma list\' for cancelling changes" />
+		<i8n:string id="page_message_view_details" 
+		value="Please click on 'diploma list' for coming back to the list" />
+		
+		<i8n:string id="field:code" value ="Code" />
+		<i8n:string id="field:label" value ="Label" />
+
+		<i8n:string id="legend" value="Legend" />
+		<i8n:string id="empty_list" value="No diploma found in the database" />
+
+		<i8n:string id="edit_helper" value="Modify the diploma name" />
+		<i8n:string id="delete_helper" value="Delete the diploma" />
+
+		<i8n:string id="back" value="diploma list" />
+		<i8n:string id="items_search" value="diploma(s) found" />
+
+	</i8n:strings>
+</nxl>

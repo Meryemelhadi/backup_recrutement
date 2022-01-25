@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_vacancy_oid,_user_oid,_date,_action_oid,_ref_oid,_additional_infos FROM _rct_vacancy_action WHERE _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."' ORDER BY _date DESC "; ?>

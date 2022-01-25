@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_candidate(_comments_cache) VALUES('".$props->getProperty("comments_cache","",true)."')"; ?>

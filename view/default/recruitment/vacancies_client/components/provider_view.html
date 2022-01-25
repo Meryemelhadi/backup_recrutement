@@ -1,0 +1,51 @@
+{content:attached_files}
+	{include:recruitment/vacancies_client/components/files_attached_ro}
+{/content}
+
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{=previous_operation_label}</span></span>
+</a>
+{/content}
+
+{record:page.record}
+<div class="pm-grid-outer-wrapper" id="add-interview-wrapper">
+
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	
+	<div class="record_wrapper">
+		<div class="record">
+			<!--!{fields}-->
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label} :</div>
+				</div>
+				<div class="control-wrapper" id="{field.name}-control-wrapper">
+					<div class="control" id="{field.name}-control">{field}</div>
+					{if:field.is_help}
+					<div class="tooltip">{field.help}</div>
+					{/if}
+				</div>
+			</div>
+			<!--!{/fields}-->
+			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{string:"attached_files"} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{=attached_files}</div>
+				</div>
+			</div>			
+				
+		</div>
+	</div>
+
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+
+</div>
+{/record}

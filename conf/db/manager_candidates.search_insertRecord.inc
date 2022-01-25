@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _manager_candidates(_name) VALUES(".$record->getFieldValue("name","DB","NULL").")"; ?>

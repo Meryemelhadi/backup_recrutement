@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_entreprise_description_rekrute WHERE ".$this->getWhereClause("_name_description",$this->getFieldParam("name_description","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false'); ?>

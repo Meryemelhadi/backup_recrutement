@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_candidate(_category_oid) VALUES(".$record->getFieldValue("category_oid","DB","NULL").")"; ?>

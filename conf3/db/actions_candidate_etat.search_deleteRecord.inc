@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_actions_candidate_etat"; ?>

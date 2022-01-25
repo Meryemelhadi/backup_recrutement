@@ -1,0 +1,108 @@
+<?xml version="1.0"?> 
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="rct_candidate_test">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+				<fields mode="search">
+					<field name="name" label="name" type="line" />
+				</fields>
+				
+				<key mode="ds_list"></key>
+
+				<key mode="ds_list_all">
+
+					<field name="oid" label="oid" type="oid" relation="in" value="%{property:cat.enum}"/>
+
+				</key>				
+
+								
+				<pages mode="list" alias="page" pageOffset="%{get:page}" recordsPerPage="10" />
+				<key mode="list">
+					<field name="name" label="name" type="line" relation="LIKE" />
+				</key>
+				<fields mode="list">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+				</fields>
+
+				<query mode="available_test" type="select">
+					SELECT 
+						_oid, _name
+					FROM 
+						`_rct_candidate_test` 
+					WHERE 
+						_oid NOT IN (SELECT _test_oid from _rct_candidate_test_assoc where _candidate_oid = '".$this->getProperty("candidate_oid")."')
+				</query>
+				<fields mode="available_test">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="name" label="name" type="line" />
+				</fields>
+
+	
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+				</fields>
+			</table>
+
+			<table name="rct_candidate_test_assoc">
+				<key mode="delete">
+					<field name="test_oid" type="integer" relation="EQ" value="%{property:test_oid}" />
+					<field name="candidate_oid" type="integer" relation="EQ" value="%{property:candidate_oid}" />
+				</key>
+				<key mode="candidate_tests">
+					<field name="candidate_oid" type="integer" relation="EQ" value="%{property:candidate_oid}" />
+				</key>
+				<fields mode="candidate_tests">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="test_oid" label="test_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_test.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+					<field name="pourcentage" alias="pourcentage" label="%" type="integer"/>
+					<field name="comment" alias="comment" label="comment" type="line" />
+				</fields>
+				<key mode="candidate_test">
+					<field name="candidate_oid" type="integer" relation="EQ" value="%{property:candidate_oid}" />
+					<field name="test_oid" type="integer" relation="EQ" value="%{property:test_oid}" />
+				</key>
+				<fields mode="candidate_test">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="test_oid" label="test_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_test.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+					<field name="pourcentage" alias="pourcentage" label="%" type="integer"/>
+					<field name="comment" alias="comment" label="comment" type="line" />
+				</fields>
+				<key mode="add">
+						<field name="test_oid" type="integer" relation="EQ-OR-NULL"/>
+						<field name="candidate_oid" type="integer" relation="EQ-OR-NULL"/>
+				</key>
+				<fields mode="add">
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" value="%{property:candidate_oid}" show="hidden" />
+					<field name="test_oid" label="test_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_test.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" value="%{property:test_oid}" />
+					<field name="pourcentage" alias="pourcentage" label="%" type="integer" value="%{property:pourcentage}"/>
+					<field name="comment" alias="comment" label="%" type="line" value="%{request:comment}"/>
+				</fields>
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="candidate_oid" label="candidate_oid" isProp="key" type="ref-oid" isKey="secondary" sqlType="integer" />
+					<field name="test_oid" label="test_oid" isProp="val" type="ref-oid" isKey="secondary" sqlType="integer" />
+					<field name="pourcentage" alias="pourcentage" label="%" type="integer"/>
+					<field name="comment" alias="comment" label="%" type="line" />
+				</fields>
+			</table>
+		</tables>
+	</data>
+</nxl>

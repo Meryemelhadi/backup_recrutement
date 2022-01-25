@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate SET _archive_state='1' WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

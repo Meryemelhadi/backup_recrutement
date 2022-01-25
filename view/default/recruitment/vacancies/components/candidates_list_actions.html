@@ -1,0 +1,242 @@
+<?php
+    $portal_prefix = PORTAL_URL_PREFIX;
+?>
+
+<div class="dg-cell-wrapper">
+	<script>
+
+	
+	window.dlg_unlinkConfig_{$currentGroup}_{record.index} = { 
+		title : "{string:'dlg_unlink_candidate_title'}",
+		message : "{string:'dlg_unlink_candidate_content'}", 
+		viewMode : "okCancel", 
+		url : "{=unlink_candidate.url}{record.url_key}",
+		target : "content", 
+		labels : { 
+			ok : "{string:'dlg_ok'}", 
+			cancel : "{string:'dlg_cancel'}" 
+	} };
+
+    window.dlg_deleteCandidateConfig_{$currentGroup}_{record.index} = {
+        title : "{string:'dlg_delete_candidate_title'}",
+        message : "{string:'dlg_candidate_delete_content'}",
+        viewMode : "okCancel",
+        url : "{=delete_candidate.url}{record.url_key}&vacancy_oid={=vacancy_oid}&from_vacancy=1",
+        target : "content",
+        labels : {
+            ok : "{string:'dlg_ok'}",
+            cancel : "{string:'dlg_cancel'}"
+    } };
+	
+	window.dlg_confirmForJobConfig_{$currentGroup}_{record.index} = { 
+		title : "{string:'dlg_confirm_for_job_title'}",
+		message : "{string:'dlg_confirm_for_job_content'}", 
+		viewMode : "okCancel", 
+		url : "{=accepted_for_job.url}{record.url_key}", 
+		target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" 
+	} };
+	
+	window.dlg_cancelForJobConfig_{$currentGroup}_{record.index} = { 
+		title : "{string:'dlg_cancel_for_job_title'}",
+		message : "{string:'dlg_cancel_for_job_content'}", 
+		viewMode : "okCancel", 
+		url : "{=cancel_accepted_for_job.url}{record.url_key}", 
+		target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" 
+	} };
+	
+	window.dlg_refuseConfig_{$currentGroup}_{record.index} = { 
+		title : "{string:'dlg_refuse_candidate_title'}",
+		message : "{string:'dlg_refuse_candidate_content'}", 
+		viewMode : "okCancel", 
+		url : "{=refuse_candidate.url}{record.url_key}", 
+		target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" 
+	} };
+	
+	window.dlg_accepted_proposal_{$currentGroup}_{record.index} = { title:"{string:'accepted_proposal_title'}", url: "{=accepted_proposal.url}{record.url_key}", width:550 }
+	window.dlg_refused_proposal_{$currentGroup}_{record.index} = { title:"{string:'refused_proposal_title'}", url: "{=refused_proposal.url}{record.url_key}", width:550 }
+	window.dlg_send_to_client_{$currentGroup}_{record.index} = { title:"{string:'send_to_client_title'}", url: "{=send_to_ic.url}{record.url_key}", width:550 };
+
+	window.chargeArrow =function(event,url,content) {
+		ajax_navigate(event,url,content);
+		PMDH.toggle(content,'appear');
+		return false;
+	};
+
+    function changeImage(num)
+    {
+        var id='idButton_'+num;
+        if(document.getElementById(id).className =='s-icon si-arrow-down')
+        {document.getElementById(id).className ='s-icon si-arrow-up';}
+        else document.getElementById(id).className ='s-icon si-arrow-down';
+    }
+
+	</script>
+
+	<a 
+		class="s-icon si-application-view-list" 
+		href="{var:portal_prefix}/recruitment/candidates/coid-{field.object:oid}/directory.php?nxo=edit&oid={field.object:oid}&from_void={=vacancy_oid}&candidate_oid={field.object:oid}&mode=page"
+		title="{string:'cv_candidate'}">
+		<span>{string:"cv_candidate"}</span>
+	</a>
+	
+	<!-- 
+	<a 
+		class="s-icon si-page-white-text" 
+		href="javascript:void(0);" 
+		onclick="ajax_navigate(event,'{=candidate_details.url}{record.url_key}','content'); return false;" 
+		title="{string:'cv_details'}">
+		<span>{string:"cv_details"}</span>
+	</a>
+	-->
+
+	<a 
+		class="s-icon si-page-white-go" 
+		href="javascript:void(0);" 
+		onclick="PMModalbox.loadFromUrl(window.dlg_send_to_client_{$currentGroup}_{record.index}, event); return false;" 
+		title="{string:'send_to_client_helper'}">
+		<span>{string:"send_to_client_helper"}</span>
+	</a>
+			
+	<a 
+		class="s-icon si-date-add" 
+		href="{=add_interview.url}{record.url_key}" 
+		onclickx="ajax_navigate(event,'{=add_interview.url}{record.url_key}','content'); return false;" 
+		title="{string:'add_interview_helper'}">
+		<span>{string:"add_interview_helper"}</span>
+	</a>
+	<a 
+		class="s-icon si-email-add" 
+		href="javascript:void(0);" 
+		onclick="ajax_navigate(event,'{=add_email.url}{record.url_key}','content'); return false;" 
+		title="{string:'send_mail_helper'}">
+		<span>{string:"send_mail_helper"}</span>
+	</a>
+	
+	<!--<a 
+		class="s-icon si-comment-add" 
+		href="javascript:void(0);" 
+		id="idButton_focusCom_{$currentGroup}_{record.index}" 
+		onclick="Generis.Recruitment.focusComment(event,'{=candidate_record.url}{record.url_key}','candidate_history_sub_form_{$currentGroup}_{record.index}','idButton_{field:oid}'); return false;"
+		title="{string:'comment_candidate_helper'}">
+		<span>{string:"comment_candidate_helper"}</span>
+	</a>-->
+	
+	<a 
+		class="s-icon si-comment-add" 
+		href="javascript:void(0);" 
+		id="idButton_focusCom_{$currentGroup}_{record.index}" 
+		onclick="Generis.Recruitment.focusComment(event,'{=candidate_record.url}{record.url_key}','candidate_history_{$currentGroup}_{record.index}','idButton_{field:oid}'); return false;"
+		title="{string:'comment_candidate_helper'}">
+		<span>{string:"comment_candidate_helper"}</span>
+	</a>
+
+	<a 
+		class="s-icon si-thumb-up" 
+		href="javascript:void(0);" 
+		onclick="PMModalbox.loadFromUrl(window.dlg_accepted_proposal_{$currentGroup}_{record.index}, event); return false;" 
+		title="{string:'accepted_proposal_helper'}">
+		<span>{string:"accepted_proposal_helper"}</span>
+	</a>
+	<a 
+		class="s-icon si-thumb-down" 
+		href="javascript:void(0);" 
+		onclick="PMModalbox.loadFromUrl(window.dlg_refused_proposal_{$currentGroup}_{record.index}, event); return false;" 
+		title="{string:'refused_proposal_helper'}">
+		<span>{string:"refused_proposal_helper"}</span>
+	</a>
+	
+	
+	{if:#field.object:job_acceptance_state# == '1'}		
+	<a 
+		class="s-icon si-user-delete" 
+		href="javascript:void(0);" 
+		onclick="PMModalbox.display(window.dlg_cancelForJobConfig_{$currentGroup}_{record.index}, event); return false;" 
+		title="{string:'unselect_for_job_helper'}">
+		<span>{string:"unselect_for_job_helper"}</span>
+	</a>
+	{else}
+	<a 
+		class="s-icon si-user-add" 
+		href="javascript:void(0);" 
+		onclick="PMModalbox.display(window.dlg_confirmForJobConfig_{$currentGroup}_{record.index}, event); return false;" 
+		title="{string:'selected_for_job_helper'}">
+		<span>{string:"selected_for_job_helper"}</span>
+	</a>
+	{/if}
+	{if:trim(#field.object:status#) == '8'}						
+	<a 
+		class="s-icon si-tick" 
+		href="javascript:void(0);" 
+		onclick="ajax_navigate(event,'{=reinit_status.url}{record.url_key}','content'); return false;" 
+		title="{string:'accept_candidate_helper'}">
+		<span>{string:"accept_candidate_helper"}</span>
+	</a>
+	{else}
+	<a 
+		class="s-icon si-cross" 
+		href="javascript:void(0);" 
+		onclick="PMModalbox.display(window.dlg_refuseConfig_{$currentGroup}_{record.index}, event); return false;" 
+		title="{string:'refuse_candidate_helper'}">
+		<span>{string:"refuse_candidate_helper"}</span>
+	</a>
+	{/if}
+	<a
+		class="s-icon si-disconnect" 
+		href="javascript:void(0);" 
+		onclick="PMModalbox.display(window.dlg_unlinkConfig_{$currentGroup}_{record.index}, event); return false;" 
+		title="{string:'unlink_candidate_helper'}">
+		<span>{string:"unlink_candidate_helper"}</span>
+	</a>
+
+	<a
+			class="s-icon si-information"
+			id="idButton_{$currentGroup}_{record.index}"
+			href="javascript:void(0);" 	onclick="chargeArrow(event,'{=candidate_record.url}{record.url_key}','candidate_history_{$currentGroup}_{record.index}','idButton_{$currentGroup}_{record.index}'); return false;"
+			title="{string:'title_history'}">
+		<span>{string:"title_history"}</span>
+	</a>
+
+    <a
+        class="s-icon si-delete"
+        href="javascript:void(0);"
+        onclick="PMModalbox.display(window.dlg_deleteCandidateConfig_{$currentGroup}_{record.index}, event); return false;"
+        title="{string:'delete_candidate'}">
+        <span>{string:"delete"}</span>
+    </a>
+	<a
+			class="s-icon si-linkedin"
+			target="_blank"
+			href="http://www.linkedin.com/search/fpsearch?lname={field:last_name}&fname={field:first_name}"
+			title="{string:'search_on_linkedin_helper'}">
+		<span>{string:"search_on_linkedin_helper"}</span>
+	</a>
+	<br/>
+	<a
+			class="s-icon si-viadeo"
+			target="_blank"
+			href="http://www.viadeo.com/recherche/re<?php ?>sultat_membres/?fullName={field:last_name}%20{field:first_name}&amp;search=Chercher&amp;language=fr"
+			title="{string:'search_on_viadeo_helper'}">
+		<span>{string:"search_on_viadeo_helper"}</span>
+	</a>
+	<a
+			class="s-icon si-facebook"
+			target="_blank"
+			href="https://www.facebook.com/search.php?init=s%3Aname&q={field:first_name}%20{field:last_name}&type=users"
+			title="{string:'search_on_facebook_helper'}">
+		<span>{string:"search_on_facebook_helper"}</span>
+	</a>
+
+    {if:(#field.object:user_read_state# == '1'  || #field.object:read_state# == '1')}
+    <a></a> <a></a>
+    <a
+            class="s-icon si-arrow-down"
+            id="idButton_{field:oid}"
+            target="_blank"
+            onclick="PMDH.toggle('slidingDiv_{field:oid}', 'appear'); changeImage({field:oid});"
+            title="{string:'viewers'}">
+        <span>{string:"viewers"}</span>
+    </a>
+    {/if}
+
+
+</div>

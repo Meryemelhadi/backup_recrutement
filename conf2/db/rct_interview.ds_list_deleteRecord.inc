@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_interview WHERE _oid in('".$props->getProperty("cat.enum","",true)."')"; ?>

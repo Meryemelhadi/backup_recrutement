@@ -1,0 +1,21 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<application
+	name		= "profiling_rules" 
+	path		= "/recruitment/candidates/"
+	protected	= "user" 
+	permissions = "default"
+	cache		= "no" 
+	lang		= "fr"
+	skin		= "lightsky"
+	application = "profiling_rules"
+	table		= "rct_profiling_rules"
+	base_data	= "rct_profiling_rules"
+	string_base = "Règle"
+	role = "editor"
+		xmlns="http://www.nxfrontier.com/nxl/page"
+	/>
+
+<include_once file="/all.nxl" />
+
+</nxl>

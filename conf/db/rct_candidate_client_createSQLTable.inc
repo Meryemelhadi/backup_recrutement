@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_candidate_client(_oid INT AUTO_INCREMENT NOT NULL,_date DATETIME,_proposed_by TEXT,_proposed_to TEXT,_candidate_oid INT,_comment TEXT,_email_type integer,_email_title TEXT,_email_content TEXT,_email_docs varchar(255),PRIMARY KEY(_oid))"; ?>

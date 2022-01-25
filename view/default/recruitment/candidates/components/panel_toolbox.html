@@ -1,0 +1,136 @@
+
+<div class="pm-bxm-box-wrapper">
+	<div class="pm-bxm-box">
+	
+		<div class="box-title-wrapper box-title-red">
+			<div class="box-title">
+				<h3><strong>{string:"toolbox"}</strong></h3>
+			</div>
+		</div>
+		
+		<div class="pm-bxm-box-content">
+			<div class="columns-layout clear-both">	
+				<!-- SEND -->
+				<div class="section-title-wrapper">
+					<h3 class="section-title inline-block">{string:"HR management"}</h3>
+				</div>
+
+				<div class="pm-bx-form pm-bxm-box-content">
+					<div class="record_wrapper">
+						<div class="record">
+							<div class="control-main-wrapper">
+								<!-- <div class="control-label-wrapper">
+									<div class="control-label">{field.label:hr_manager}</div>
+								</div> -->								
+								<div class="control-wrapper">
+									<div class="control control-small">
+										{field:hr_manager}
+									</div>
+								</div>
+							</div>
+							<div class="right">
+								<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+									<span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				{=send}
+				<br/>
+
+
+				<!-- Etat -->
+				<div class="section-title-wrapper">
+					<h3 class="section-title inline-block">{string:"candidate_etat"}</h3>
+				</div>
+				<div class="pm-bx-form pm-bxm-box-content">
+					{=etats}
+				</div>
+
+				<div class="section-title-wrapper">
+					<h3 class="section-title inline-block">{string:"qualification CV"}</h3>
+				</div>
+
+				<div class="pm-bx-form pm-bxm-box-content">
+					<div class="record_wrapper">
+						<div class="record">
+							<div class="control-main-wrapper">
+								<div class="control-label-wrapper">
+									<div class="control-label">{field.label:available_from}</div>
+								</div>
+								<div class="control-wrapper">
+									<div class="control control-small">
+										<div style="float:left">{field:available_delai}</div><div style="float:left">{field:available_from}</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="control-main-wrapper">
+								<div class="control-label-wrapper">
+									<div class="control-label">{field.label:salary_min}</div>
+								</div>
+								<div class="control-wrapper">
+									<div class="control">
+										<div class="control control-small">
+										{field:salary_min} {field:salary_max}
+										</div>
+									</div>
+								</div>
+							</div>
+				
+							<div class="control-main-wrapper">
+								<div class="control-label-wrapper">
+									<div class="control-label">{field.label:profile}</div>
+								</div>
+								<div class="control-wrapper">
+									<div class="control">
+										<div class="control">{field:profile}</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="control-main-wrapper">
+								<div class="control-label-wrapper" style="width:100%">
+									<div class="control-label">{field.label:category_oid}</div>
+								</div>
+								<div class="control-wrapper">
+									<div class="control">
+										<div class="control">
+											{field:category_oid}
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="control-main-wrapper">
+								<div class="control-label-wrapper">
+									<div class="control-label">{field.label:years_of_practice}</div>
+								</div>
+								<div class="control-wrapper">
+									<div class="control control-small">
+										{field:years_of_practice}						
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>							
+				
+				<div class="section-title-wrapper">
+					<h3 class="section-title inline-block">{string:"candidate_vacancies"}</h3>
+				</div>
+					
+				<div class="pm-bxm-box-content">
+					{=vacancies}
+					{=available_vacancies}
+				</div>
+			</div>
+		</div>		
+	</div>
+</div>
+
+
+ 

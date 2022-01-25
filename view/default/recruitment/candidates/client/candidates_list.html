@@ -1,0 +1,89 @@
+{records:page.records}
+{record}
+<table class="directory-grid">
+	<tr class="directory-grid-row columns-layout columns-layout-3 width-padding">
+		
+		
+		
+		<td class="dg-column">
+			<div class="dg-cell-wrapper">
+				<span class="field-content title-color"><strong>{field:first_name} {field:last_name}</strong></span>
+				<br/>
+				<span class="field-content">{if:#field.object:age# != '0'}{field:age} {string:'years_old'},{/if} {field:town_name}</span>
+			</div>
+		</td>
+				
+		<td class="dg-column" style="width:50%">
+			<div class="dg-cell-wrapper">
+				<span class="field-content">
+					{if:#field.object:diploma_type# != ''}<strong>{field:diploma_type}</strong>,{/if}
+					{if:#field.object:years_of_practice# != ''}
+					<strong>
+					{field:years_of_practice} 
+					{string:'year'}{if:#field.object:years_of_practice# > '1'}s{/if}
+					</strong> {string:'experience_grid_label'}
+					{/if}
+				</span>
+				{if:#field.object:institution# != ''}
+				<br/>
+				<span class="field-content">{field:institution}</span>
+				{/if}
+			</div>
+		</td>
+		
+		
+		
+		<td class="dg-operations dg-2-operations">
+			<div class="dg-cell-wrapper">
+				<script>
+				window.dlg_previewConfig_{field.object:candidate_client_oid}_{record.index} = { 
+					title:'{string:'preview_cv_title'} {field:first_name} {field:last_name}',
+					fullscreen: true, 
+					url: '{=preview_cv.url}{record.url_key}'
+				};
+				</script>
+				{if:trim(#field:cv_path#) != ''}
+				<!--<a 
+					class="s-icon si-page-white-magnify" 
+					href="javascript:void(0);" 
+					onclick="PMModalbox.loadFromUrl(window.dlg_previewConfig_{field.object:candidate_client_oid}_{record.index}, event); return false;" 
+					title="{string:'preview_cv_helper'}">
+					<span>{string:"preview_cv_helper"}</span>
+				</a>-->
+				<a 
+					class="s-icon si-page-white-magnify" 
+					href="{field.string:cv_path}"
+					title="{string:'preview_cv_helper'}"
+					target = "_blank" >
+					<span>{string:"preview_cv_helper"}</span>
+				</a>
+				{else}
+				<a 
+					class="s-icon-disabled si-page-white-magnify" 
+					href="javascript:void(0);"  
+					title="{string:'no_cv_associated'}">
+					<span>{string:"no_cv_associated"}</span>
+				</a>
+				{/if}
+				<a 
+					class="s-icon si-page-white-text" 
+					href="javascript:void(0);" 
+					onclick="ajax_navigate(event,'{=candidate_details.url}{record.url_key}','content');" 
+					title="{string:'cv_details'}">
+					<span>{string:"cv_details"}</span>
+				</a>
+			</div>
+		</td>
+		
+		
+		
+	</tr>
+</table>
+{/record}
+{/records}
+{no_record}
+<div class="empty-records">{string:"empty_candidates_list"}</div>
+{/no_record}
+
+
+

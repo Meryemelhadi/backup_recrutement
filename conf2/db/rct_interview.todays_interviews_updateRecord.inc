@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview SET _oid=".$record->getFieldValue("oid","DB","NULL").",_time_start=".$record->getFieldValue("time_start","DB","NOW()"); ?>

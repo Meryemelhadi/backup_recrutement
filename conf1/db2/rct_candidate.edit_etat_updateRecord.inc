@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate SET _etat_oid='".$props->getProperty("etat_oid","",true)."' WHERE _oid='".$props->getProperty("candidate_oid","",true)."'"; ?>

@@ -1,0 +1,470 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<i8n:strings 
+	name		= "recruitment_candidates_directory"
+	lang		= "en" 
+	inherit		= "recruitment_default_strings"
+	xmlns		= "http://www.w3.org/1999/xhtml"
+	xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+	<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+	<i8n:string id="page_title" value="Applicants" />
+	<i8n:string id="candidate_tests" value="Applicant test" />
+	<i8n:string id="field:test_oid" value ="Test" />
+	<i8n:string id="add" value="Add new resume" />
+	<i8n:string id="page_title_list" value="Applicant list" />
+	<i8n:string id="page_title_add" value="add new resume" />
+	<i8n:string id="page_title_edit" value="Edit selected resume" />
+	<i8n:string id="page_title_view" value="Resume details" />
+	<i8n:string id="page_title_validation" value="Validating selected resume" />
+
+	<i8n:string id="page_message_list" value="Resume list" />
+	<i8n:string id="page_message_add" value="Please use this form for adding a new resume in the database" />
+	<i8n:string id="page_message_edit" value="Please use this form for editing the resume details" />
+	<i8n:string id="page_message_view" value="Selected resume details" />
+	
+	<i8n:string id="analysis issue" value="analyser not available or analysis issue" />
+
+	<i8n:string id="page_message_list_details" 
+	value="Please click on an item to open  the applicant card or on icons on the right for other actions..." />
+	<i8n:string id="page_message_add_details" 
+	value="Please click on 'Save' after typing relevant form fields" />
+	<i8n:string id="page_message_edit_details" 
+	value="Please click on 'Save' for saving resume information or 'Back to list' for ignoring changes" />
+	<i8n:string id="page_message_view_details" 
+	value="Please click on 'Back to list' button for coming back to resume search / list." />
+
+	<i8n:string id="field.prompt:test_oid" value="Please select a test..." />
+	<i8n:string id="field.prompt:pourcentage" value="Please select a percent value..." />
+	<i8n:string id="add_test" value="Save test" />
+	<i8n:string id="field.prompt:studies_level" value="Select academic level..." />
+	<i8n:string id="field.prompt:school" value="Select school..." />
+	
+	<i8n:string id="field.prompt:sort_by" value="Select sort criteria..." />
+	<i8n:string id="field:user_default_email" value="Default email (interviewer)" />
+	<i8n:string id="field.prompt:user_default_email" value="Select default email..." />
+	<i8n:string id="field:user_email_title" value="Email title (interviewer)" />
+	<i8n:string id="field:user_email_content" value="Email content (interviewer)" />
+
+	<i8n:string id="search_on_facebook_helper" value="Facebook search" />
+	<i8n:string id="send_to_collab" value="Send to collaborator" />
+
+	<i8n:string id="viewers" value="Readers list" />
+	<i8n:string id="search_on_viadeo_helper" value="Viadeo search" />
+	<i8n:string id="search_on_linkedin_helper" value="LinkedIn search" />
+
+	<i8n:string id="field:name" value ="Name" />
+	<i8n:string id="field:interview_type" value ="Interview type" />
+	<i8n:string id="field.prompt:interview_type" value ="Select interview type..." />
+	<i8n:string id="candidacy_etat" value ="Number of candidates per status" />
+	<i8n:string id="field:interview_etat" value ="Interview status" />
+	<i8n:string id="field.prompt:interview_etat" value ="Select status..." />
+
+	<!-- RESUME STATE MANAGEMENT -->
+	<i8n:string id="candidate_etat" value="Applicant status" />
+	<i8n:string id="field:email" value ="Email" />
+	<i8n:string id="field:etat_oid" value ="Status" />
+	<i8n:string id="field:adress" value ="Address" />
+	<i8n:string id="field.prompt:etat_oid" value="Select status..." />
+	<i8n:string id="empty_etats_list" value="No defined status" />
+	<i8n:string id="empty_comments" value="No comment yet" />
+	<i8n:string id="add_etat" value="Add" />
+	<i8n:string id="field:contact_name" value ="Contact" />
+	<i8n:string id="field:notes" value ="Notes" />
+	<i8n:string id="field:add_date" value="Added date" />
+	<i8n:string id="field.prompt:diploma" value="Select diploma..." />
+	<i8n:string id="field.prompt:institution" value="Select school..." />
+	<i8n:string id="field:vacancy_oid" value ="Vacancy" />
+	<i8n:string id="field.prompt:vacancy_oid" value="Select a vacancy..." />
+	<i8n:string id="field:hr_manager" value="HR manager" />
+	<i8n:string id="field.prompt:hr_manager" value="Select HR manager..." />
+	<i8n:string id="field:salary" value ="Requested salary (Base/full.)" />
+	<i8n:string id="field:salary_min" value ="Requested salary" />
+	<i8n:string id="field.prompt:salary_min" value ="Base" />
+	<i8n:string id="field.prompt:salary_max" value ="Full" />
+	<i8n:string id="field:salary_max" value ="Max salary" />
+	<i8n:string id="field:available_delai" value ="Availability" />
+	<i8n:string id="field:available_from" value ="Avail. date" />
+	<i8n:string id="field:relevance" value ="Compatibility match" />
+	<i8n:string id="field.prompt:relevance" value ="Select match..." />
+	<i8n:string id="field:profile" value ="Profile" />
+	<i8n:string id="field.prompt:profile" value ="Type keywords..." />
+
+
+	<!-- RESUME FIELDS -->
+	<i8n:string id="field:first_name" value ="First name" />
+	<i8n:string id="field:last_name" value ="Last Name" />
+	<i8n:string id="field:civility" value ="Title" />
+	<i8n:string id="field.prompt:civility" value ="Select title..." />
+	<i8n:string id="field:gender" value ="Gender" />
+	<i8n:string id="field.prompt:gender" value ="Select gender..." />
+	<i8n:string id="field:date_of_birth" value ="DOB" />
+	<i8n:string id="field:age" value ="Age" />
+	<i8n:string id="field:nationality" value ="Nationality" />
+	<i8n:string id="field:email" value ="Email" />
+	<i8n:string id="field:phone_1" value ="Phone #1" />
+	<i8n:string id="field:phone_2" value ="Phone #2" />
+	<i8n:string id="field:mobile" value ="Mobile" />
+	<i8n:string id="field:address" value ="Address" />
+	<i8n:string id="field:zip" value ="Zip code" />
+	<i8n:string id="field:country_oid" value ="Country" />
+	<i8n:string id="field.prompt:country_oid" value ="Select country ..." />
+	<i8n:string id="town_oid" value ="Town/Zip/County" />
+	<i8n:string id="town_label" value ="Town" />
+	<i8n:string id="field.prompt:town_oid" value ="Select city..." />
+	<i8n:string id="field:category_oid" value ="Category(ies)" />
+	<i8n:string id="field.prompt:category_oid" value ="Select une category ..." />
+	<i8n:string id="field:years_of_practice" value ="Years of practice" />
+	<i8n:string id="field:application_type" value="Origin of application" />
+	<i8n:string id="field.prompt:application_type" value="Select ..." />
+	<i8n:string id="field:keywords" value ="Keywords" />
+	<i8n:string id="field:bachelor_title" value ="Baccalauréat" />
+	<i8n:string id="field:bachelor_school" value ="High School" />
+	<i8n:string id="field:bachelor_year" value ="Year" />
+	<i8n:string id="field:cv_path" value ="Resume" />
+	<i8n:string id="field:cl_path" value ="Cover letter" />
+	<i8n:string id="field:cv_path_temp" value="Resume" />
+	<i8n:string id="field:cl_path_temp" value="Cover letter" />
+	<i8n:string id="field:creation_date" value ="Creation date" />
+	<i8n:string id="field:update_date" value ="Last update" />
+	<i8n:string id="field:update_date_min" value ="Received since" />
+	<i8n:string id="field:update_date_max" value ="Until" />
+	<i8n:string id="field:reading_state" value ="Reading state" />
+	<i8n:string id="field:archive_state" value ="Archive" />
+	<i8n:string id="field.prompt:archive_state" value ="Indicate archive status..." />
+
+	<i8n:string id="years_old" value="years old" />
+	<i8n:string id="field:diploma_type" value ="Kind of diploma" />
+	<i8n:string id="field:institution" value ="School" />
+	<i8n:string id="field:description" value ="Description" />
+	<i8n:string id="diploma_date" value="Year of graduation" />
+	<i8n:string id="field:studies_level" value="Studies level" />
+	<i8n:string id="field:vacancy" value="Job vacancy" />
+	<i8n:string id="field.prompt:vacancy" value="Select a job vacancy ..." />
+	<i8n:string id="field:match_keywords" value="Keywords" />
+	<i8n:string id="field:diploma" value="Diploma" />
+	<i8n:string id="field:school" value="School" />
+	<i8n:string id="field:language_oid" value="Language" />
+	<i8n:string id="field:language_level" value="Level" />
+	<i8n:string id="field.prompt:language_oid" value="Select a language..." />
+	<i8n:string id="field.prompt:language_level" value="Select level..." />
+	<i8n:string id="field:language_entries" value="Languages" />
+	<i8n:string id="field.prompt:language_entries" value="Add new language" />	
+	<i8n:string id="field:training_entries" value="Trainings" />
+	<i8n:string id="stages" value="Trainings" />
+	<i8n:string id="field.prompt:training_entries" value="Add graduate training" />
+	<i8n:string id="field:proposed_to" value="Recommend to" />
+	<i8n:string id="field.prompt:proposed_to" value="Select user..." />
+	<i8n:string id="field:comment" value="Comment" />
+	<i8n:string id="comments" value="Comments" />			
+	<i8n:string id="field:candidate_oid" value="Applicant" />
+	<i8n:string id="field:interview_by_oid" value="Interviewed by" />
+	<i8n:string id="field.prompt:interview_by_oid" value="Select recruiter..." />
+	<i8n:string id="field.prompt:candidate_oid" value="Select applicant..." />
+	<i8n:string id="field:date" value="Date" />
+	<i8n:string id="field:time_start" value="Starts" />
+	<i8n:string id="field:time_end" value="Ends" />
+	<i8n:string id="field:email_title" value="Email title" />
+	<i8n:string id="field:email_content" value="Email content" />
+	<i8n:string id="field:candidate_email_not" value="Notif. Email : applicant" />
+	<i8n:string id="field:interviewer_email_not" value="Notif. Email : recruiter" />
+	<i8n:string id="field:default_email" value="Default email" />
+	<i8n:string id="field.prompt:default_email" value="Select default email..." />
+	<i8n:string id="field:full_text_search" value="Fulltext search (resume doc.)" />
+	<i8n:string id="field:employment_entries" value="Experiences" />
+	<i8n:string id="field.prompt:employment_entries" value="Add experience" />
+	
+	<i8n:string id="field:employment_start_date" value="Start date" />
+	<i8n:string id="field:employment_end_date" value="End date" />
+	<i8n:string id="field:employment_content" value="Description" />
+	<i8n:string id="field:employment_job" value="Job title" />
+	<i8n:string id="field:employment_company" value="Company" />
+
+	<i8n:string id="field:salary_min_exp" value="Income" />
+	<i8n:string id="salary_min_exp" value="Income" />
+	<i8n:string id="field:salary_max_exp" value="Bonus" />
+	<i8n:string id="salary_max_exp" value="Bonus" />
+
+	<i8n:string id="toolbox" value="Actions for applicant"/>
+	
+	<i8n:string id="field:cv_path" value="New resume" />
+	<i8n:string id="field:cl_path" value="New cover letter" />
+	
+
+	<!-- actions buttons -->
+	<i8n:string id="add" value="Add card" />
+	<i8n:string id="search" value="Search" />
+	<i8n:string id="search_in_archive" value="Search also in archives" />
+	<i8n:string id="empty_tests_list" value="No defined test" />
+	<i8n:string id="xls_export" value ="Excel Export" />
+	<i8n:string id="legend" value="Legend" />
+	<i8n:string id="provider" value="Source" />
+	<i8n:string id="field:provider" value="Source" />
+	<i8n:string id="field.prompt:provider" value="Select une source..." />
+	<i8n:string id="empty_list" value="No resume has been added in the database yet" />
+
+	<i8n:string id="edit_helper" value="Modify card" />
+	<i8n:string id="archive_helper" value="Archive card" />
+	<i8n:string id="associate_to_vacancy_helper" value="Bind to vacancy" />
+	<i8n:string id="delete_helper" value="Delete card" />
+
+	<i8n:string id="back" value="Back to resume list" />
+	<i8n:string id="items_search" value="Resume card(s) found" />
+	<i8n:string id="post_comment" value="Comment" />
+	<i8n:string id="back_to_interview" value="Back to interview card" />
+	
+	<i8n:string id="hello" value="Hello" />
+	<i8n:string id="submit" value="Save" />
+	
+	<i8n:string id="flags_helper" value="Flag colors" />
+	<i8n:string id="not_read_helper" value="Unread resume" />
+	<i8n:string id="read_by_someone_helper" value="Resume read by someone" />
+	<i8n:string id="already_read_helper" value="Resume read by yourself" />
+
+	<i8n:string id="no_cv_associated" value="No resume binding" />
+	
+	<i8n:string id="dlg_delete_title" value="Delete resume" />
+	<i8n:string id="dlg_delete_content" value="Warning : deleting resume cant be undone. Do you really want to delete it?" />
+	<i8n:string id="massive_assoc_to_vacancy_title" value="Bind selected resumes to current vacancy:" />
+	<i8n:string id="assoc_to_vacancy_title" value="Bind selected resume to current vacancy:" />
+
+	<i8n:string id="massive_relevance_title" value="Compatibility match for selected resumes:" />
+	<i8n:string id="page_details_planification" value="this page allows you to shecdule an interview , add comments and send emails to the applicant and the recruiter" />
+	
+	<i8n:string id="dlg_massive_delete_title" value="Deletion of the resumes" />
+	<i8n:string id="dlg_massive_delete_content" value="Be aware that deletion of the files is irreversible. Would you like to continue?" />
+	<i8n:string id="select_relevance_label" value="Pertinence" />
+	<i8n:string id="select_relevance_prompt" value="Please indicate pertinence ...." />
+	<i8n:string id="empty_interviews" value="No interview scheduled this day" />
+
+	<i8n:string id="no_cv_associated" value="No resume associated" />
+	<i8n:string id="dlg_ok" value="Ok" />
+	<i8n:string id="dlg_cancel" value="Cancel" />
+	<i8n:string id="dlg_archive_title" value="Archive resume" />
+	<i8n:string id="dlg_archive_content" value="Archiving this file will make it more visible in the current library: would you like to continue ?" />
+
+	<i8n:string id="dlg_massive_archive_title" value="Resumes Archive" />
+	<i8n:string id="dlg_massive_archive_content" value="Archiving this file will make it more visible in the current library: would you like to continue ?" />
+	<i8n:string id="upload_cl_label" value="New cover letter" />
+	<i8n:string id="upload_cv_label" value="New resume" />
+	<i8n:string id="preview_cv_helper" value="Preview genuine resume" />
+
+	<i8n:string id="filled_by" value="Filled by" />
+	<i8n:string id="by" value="by" />
+	<i8n:string id="date_prefix" value="On" />
+	<i8n:string id="date_prefix_lc" value="On" />
+
+	<i8n:string id="cancel_search" value ="Cancel Search" />
+	<i8n:string id="back_to_candidate" value="Go back to the applicant profil" />
+	<i8n:string id="qualification CV" value ="Resume Qualification " />
+	<i8n:string id="category" value ="Category" />
+
+	<i8n:string id="vacancy" value ="Vacancy" />
+
+	<i8n:string id="recrutement" value ="Recruitement" />
+	<i8n:string id="recrutements" value ="Recruitements" />
+	<i8n:string id="recruitement card" value ="Recruitement File" />
+	<i8n:string id="current_step" value ="Current step" />
+
+	<i8n:string id="cv_state" value ="Resume state" />
+
+	<i8n:string id="actions_prompt" value="Other actions..."/>
+	<i8n:string id="action_assoc_to_vacancy" value="Link with vacancy"/>
+	<i8n:string id="action_relevance" value="Indicate relevance"/>
+	<i8n:string id="action_archive" value="Archive"/>
+	<i8n:string id="action_delete" value="Delete"/>
+
+	<i8n:string id="preview_cv_title" value="Resume : " />
+	<i8n:string id="preview_cl_title" value="Cover letter : " />
+	<i8n:string id="new_candidate_doc" value="New resume" />
+	<i8n:string id="select_vacancy_label" value="Select vacancy" />
+	<i8n:string id="cancel" value="Cancel" />
+	<i8n:string id="select_vacancy_prompt" value="List of vacancies ..." />
+	<i8n:string id="dlg_unlink_candidate_title" value="Unlink candidate" />
+
+	
+	<i8n:string id="dlg_unlink_candidate_content" value="Do you confim the action?" />
+	<i8n:string id="unlink_candidate_helper" value="Unlink candidate from vacancy" />
+
+	<i8n:string id="delete_experience" value="Delete experience" />
+	<i8n:string id="experiences" value="Experience" />
+	
+	<i8n:string id="candidate_vacancies" value="Vacancies linked" />
+	<i8n:string id="candidate_interviews" value="Interviews done" />
+	<i8n:string id="candidate_log" value="Modifications log" />
+	<i8n:string id="log" value="Candidate follow-up" />
+	
+	<i8n:string id="download_cv" value="Download resume" />
+	<i8n:string id="download_cl" value="Download cover letter" />
+	<i8n:string id="schedule_an_interview" value="Schedule an interview" />
+	<i8n:string id="preview_cv" value="Preview resume" />
+	<i8n:string id="preview_cl" value="Preview cover letter" />
+	<i8n:string id="send_to_client" value="Send to customer" />
+	
+	<i8n:string id="add file" value="Add attached file" />
+	<i8n:string id="update_resume" value="Update resume" />
+	<i8n:string id="update_resume_header" value="Select resume file to update this candidate record" />
+	<i8n:string id="update_resume_button" value="Send resume for analysis" />
+
+	<i8n:string id="employment" value="Employement records" />
+	<i8n:string id="training" value="Trainings" />
+	
+	<i8n:string id="experience_grid_label" value="of experience" />
+	<i8n:string id="year" value="year" />
+
+	<i8n:string id="education_entries" value="Diplomas, education ..."/>
+	<i8n:string id="education_entries_1" value="Diplomas"/>
+	<i8n:string id="education_entries_2" value="Other education items"/>
+
+	<i8n:string id="field.prompt:education_entries" value="Add an education"/>
+	<i8n:string id="field:education_entries" value="Education"/>
+	<i8n:string id="general_infos" value="General information" />
+	<i8n:string id="profile_infos" value="Profil infos" />
+	<i8n:string id="candidate_infos" value="Candidate infos" />
+	<i8n:string id="coordinates" value="Coordinates" />
+	<i8n:string id="bachelor" value="Bachelor"/>
+	<i8n:string id="languages" value="Languages"/>
+	<i8n:string id="education_infos" value="Education" />
+	<i8n:string id="candidate_doc" value="Candidate" />
+	<i8n:string id="delete_education" value="Delete education" />
+	<i8n:string id="delete_language" value="Delete language" />
+	
+	<i8n:string id="go_to_vacancy" value="Go to vacancy" />
+	<i8n:string id="empty_vacancies_list" value="No vacancy linked" />
+	<i8n:string id="empty_log_list" value="No log to show" />
+	<i8n:string id="empty_interviews_list" value="No scheduled interview" />
+	<i8n:string id="more_details" value="More details" />
+	<i8n:string id="with" value="with" />
+	<i8n:string id="date_prefix" value="On" />
+	
+	<i8n:string id="field:available_vacancies" value="link to" />
+	<i8n:string id="field.prompt:available_vacancies" value="Select a vacancy ..." />
+
+	<i8n:string id="at" value="at" />
+
+	<i8n:string id="HR management" value="HR manager" />
+	<i8n:string id="hr_manager" value="HR manager" />
+	<i8n:string id="send_to_client_title" value="Send to customer" />
+
+	<i8n:string id="add_files" value="Linked files" />
+	<i8n:string id="add_file" value="Add file" />
+	<i8n:string id="files" value="Files" />
+	<i8n:string id="docs_cv" value="Documents resume" />
+
+	<i8n:string id="upload_cv" value="Resume upload" />
+	<i8n:string id="preview_cv" value="Resume preview" />
+	<i8n:string id="add_new_file" value="Add a new file" />
+	<i8n:string id="action_add_file" value="Add a new file" />
+
+	<i8n:string id="page_title_add_interview" value="New interview" />
+	<i8n:string id="page_title_edit_interview" value="Edit interview" />
+	<i8n:string id="page_message_interview_add" value="This page allows you to schedule a new interview for the selected candidate" />
+
+	<i8n:string id="page_message_interview_edit" value="This page allows you to modify the related info in regards to the selected interview" />
+
+	<i8n:string id="empty_interview_synthesis" value="No interview debrief was input" />
+	<i8n:string id="interview_synthesis" value="Interview debrief" />
+	<i8n:string id="add_interview_synthesis" value="Add an interview debrief" />
+
+	<i8n:string id="empty_attached_files" value="No attached file" />
+	<i8n:string id="upload_file_header" value="Add a file" />
+	<i8n:string id="upload_file" value="Files linked to the candidate" />
+
+
+	<i8n:string id="deleted" value="deleted" />
+
+	<i8n:string id="action_restore" value="restore" />
+
+	
+
+	<i8n:string id="field:interview_feedback" value="Interview feedback" />
+	<i8n:string id="field:created_by" value="Created by" />
+	<i8n:string id="field:validated_by" value="Validated by" />
+	<i8n:string id="field:education" value="Education" />
+	<i8n:string id="field:motivations" value="Motivations" />
+	<i8n:string id="field:experiences" value="Expériences" />
+	<i8n:string id="field:qualifications" value="Qualifications" />
+	<i8n:string id="field:current_salary" value="Current salary" />
+	<i8n:string id="field:desired_salary" value="Desidred salary" />
+	<i8n:string id="field:leaving_period" value="Leaving period" />
+	<i8n:string id="field:hobbies" value="Hobbies" />
+	<i8n:string id="field:best_professional_moment" value="Best professional moment" />
+	<i8n:string id="field:worst_professional_moment" value="Worst professional moment" />
+	<i8n:string id="field:person_who_marked_me_posivively" value="Person that impressed you most" />
+	<i8n:string id="field:person_who_marked_me_negatively" value="Person that impressed you most negatively" />
+	<i8n:string id="field:parents_jobs" value="What is your parents occupation" />
+	<i8n:string id="field:spouse_job" value="What is your spouse occupation" />
+	<i8n:string id="field:best_quality" value="Quality you appreciate most with others" />
+	<i8n:string id="field:worst_lack" value="What is your biggest challenge for this position" />
+	<i8n:string id="field:lucky_or_brave" value="Lucky or brave" />
+	<i8n:string id="field:last_making_authority" value="Votre dernière reprise d'autorité" />
+	<i8n:string id="field:last_making_authority" value="Votre dernière reprise d'autorité" />
+	<i8n:string id="send_cv_interne" value="Send resume inhouse" />
+	<i8n:string id="no_experience" value="No working experience" />
+	<i8n:string id="preview_helper" value="Preview resume" />
+	<i8n:string id="field.prompt:criterias_entries" value="Add a criteria" />
+	<i8n:string id="new_interview_synthesis_title" value="New interview debrief" />
+
+	<i8n:string id="page_message_interview_synthesis_add" value="This form allows you to input a new interview debrief" />
+
+	<i8n:string id="page_message_interview_synthesis_edit" value="This form allows you to edit a new interview debrie" />
+	<i8n:string id="page_message_interview_synthesis_view" value="This form allows you to visualise a new interview debrief" />
+	<i8n:string id="add_files_interviewer" value="Files linked to the interviewer" />
+	<i8n:string id="add_files_candidate" value="Files linked to the candidate" />
+	<i8n:string id="title_interview_synthesis" value="Inteview debriefs" />
+	<i8n:string id="title_interview_summary" value="Interviews summary" />
+	<i8n:string id="title_salary_package" value="Salary package" />
+	<i8n:string id="title_capabilities_assessment" value="Capabilities assessment" />
+	<i8n:string id="title_personality" value="personality" />
+	<i8n:string id="interview_feedback_title" value="Interview debrief" />
+	<i8n:string id="title_interview_synthesis_view" value="Interview debrief" />
+	<i8n:string id="dlg_delete_title_interview" value="Interview deletion" />
+	<i8n:string id="dlg_delete_content_interview" value="Please confirm interview deletion" />
+
+	<i8n:string id="new_candidate_proposal_notification" value="New candidates suggestion" />
+	<i8n:string id="new_candidate_proposal_chunk1" value="sending you new candidates" />
+	<i8n:string id="new_candidate_proposal_chunk2" value="for reading purpose with the following commentary:" />
+	<i8n:string id="new_candidate_proposal_chunk3" value="New candidates suggestion" />
+	<i8n:string id="new_candidate_proposal_chunk4" value="New candidates suggestion" />
+
+	<i8n:string id="new_candidate_email_subject" value="Acknowledging receipt of your application" />
+	<i8n:string id="new_candidate_email_chunk1" value="We received your application and we thank you for the interest shown to our company" />
+	<i8n:string id="new_candidate_email_chunk2" value="We are going to study your application with the outmost interest" />
+	<i8n:string id="new_candidate_email_chunk3" value="HR service," />
+	<i8n:string id="statistics"				value="Statistics" />
+	<i8n:string id="candidacy_kind"				value="Percentage Applicant Category" />
+	<i8n:string id="candidacy_level_study"				value="Percentage Level of Study" />
+	<i8n:string id="candidacy_folder"				value="Resumes Quantity per vacancy" />
+	<i8n:string id="candidacy_school"	value="Percentage resumes per School" />
+	<i8n:string id="viewer_list"	value="Viewer List" />
+	<i8n:string id="sort-by"	value="Sort by .." />
+	<i8n:string id="croissant"	value="Increasing" />
+	<i8n:string id="decroissant"	value="Decreasing" />
+	<i8n:string id="send_email" value="Send by email" />
+	<i8n:string id="send_cv_email" value="Sending resume by email" />
+
+	<!-- La planification d'un entretien -->
+
+	<i8n:string id="planification" value="Scheduling" />
+	<i8n:string id="comment" value="Comments" />
+	<i8n:string id="email" value="Email" />
+	<i8n:string id="evaluation" value="Assessment" />
+	<i8n:string id="cv" value="Resume" />
+	<i8n:string id="agenda" value="Schedule" />
+	<i8n:string id="interviews" value="Scheduled interviews" />
+	<i8n:string id="email_candidat" value="Email Candidate" />
+	<i8n:string id="candidat_email" value="Email Candidate" />
+	<i8n:string id="email_interviewer" value="Email Interviewer" />
+	<i8n:string id="interviewer_email" value="Email Interviewer" />
+	<i8n:string id="submit_continue" value="Save and continue" />
+	<i8n:string id="page_message_planification" value="Interview scheduling page" />
+	<i8n:string id="page_details_planification" value="This page allows you yo plan an interview, add comments and send emails to the candidates and the interviewer" />
+	<i8n:string id="historique" value="Log" />	
+	
+</i8n:strings>
+</nxl>

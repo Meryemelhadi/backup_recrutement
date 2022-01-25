@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_cv_path,_cl_path FROM _rct_candidate WHERE _oid>='".$props->getProperty("dvs","",true)."'"; ?>

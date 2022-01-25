@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_ref,_provider_oid,_vacancy_oid,_from_email,_to_email,_active,_salaire,_descriptionEntreprise,_descriptionPoste,_descriptionProfil,_date,_duree,_nombrePoste,_startDate,_endDate FROM _rct_vacancy_provider WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

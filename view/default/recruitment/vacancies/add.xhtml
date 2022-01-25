@@ -1,0 +1,97 @@
+    <p:page
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://www.presencemedia.ma/views/page2"
+        xmlns:form1="http://www.presencemedia.ma/views/form"
+        xmlns:form="http://www.presencemedia.ma/views/form2_bs"
+        xmlns:record="http://www.presencemedia.ma/views/record#skin"
+        enveloppe="page_bs"
+        >
+  
+	<link href="/nx/controls/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+	<link href="/nx/skins/lightsky/css/theme_bs.css" rel="stylesheet" type="text/css" media="all">
+	
+    <p:head>
+        <p:title>
+			{string:'page_title_add'}
+        </p:title>
+        <p:resources>
+		</p:resources>
+        
+    </p:head>
+
+    <p:body>
+        <style>
+			
+            {=app.form.css}
+
+        </style>
+
+        <script>
+            {=app.form.js}
+        </script>
+
+        {include:common.messages_log}
+        {include:common.message_help}
+
+
+
+
+        {content:buttons}
+		{if:#property:from_home#}
+			<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=back_home.url}'">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+			{string:"back_to_home"}
+		</button>
+		{else}
+		<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=back_list.url}'">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+			{string:"back"}
+		</button>
+		{/if}
+		<span class="pm-button-sep"></span>
+		<button type="button" class="btn btn-default" onclick="PMFormSubmit.submit(this, dlg_submitContinueConfig, null, dlg_failureConfig); this.blur(); return false;">
+			<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;&nbsp;
+			{string:"submit_continue"}
+		</button>
+        {/content}
+
+        <form:record id="content_form" record="page.record">
+			<script>
+                window.dlg_submitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+                window.dlg_submitContinueConfig = { title : "{string:'dlg_wait_title'}", url:"{=submit_continue.url}", message : "{string:'dlg_wait_content'}", viewMode : "wait", evalconfig: true };
+
+                window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+			</script>
+			
+            <form:main>
+							
+				<form:toolbar>
+					<div class="btn-group btn-group-width">
+					   {=buttons}
+				   </div> 
+				</form:toolbar>
+				 <form:group title="{string:'general_infos'}">
+                    <form:field name="name"/>
+                    <form:field name="code"/>
+					<form:field name="number"/>
+					<form:field name="announce_date"/>
+                    <form:field name="contract_type_oid"/>
+					<form:field name="vacancy_project"/>
+					<form:field name="app_connected"/>
+                </form:group>
+				<form:toolbar>
+					<div class="btn-group btn-group-width">
+					   <button type="button" class="btn btn-default right" onclick="PMFormSubmit.submit(this, dlg_submitContinueConfig, null, dlg_failureConfig); this.blur(); return false;">
+							<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;&nbsp;
+							{string:"submit_continue"}
+						</button>
+				   </div> 
+				</form:toolbar>
+		
+         </form:main>
+		 
+    </form:record>
+    </p:body>
+
+</p:page>

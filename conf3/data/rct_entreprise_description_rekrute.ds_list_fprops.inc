@@ -1,0 +1,10 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','isEdit'=>false,'show'=>false,'srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_entreprise_description_rekrute_oid','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'name_description','label'=>'name_description','type'=>'text','csslayout'=>'normal-layout','srcName'=>'name_description','ufname'=>'_name_description','qname'=>'rct_entreprise_description_rekrute_name_description','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'entreprise','label'=>'entreprise','type'=>'text','csslayout'=>'normal-layout','show'=>false,'srcName'=>'entreprise','ufname'=>'_entreprise','qname'=>'rct_entreprise_description_rekrute_entreprise','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'identifiant','label'=>'identifiant','type'=>'text','csslayout'=>'normal-layout','show'=>false,'srcName'=>'identifiant','ufname'=>'_identifiant','qname'=>'rct_entreprise_description_rekrute_identifiant','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'descriptionEntreprise','label'=>'description','type'=>'rich_text','csslayout'=>'normal-layout','srcName'=>'descriptionEntreprise','ufname'=>'_descriptionEntreprise','qname'=>'rct_entreprise_description_rekrute_descriptionEntreprise','control'=>'rich_text','onSubmitCheck'=>"checkRichText('%3\$s','%2\$s',%4\$s,%1\$s.%2\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','name_description'=>'name_description','_name_description'=>'name_description','entreprise'=>'entreprise','_entreprise'=>'entreprise','identifiant'=>'identifiant','_identifiant'=>'identifiant','descriptionEntreprise'=>'descriptionEntreprise','_descriptionEntreprise'=>'descriptionEntreprise',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_entreprise_description_rekrute.ds_list','table'=>'_rct_entreprise_description_rekrute');
+ ?>

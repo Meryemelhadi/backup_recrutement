@@ -1,0 +1,26 @@
+<div class="pm-bxm-box-content">
+	{records:candidate_evaluations.records}
+	<div class="table-list-wrapper">
+		<table class="table-list" id="candidate_evaluations_table">
+			{record}
+			<tr class="{if:record.is_last}last{/if}" style="font-size: 12px;">
+				<td class="entry" style="padding-right: 10px;">{string:"interview"} : <strong>{field:date}</strong></td>
+				<td class="entry" style="padding-right: 10px;">
+					{string:"evaluation"} : <strong>{field:date_eval}</strong>
+				</td>
+				<td class="action plus-action">
+					<button type="button" style="margin-bottom: 5px;" class="btn btn-xs btn-default right" onclick="document.location.href='{=eval.url}&oid={field:interview_oid}&synthesis_oid={field:synthesis_oid}&mode=page'" >{string:"go_to_evaluation"}</button>
+				</td>
+			</tr>
+			{/record}
+		</table>
+	</div>
+	{/records}
+    {no_record}
+    <div class="tab_empty">
+        <?php
+            echo __('empty_list_evaluation');
+        ?>
+    </div>
+    {/no_record}
+</div>

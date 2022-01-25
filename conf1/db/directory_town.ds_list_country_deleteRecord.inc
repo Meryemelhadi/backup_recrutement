@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _directory_town WHERE _country_oid in('".$props->getProperty("portal.recruitement.country","",true)."') AND ".$this->getWhereClause("_town_name","'".$this->getParamValue("keyword","","request","|")."'",'LIKE','OR','%','%',true,false,'|','false'); ?>

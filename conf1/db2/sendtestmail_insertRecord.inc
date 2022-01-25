@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _test() VALUES("..")"; ?>

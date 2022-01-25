@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_type_email,_email_title,_email_content,_docs FROM _rct_email_sample WHERE _type_email in('2','3','4','6','7','8','1') ORDER BY _name ASC "; ?>

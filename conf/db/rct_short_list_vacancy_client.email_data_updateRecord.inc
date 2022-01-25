@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_short_list_vacancy_client SET ; ?>

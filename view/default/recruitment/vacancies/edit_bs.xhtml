@@ -1,0 +1,75 @@
+<p:page
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://www.presencemedia.ma/views/page2"
+        xmlns:form1="http://www.presencemedia.ma/views/form"
+        xmlns:form="http://www.presencemedia.ma/views/form2_bs"
+        xmlns:record="http://www.presencemedia.ma/views/record#skin"
+        enveloppe="page_bs"
+        >
+    <script language="php"><![CDATA[
+		$workflow = $this->getProperty('workflow');
+		]]></script>
+
+    <p:head>
+        <p:title>
+        </p:title>
+        <p:resources>
+
+        </p:resources>
+
+    </p:head>
+	<script language="php">
+		$current_operation = "edit";
+		$linkText = 'title_general_infos';
+		$linkText = addslashes(__($linkText));
+		$backList = preg_replace('%void-[0-9]+/%','',$this->getProperty('list.url'));
+		$mode_readonly = $this->getProperty('mode_readonly');
+		$is_drh = $this->getProperty('is_drh');
+		
+	
+	</script>
+	{content:vacancy_title}
+		{include:recruitment/vacancies/components/vacancy_title}
+	{/content}
+	{content:left_column}
+		{include:recruitment/vacancies/components/left_column_bs}
+	{/content}
+
+    <p:body>
+	
+	<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		{record:vacancy_title_record}
+		<div class="pm-title">
+			{string:"vacancy"}: {field.html:name}{if:#field.object:code# != ''} (N° {field.html:code}){/if}
+			{if:#field.object:current_step# != 0 || #field.object:progress_level# != 0}
+				<br/>
+				{if:#field.object:current_step# != 0} {field.label:current_step}: {field.html:current_step}, {/if}
+				{if:#field.object:progress_level# != 0} {field.label:progress_level}: {field.html:progress_level}{/if}
+			{/if}
+		</div>
+		{content:vtitle}{field.html:name}{/content}
+		{/record}		
+	</div>
+</div>
+
+<script>
+/* set current page BC */
+if(window.container)
+{
+	window.container.bc.resetLink().addAjaxLink('{=title}','{=edit.url}&mode=ajax').addLink('{var:linkText}','');
+}
+document.getElementById('page_title').innerHTML = 'Poste à pourvoir: {=title} <p>{=step}</p>';
+</script>
+		
+		{if:%var:is_drh% == false && %var:mode_readonly% == true }
+		{include:recruitment/vacancies/readonly}
+		{else}
+		{include:recruitment/vacancies/edit}
+		{/if}
+	
+
+	
+
+    </p:body>
+</p:page>

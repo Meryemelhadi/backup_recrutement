@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_lang,_language_level FROM _rct_candidate_language WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

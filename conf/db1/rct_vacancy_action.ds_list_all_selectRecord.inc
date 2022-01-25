@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_code FROM _rct_vacancy_action WHERE _workflow_state='2' AND _archive_state<>'1' ORDER BY _name ASC,_code ASC "; ?>

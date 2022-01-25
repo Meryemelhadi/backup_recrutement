@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_candidate_email WHERE (_lmkey='".$props->getProperty("lm_key","",true)."' OR _cvkey='".$props->getProperty("cv_key","",true)."') "; ?>

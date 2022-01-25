@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_interview_by,_vacancy_oid,_date,_time_start,_time_end,_validation_state FROM _rct_interview WHERE _vacancy_oid='".$this->getParamValue("oid","","request",",")."' AND _date>='".$this->getParamValue("start_date","","request",",")."' AND _date<='".$this->getParamValue("end_date","","request",",")."'"; ?>

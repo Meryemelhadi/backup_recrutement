@@ -1,0 +1,826 @@
+{content:page.content}
+<link rel="stylesheet" type="text/css" href="/nx/controls/font-awesome/css/font-awesome-bs.min.css">
+<link rel="stylesheet" type="text/css" href="/nx/skins/default/css/recruitment/cvtheque_bs.css">
+<link href="/nx/skins/default/css/recruitment/cvtheque.css" rel="stylesheet" type="text/css"  media="all" />
+
+{if:%property:from_vacancy%}
+<script>
+
+if (typeof document.getElementById('page-bread-crumb') != "undefined") {
+	document.getElementById('page-bread-crumb').innerHTML = '<span class="png_bg home"><a href="/homepage/" class="png_bg">Accueil</a></span>&nbsp;&gt;&nbsp;<span class="png_bg home"><a href="{=vacancy.url}" class="png_bg">Fiche de poste</a></span>&nbsp;&gt;&nbsp;<span class="png_bg home"><a href="#" class="png_bg">CVThèque - Recherche avancée</a></span>';
+}
+</script>
+{/if}
+<script language="php">
+if ($this->getProperty('recruitment.candidates.showAgeInList')===false)
+	$display_age=false;
+else
+	$display_age=true;
+	
+$saved_search = $this->getProperty('saved_search', false); 
+//pagination
+$items_search = __('items_search');
+</script>
+
+<div class="pm-page-title-wrapper" id="title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title green-color-font no-margin" style="color:#89c68b  !important"><h1 class="no-margin" id="title-wrapper-h1">{string:"page_title_list"}</h1></div>
+	</div>
+</div>
+
+{if:%property:from_vacancy%}
+<script>
+
+if (typeof document.getElementById('page-bread-crumb') != "undefined") {
+	document.getElementById('page-bread-crumb').innerHTML = '<span class="png_bg home"><a href="/homepage/" class="png_bg">Accueil</a></span>&nbsp;&gt;&nbsp;<span class="png_bg home"><a href="{=vacancy.url}" class="png_bg">Fiche de poste</a></span>&nbsp;&gt;&nbsp;<span class="png_bg home"><a href="#" class="png_bg">CVThèque - Recherche avancée</a></span>';
+	document.getElementById('title-wrapper-h1').innerHTML += ' pour: <a href="{=vacancy.url}">{=vacancy_name}</a>';
+}
+</script>
+{/if}
+
+{include:common.messages_log}
+{include:common.message_help}
+
+{content:vacancies_ddlist}
+	{records:page.vacancies_records}
+	{record}
+	<option value="{field:oid}">{field:name}{if:trim(#field.object:code#)!=""} ({field:code}){/if}</option>
+	{/record}
+	{/records}
+{/content}
+
+{content:etats_ddlist}
+	{records:page.candidate_etats_records}
+	<option value="0">Etat ...</option>
+	{record}
+	<option value="{field:oid}">{field:name}</option>
+	{/record}
+	{/records}
+{/content}
+
+{content:categories_ddlist}
+	{records:candidate_categories.records}
+	{record}
+	<option value="{field:oid}">{field:name}</option>
+	{/record}
+	{/records}
+{/content}
+
+
+<div class="row content-candidate"  id="content-row">
+	<div class="container-fluid">
+		<div class="pull-right">
+			<form name="add_cv_form" id="add_cv_form" enctype="multipart/form-data" action="?nxo=candidates@recruitment:upload_cv" method="post" class="form-inline form-group" style="display:none;">
+				<input type="hidden" name="MAX_FILE_SIZE" value="100000000">
+				<input type="hidden" name="_form_method_" value="POST">
+				<input id="cv_file" type="file" name="temp_cv_file" class="form-control">
+				<div id="add_button"  onclick="return window.checkAddCVform()" title="Ajouter CV..." >
+					<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+				</div>	
+			</form>
+			<div class="round_button blue" title="{string:'add_cv_title'}"  onclick="return window.checkAddCVform()">
+				<img src="/nx/skins/lightsky/img/cv-plus.png" style="width: 45px;margin-top: 1px;">
+			</div>
+			<div class="round_button blue" title="{string:'add_fiche_without_cv'}"  onclick="document.location='{=add.url}';Event.stop(event);return false;" >+</div>
+			<div class="round_button blue" title="{string:'xls_export'}"  onclick="document.location.href='{=xls_export.url}'; return window.stopEvent(event);" >
+				<img src="/nx/skins/lightsky/img/xls.png" style="width: 28px;">
+			</div>
+			<!--<div class="round_button blue" title="{string:'actions_multiples_title'}"  id="btn_action_multiple" onclick="addMultipleAction()">
+				<img src="/nx/skins/lightsky/img/icon-actions.png" style="width: 27px;margin-top: -1px;">
+			</div>-->
+		</div>
+	</div>
+				
+	<script>
+		window.checkAddCVform = function() {
+			var frm = document.forms['add_cv_form'];
+			if(frm.elements['cv_file'].value == '')
+			{
+				if(document.getElementById('add_cv_form').style.display=="inline-flex")
+				{
+					document.getElementById('add_cv_form').style.display = 'none';
+				}
+				else
+				{
+					document.getElementById('add_cv_form').style.display = 'inline-flex';
+
+				}
+				return false;
+			}
+			document.getElementById('add_cv_form').submit();
+			return true;
+		}
+		window.addMultipleAction = function(button) {
+			if(button){
+				document.getElementById('btn_action_multiple0').style.display = 'none';
+				document.getElementsByClassName('items-count')[0].className ="items-count right";
+			} else {
+				document.getElementById('btn_action_multiple0').style.display = 'block';
+				document.getElementsByClassName('items-count')[0].className ="items-count";
+			} 
+			//window.toogleClass('btn_action_multiple0', 'show'); 
+			window.toogleClass('zone-actions-multiples','show'); 
+			window.toogleClass('checkbox-all','show');
+			var checs = document.getElementsByClassName('directory-checkbox-row');
+			for(var i = 0; i < checs.length; i++)
+			{
+			   toggleClassEle(checs.item(i) , 'show');
+			}
+			return true;
+		}
+		
+	</script>
+						
+						
+	<style>
+		.div-tag{
+			padding:5px;
+			border-radius: 10px;
+		}
+		.btn-tag{
+			border: 0px;
+			font-weight: bold;
+			padding: 5px;
+			color:#888 !important;
+			margin: 0 5px 5px 0;
+			background-color : #ddd;
+		}
+		.btn-tag span{
+			color: #888;
+			padding: 5px;
+			font-weight: bold;
+			padding-right: 0px;
+		}
+		.button-dropdown {
+			background: #e6e6e6;
+			border: #e6e6e6;
+		}
+		.button-dropdown span{
+			color: #fff;
+		}
+		#title-wrapper-h1 a{
+			color: #89c68b !important;
+			border-bottom: 0px;
+			font-size: inherit !important;
+			cursor: pointer;
+			text-decoration: underline;
+		}
+		.dropdown-menu>li>a {
+			padding: 3px 15px !important;
+			cursor:pointer;
+		}
+	</style>
+	
+	<script>
+		
+		function getCheckedBoxes(chkboxName) {
+		  var checkboxes = document.getElementsByName(chkboxName);
+		  var checkboxesChecked = "";
+		  // loop over them all
+		  for (var i=0; i<checkboxes.length; i++) {
+			 // And stick the checked ones onto an array...
+			 if (checkboxes[i].checked) {
+				checkboxesChecked += checkboxes[i].value+'|';
+			 }
+		  }
+		  // Return the array if it is non-empty, or null
+		  return checkboxesChecked;
+		}
+		function onchangeVacancy(select){
+			// on récupére la selection
+			var candidatesOids = getCheckedBoxes('selection-checkbox');
+			var vacancyOid = select.value;
+			select.value = '?';					
+			if( candidatesOids == '?' || candidatesOids == '' || vacancyOid=='?' || vacancyOid=='' ) {
+				return false;
+			}
+			var url = "{=massive_associate_to_vacancy_process.url}";
+			url += "&amp;vacancy_oid="+vacancyOid;
+			url += "&amp;candidates_oid="+candidatesOids;
+										console.log(url);
+			ajax_navigate(null,url,"content");
+		}
+		function onchangeCandiatesEtat(select){
+			// on récupére la selection
+			var candidatesOids = getCheckedBoxes('selection-checkbox');
+			var etatOid = select.value;
+			select.value = '?';					
+			if( candidatesOids == '?' || candidatesOids == '' || etatOid=='?' || etatOid=='' ) {
+				return false;
+			}
+			var url = "{=massive_associate_to_etat_process.url}";
+			url += "&amp;etat_oid="+etatOid;
+			url += "&amp;candidates_oid="+candidatesOids;
+										console.log(url);
+			ajax_navigate(null,url,"content");
+		}
+		function onchangeRelevance(select){
+
+			var candidatesOids = getCheckedBoxes('selection-checkbox');
+			var relevanceOid = select.value;
+			select.value = '?';					
+			if( candidatesOids == '?' || candidatesOids == '' || relevanceOid=='?' || relevanceOid=='' ) {
+				return false;
+			}
+			var url = "{=massive_relevance_process.url}";
+			url += "&amp;relevance_oid="+relevanceOid;
+			url += "&amp;candidates_oid="+candidatesOids;					
+			ajax_navigate(null,url,"content");
+		}
+		function onchangeCategory(select){
+
+			var candidatesOids = getCheckedBoxes('selection-checkbox');
+			var categoryOid = select.value;
+			select.value = '?';					
+			if( candidatesOids == '?' || candidatesOids == '' || categoryOid=='?' || categoryOid=='' ) {
+				return false;
+			}
+			var url = "{=category.url}";
+			url += "&amp;category_oid="+categoryOid;
+			url += "&amp;candidates_oid="+candidatesOids;					
+			ajax_navigate(null,url,"content");
+		}
+		function onchangeActions(select){
+			selection_actions(select.value);
+		}
+		function selection_actions(config){
+			if(config == "send_email")
+			{	
+				var candidatesOids = getCheckedBoxes('selection-checkbox');			
+				if( candidatesOids == '?' || candidatesOids == '' ) {
+					return false;
+				}
+				window.send_cvs_to_many_client = { 
+				title 		: "{string:'send_to_client_title'}",
+				url 		: "{=send_cvs_to_many_client.url}&amp;candidates_oid="+candidatesOids, 
+				width:550
+				};
+				PMModalbox.loadFromUrl(window.send_cvs_to_many_client,null);
+				return false;
+			}else if(config == "massive_interviews"){
+				var candidatesOids = getCheckedBoxes('selection-checkbox');			
+				if( candidatesOids == '?' || candidatesOids == '' ) {
+					return false;
+				}
+				document.location.href="{=massive_interviews.url}"+candidatesOids;
+			}else if(config == "massive_associate_to_recuiter")
+			{	
+				var candidatesOids = getCheckedBoxes('selection-checkbox');			
+				if( candidatesOids == '?' || candidatesOids == '' ) {
+					return false;
+				}
+				window.massive_associate_to_recuiter = { 
+				title 		: "{string:'massive_associate_to_recuiter_title'}",
+				url 		: "{=massive_associate_to_recuiter.url}&amp;candidates_oid="+candidatesOids, 
+				width:550
+				};
+				PMModalbox.loadFromUrl(window.massive_associate_to_recuiter,null);
+				return false;
+			}
+			else{
+				if(config == "window.dlg_massiveArchiveCfg") config = window.dlg_massiveArchiveCfg;
+				else if(config == "window.dlg_massiveDeleteCfg") config = window.dlg_massiveDeleteCfg;
+				else return ;
+				var candidatesOids = getCheckedBoxes('selection-checkbox');		
+				if( candidatesOids == '?' || candidatesOids == '' ) {
+					return false;
+				}
+				
+				config.url += '&candidates_oid='+candidatesOids;
+				PMModalbox.display(config);
+			}
+		};
+		// Configs
+		window.dlg_massiveDeleteCfg = { 
+			title 		: "{string:'dlg_massive_delete_title'}",
+			message 	: "{string:'dlg_massive_delete_content'}", 
+			viewMode 	: "okCancel", 
+			url 		: "{=delete_cvs.url}", 
+			target 		: "content", 
+			labels	 	: { 
+				ok 		: "{string:'dlg_ok'}", 
+				cancel 	: "{string:'dlg_cancel'}" 
+			} 
+		};
+		
+		window.dlg_massiveArchiveCfg = { 
+			title 		: "{string:'dlg_massive_archive_title'}",
+			message 	: "{string:'dlg_massive_archive_content'}", 
+			viewMode 	: "okCancel", 
+			url 		: "{=archive.url}", 
+			target 		: "content", 
+			labels	 	: { 
+				ok 		: "{string:'dlg_ok'}", 
+				cancel 	: "{string:'dlg_cancel'}" 
+			} 
+		};
+	</script>
+	
+	<div class="div-tag" id="search-tags"></div>
+	
+	<div class="container-fluid candidate-list list">
+	
+		<div class="btn-group button_bs_right">
+			<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin-left: 5px;
+    height: 34px;" title="{string:"configuration"} > {string:"cvtheque"}"><span class="glyphicon glyphicon-cog" style="font-size: 18px; margin-right:5px;" aria-hidden="true"></span> </button>
+			<ul class="dropdown-menu" role="menu" style="right: 0px;left: initial;">
+				<li><a href="{=search_params.url}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;{string:"search_params"}</a></li>
+				<li><a href="{=manage_keywords.url}"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>&nbsp;&nbsp;{string:"manage_keywords"}</a></li>
+				<li><a href="{=manage_candidates_categories.url}"><span class="glyphicon glyphicon-tags" aria-hidden="true"></span>&nbsp;&nbsp;{string:"manage_candidates_categories"}</a></li>
+				<li><a href="{=manage_schools.url}"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp;&nbsp;{string:"manage_schools"}</a></li>
+				<li><a href="{=manage_diplomas.url}"><span class="glyphicon glyphicon-education" aria-hidden="true"></span>&nbsp;&nbsp;{string:"manage_diplomas"}</a></li>
+				<li><a href="{=profiling_rules.url}"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>&nbsp;&nbsp;{string:"profiling_rules"}</a></li>
+			</ul>
+		</div>
+		
+		<button type="button" class="btn btn-default dropdown-toggle" title="Actions Multiples" id="btn_action_multiple0" onclick="addMultipleAction(true)" style="float: right; background: rgb(137, 198, 139); display: block;">
+			<span class="glyphicon glyphicon-menu-hamburger" style="color:#fff;"></span>
+		</button>
+		
+		<div style="padding-left: 10px;display: none;padding-top: 5px;margin-bottom: 10px; margin-top: 40px ; background: rgba(137, 198, 139, 0.48);    padding-right: 10px;" id="zone-actions-multiples">
+		<div class="actions-droplist-wrapper">
+													
+			<div class="inline-block generis-dropdownlist " >
+				<select class="select form-control" name="grid-selection-vacancies" id="grid-vacancies-list" style="float: left;width: 255px; margin-right: 5px;" onchange="onchangeVacancy(this)">
+					<option value="?">{string:"associate_to_vacancy_helper"}...</option>
+					{=vacancies_ddlist}			
+				</select>
+				<select style='float: left;width: 255px; margin-right: 5px;' class="select form-control" name="grid-selection-candidate_etas" id="grid-candidate_etats-list" style="float: left;width: 255px; margin-right: 5px;" onchange="onchangeCandiatesEtat(this)">
+					<option value="?">{string:"associate_to_etat_helper"}...</option>
+					{=etats_ddlist}			
+				</select>
+
+				<!--<select name="grid-selection-relevance" class="select form-control" id="grid-relevance" onchange="onchangeRelevance(this)" style="float: left;width: 255px;margin-right: 5px; padding-right: 10px;">
+					<option value="?">{string:"action_relevance"}...</option>
+					<?php $list = $this->getChoiceList('recruitment.relevance@recruitment');
+					$listArray = $list->getListAsArray();
+					foreach ($listArray as $k=>$v) { ?>
+					<option value="{$k}">{$v}</option>
+					<?php } ?>
+				</select>-->
+				<select name="grid-selection-category" class="select form-control" id="grid-category" onchange="onchangeCategory(this)" style="float: left;width: 255px; margin-right: 5px;">
+					<option value="?">{string:"action_category"}...</option>
+					{=categories_ddlist}
+				</select>
+				<select name="grid-selection-actions" class="select form-control" id="grid-selection-actions" onchange="onchangeActions(this)" style="float: left;width: 255px;">
+					<option value="?">{string:"actions_prompt"}</option>
+					<option value="massive_interviews">{string:'massive_interviews'}</option>
+					<option value="massive_associate_to_recuiter">{string:'massive_associate_to_recuiter'}</option>
+					<option value="window.dlg_massiveArchiveCfg">{string:'action_archive'}</option>
+					<option value="window.dlg_massiveDeleteCfg">{string:'action_delete'}</option>
+					<option value="send_email">{string:'send_email'}</option>
+				</select>									
+			</div>
+			<button type="button" class="btn btn-default dropdown-toggle button-dropdown" title="{string:'actions_multiples_title'}" id="btn_action_multiple1" onclick="addMultipleAction(false)" style="float: right; margin-top: -2px;background:rgb(137, 198, 139)">
+			<span class="glyphicon glyphicon-menu-hamburger"></span>
+			</button>
+		</div>
+		
+	</div>
+		<!--! {records:page.records} -->
+		<div style="margin-bottom: 10px;font-weight: bold;font-size: 13px;display:none; float:left;margin-left: 6px;" id="checkbox-all">
+			<input type="checkbox" name="selection-checkbox-all" class="select-all-checkbox" >Sélectionner toutes les candidatures de cette page</input>
+		</div>
+		{include:common/pagination_count}
+		
+		<div class="directory-grid-wrapper" >
+			<!--! {record} -->
+			<script>
+				window.dlg_deleteConfig{record.index} = { 
+					title : "{string:'dlg_delete_title'}",
+					message : "{string:'dlg_delete_content'}", 
+					viewMode : "okCancel", 
+					url : "{=delete.url}{record.url_key}", 
+					target : "content", 
+					labels : { 
+						ok : "{string:'dlg_ok'}", 
+						cancel : "{string:'dlg_cancel'}" 
+				} };
+						
+				window.dlg_archiveConfig{record.index} = { 
+					title : "{string:'dlg_archive_title'}",
+					message : "{string:'dlg_archive_content'}", 
+					viewMode : "okCancel", 
+					url : "{=archive.url}{record.url_key}", 
+					target : "content", 
+					labels : { 
+						ok : "{string:'dlg_ok'}", 
+						cancel : "{string:'dlg_cancel'}" 
+				} };
+					
+				window.dlg_associateToVacancy{record.index} = { 
+					title : "{string:'assoc_to_vacancy_title'}",
+					url: "{=massive_associate_to_vacancy.url}{record.url_key}",
+					width:550
+				};
+				
+				window.dlg_preview{record.index} = { 
+					title:"{string:'preview_cv_title'} {field.html:first_name} {field.html:last_name}",
+					fullscreen: true, 
+					url: '{=preview_cv.url}{record.url_key}',
+					readStateCfg: {
+						url				: '{=change_reading_state.url}{record.url_key}',
+						state			: 0,
+						readState		: {field.object:read_state}, 
+						userReadState	: {field.object:user_read_state},
+					}
+					
+				};
+				function showIconRead(index) {
+					document.getElementById('user_read_state_'+index).style.borderLeft = '6px solid #F0F0F0';
+				}
+				
+									
+			</script>
+			<script language="php">
+				$editUrl = $this->getProperty('edit.url');
+				$editUrlDir = dirname($editUrl).'/';
+				$editUrlBase = 'directory.php?nxo=edit&mode=page&filterKey='.urlencode($this->getProperty('filterKey'));
+				$oid = $_nx_record->oid->object;
+				//$editUrl = $editUrlDir.'coid-'.$oid.'/'.$editUrlBase.$_nx_record->getUrlKey();
+				$editUrl = $editUrlDir.'coid-'.$oid.'/'.$editUrlBase.$_nx_record->getUrlKey().(isset($_REQUEST["vacancy"])?'&vacancy_oid='.$_REQUEST["vacancy"]:"");
+				
+				$etat_color = $_nx_record->etat_color->object;
+				$relevance = $_nx_record->relevance->object;
+				if($etat_color == null ){
+					$fontColor = "#000000";
+				}else{
+					if((0.2125*intval(substr($etat_color,1,2), 16) + 0.7154*intval(substr($etat_color,3,2), 16) + 0.0721*intval(substr($etat_color,5,2), 16)) <= 128)
+						$fontColor  = "#FFFFFF";
+					else
+						$fontColor = "#000000";
+				}
+			</script>
+			<div class="panel panel-default" id="user_read_state_{record.index}" {if:#field.object:user_read_state# == '1' }style='border-left: 6px solid #F0F0F0;{if:record.is_first}margin: 10px 0;{else}margin: 25px 0;{/if}' {else} style='border-left: 6px solid #1b98f8;{if:record.is_first}margin: 10px 0;{else}margin: 25px 0;{/if}' {/if} >
+				<div class="panel-heading candidate-panel"  onclick="document.location='{var:editUrl}';">
+					<div class="directory-checkbox-row" style="float:left;margin-left: -12px;width: 30px;display:none;">
+						<input type="checkbox" class="selection-checkbox" name="selection-checkbox" value="{field.object:oid}" />
+					</div>
+				
+					<i class="glyphicon glyphicon-user font-green-cvt" style="margin-right: 10px;"></i>
+					<span title="Candidat: {field.js:first_name} {field.js:last_name}">
+						<span class="name">{field.js:first_name} {field.js:last_name}</span>
+					</span>
+	
+					<div class="panel-content right" >
+						{if:#field:add_date#==#field:update_date#}
+						<i class="glyphicon glyphicon-calendar" style="margin-right: 5px;"></i>
+						<span class="field-content" title="Date d'ajout: {field:add_date}">{field:add_date}</span>
+						{else}
+						<i class="glyphicon glyphicon-calendar" style="margin-right: 5px;"></i>
+						<span class="field-content" title="Date d'ajout: {field:add_date}">{field:add_date}, </span>
+						<span class="field-content" title="Date de MàJ: {field:update_date}">{field:update_date}</span>
+						{/if}
+					</div>
+				</div>
+				<div class="row" style="padding:10px; position:relative">
+					<div class="col-md-4 first-col card" onclick="document.location='{var:editUrl}';" style="cursor:pointer">
+						
+						{if:(#field.object:age# != '0' && #field.object:age# != '') || trim(#field.string:town_name#) != ''}
+						<span class="field-content" title="{field.label:age}: {field:age} {string:'years_old'}">
+							{if:#var:display_age# == true}{if:#field.object:age# != '0'}{field:age} {string:'years_old'}{/if}
+						</span>
+						<span title="{string:'localisation'}: {field:zip} {field:town_name}">{if:#field.object:age# != '0' && trim(#field.string:town_name#) != ''},{/if}{/if} <i class="glyphicon glyphicon-map-marker p-icon"></i>{field:zip} {field:town_name}</span>
+						<br><br/>
+						{/if}
+						<span class="field-content" title="{field.label:studies_level}: {field:studies_level} , {field.string:diploma}">
+							<?php if (trim($_nx_record->studies_level->object)!='' && trim($_nx_record->studies_level->object)!='?') { ?>
+							<i class="glyphicon glyphicon-education p-icon" style="font-size: 1.4em !important;"></i>{field.string:studies_level}
+							{if:trim(#field.object:diploma#) != '' || (#field.object:years_of_practice# != '' && #field.object:years_of_practice# != '0')},{/if}
+							<?php } ?>
+							{if:trim(#field.object:diploma#) != ''} {field.string:diploma},{/if}
+							 
+						</span>
+						<span class="field-content" title="{if:#field.object:years_of_practice# != '' && #field.object:years_of_practice# != '0'}{field.label:years_of_practice}: {field:years_of_practice}{string:'year'}{if:#field.object:years_of_practice# > '1'}s{/if} {string:'experience_grid_label'}{elseif:#field.object:years_of_practice# == '0'}{string:'no_experience'}{/if} ">
+						<i class="fa fa-suitcase p-icon" aria-hidden="true" ></i>
+						{if:#field.object:years_of_practice# != '' && #field.object:years_of_practice# != '0'}
+							{field:years_of_practice} 
+							{string:'year'}{if:#field.object:years_of_practice# > '1'}s{/if} 
+							{string:'experience_grid_label'}
+						{elseif:#field.object:years_of_practice# == '0'}
+							{string:"no_experience"}
+						{/if} 
+						</span>		
+						<br/><br/>
+						{if:trim(#field.object:last_employment#) != ''}
+							<span class="field-content" title="{field.label:last_employment_summary}: {field:last_employment_summary}">{field:last_employment_summary}</span>
+						{elseif:trim(#field.object:last_employment#) == '' && trim(#field.object:last_training#) != ''}
+							<span class="field-content" title="{field.label:last_training_summary}: {field:last_training_summary}">{field:last_training_summary}</span>
+						{/if}				
+						
+					</div>
+					<div class="col-md-4">
+						<ul class="list-item-infos-right">
+						
+						{if:#field.string:vacancies# != ''}
+						<li class="text-left item-info" title="{string:'vacancy'} : {field:vacancies}">
+						<i class="glyphicon glyphicon-folder-open font-blue-vacancy"></i>
+						<span class="field-label font-blue-vacancy" style='font-weight: bold'>{string:'vacancies'}:</span> 
+						<?php $vs = explode("<br>", $_nx_record->vacancies->html); 
+							  $vs_oids = explode("|", $_nx_record->vacancies->object); 
+							  for ($x = 0; $x <= count($vs); $x++){
+								echo '<span class="label label-default ng-binding tag_style tag_blue" style="cursor:pointer" title="Poste : '.$vs[$x].'" onclick=\'document.location.href="/recruitment/vacancies/admin/void-'.$vs_oids[$x].'/directory.php?nxo=edit&mode=page&oid='.$vs_oids[$x].'"\'>'.$vs[$x].'</span>';
+								//echo '<div class="field-content font-blue-vacancy" style="cursor:pointer;padding-left:15px;" onclick=\'document.location.href="/recruitment/vacancies/admin/void-'.$vs_oids[$x].'/directory.php?nxo=edit&mode=page&oid='.$vs_oids[$x].'"\'><span>'.$vs[$x].'</span></div>';
+							  }
+						?>
+						</li>
+						{/if}
+						{if:trim(#field.object:etat_oid#)!=''}
+							<li class="text-left item-info" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor} !important; {if:#field.object:vacancy_name# != ''}margin-top:20px{/if}" title="{field.label:etat_oid}: {field:etat_oid}">
+
+								<i class="fa fa-sitemap" style="background-color: transparent;"></i>
+								<span class="field-label" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor} !important">{field.label:etat_oid}:</span> 
+								<span class="field-content" style="{if:%var:etat_color%}background-color:{var:etat_color};border: solid 1px {var:etat_color};border-radius: 4px;{/if}color:{var:fontColor} !important">{field:etat_oid}</span>
+							</li>
+						{/if}
+						{if:trim(#field.object:profile#) != ''}
+							<li class="text-left item-info">
+								<!--<span class="field-content font-green-cvt profil-style">{field:profile}</span>-->
+								<?php $profils = explode(",", $_nx_record->profile->object); 
+									  foreach($profils as $profil){
+										echo '<span class="label label-default ng-binding tag_style tag_green" title="Profile : '.$profil.'" >'.$profil.'</span>';
+									  }	
+								?>
+							</li>
+						{/if}
+						{if:trim(#field.object:tag#) != ''}
+							<li class="text-left item-info">
+								<!--<span class="field-content font-green-cvt profil-style">{field:profile}</span>-->
+								<?php $tags = explode(",", $_nx_record->tag->object); 
+									  foreach($tags as $tag){
+										echo '<span class="label label-default ng-binding tag_style tag_blue" title="Mot clé : '.$tag.'" >'.$tag.'</span>';
+									  }	
+								?>
+							</li>
+						{/if}
+						
+						
+						</ul>
+					</div>
+					<div class="col-md-3">
+						
+						<ul class="list-item-infos-right">
+							
+							{if:trim(#field.object:provider#)!=''}
+								<li class="text-left item-info" style="margin-top: 10px;" title="{field.label:provider}: {field:provider}">
+									<img src="/nx/skins/lightsky/img/source.png" style="width: 20px;">
+									<span class="field-label">{field.label:provider}:</span> <span class="field-content">{field:provider}</span>
+								</li>
+							{/if}
+						
+							<?php if (trim($_nx_record->hr_manager->object,"\t\n\r\0\x0B?")!='') { ?>
+								<li class="text-left item-info" title="{field.label:hr_manager}: {field:hr_manager}">
+									<i class="glyphicon glyphicon-user"></i>
+									<span class="field-label">{field.label:hr_manager}:</span> 
+									<span class="field-content">{field:hr_manager}</span>
+								</li>
+							<?php } ?>
+							
+							{if:#field.object:relevance# != '' && #field.object:relevance# != '0'}
+								<!--<li class="text-left item-info" title="{field.label:relevance}: {field:relevance}">
+									<i class="glyphicon glyphicon-star"></i> 
+										<span class="field-label">{field.label:relevance}:</span> 
+										<span class="field-content">{field:relevance}</span>
+								</li>-->
+							{/if}
+							{if:trim(#field.object:cand_channel#)!=''}
+								<li class="text-left item-info" title="{field.label:cand_channel}: {field:cand_channel}">
+									<i class="glyphicon glyphicon-screenshot"></i> 
+									<span class="field-label">{field.label:cand_channel}:</span> 
+									<span class="field-content">{field:cand_channel}</span>
+								</li>
+							{/if}
+							{if:trim(#field.object:category_oid#)!=''}
+								<li class="text-left item-info" title="{string:"category"}: {field:category_oid}">
+									<i class="glyphicon glyphicon-tag"></i> 
+									<span class="field-label">{string:"category"}:</span> <span class="field-content">{field:category_oid}</span>
+								</li>
+							{/if}
+							
+							{if:trim(#field:comments_cache#)!=''}
+								<li class="text-left item-info" title="{string:'comment'}" style="background-color:#fff;padding:0px">
+									<div class="comments-wrapper" id="comments-wrapper">
+									{field:comments_cache}
+									</div>
+								</li>
+							{/if}
+							
+							
+												
+						</ul>
+					</div>
+					<div class="col-md-1">
+						
+						<div class="btn-group button_bs_right" role="group">
+							<button type="button" class="btn btn-default dropdown-toggle button-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
+							</button>
+						
+							<ul class="dropdown-menu" style="right:0px;left:initial;">
+								<li>
+									<a href="{var:editUrl}" title="{string:'edit_helper'}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;{string:"edit_helper"}</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);" onclick="document.location.href='{=add_interview.url}{field:oid}'"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;{string:"add_interview"}</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);" onclick="PMModalbox.loadFromUrl(window.dlg_associateToVacancy{record.index}, event); return false;" title="{string:'associate_to_vacancy_helper'}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp;&nbsp;{string:"associate_to_vacancy_helper"}</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);" onclick="Generis.Recruitment.preview(this, window.dlg_preview{record.index}, event);showIconRead({record.index})" onclickX="PMModalbox.loadFromUrl(window.dlg_preview{record.index}, event); return false;" title="{string:'preview_cv'}"><span class="fa fa-eye" aria-hidden="true"></span>&nbsp;&nbsp;{string:"preview_cv"}</a>
+								</li>
+								<li class="menu_separator">
+									<a href="javascript:void(0);" onclick="PMModalbox.display(dlg_archiveConfig{record.index}, event);" title="{string:'archive_helper'}"><span class="fa fa-file-archive-o" aria-hidden="true"></span>&nbsp;&nbsp;{string:"archive_helper"}</a>
+								</li>	
+								<li >
+									<a target="_blank" href="http://www.linkedin.com/search/results/people/?firstName={field:first_name}&lastName={field:last_name}" title="{string:'search_on_linkedin_helper'}"><span class="fa fa-linkedin-square" aria-hidden="true"></span>&nbsp;&nbsp;{string:"search_on_linkedin_helper"}</a>
+								</li>
+								<li>
+									<a target="_blank" href="http://www.viadeo.com/recherche/resultat_membres?fullName={field:last_name}%20{field:first_name}&amp;search=Chercher&amp;language=fr" title="{string:'search_on_viadeo_helper'}"><span class="fa fa-viadeo-square" aria-hidden="true"></span>&nbsp;&nbsp;{string:"search_on_viadeo_helper"}</a>
+								</li>
+								<li>
+									<a target="_blank" href="https://www.facebook.com/search.php?init=s%3Aname&q={field:first_name}%20{field:last_name}&type=users" title="{string:'search_on_facebook_helper'}"><span class="fa fa-facebook-official" aria-hidden="true"></span>&nbsp;&nbsp;{string:"search_on_facebook_helper"}</a>
+								</li>
+								<li>
+									<a  id="idButton_{field:oid}" onclick="PMDH.toggle('history_candidate_{field:oid}', 'appear'); changeImage({field:oid});" title="{string:'history_list'}"><span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;&nbsp;{string:"history_list"}</a>
+								</li>
+							
+								<!--{if:(#field.object:user_read_state# == '1'  || #field.object:read_state# == '1')}
+								<li>
+									<a  id="idButton_{field:oid}" onclick="PMDH.toggle('slidingDiv_{field:oid}', 'appear'); changeImage({field:oid});" title="{string:'viewers'}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;{string:"viewers"}</a>
+								</li>
+								
+								{/if}-->
+
+							</ul>
+						</div>
+						<div class="btn-group button_bs_right" role="group">
+							<button type="button" class="btn btn-default dropdown-toggle button-dropdown" title="{string:'preview_cv'}" onclick="Generis.Recruitment.preview(this, window.dlg_preview{record.index}, event);showIconRead({record.index})" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="    background: transparent;padding-right: 4px" >
+								<span class="fa fa-eye" aria-hidden="true" style="color:#89c68b; font-size: 25px;"></span>
+								<!--<img src="/nx/skins/default/img/icons/preview.png" alt="">-->
+							</button>
+						</div>
+					</div>
+					<div class="circle_form" style="float:right">
+					<?php 
+						print ($_nx_recIndex+ 1) + ($_nxvar_page_index)*10;
+					?>
+					</div>
+					
+				</div>
+				<div class="row candidate-history clear-both" style="display:none;" id="history_candidate_{field:oid}">
+				
+					<div class="col-md-12">
+						<div class="column-inner">
+							<div class="candidate-history-title title-first">{string:'history_list'}<span class="glyphicon glyphicon-remove right" style="cursor:pointer" onclick="PMDH.toggle('history_candidate_{field:oid}', 'appear');"></span></div>
+										
+										{field:actions}
+						</div>
+					</div>
+				</div>
+				<!--<div class="row candidate-history clear-both" style="display:none;" id="slidingDiv_{field:oid}">
+					<div class="col-md-6">
+						<div class="column-inner">
+							<div class="candidate-history-title title-first">{string:'viewer_list'}</div>
+										{field:viewers}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="column-inner">
+							<div class="candidate-history-title title-first">{string:'comments'}</div>
+										{field:comment}
+						</div>
+					</div>
+				</div> -->
+			</div>
+	
+			<!--! {/record} -->
+
+		</div>
+				
+		<!--! {/records} -->
+		{include:recruitment/candidates/components/pagination/pagination}
+			
+	</div>
+	{include:common/grid_empty}
+				
+</div>
+
+
+
+<script>
+	(function() {
+		var form = document.getElementById("form_rct_candidate_search");
+		if(typeof form == 'undefined'){
+			for(var i=0; i<form.elements.length; i++) {
+				var cElement = form.elements[i];
+				if( typeof cElement.size != 'undefined' ) {
+					cElement.removeAttribute('size');
+				}
+			}
+		}
+		
+	})();
+	function loadSearch(select){
+		if(select.options[select.selectedIndex].value != '?'){
+			var http = new XMLHttpRequest();
+			var url = "{=get_search.url}&oid="+select.options[select.selectedIndex].value;
+			http.open("GET", url, true);
+
+			http.onreadystatechange = function() {
+				if (http.readyState == 4 && http.status == 200) {
+					document.location.href = http.responseText.replace(/&amp;/g, '&');
+					document.getElementById('btn_delete_search').style.display='inline-block';
+				}
+			};
+			//Send the proper header information along with the request
+			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			http.send();      
+		}
+	};
+	function deleteSearch(){
+		var select = document.getElementById('form_rct_candidate_saved_search').getElementsByTagName('select')[0];
+		if(select.options[select.selectedIndex].value != '?'){
+			var http = new XMLHttpRequest();
+			var url = "{=delete_search.url}&oid="+select.options[select.selectedIndex].value;
+			http.open("GET", url, true);
+
+			http.onreadystatechange = function() {
+				if (http.readyState == 4 && http.status == 200) {
+					document.location.href = '/recruitment/candidates/directory.php';
+				}
+			};
+			//Send the proper header information along with the request
+			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			http.send();      
+		}
+	};
+	function toogleSearch(ele, class1){
+		var c = toogleClass(ele, class1);
+		if(c) x = '-280px';
+		else x = '0';
+		setTimeout(function ()
+		{
+			element = document.getElementsByClassName('pull-right')[0];
+			element.style.webkitTransitionDuration = "0.6s";
+			element.style.webkitTransitionTimingFunction = "ease-out";
+			element.style.webkitTransform = "translate3d("+x+", 0, 0)";
+		}, 0);
+	};
+	function toogleClass(ele, class1) {
+	  ele = document.getElementById(ele);
+	  return toggleClassEle(ele , class1);
+	};
+	function toggleClassEle(ele, class1) {
+	  var classes = ele.className;
+	  var regex = new RegExp('\\b' + class1 + '\\b');
+	  var hasOne = classes.match(regex);
+	  class1 = class1.replace(/\s+/g, '');
+	  if (hasOne){
+		ele.className = classes.replace(regex, '');
+		return false;
+	  }else{
+		ele.className = classes +' '+class1;
+		return true;
+	  }
+	};
+	
+	
+
+	
+</script>
+
+<div class="theme-config">
+    <div class="theme-config-box" id="config-box">
+        <div id="spin-icon" onclick="toogleSearch('config-box', 'show');">
+			<span class="glyphicon glyphicon-search" id="" style="color: white;" aria-hidden="true"></span>
+        </div>
+        <div class="skin-setttings">
+            <div class="title green-cvthque-background" onclick="toogleSearch('config-box', 'show');">Recherche</div>
+            <div class="setings-item">
+					<div class="widget">
+						{include:recruitment/candidates/components/search/search_get_bs_n}
+					</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+PMDH.Skin.LightSky.Grid.init('', {
+	wrapperClass	: 'candidate-list',
+	gridClass		: 'directory-grid-wrapper',
+	gridRowClass	: 'directory-checkbox-row'
+});
+</script>
+{/content}
+
+
+<script language="php">
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=='ajax') {
+</script>
+{=page.content}
+{else}
+{include:page_bs}
+{/if}

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _time_start,_time_end,_candidate_oid FROM _rct_interview_comment"; ?>

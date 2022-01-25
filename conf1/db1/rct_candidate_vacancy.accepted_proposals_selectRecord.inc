@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _proposal_acceptance_date FROM _rct_candidate_vacancy"; ?>

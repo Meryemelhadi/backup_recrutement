@@ -1,0 +1,25 @@
+{records:page.records}
+<div class="sub-edit-grid-wrapper">
+	<table class="sub-edit-grid">
+		<tr class="sub-grid-header">
+			
+			<th></th>
+			<?php
+				$list = $this->getChoiceList('recruitment.interview_criteria_value@recruitment');
+				$listArray = $list->getListAsArray();  
+				foreach ($listArray as $k=>$v) {
+			?>
+			<th style="width:10%;text-align:center">{$v}</th>
+			<?php
+				}
+			?>
+		</tr>
+		{record}
+		<tr class="grid-row row_{record.even_odd}">
+			<td class="form-cell cell-{field.type:name}-type cell-{field.control:name}-ctrl readonly"><div class="simple-wrapper"><div class="field-{field.type:name}">{field:name}</div></div></td>
+			{field:level}
+		</tr>
+		{/record}
+	</table>
+</div>
+{/records}

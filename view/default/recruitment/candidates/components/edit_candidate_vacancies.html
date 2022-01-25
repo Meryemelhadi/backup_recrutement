@@ -1,0 +1,20 @@
+<div class="table-list-wrapper" id="vacancies-list-wrapper">
+    {records:candidate_vacancies.records}
+    {record}
+    <table class="table-list">
+        <tr>
+            <td class="entry">{field.html:vacancy_oid}</td>
+            <td class="action">
+                <input type="button" class="s-icon si-disconnect" href="javascript:void(0);" onclick="window.dlg_unlinkConfig_{record.index} = { title : '{string:'dlg_unlink_candidate_title'}', message : '{string:'dlg_unlink_candidate_content'}',
+                        viewMode : 'okCancel', url : '{=unlink_candidate.url}&candidate_oid={field:candidate_oid}{record.url_key}', target : 'content',
+                        labels : {
+                            ok : '{string:'dlg_ok'}',
+                            cancel : '{string:'dlg_cancel'}'
+                        } };PMModalbox.display(window.dlg_unlinkConfig_{record.index}, event); return false;" value="" style="cursor: pointer; background-color:transparent; border:solid 0px; width:18px" title="{string:'unlink_candidate_helper'}"/>
+            </td>
+            <td class="action go-action"><a href="/recruitment/vacancies/admin/directory.php?nxo=candidates&mode=page&oid={field.object:vacancy_oid}"><span>{string:"go_to_vacancy"}</span></a></td>
+        </tr>
+    </table>
+    {/record}
+    {/records}
+</div>

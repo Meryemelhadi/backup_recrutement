@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_interview_synthesis_criterias_list(_oid INT AUTO_INCREMENT NOT NULL,_interview_synthesis_oid INT,_name TEXT,_level integer,PRIMARY KEY(_oid))"; ?>

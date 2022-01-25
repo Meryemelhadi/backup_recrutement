@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="user">	
+
+				<key mode="get_email">
+					<field name="oid" label="oid" type="oid" relation="in" value="%{property:user_oid}"/>
+				</key>
+				<fields mode="get_email">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="civility" label="civility" type="text-choice" list="directory.lists.civility" control="select"/>
+					<field name="first_name" label="first_name"  type="line" />
+					<field name="last_name" label="last_name"  type="line" />
+					<field name="full_name" label="last_name"  type="line" is_transient="true" />
+					<field name="email" label="email"  type="line" />
+					<field name="role" label="role" multiLines="no" type="text-choice" multiple="false" control="select" ds="db:directory.employees.role" ds_format="{field:role_name}" ds_field_value="oid" />
+
+					<field name="mobile_phone" label="mobile_phone" type="int-telephone" size="20" isEdit="%{permission:?-rh}"/>
+					<field name="direct_phone" label="direct_phone" type="int-telephone" size="20" isEdit="%{permission:?-rh}"/>
+					<field name="local_phone" label="local_phone" type="line" size="20" isEdit="%{permission:?-rh}"/>
+					<!-- <field name="fax" label="fax" type="line" size="20" isEdit="%{permission:?-rh}"/>
+ -->					<field name="personal_phone" label="personal_phone" type="int-telephone" size="20" isEdit="%{permission:?-rh}"/>
+
+					<field name="group" label="group" multiLines="no" type="text-choice" multiple="false" control="select" ds="db:directory.employees.group" ds_format="{field:group_name}" ds_field_value="oid" />
+
+					<field name="photo" label="photo" type="image" maxSize="200000" imageSize="170x120" imageSizes="original,170x120,30x30" />
+					<field name="full_name" label="last_name"  type="line" is_transient="true" />
+				</fields>
+                <key mode="get_full_name">
+                    <field name="oid" label="oid" type="oid" relation="EQ" value="%{property:user_oid}"/>
+                </key>
+                <fields mode="get_full_name">
+                    <field name="first_name" label="first_name"  type="line" />
+                    <field name="last_name" label="last_name"  type="line" />
+                </fields>
+				<key mode="get_interim">
+                    <field name="oid" label="oid" type="oid" relation="EQ" value="%{property:user_oid}"/>
+                </key>
+                <fields mode="get_interim">
+                    <field name="interim" label="Interim" size="50" type="text-choice" prompt="Selectionner interim..." multiple="false" control="select" ds="db:users.ds_list_all@user" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" />
+                </fields>
+				<key mode="get_infos">
+					<field name="oid" label="oid" type="oid" relation="in" value="%{property:oid}"/>
+				</key>
+				<fields mode="get_infos">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="civility" label="civility" type="text-choice" list="directory.lists.civility" control="select"/>
+					<field name="first_name" label="first_name"  type="line" />
+					<field name="last_name" label="last_name"  type="line" />
+					<field name="full_name" label="last_name"  type="line" is_transient="true" />
+					<field name="email" label="email"  type="line" />
+					<field name="role" label="role" multiLines="no" type="text-choice" multiple="false" control="select" ds="db:directory.employees.role" ds_format="{field:role_name}" ds_field_value="oid" />
+
+					<field name="mobile_phone" label="mobile_phone" type="int-telephone" size="20" isEdit="%{permission:?-rh}"/>
+					<field name="direct_phone" label="direct_phone" type="int-telephone" size="20" isEdit="%{permission:?-rh}"/>
+					<field name="local_phone" label="local_phone" type="line" size="20" isEdit="%{permission:?-rh}"/>
+					<!-- <field name="fax" label="fax" type="line" size="20" isEdit="%{permission:?-rh}"/>
+ -->					<field name="personal_phone" label="personal_phone" type="int-telephone" size="20" isEdit="%{permission:?-rh}"/>
+
+					<field name="group" label="group" multiLines="no" type="text-choice" multiple="false" control="select" ds="db:directory.employees.group" ds_format="{field:group_name}" ds_field_value="oid" />
+
+					<field name="photo" label="photo" type="image" maxSize="200000" imageSize="170x120" imageSizes="original,170x120,30x30" />
+
+				</fields>
+
+				<query mode="get_emails" type="select">
+					SELECT
+						_oid,
+						_first_name,
+						_last_name,
+						CONCAT_WS(' ', _first_name, _last_name) AS _full_name,
+						_email
+					FROM
+						_user
+					WHERE
+						_oid IN (".$this->getProperty("user_oids").")
+				</query>	
+
+				<fields mode="get_emails">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="first_name" label="first_name"  type="line" />
+					<field name="last_name" label="last_name"  type="line" />
+					<field name="full_name" label="last_name"  type="line" is_transient="true" />
+					<field name="email" label="email"  type="line" />
+				</fields>
+				
+
+				<key mode="ds_list">
+					<field name="oid" label="oid" type="oid" relation="in" value="%{property:cat.enum}"/>
+				</key>
+				<sort mode="ds_list">
+					<field name="first_name" type="line" label="first_name" direction="asc" />
+					<field name="last_name" type="line" label="last_name" direction="asc" />
+				</sort>
+				<fields mode="ds_list">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="first_name" label="first_name" type="line" />
+					<field name="last_name" label="last_name" type="line" />
+				</fields>
+
+
+				<key mode="ds_list_recruiters">
+					<field name="user_credits" type="text-choice" relation="like" value="?-rh" right_partern_match="|"
+					/>
+				</key>
+				<sort mode="ds_list_recruiters">
+					<field name="first_name" type="line" label="first_name" direction="asc" />
+					<field name="last_name" type="line" label="last_name" direction="asc" />
+				</sort>
+				<fields mode="ds_list_recruiters">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="first_name" label="first_name" type="line" />
+					<field name="last_name" label="last_name" type="line" />
+				</fields>
+
+
+				<key mode="ds_list_without_creator">
+					<!--<field name="oid" label="oid" type="oid" relation="neq" value="%{property:creator}"/>-->
+				</key>
+				<sort mode="ds_list_without_creator">
+					<field name="first_name" type="line" label="first_name" direction="asc" />
+					<field name="last_name" type="line" label="last_name" direction="asc" />
+				</sort>
+				<fields mode="ds_list_without_creator">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="first_name" label="first_name" type="line" />
+					<field name="last_name" label="last_name" type="line" />
+				</fields>
+
+				<key mode="ds_list_without_creator_add">
+					<field name="oid" label="oid" type="oid" relation="neq" value="%{user:oid}"/>
+				</key>
+				<sort mode="ds_list_without_creator_add">
+					<field name="first_name" type="line" label="first_name" direction="asc" />
+					<field name="last_name" type="line" label="last_name" direction="asc" />
+				</sort>
+				<fields mode="ds_list_without_creator_add">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="first_name" label="first_name" type="line" />
+					<field name="last_name" label="last_name" type="line" />
+				</fields>
+
+				<key mode="ds_list_all"></key>
+				<sort mode="ds_list_all">
+					<field name="first_name" type="line" label="first_name" direction="asc" />
+					<field name="last_name" type="line" label="last_name" direction="asc" />
+				</sort>
+
+				<fields mode="ds_list_all">
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="first_name" label="first_name" type="line" />
+					<field name="last_name" label="last_name" type="line" />
+					<field name="email" label="email"  type="line" />
+				</fields>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+					<field name="civility" label="civility" type="text-choice" list="directory.lists.civility" control="select"/>
+					<field name="first_name" label="first_name"  type="line" />
+					<field name="last_name" label="last_name"  type="line" />
+					<field name="full_name" label="last_name"  type="line" is_transient="true" />
+					<field name="email" label="email"  type="line" />
+					<field name="role" label="role" multiLines="no" type="text-choice" multiple="false" control="select" ds="db:directory.employees.role" ds_format="{field:role_name}" ds_field_value="oid" />
+					<field name="interim" label="Interim" size="50" type="text-choice" prompt="Selectionner interim..." multiple="false" control="select" ds="db:users.ds_list_all@user" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" />
+				
+					<field name="mobile_phone" label="mobile_phone" type="int-telephone" size="20" isEdit="%{permission:?-rh}"/>
+					<field name="direct_phone" label="direct_phone" type="int-telephone" size="20" isEdit="%{permission:?-rh}"/>
+					<field name="local_phone" label="local_phone" type="line" size="20" isEdit="%{permission:?-rh}"/>
+					<field name="fax" label="fax" type="line" size="20" isEdit="%{permission:?-rh}"/>
+					<field name="personal_phone" label="personal_phone" type="int-telephone" size="20" isEdit="%{permission:?-rh}"/>
+
+					<field name="group" label="group" multiLines="no" type="text-choice" multiple="false" control="select" ds="db:directory.employees.group" ds_format="{field:group_name}" ds_field_value="oid" />
+
+					<field name="photo" label="photo" type="image" maxSize="200000" imageSize="170x120" imageSizes="original,170x120,30x30" />
+
+				</fields>
+
+			</table>
+		
+		</tables>
+	</data>
+</nxl>

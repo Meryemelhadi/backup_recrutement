@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _is_visible FROM _rct_short_list WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

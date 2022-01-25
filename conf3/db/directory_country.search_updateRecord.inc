@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _directory_country SET _country_name=".$record->getFieldValue("country_name","DB","NULL"); ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_candidate_keywords WHERE _key='".$props->getProperty("candidate_oid","",true)."'"; ?>

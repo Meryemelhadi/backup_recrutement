@@ -1,0 +1,92 @@
+<fieldset class="test_fieldset">
+
+    <div class="table-list-wrapper" id="test_oid-list-wrapper">
+    {records:candidate_tests.records}
+        {record}
+            <table class="table-list" style="width:100%">
+                <tr class="test_{field.object:test_oid}">
+                    <td class="entry_{field.object:test_oid}" id="entry_{field.object:test_oid}" style="width:49%"><strong>Test:</strong> {field.html:test_oid}</td>
+                    <td class="entry_prct_{field.object:test_oid}" id="entry_prct_{field.object:test_oid}" style="width:49%"> :  {field.html:pourcentage}%</td>
+                    <td class="" style="width:2%,align:right"><input type="button" class="s-icon si-cross" href="javascript:void(0);" onclick="Generis.Recruitment.deleteTest('{field.object:test_oid}', '{=delete_test.url}', 'test'); this.blur(); return false;" value="" style="cursor: pointer; background-color:transparent; border:solid 0px;width:15px"/>
+                    </td>
+                </tr>
+                <tr class="test_{field.object:test_oid}_comment">
+                    <td><strong>{field.label:comment}:</strong></td><td colspan="2" >{field.html:comment}</td>
+                </tr>
+            </table>
+        {/record}
+    {/records}
+    </div>
+
+    <br/>
+    {record:candidate_tests.record}
+    <div class="add_test" >
+        <div class="pm-bx-form pm-bx-form-normal-layout">
+            <div class="record_wrapper">
+                <div class="record" id="control_test">
+                    <div class="control-main-wrapper">
+                        <table class="table-list">
+                            <tr>
+                                <td class="entry">
+									<div class="control-label-wrapper-bs">
+										<label for="test_oid" class="control-label-bs control-label">{field.label:test_oid} :</label>
+									</div>
+
+									<div class="form-group-double-controls">
+										<div class="form-control-bs control1" id="test_oid-control">
+											{field.form:test_oid}
+										</div>
+										<div class="form-control-bs control2" id="pourcentage-control">
+											<div class="input-group field-date">
+												{field.form:pourcentage}<span class="input-group-addon">%</span>
+											</div>
+										</div>
+									</div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="entry">
+                                    <div class="control-wrapper">
+                                        <div class="control">
+<?php
+	$_nx_record->comment->desc->setProperty('prompt',$_nx_record->comment->desc->getLabel());
+?>
+                                            {field.form:comment}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- <tr>
+                                <td class="entry" style="width:50%">
+                                    <div class="control-label-wrapper">
+                                        <div class="control-label">{field.label:pourcentage} :</div>
+                                    </div>
+                                    <div class="control-wrapper">
+                                        <div class="control" id="available-pourcent-control">
+                                            {field.form:pourcentage}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr> -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {/record}
+
+    <div class="pm-button-wrapper clear-both">
+        <!--<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="Generis.Recruitment.addTest('control_test','test_oid' ,'pourcentage', 'comment', 'add_test', '{=add_test.url}', 'test_oid'); this.blur(); return false;" style="float:right">
+            <span class="btn-bg"><span class="s-icon si-add">{string:"add_test"}</span></span>
+        </a>-->
+		<button type="button" class="btn btn-default right" onclick="Generis.Recruitment.addTest('control_test','test_oid' ,'pourcentage', 'comment', 'add_test', '{=add_test.url}', 'test_oid'); this.blur(); return false;">
+			<span class="glyphicon glyphicon-save" aria-hidden="true"></span>&nbsp;&nbsp;
+			{string:"add_test"}
+		</button>
+        <div id="test-button-loader" style="display:none;"></div>
+    </div>
+
+</fieldset>

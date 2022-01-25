@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<include_once file="/strings/dashboard/dashboard_interviews.strings.nxl" />
+<include_once file="/strings/dashboard/recruitment_channel.strings.nxl" />
+<include_once file="/strings/dashboard/recruitments_checklist.nxl"/>
+<include_once file="/strings/dashboard/recruitments_synthesis.nxl"/>
+<include_once file="/strings/dashboard/integrations_synthesis.nxl"/>
+
+</nxl>

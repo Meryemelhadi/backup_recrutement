@@ -1,0 +1,12 @@
+{records:page.records}
+	{if:records.count >0}
+		<div class="comments-wrapper" id="comments-wrapper">
+	{/if}
+	{record}	
+		<p class="triangle-border top tooltip_comment" title="{field:user_oid} {field:date}">{field:comment}</p>	
+	{/record}
+	{if:records.count >0}
+		</div>
+	{/if}
+{/records}
+

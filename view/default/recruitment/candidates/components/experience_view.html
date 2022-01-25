@@ -1,0 +1,46 @@
+{records:page.records}
+{record}
+<div class="pm-bx-subform-wrapper">													
+	<div class="pm-bx-form">
+		<div class="record_wrapper">
+			<div class="record">
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:employment_end_date}</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper">
+						<div class="control" id="{field.name}-control">
+							{field:employment_end_date}
+						</div>
+					</div>
+				</div>
+				
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:employment_start_date}</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper">
+						<div class="control" id="{field.name}-control">
+							{field:employment_start_date}
+						</div>
+					</div>
+				</div>
+								
+				<div class="control-main-wrapper normal-layout-control">
+					<div class="control-wrapper" id="{field.name}-control-wrapper">
+						<div class="control" id="{field.name}-control">
+							{field:employment_content}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+{/record}
+{/records}
+{no_record}
+<div class="empty-records">{string:"empty_experience_list"}</div>
+{/no_record}

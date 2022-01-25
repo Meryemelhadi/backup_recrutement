@@ -1,0 +1,11 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','show'=>false,'isEdit'=>false,'srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_short_list_vacancy_client_oid','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'short_list_oid','label'=>'short_list_oid','type'=>'text_choice','srcName'=>'short_list_oid','ufname'=>'_short_list_oid','qname'=>'rct_short_list_vacancy_client_short_list_oid','list'=>'short_list_oid','control'=>'select','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'vacancy_oid','label'=>'vacancy_oid','type'=>'text','isKey'=>'secondary','sqltype'=>'integer','srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_short_list_vacancy_client_vacancy_oid','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'proposed_by','label'=>'proposed_by','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:user.ds_list@recruitment','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','srcName'=>'proposed_by','ufname'=>'_proposed_by','qname'=>'rct_short_list_vacancy_client_proposed_by','list'=>'proposed_by','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'proposal_date','label'=>'cvc_proposal_date','type'=>'datetime','format'=>'%d %B %Y &agrave; %H:%M','srcName'=>'proposal_date','ufname'=>'_proposal_date','qname'=>'rct_short_list_vacancy_client_proposal_date',),
+array('name'=>'comment','label'=>'cvc_comment','type'=>'text','srcName'=>'comment','ufname'=>'_comment','qname'=>'rct_short_list_vacancy_client_comment','onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','short_list_oid'=>'short_list_oid','_short_list_oid'=>'short_list_oid','vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid','proposed_by'=>'proposed_by','_proposed_by'=>'proposed_by','proposal_date'=>'proposal_date','_proposal_date'=>'proposal_date','comment'=>'comment','_comment'=>'comment',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_short_list_vacancy_client.record','table'=>'_rct_short_list_vacancy_client');
+ ?>

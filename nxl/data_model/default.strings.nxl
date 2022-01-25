@@ -1,0 +1,62 @@
+<?xml version="1.0"?> 
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<i8n:strings 
+		name		= "recruitment_default_strings" 
+		lang		= "fr"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<i8n:string id="legend" value="Légende" />
+		<i8n:string id="add" value="Ajouter un enregistrement" />
+		<i8n:string id="edit_helper" value="Modifier enregistrement" />
+		<i8n:string id="delete_helper" value="Supprimer enregistrement" />
+		
+		<i8n:string id="dlg_wait_title" value="Veuillez patienter" />
+		<i8n:string id="dlg_wait_content" value="L'opération est en cours ..." />
+		<i8n:string id="dlg_success_title" value="Action réussie" />
+		<i8n:string id="dlg_success_content" value="L'opération s'est effectuée avec succès" />
+		
+		<i8n:string id="dlg_back_title" value="Annulation de l'opération" />
+		<i8n:string id="dlg_back_content" value="Souhaitez-vous annuler l'opération en cours ?" />
+		
+		<i8n:string id="dlg_delete_title" value="Suppression des données" />
+		<i8n:string id="dlg_delete_content" value="Attention, la suppression est irreversible. Souhaitez-vous continuer ?" />
+		
+		<i8n:string id="dlg_success" value="Valider" />
+		<i8n:string id="dlg_cancel" value="Annuler" />
+		<i8n:string id="dlg_ok" value="Ok" />
+
+		<i8n:string id="empty_list" value="Aucune donnée enregistrée" />
+		
+		<i8n:string id="details" value="Détails" />
+		<i8n:string id="edit" value="Modifier" />
+		<i8n:string id="delete" value="Supprimer" />
+
+		<i8n:string id="Next" value="Suivant" />
+		<i8n:string id="Previous" value="Précédent" />
+		<i8n:string id="Results" value="Résultats" />		
+
+		<i8n:string id="next_page" value="Suivant" />
+		<i8n:string id="previous_page" value="Précédent" />
+		<i8n:string id="page_label" value="page" />
+		<i8n:string id="page_of" value="sur" />
+
+		<i8n:string id="search" value="Rechercher" />
+		<i8n:string id="add" value="Ajouter" />
+		<i8n:string id="export excel" value="Exporter au format Excel" />
+		<i8n:string id="submit and add" value="Enregistrer" />
+		<i8n:string id="save" value="Enregistrer" />
+		<i8n:string id="back" value="Retour" />
+		<i8n:string id="publish" value="Publier" />
+		<i8n:string id="unpublish" value="Dépublier" />		
+		<i8n:string id="submit" value="Enregistrer" />
+		<i8n:string id="attached_files_title" value="Fichier(s) attaché(s)" />
+
+	</i8n:strings>
+</nxl>

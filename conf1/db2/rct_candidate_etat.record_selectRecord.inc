@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_index,_taskType,_in_home,_color,_vacancy_status,_etat_type,_etat_next,_is_default FROM _rct_candidate_etat WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

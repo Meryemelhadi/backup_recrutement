@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_interview_attached_file_interviewer(_oid INT AUTO_INCREMENT NOT NULL,_interview_oid integer,_file_name TEXT,PRIMARY KEY(_oid))"; ?>

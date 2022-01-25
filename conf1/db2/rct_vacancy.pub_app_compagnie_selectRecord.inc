@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_url,_compagnie_name,_description,_contact_email,_logo FROM _rct_app_connected WHERE _key='".$this->getParamValue("key","","request",",")."'"; ?>

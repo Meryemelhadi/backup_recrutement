@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../data_model/all.data.nxl"/>
+<include file = "components/table.comp.nxl"/>
+
+<composant 
+	xmlns				= "http://www.nxfrontier.com/admin/table.comp" 
+
+	name				= "manage_providers"
+	path				= "/recruitment/admin/"
+	skin				= "#global:RECRUITMENT_SKIN:generis#"
+	strings				= "recruitment_manage_providers"
+
+	ds_search			= "rct_provider.search"
+	ds_list				= "rct_provider.list"
+	ds_edit				= "rct_provider.record"
+	ds_view				= "rct_provider.record"
+	ds_add				= "rct_provider.record"
+	ds_add_process		= "rct_provider.record"
+	ds_delete			= "rct_provider.record"
+	
+	template_list			= "recruitment.admin.manage_providers"
+	template_add_record		= "configuration.add"
+	template_edit_record	= "configuration.edit"
+	template_email			= "directory.configuration.directory_mail"
+	template_view_record	= "directory.configuration.directory_config_view">
+	
+	<i8n:strings 
+		name		= "recruitment_manage_providers" 
+		lang		= "fr" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Gestion des sources" />
+		
+		<i8n:string id="add" value="Ajouter une source" />
+		<i8n:string id="search" value="Rechercher une source" />
+		<i8n:string id="page_title_list" value="Gestion des sources" />
+		<i8n:string id="page_title_add" value="Ajout d'une nouvelle source" />
+		<i8n:string id="page_title_edit" value="Edition de la source sélectionnée" />
+		<i8n:string id="page_title_view" value="Informations sur la source sélectionnée" />
+		<i8n:string id="page_title_validation" value="Validation de la source sélectionnée" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des sources" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet de référencer une nouvelle source de recrutement dans la base de données" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier les informations sur la source sélectionnée" />
+		<i8n:string id="page_message_view" value="Détails sur la source de recrutement sélectionnée" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Cliquer sur une source pour en visualiser les détails" />
+		<i8n:string id="page_message_add_details" 
+		value="Après avoir rempli les champs du formulaire, cliquer sur le bouton 'Enregistrer' afin de valider et d'enregistrer les informations sur la nouvelle source" />
+		<i8n:string id="page_message_edit_details" 
+		value="Cliquer sur 'Enregistrer' pour valider les modifications et revenir à la liste des sources de recrutement, ou sur \'Liste des sources\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" 
+		value="Cliquer sur 'Liste des sources' pour revenir à la liste des sources de recrutement" />
+		
+		<i8n:string id="field:name" value ="Nom" />
+		<i8n:string id="field:email" value ="Email" />
+		<i8n:string id="field:adress" value ="Adresse" />
+		<i8n:string id="field:contact_name" value ="Contact" />
+		<i8n:string id="field:notes" value ="Notes" />
+		<i8n:string id="field:color" value ="Coleur" />
+		<i8n:string id="field:provider_username" value="Login-recruteur"  />
+		<i8n:string id="field:provider_password" value="Mot de passe"  />
+
+		<i8n:string id="legend" value="Légende" />
+		<i8n:string id="empty_list" value="Aucune source n'est référencée dans la base de données" />
+
+		<i8n:string id="edit_helper" value="Modifier les informations" />
+		<i8n:string id="delete_helper" value="Supprimer la fiche de la source" />
+		
+		<i8n:string id="field:code" value="Code" />
+
+		<i8n:string id="back" value="Liste des sources" />
+		<i8n:string id="items_search" value="source(s) trouvée(s)" />
+
+	</i8n:strings>
+
+</composant>
+
+</nxl>

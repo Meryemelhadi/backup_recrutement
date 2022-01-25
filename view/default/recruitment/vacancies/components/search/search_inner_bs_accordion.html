@@ -1,0 +1,389 @@
+<?php
+(sizeof($_SESSION["recruitment_default_search"]) == 1 && $_SESSION["recruitment_default_search"][0] == "" )?  $recruitment_default_search = 0 : $recruitment_default_search = $_SESSION["recruitment_default_search"];
+$index = 0;
+$search = false;
+$collapse=0
+
+?>
+
+
+<div class="search-panel-inner-wrapper" style="background:transparent">
+	<!--! {form:page.search} -->
+	<script language="javascript" type="text/javascript">
+	//<![CDATA[
+	 window.currentForm = document.getElementById('form_rct_vacancy_search');
+	 if(window.currentForm)
+	 {
+		window.content_form_handler = new window.Generis.Forms(window.currentForm);
+	 }
+
+	 
+	//]]>
+	</script>
+	<table class="pm-search-grid">
+		<div class="panel-group" id="search-accordion">
+		  <div class="panel panel-default">
+			<div class="panel-heading panel-search" data-parent="#search-accordion"  data-toggle="collapse" data-target="#collapse1">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse1">{string:"title_v_identity"}</a>
+			  </h4>
+			</div>
+			<div id="collapse1" class="panel-collapse collapse">
+			  <ul class="list-group">
+				{$highlightClass=''} 
+				{if:(#field.object:name# != #field.default:name#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=1}
+					<script>document.getElementById("collapse1").className += ' in';</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:name}-control-wrapper">
+						<div class="control" id="{field.name:name}-control">{field.form:name}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.object:code# != #field.default:code#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{if:%var:collapse% != 1}
+						<script>document.getElementById("collapse1").className += ' in';</script>
+					{/if}
+					{var:collapse=1}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:code}-control-wrapper">
+						<div class="control" id="{field.name:code}-control">{field.form:code}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.object:vacancy_project# != #field.default:vacancy_project# && #field.object:vacancy_project# != '')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 1}
+						<script>document.getElementById("collapse1").className += ' in';</script>
+					{/if}
+					{var:collapse=1}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:vacancy_project}-control-wrapper">
+						<div class="control" id="{field.name:vacancy_project}-control">{field.form:vacancy_project}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.object:contract_type_oid# != #field.default:contract_type_oid#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 1}
+						<script>document.getElementById("collapse1").className += ' in';</script>
+					{/if}
+				{/if}
+				<li class="list-group-item  {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:contract_type_oid}-control-wrapper">
+						<div class="control" id="{field.name:contract_type_oid}-control">{field.form:contract_type_oid}</div>
+					</div>
+				</li>
+				
+			  </ul>
+
+			</div>
+		  </div>
+		  <div class="panel panel-default">
+			<div class="panel-heading panel-search" data-toggle="collapse" data-parent="#search-accordion"  data-target="#collapse2">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" href="#collapse2">{string:"status"}</a>
+			  </h4>
+			</div>
+			<div id="collapse2" class="panel-collapse collapse">
+			  <ul class="list-group">
+				{$highlightClass=''} 
+				{if:(#field.object:current_step# != "")}
+					{$highlightClass='highlight-class'} 
+					{if:(#field.object:current_step# != "0")}
+					{var:search=true}
+					{/if}
+					{if:%var:collapse% != 2}
+						<script>
+							document.getElementById("collapse2").className += ' in';
+						</script>
+					{/if}
+					{var:collapse=2}
+				{/if}
+				<li class="list-group-item  {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:current_step}-control-wrapper">
+						<div class="control" id="{field.name:current_step}-control">{field.form:current_step}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.object:progress_level# != #field.default:progress_level#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 2}
+						<script>document.getElementById("collapse2").className += ' in';</script>
+					{/if}
+					{var:collapse=2}
+				{/if}
+				<li class="list-group-item  {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:progress_level}-control-wrapper">
+						<div class="control" id="{field.name:progress_level}-control">{field.form:progress_level}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.object:category_oid# != #field.default:category_oid#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 2}
+						<script>document.getElementById("collapse2").className += ' in';</script>
+					{/if}
+					{var:collapse=2}
+				{/if}
+				<li class="list-group-item  {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:category_oid}-control-wrapper">
+						<div class="control" id="{field.name:category_oid}-control">{field.form:category_oid}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.object:workflow_state# != #field.default:workflow_state#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 2}
+						<script>document.getElementById("collapse2").className += ' in';</script>
+					{/if}
+					{var:collapse=2}
+				{/if}
+				<li class="list-group-item  {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:workflow_state}-control-wrapper">
+						<div class="control" id="{field.name:workflow_state}-control">{field.form:workflow_state}</div>
+					</div>
+				</li>
+				
+			  </ul>
+
+			</div>
+		  </div>
+		  
+		  <div class="panel panel-default">
+			<div class="panel-heading panel-search" data-parent="#search-accordion"  data-toggle="collapse" data-target="#collapse3">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse3">{string:"department"}</a>
+			  </h4>
+			</div>
+			<div id="collapse3" class="panel-collapse collapse">
+			  <ul class="list-group">
+			    {$highlightClass=''} 
+				{if:(#field.object:subsidiary_oid# != #field.default:subsidiary_oid#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=3}
+					<script>document.getElementById("collapse3").className += ' in';</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:subsidiary_oid}-control-wrapper">
+						<div class="control" id="{field.name:subsidiary_oid}-control">{field.form:subsidiary_oid}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.type:service_oid# == 'date' && #field.string:service_oid# != '-/-/-')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 3}
+						<script>document.getElementById("collapse3").className += ' in';</script>
+					{/if}
+					{var:collapse=3}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:service_oid}-control-wrapper">
+						<div class="control" id="{field.name:service_oid}-control">{field.form:service_oid}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.object:establishment# != #field.default:establishment#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 3}
+						<script>document.getElementById("collapse3").className += ' in';</script>
+					{/if}
+				
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:establishment}-control-wrapper">
+						<div class="control" id="{field.name:establishment}-control">{field.form:establishment}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.object:duty_station_oid# != #field.default:duty_station_oid#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 3}
+						<script>document.getElementById("collapse3").className += ' in';</script>
+					{/if}
+				
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:duty_station_oid}-control-wrapper">
+						<div class="control" id="{field.name:duty_station_oid}-control">{field.form:duty_station_oid}</div>
+					</div>
+				</li>
+				
+			  </ul>
+
+			</div>
+		  </div>
+		  
+		  <div class="panel panel-default">
+			<div class="panel-heading panel-search" data-parent="#search-accordion"  data-toggle="collapse" data-target="#collapse4">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse4">{string:"publication"}</a>
+			  </h4>
+			</div>
+			<div id="collapse4" class="panel-collapse collapse">
+			  <ul class="list-group">
+				{$highlightClass=''} 
+				{if:(#field.object:application_type# != #field.default:application_type# &&  #field.object:application_type# != '')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=4}
+					<script>document.getElementById("collapse4").className += ' in';</script>
+
+				{/if}
+				<!--<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:application_type}-control-wrapper">
+						<div class="control" id="{field.name:application_type}-control">{field.form:application_type}</div>
+					</div>
+				</li>-->
+				{$highlightClass=''} 
+				{if:(#field.object:app_connected# != #field.default:app_connected#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 4}
+						<script>document.getElementById("collapse4").className += ' in';</script>
+					{/if}
+					{var:collapse=4}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:app_connected}-control-wrapper">
+						<div class="control" id="{field.name:app_connected}-control">{field.form:app_connected}</div>
+					</div>
+				</li>
+				
+			  </ul>
+
+			</div>
+		  </div>
+		 
+		  <div class="panel panel-default">
+			<div class="panel-heading panel-search" data-parent="#search-accordion"  data-toggle="collapse" data-target="#collapse6">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse6">{string:"others"}</a>
+			  </h4>
+			</div>
+			<div id="collapse6" class="panel-collapse collapse">
+			  <ul class="list-group">
+				{$highlightClass=''} 
+				{if:(#field.type:opening_date# == 'date' && #field.string:opening_date# != '-/-/-')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=6}
+					<script>document.getElementById("collapse6").className += ' in';</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:opening_date}-control-wrapper">
+						<label class="search-label">{field.label:opening_date}</label>
+						<div class="control" id="{field.name:opening_date}-control">{field.form:opening_date}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.type:closing_date# == 'date' && #field.string:closing_date# != '-/-/-')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 6}
+						<script>document.getElementById("collapse6").className += ' in';</script>
+					{/if}
+					{var:collapse=6}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:closing_date}-control-wrapper">
+						<label class="search-label">{field.label:closing_date}</label>
+						<div class="control" id="{field.name:closing_date}-control">{field.form:closing_date}</div>
+					</div>
+				</li>
+				{$highlightClass=''} 
+				{if:(#field.object:archive_state# != #field.default:archive_state#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 6}
+						<script>document.getElementById("collapse6").className += ' in';</script>
+					{/if}
+					{var:collapse=6}
+				{/if}
+
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:archive_state}-control-wrapper">
+						<div class="control" id="{field.name:archive_state}-control">{field.form:archive_state}</div>
+					</div>
+				</li>
+				
+			  </ul>
+
+			</div>
+		  </div>
+		</div>
+		
+		
+		<!--!{fields}-->
+		{if: %var:recruitment_default_search% == 0 || in_array(#field.name# , %var:recruitment_default_search%)}
+			{$highlightClass=''}
+			{if:
+				(#field.object# != '' && #field.type# != 'date' && #field.object# != #field.default#) ||
+				(#field.type# == 'date' && #field.string# != '-/-/-')
+			}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				
+			{/if}
+			<!--<tr>
+			<td>
+				<div class="control-main-wrapper normal-layout-control {$highlightClass}">
+					<div class="control-wrapper" id="{field.name}-control-wrapper">
+						<div class="control" id="{field.name}-control">{field.form}</div>
+					</div>
+				</div>
+			</td>
+			</tr>-->
+		{/if}
+		<!--!{/fields}-->
+
+		
+	</table>
+	<div class="clear-both">
+		<button type="button" class="btn btn-primary btn-block blue-vacancy-background" onclick="document.getElementById('{=submit.id}').submit();" style="float:right">
+		 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;
+		 {string:"search"}
+		</button>
+
+		{if:%var:search%}
+			<script type="text/javascript">
+				document.getElementById('config-box').className += ' show';
+			</script>
+		{/if}
+		
+		<button type="button" class="btn btn-default btn-block" onclick="document.location.href='{=search.url}'" style="float:left; margin-bottom: 5px;">
+		 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;
+		 {string:"Annuler la recherche"}
+		</button>
+		
+		<input type="submit" style="width:0px; height: 0px; border: none; padding: 0px; font-size: 0px;" value="" name="dummy_submit" />
+	</div>
+	<!--! {/form} -->
+</div>

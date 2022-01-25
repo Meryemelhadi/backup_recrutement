@@ -1,0 +1,58 @@
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.display(dlg_backConfig, event); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_interview"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+</a>
+{/content}
+
+{content:candidate_id}{record:candidate.record}{field:first_name} {field:last_name}{/record}{/content}
+
+{form:page.record}
+<script>
+	window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{=previous_operation.url}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+
+	window.dlg_submitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+	
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=previous_operation.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"title_interview_synthesis_view"} : {=candidate_id}</div>
+	</div>
+</div>
+
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			<div class="pm-grid-outer-wrapper">
+					
+				<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+					{=buttons}
+				</div>
+				
+				<h2 class="pm-title-2">{string:"title_interview_synthesis"} ({string:"by"} <strong>{field.html:user_oid}</strong> {string:"date_prefix_lc"} {field.html:date})</h2>
+				
+				{include:recruitment/candidates/components/interview_synthesis_data}
+				
+				<div class="pm-button-wrapper align-left clear-both pm-bxm-bottom-button-wrapper">				
+					{=buttons}
+				</div>
+				
+			</div>
+		</td>
+		<td class="right-column">
+			<div class="notice-message notice-message-with-icon png_bg">
+				<p>{string:"page_message_interview_synthesis_edit"}</p>
+			</div>
+		</td>
+	</tr>
+</table>
+
+{/form}
+

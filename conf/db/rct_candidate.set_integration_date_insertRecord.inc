@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_candidate(_integration_date) VALUES(".$record->getFieldValue("integration_date","DB","NOW()").")"; ?>

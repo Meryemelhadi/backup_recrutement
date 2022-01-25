@@ -1,0 +1,10 @@
+<?php $properties["fprops"]=array(
+array('name'=>'vacancy_oid','label'=>'vacancy_oid','type'=>'text_choice','value'=>$props->getProperty("vacancy_oid","",true),'srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_announcement_vacancy_oid','control'=>'select','multiple'=>false,'ds'=>'db:rct_vacancy.ds_list','ds_format'=>'{field:name} ({field:code})','ds_field_value'=>'oid','sqltype'=>'integer','list'=>'vacancy_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'created_by','label'=>'created_by','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:user.ds_list','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','sqltype'=>'integer','srcName'=>'created_by','ufname'=>'_created_by','qname'=>'rct_announcement_created_by','list'=>'created_by','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'creation_date','label'=>'creation_date','type'=>'datetime','srcName'=>'creation_date','ufname'=>'_creation_date','qname'=>'rct_announcement_creation_date',),
+array('name'=>'ann_title','label'=>'ann_title','type'=>'text','csslayout'=>'normal-layout','srcName'=>'ann_title','ufname'=>'_ann_title','qname'=>'rct_announcement_ann_title','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'ann_content','label'=>'ann_title','type'=>'rich_text','csslayout'=>'normal-layout','srcName'=>'ann_content','ufname'=>'_ann_content','qname'=>'rct_announcement_ann_content','control'=>'rich_text','onSubmitCheck'=>"checkRichText('%3\$s','%2\$s',%4\$s,%1\$s.%2\$s)",),);
+$properties["falias"]=array('vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid','created_by'=>'created_by','_created_by'=>'created_by','creation_date'=>'creation_date','_creation_date'=>'creation_date','ann_title'=>'ann_title','_ann_title'=>'ann_title','ann_content'=>'ann_content','_ann_content'=>'ann_content',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_announcement.view','table'=>'_rct_announcement');
+ ?>

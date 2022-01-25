@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_channel WHERE ".$this->getWhereClause("_name","'stag'",'LIKE','OR','%','%',true,false,'|','false'); ?>

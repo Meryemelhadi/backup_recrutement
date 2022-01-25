@@ -1,0 +1,117 @@
+<cont:permission permission="$isRH || $isAdmin">
+	<cont:nav_branch 
+		title		= "Configuration Recrutement"
+		app-title	= "Configuration"
+		iconCls		= "icon-config">
+		
+		<cont:nav_link 
+			title		= "Agences de recrutement" 
+			app-title	= "Agences de recrutement" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_providers.php"
+			target		= "document"
+			qtip-title	= "Prestataires de recrutement"
+			qtip-text	= "Gestion des prestataires de recrutement"
+		/>
+		
+		<cont:nav_link 
+			title		= "Tests de candidats" 
+			app-title	= "Tests de candidats" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_candidate_tests.php"
+			target		= "document"
+			qtip-title	= "Tests de candidats"
+			qtip-text	= "Gestion des tests de candidats"
+		/>
+		<cont:nav_link 
+			title		= "Etats de candidats" 
+			app-title	= "Etats de candidats" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_candidate_etats.php"
+			target		= "document"
+			qtip-title	= "Etats de candidats"
+			qtip-text	= "Gestion des états de candidats"
+		/>
+
+		<cont:nav_link 
+			title		= "Catégories de candidats" 
+			app-title	= "Catégories de candidats" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_candidate_categories.php"
+			target		= "document"
+			qtip-title	= "Catégories de candidats"
+			qtip-text	= "Gestion des catégories de candidats"
+		/>
+		
+		<cont:nav_link 
+			title		= "Types de contrat" 
+			app-title	= "Types de contrat" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_contract_types.php"
+			target		= "document"
+			qtip-title	= "Types de contrat"
+			qtip-text	= "Gestion des types de contrat"
+		/>
+		
+		<cont:nav_link 
+			title		= "Lieux d\'affectation" 
+			app-title	= "Lieux d\'affectation" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_duty_stations.php"
+			target		= "document"
+			qtip-title	= "Lieux d\'affectation"
+			qtip-text	= "Gestion des lieux d\'affectation"
+		/>
+		
+		<cont:nav_link 
+			title		= "Emails types" 
+			app-title	= "Emails types" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_email_samples.php"
+			target		= "document"
+			qtip-title	= "Emails types"
+			qtip-text	= "Gestion des emails types"
+		/>
+		
+		<cont:nav_link 
+			title		= "Filiales" 
+			app-title	= "Filiales" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_subsidiaries.php"
+			target		= "document"
+			qtip-title	= "Filiales"
+			qtip-text	= "Gestion des filiales"
+		/>
+		
+		<cont:nav_link 
+			title		= "Services" 
+			app-title	= "Services" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_services.php"
+			target		= "document"
+			qtip-title	= "Services"
+			qtip-text	= "Gestion des services"
+		/>
+		
+		<cont:nav_link 
+			title		= "Critères d\'interview" 
+			app-title	= "Critères d\'interview" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_interview_default_criterias.php"
+			target		= "document"
+			qtip-title	= "Critères d\'interview"
+			qtip-text	= "Gestion des critères d\'interview"
+		/>
+		
+		<cont:nav_link 
+			title		= "Catégories de dossier" 
+			app-title	= "Catégories de dossier" 
+			icon-class	= "icon-categ" 
+			url			= "/recruitment/admin/manage_vacancy_categories.php"
+			target		= "document"
+			qtip-title	= "Catégories de dossier"
+			qtip-text	= "Gestion des catégories de dossier"
+		/>
+				
+	</cont:nav_branch>
+</cont:permission>

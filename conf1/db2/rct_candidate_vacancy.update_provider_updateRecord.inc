@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate_vacancy SET _cv_source_oid='".$props->getProperty("provider_oid","",true)."' WHERE _candidate_oid='".$props->getProperty("candidate_oid","",true)."' AND _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."'"; ?>

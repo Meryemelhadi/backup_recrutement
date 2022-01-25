@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_lang,_language_level FROM _rct_candidate_language WHERE _candidate_oid='".$props->getProperty("oid","0",true)."' GROUP BY _lang  ORDER BY _language_level ASC,_lang ASC "; ?>

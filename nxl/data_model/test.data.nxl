@@ -1,0 +1,33 @@
+<?xml version="1.0"?> 
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<views>
+			<view name="sendtestmail" table="test">
+				<fields>
+					
+					<field name="email_one" label="email_one" type="line" is_transient="true" />
+					<field name="email_two" label="email_two" type="line" is_transient="true" />
+					
+					<field name="email_one_log" label="email_one_log" type="text" is_transient="true" />
+					<field name="email_two_log" label="email_two_log" type="text" is_transient="true" />
+					
+				</fields>
+			</view>
+		</views>
+
+
+	</data>
+
+</nxl>

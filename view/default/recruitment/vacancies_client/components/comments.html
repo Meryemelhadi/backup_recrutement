@@ -1,0 +1,42 @@
+<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+	<div class="pm-bxm-box">
+		
+		<div class="box-simple-title">
+			<h3 class="double-padding">{string:"title_comments"}</h3>
+		</div>
+		
+		<div class="pm-bxm-box-content">
+			<form action="#" method="post">
+			<div class="comments-wrapper" id="comments-wrapper">
+			{records:comments.records}
+				{record}
+					<div class="comment-wrapper">
+						<div class="comment"><span class="comment_author">{field:user_oid}</span>: {field:comment}</div>
+						<div class="comment_date">{field:date}</div>
+					</div>
+				{/record}
+			{/records}
+			</div>
+			{no_record}
+			<div class="empty-records">{string:"empty_comments"}</div>
+			{/no_record}
+			<div class="add-comment-wrapper">
+				<div class="add-comment">
+					<div class="add-comment-inner">
+						<textarea rows="3" cols="30" name="add_comment_zone" type="text" class="text"></textarea>
+					</div>
+				</div>
+				<div class="add-comment-process clear-both">
+					<a 
+						class="pm-button btn-with-icon" 
+						href="javascript:void(0);" 
+						onclick="Generis.Recruitment.addComment(this, 'add_comment_zone', '{=add_comment.url}'); this.blur(); return false;">
+						<span class="btn-bg"><span class="s-icon si-comment-add">{string:"post_comment"}</span></span>
+					</a>
+					<div style="display: none;" id="vacancy-button-loader"></div>
+				</div>
+			</div>					
+			</form>
+		</div>
+	</div>
+</div>

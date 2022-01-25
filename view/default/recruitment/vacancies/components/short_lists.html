@@ -1,0 +1,71 @@
+<?php 
+	$this->setProperty('short_list_oid', $_nx_record->getField('oid'));
+?>
+
+<div class="directory-card-main-content short-list {if:#record.is_last#}last-short-list{/if} clear-both">
+	<div class="short-list-wrapper">
+		<div class="short-list-header clear-both" 
+			onclick="PMDH.toggle('short-list-content-{record.index}', 'appear'); return false;"
+			title="{string:'Cliquer pour afficher/masquer'}"
+			>
+			<div class="short-list-title"><strong>{field:name}</strong>	</div>
+			
+			<script>
+				window.dlg_editSLCfg{record.index} = { title:"{string:'rename_short_list_title'}", url: "{=edit_short_list.url}{record.url_key}", width:550 };
+				window.dlg_sendSLCfg{record.index} = { title:"{string:'send_sl_to_ic_title'}", url: "{=send_sl_to_ic.url}{record.url_key}", width:550 };
+				
+				window.dlg_deleteSLCfg{$currentGroup}_{record.index} = { 
+					title : "{string:'dlg_delete_sl_title'}",
+					message : "{string:'dlg_delete_sl_content'}", 
+					viewMode : "okCancel", 
+					url : "{=delete_sl.url}{record.url_key}", 
+					target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" 
+				} };
+			</script>
+			
+			<div class="short-list-operations">
+				<a 
+					class="action s-icon si-page-white-go"
+					onclick="PMModalbox.loadFromUrl(window.dlg_sendSLCfg{record.index}, event); return false;" 
+					href="javascript:void(0);"
+					title=""
+					><span>{string:"short_list_send_to_ic"}</span></a>
+				&nbsp;<a 
+					title="{string:'short_list_rename'} short-list"
+					class="action s-icon si-page-white-edit" 
+					onclick="PMModalbox.loadFromUrl(window.dlg_editSLCfg{record.index}, event); return false;" 
+					href="javascript:void(0);"><span>{string:"short_list_rename"}</span></a>
+				&nbsp;<a 
+					title="{string:'Afficher/Masquer'} short-list"
+					class="action s-icon si-application-split" 
+					onclick="PMDH.toggle('short-list-content-{record.index}', 'appear'); return false;" 
+					href="javascript:void(0);"><span>{string:"Afficher/Masquer"}</span></a>
+				&nbsp;<a 
+					title="{string:'short_list_log'} short-list"
+					class="action s-icon si-script" 
+					onclick="PMDH.toggle('short-list-log-{record.index}', 'appear'); return false;" 
+					href="javascript:void(0);"><span>{string:"short_list_log"}</span></a>
+				&nbsp;<a 
+					title="{string:'xls_export'} la short-list"
+					class="action s-icon si-page-white-excel" 
+					onclick="event.stopPropagation();window.open('{=xls_export_short_list.url}{record.url_key}' , '_self');return false;"
+					href="javascript:void(0);"><span>{string:"xls_export"}</span></a>
+				&nbsp;<a 
+					title="{string:'delete'} la short-list"
+					class="action s-icon si-delete" 
+					onclick="PMModalbox.display(window.dlg_deleteSLCfg{$currentGroup}_{record.index}, event); return false;" 
+					href="javascript:void(0);"><span>{string:"delete"}</span></a>
+			</div>
+		</div>
+
+		<div class="short-list-content" {if:record.is_first != true} style="display:none"{/if} id="short-list-content-{record.index}">
+			{field:candidates_list}
+		</div>
+		
+		<div class="short-list-log" style="display:none" id="short-list-log-{record.index}">
+			<div class="candidate-history-title title-first">{string:"short_list_log_section"}</div>
+			{field:log}
+		</div>
+		
+	</div>
+</div>

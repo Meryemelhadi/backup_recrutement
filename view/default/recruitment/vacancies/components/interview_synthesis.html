@@ -1,0 +1,17 @@
+<table class="simple-list">
+{records:interview_synthesis.records}
+	{record}
+		<tr {if:#record.is_last#}class="last"{/if} id="row-file-{field:oid}">
+			<td class="label"><a href="javascript:void(0);" onclick="ajax_navigate(event,'{if:#field.object:user_oid# == #user:oid#}{=edit_interview_synthesis.url}{else}{=view_interview_synthesis.url}{/if}{record.url_key}','content'); return false;">{string:"filled_by"} <strong>{field.html:user_oid}</strong> {string:"date_prefix_lc"} {field.html:date}</a>
+			</td>
+			<!--<td class="operations">
+			<a class="s-icon si-page-white-acrobat" href="{=pdf_export.url}{record.url_key}" target="_blank"></a>
+			</td>-->
+		</tr>		
+	{/record}
+{/records}
+</table>
+{no_record}
+<div class="empty-records">{string:"empty_interview_synthesis"}</div>
+{/no_record}
+

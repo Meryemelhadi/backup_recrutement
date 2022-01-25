@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("DROP TABLE IF EXISTS _rct_provider","DROP TABLE IF EXISTS _rct_vacancy_provider","DROP TABLE IF EXISTS _rct_vacancy_provider_attached_file",); ?>

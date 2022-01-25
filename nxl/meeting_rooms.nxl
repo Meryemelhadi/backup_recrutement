@@ -1,0 +1,21 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<application
+	name		= "meeting_rooms" 
+	path		= "/recruitment/admin/"
+	protected	= "user" 
+	permissions = "default"
+	cache		= "no" 
+	lang		= "fr"
+	skin		= "lightsky"
+	application = "meeting_rooms"
+	table		= "rct_meeting_rooms"
+	base_data	= "meeting_rooms"
+	string_base = "Salle de réunion"
+	role = "editor"
+		xmlns="http://www.nxfrontier.com/nxl/page"
+	/>
+
+<include_once file="/all.nxl" />
+
+</nxl>

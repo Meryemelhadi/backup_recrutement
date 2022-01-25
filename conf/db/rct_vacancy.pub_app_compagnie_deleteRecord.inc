@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_app_connected WHERE _key='".$this->getParamValue("key","","request",",")."'"; ?>

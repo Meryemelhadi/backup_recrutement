@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_category_oid FROM _rct_candidate WHERE ".$this->getWhereClause("_oid","'".$this->getParamValue("oid","","get","|")."'",'=','OR','','',true,false,'|','false'); ?>

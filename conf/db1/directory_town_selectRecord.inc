@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_town_name,_country_oid FROM _directory_town ORDER BY _town_name ASC "; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _user WHERE _oid<>'".$GLOBALS["_NX_user"]->getProperty("oid","",true)."'"; ?>

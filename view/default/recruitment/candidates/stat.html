@@ -1,0 +1,148 @@
+<!--! {require:css/rct.css:skin} -->
+<!--! {require:css/dashboard.css:skin} -->
+<div class="pm-page-title-wrapper">
+	
+  <div class="pm-page-title-inner-wrapper">
+		
+     <div class="pm-title">{string:"page_title_list"}</div>
+	
+  </div>
+</div>
+
+<script language="JavaScript" type="text/javascript" src="/nx/controls/fusion_charts/js/FusionCharts.js"></script>
+
+
+<script>
+//ajax_require("/nx/controls/fusion_charts/js/FusionCharts.js","FusionCharts");
+</script>
+
+{content:vacancies_ddlist}
+{records:page.vacancies_records}
+{record}
+<option value="{field:oid}">{field:name}{if:trim(#field.object:code#)!=""} ({field:code}){/if}</option>
+{/record}
+{/records}
+{/content}
+
+{content:categories_ddlist}
+{records:candidate_categories.records}
+{record}
+<option value="{field:oid}">{field:name}</option>
+{/record}
+{/records}
+{/content}
+
+{include:common/search_condition}
+
+<table class="columns-viewer">
+	
+   <tr>
+		
+    <td class="left-column">
+			
+	   <div class="pm-grid-outer-wrapper">
+				
+		<div class="generis-toolbar-wrapper">
+					
+		  <div class="generis-toolbar">
+
+				<a class="s-icon si-application-side-contract" href="{=list.url}">{string:"back"}<span></a>
+						
+		<!--<a class="s-icon si-zoom" href="javascript:void(0);" onclick="PMDH.toggle('search-panel', 'appear'); return false;"><span>{string:"search"}</span></a>-->	
+
+				{if:#property:showSearch# == 'yes'}
+				<a class="s-icon si-arrow-refresh" href="javascript:void(0);" onclick="ajax_navigate(event,'{=search.url}','content'); return false;"><span>{string:"cancel_search"}</span></a>
+
+				{/if}						
+
+		   </div>
+				
+		</div>
+				
+				
+	<?php $this->setProperty('forceDisplay','yes'); ?>
+	{include:common/search_get}
+								
+
+		<!-- Les statistiques -->
+	<div class="pm-bxm-box-wrapper">
+	<div class="pm-bxm-box">
+	
+		<div class="box-title-wrapper box-title-green">
+			<div class="box-title">
+				<h3>{string:"statistics"}</h3>
+			</div>
+		</div>
+		
+		<div class="pm-bxm-box-content">
+			<table class="columns-viewer">
+				<tr>
+					<td align="center">
+						<fieldset class="fieldDashboardA"> 
+							<legend class="legendDash">{string:"candidacy_kind"}</legend>
+								<div id="chartContainerB"></div>   
+									<script type="text/javascript">        
+										var myChartA = new FusionCharts( "/nx/controls/fusion_charts/swf/Column3D.swf","myChartIdB", "500", "350", "0", "1" );
+										myChartA.setXMLData("{=categorie}");
+										myChartA.render("chartContainerB");
+									</script>
+						</fieldset>
+					
+					 </td>
+					 <td >
+						<fieldset class="fieldDashboardA"> 
+							<legend class="legendDash">{string:"candidacy_level_study"}</legend>
+								<div id="chartContainerA"></div>   
+									<script type="text/javascript">        
+										var myChartA = new FusionCharts( "/nx/controls/fusion_charts/swf/Column3D.swf","myChartIdA", "500", "350", "0", "1" );
+										myChartA.setXMLData("{=niveau}");
+										myChartA.render("chartContainerA");
+									</script>
+						</fieldset>
+					 </td>
+					</tr>
+					<tr>
+						<td align="center">
+							<fieldset class="fieldDashboardA"> 
+								<legend class="legendDash">{string:"candidacy_school"}</legend>
+									<div id="chartContainerC"></div>   
+										<script type="text/javascript">        
+											var myChartA = new FusionCharts( "/nx/controls/fusion_charts/swf/Column3D.swf","myChartIdB", "500", "350", "0", "1" );
+											myChartA.setXMLData("{=ecole}");
+											myChartA.render("chartContainerC");
+										</script>
+							</fieldset>
+						
+						 </td>
+						 <td >
+							<fieldset class="fieldDashboardA"> 
+								<legend class="legendDash">{string:"candidacy_folder"}</legend>
+									<div id="chartContainerD"></div>   
+										<script type="text/javascript">        
+											var myChartA = new FusionCharts( "/nx/controls/fusion_charts/swf/Column3D.swf","myChartIdA", "500", "350", "0", "1" );
+											myChartA.setXMLData("{=dossier}");
+											myChartA.render("chartContainerD");
+										</script>
+							</fieldset>
+						 </td>
+					 </tr>
+					 <tr>
+						<td colspan="2" style="text-align:center;">
+							<fieldset class="fieldDashboardA" style="margin:0 auto;"> 
+								<legend class="legendDash">{string:"candidacy_etat"}</legend>
+									<div id="chartContainerE"></div>   
+										<script type="text/javascript">        
+											var myChartA = new FusionCharts( "/nx/controls/fusion_charts/swf/Column3D.swf","myChartIdA", "500", "350", "0", "1" );
+											myChartA.setXMLData("{=etat}");
+											myChartA.render("chartContainerE");
+										</script>
+							</fieldset>
+						</td>
+					 </tr>
+
+					 </table>
+		</div>
+				
+			</div>
+		</div>
+										

@@ -1,0 +1,1510 @@
+<?xml version="1.0"?>
+<nxl version="1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<lists xmlns="http://www.nxfrontier.com/nxl/lists" xmlns:lists="http://www.nxfrontier.com/nxl/lists">
+
+	<!--Recrute -->
+		<list name="recrute.typeoffre" lang="fr">
+			<option value="simple">Standard</option>
+			<option value="logo">Logo</option>
+			<option value="customized">Chartée</option>
+		</list>
+		<list name="recrute.typeoffre" lang="en">
+			<option value="simple">Standard</option>
+			<option value="logo">Logo</option>
+			<option value="customized">Graphic customisation</option>
+		</list>
+
+		<list name="recrute.boolean" lang="fr">
+			<option value="1">Oui</option>
+			<option value="0">Non</option>
+		</list>
+		<list name="recrute.boolean" lang="en">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</list>
+		
+		<list name="recruitment.text_align" lang="fr">
+			<option value="center">Centre</option>
+			<option value="left">Gauche</option>
+			<option value="right">Droite</option>
+		</list>
+		<list name="recruitment.text_align" lang="en">
+			<option value="center">center</option>
+			<option value="left">Left</option>
+			<option value="right">Right</option>
+		</list>
+		
+		<list name="recruitment.salary_type" lang="fr">
+			<option value="0">Brut</option>
+			<option value="1">Net</option>
+		</list>
+		
+		<list name="recrute.cadre" lang="fr">
+			<option value="True">Oui</option>
+			<option value="False">Non</option>
+		</list>
+		<list name="recrute.cadre" lang="en">
+			<option value="True">Yes</option>
+			<option value="False">No</option>
+		</list>
+		
+		<list name="recrute.typereponses" lang="fr">
+			<option value="recrute">Recrute</option>
+			<option value="email">E-mail</option>
+			<option value="letter">Courrier</option>
+			<option value="fax">Fax</option>
+			<option value="site">Site</option>
+		</list>
+		<list name="recrute.typereponses" lang="en">
+			<option value="recrute">Recrute</option>
+			<option value="email">E-mail</option>
+			<option value="letter">Mail</option>
+			<option value="fax">Fax</option>
+			<option value="site">Web site</option>
+		</list>
+		
+		<list name="recrute.contrats" lang="fr">
+			<option value="1">CDI</option>
+			<option value="2">CDD</option>
+			<option value="3">Intérim</option>
+			<option value="4">Freelance</option>
+			<option value="5">Stage</option>
+			<option value="6">Insertion</option>
+		</list>
+		<list name="recrute.contrats" lang="en">
+			<option value="1">CDI</option>
+			<option value="2">Fixed duration</option>
+			<option value="3">Interim</option>
+			<option value="4">Freelance</option>
+			<option value="5">Graduate training</option>
+			<option value="6">Insertion</option>
+		</list>
+
+		<list name="recrute.experiences" lang="fr">
+			<option value="1">Débutant</option>
+			<option value="2">Moins de 1 an</option>
+			<option value="3">De 1 à 3 ans</option>
+			<option value="4">De 3 à 5 ans</option>
+			<option value="5">De 5 à 10 ans</option>
+			<option value="6">De 10 à 20 ans</option>
+			<option value="7">Plus de 20 ans</option>
+		</list>
+		<list name="recrute.secteurs" lang="fr">
+			<option value="1">Aéronautique / Spatial</option>
+			<option value="2">Agence pub / Marketing Direct</option>
+			<option value="3">Agriculture / Environnement</option>
+			<option value="4">Agroalimentaire</option>
+			<option value="5">Assurance / Courtage</option>
+			<option value="6">Audiovisuel</option>
+			<option value="7">Automobile / Motos / Cycles</option>
+			<option value="8">Autres Industries</option>
+			<option value="9">Autres services</option>
+			<option value="10">Banque / Finance</option>
+			<option value="11">BTP / Génie Civil</option>
+			<option value="12">Call Center / Web Center</option>
+			<option value="13">Chimie / Parachimie / Peintures</option>
+			<option value="14">Comptabilité / Audit</option>
+			<option value="15">Conseil / Etudes</option>
+			<option value="16">Distribution</option>
+			<option value="17">Edition / Imprimerie</option>
+			<option value="18">Education / Formation</option>
+			<option value="19">Energie</option>
+			<option value="20">Extraction / Mines</option>
+			<option value="21">Ferroviaire</option>
+			<option value="22">Hôtellerie / Restauration</option>
+			<option value="23">Immobilier / Promoteur / Agence</option>
+			<option value="24">Informatique</option>
+			<option value="25">Internet / Multimédia</option>
+			<option value="26">Location véhicules</option>
+			<option value="27">Matériel Médical / Parapharmacie</option>
+			<option value="28">Pétrole / Gaz</option>
+			<option value="29">Pharmacie / Santé</option>
+			<option value="30">Plasturgie</option>
+			<option value="31">Presse</option>
+			<option value="32">Recrutement / Intérim</option>
+			<option value="33">Service public / Administration</option>
+			<option value="34">Tabac</option>
+			<option value="35">Telecom</option>
+			<option value="36">Textile / Cuir</option>
+			<option value="37">Tourisme / Voyage / Loisirs</option>
+			<option value="38">Transport / Messagerie / Logistique</option>
+			<option value="39">Ameublement / Décoration</option>
+			<option value="40">Communication / Evénementiel</option>
+			<option value="41">Cosmétique / Parfumerie / Luxe</option>
+			<option value="42">Electro-mécanique / Mécanique</option>
+			<option value="43">Electronique</option>
+			<option value="44">Import / Export / Négoce</option>
+			<option value="45">Juridique / Cabinet d’avocats</option>
+			<option value="46">Métallurgie / Sidérurgie</option>
+			<option value="47">Nettoyage / Sécurité / Gardiennage</option>
+			<option value="48">Offshoring / Nearshoring</option>
+			<option value="49">Papier / Carton</option>
+		</list>
+		<list name="recrute.fonctions" lang="fr">
+			<option value="1">Achats / Supply Chain</option>
+			<option value="2">Administration des ventes / SAV</option>
+			<option value="3">Assurance (métiers de l')</option>
+			<option value="4">Audit / Conseil</option>
+			<option value="5">Caméraman / Monteur / Preneur de son</option>
+			<option value="6">Coursier / Gardiennage / Propreté</option>
+			<option value="7">Communication / Publicité / RP</option>
+			<option value="8">Conseil Juridique / Fiscal</option>
+			<option value="9">Dirigeant – Poste de direction</option>
+			<option value="10">Enseignement</option>
+			<option value="11">Gestion projet / Etudes / R&D</option>
+			<option value="12">Gestion / Comptabilité / Finance</option>
+			<option value="13">Informatique / Electronique</option>
+			<option value="14">Journalisme / Traduction</option>
+			<option value="15">Logistique / Transport (métiers de)</option>
+			<option value="16">Marketing / EBusiness</option>
+			<option value="17">Médical / Paramédical</option>
+			<option value="18">Méthodes / Process / Industrialisation</option>
+			<option value="19">Multimédia / Internet</option>
+			<option value="20">Production / Qualité / Sécurité / Maintenance</option>
+			<option value="21">RH / Personnel / </option>
+			<option value="22">Assistanat de Direction / Services Généraux</option>
+			<option value="23">Télécoms / Réseaux</option>
+			<option value="24">Télé-opération</option>
+			<option value="25">Travaux / Chantiers / BTP</option>
+			<option value="26">Urbanisme / architecture</option>
+			<option value="27">Commercial / Vente / Export</option>
+			<option value="28">Hôtellerie / Restauration (métiers de)</option>
+			<option value="29">Agriculture (métiers de l')</option>
+			<option value="30">Tourisme (métiers du)</option>
+			<option value="31">Sport / Loisirs (métiers de)</option>
+			<option value="32">Santé / Social (métiers de)</option>
+			<option value="33">Imprimerie (métiers de l')</option>
+			<option value="34">Immobilier / Promotion (métiers de)</option>
+			<option value="35">Environnement (métiers de l')</option>
+			<option value="36">Distribution (métiers de la)</option>
+			<option value="37">Banque (métiers de la)</option>
+		</list>
+		<list name="recrute.pays" lang="fr">
+			<option value="1">Afghanistan</option>
+			<option value="2">Afrique du Sud</option>
+			<option value="3">Albanie</option>
+			<option value="4">Algérie</option>
+			<option value="5">Allemagne</option>
+			<option value="6">Andorre</option>
+			<option value="7">Angola</option>
+			<option value="8">Anguilla</option>
+			<option value="9">Antarctique</option>
+			<option value="10">Antigua-et-Barbuda</option>
+			<option value="11">Antilles </option>
+			<option value="12">Arabie Saoudite</option>
+			<option value="13">Argentine</option>
+			<option value="14">Arménie</option>
+			<option value="15">Aruba</option>
+			<option value="16">Australie</option>
+			<option value="17">Autriche</option>
+			<option value="18">Azerbaïdjan</option>
+			<option value="19">Bahamas</option>
+			<option value="20">Bahreïn</option>
+			<option value="21">Bangladesh</option>
+			<option value="22">Barbade</option>
+			<option value="23">Belgique</option>
+			<option value="24">Belize</option>
+			<option value="25">Bénin</option>
+			<option value="26">Bermudes</option>
+			<option value="27">Bhoutan</option>
+			<option value="28">Biélorussie</option>
+			<option value="29">Bolivie</option>
+			<option value="30">Bosnie-Herzégovine</option>
+			<option value="31">Botswana</option>
+			<option value="32">Bouvet (île)</option>
+			<option value="33">Brésil</option>
+			<option value="34">Brunei Darussalam</option>
+			<option value="35">Bulgarie</option>
+			<option value="36">Burkina Faso</option>
+			<option value="37">Burundi</option>
+			<option value="38">Caïmanes (îles)</option>
+			<option value="39">Cambodge</option>
+			<option value="40">Cameroun</option>
+			<option value="41">Canada</option>
+			<option value="42">Cap-Vert</option>
+			<option value="43">Chili</option>
+			<option value="44">Chine</option>
+			<option value="45">Christmas (île)</option>
+			<option value="46">Chypre</option>
+			<option value="47">Cocos/Keeling (îles)</option>
+			<option value="48">Colombie</option>
+			<option value="49">Comores</option>
+			<option value="50">Congo</option>
+			<option value="51">Congo (Rép. Dém. du)</option>
+			<option value="52">Cook (îles)</option>
+			<option value="53">Corée (Rép. Pop. Dém.)</option>
+			<option value="54">Corée (République de)</option>
+			<option value="55">Costa Rica</option>
+			<option value="56">Côte d'Ivoire</option>
+			<option value="57">Croatie</option>
+			<option value="58">Cuba</option>
+			<option value="59">Danemark</option>
+			<option value="60">Djibouti</option>
+			<option value="61">Dominique</option>
+			<option value="62">Égypte</option>
+			<option value="63">El Salvador</option>
+			<option value="64">Émirats Arabes Unis</option>
+			<option value="65">Équateur</option>
+			<option value="66">Érythrée</option>
+			<option value="67">Espagne</option>
+			<option value="68">Estonie</option>
+			<option value="69">États-Unis</option>
+			<option value="70">Éthiopie</option>
+			<option value="71">Falkland/Malvinas (îles)</option>
+			<option value="72">Féroé (îles)</option>
+			<option value="73">Fidji</option>
+			<option value="74">Finlande</option>
+			<option value="75">France</option>
+			<option value="76">Gabon</option>
+			<option value="77">Gambie</option>
+			<option value="78">Géorgie</option>
+			<option value="79">Géorgie du Sud / Îles Sandwich</option>
+			<option value="80">Ghana</option>
+			<option value="81">Gibraltar</option>
+			<option value="82">Grèce</option>
+			<option value="83">Grenade</option>
+			<option value="84">Groenland</option>
+			<option value="85">Guadeloupe</option>
+			<option value="86">Guam</option>
+			<option value="87">Guatemala</option>
+			<option value="88">Guinée</option>
+			<option value="89">Guinée équatoriale</option>
+			<option value="90">Guinée-Bissau</option>
+			<option value="91">Guyana</option>
+			<option value="92">Guyane française</option>
+			<option value="93">Haïti</option>
+			<option value="94">Heard et Mc Donald (îles)</option>
+			<option value="95">Honduras</option>
+			<option value="96">Hong Kong</option>
+			<option value="97">Hongrie</option>
+			<option value="98">Îles Mineures des États-Unis</option>
+			<option value="99">Îles Vierges américaines</option>
+			<option value="100">Îles Vierges britanniques</option>
+			<option value="101">Inde</option>
+			<option value="102">Indonésie</option>
+			<option value="103">Iran (République Islamique d')</option>
+			<option value="104">Iraq</option>
+			<option value="105">Irlande</option>
+			<option value="106">Islande</option>
+			<option value="107">Israël</option>
+			<option value="108">Italie</option>
+			<option value="109">Jamahiriya Arabe Libyenne</option>
+			<option value="110">Jamaïque</option>
+			<option value="111">Japon</option>
+			<option value="112">Jordanie</option>
+			<option value="113">Kazakhsta</option>
+			<option value="114">Kenya</option>
+			<option value="115">Kirghizistan</option>
+			<option value="116">Kiribati</option>
+			<option value="117">Koweït</option>
+			<option value="118">Lesotho</option>
+			<option value="119">Lettonie</option>
+			<option value="120">Liban</option>
+			<option value="121">Liberia</option>
+			<option value="122">Liechtenstein</option>
+			<option value="123">Lituanie</option>
+			<option value="124">Luxembourg</option>
+			<option value="125">Macao</option>
+			<option value="126">Macédoine</option>
+			<option value="127">Madagascar</option>
+			<option value="128">Malaisie</option>
+			<option value="129">Malawi</option>
+			<option value="130">Maldives</option>
+			<option value="131">Mali</option>
+			<option value="132">Malte</option>
+			<option value="133">Mariannes septentrionales (îles)</option>
+			<option value="134">Maroc</option>
+			<option value="135">Marshall (îles)</option>
+			<option value="136">Martinique</option>
+			<option value="137">Maurice</option>
+			<option value="138">Mauritanie</option>
+			<option value="139">Mayotte</option>
+			<option value="140">Mexique</option>
+			<option value="141">Micronésie (États fédérés de)</option>
+			<option value="142">Moldava (République de)</option>
+			<option value="143">Monaco</option>
+			<option value="144">Mongolie</option>
+			<option value="145">Montserrat</option>
+			<option value="146">Mozambique</option>
+			<option value="147">Myanmar</option>
+			<option value="148">Namibie</option>
+			<option value="149">Nauru</option>
+			<option value="150">Népal</option>
+			<option value="151">Nicaragua</option>
+			<option value="152">Niger</option>
+			<option value="153">Nigeria</option>
+			<option value="154">Nioué</option>
+			<option value="155">Norfolk (île)</option>
+			<option value="156">Norvège</option>
+			<option value="157">Nouvelle-Calédonie</option>
+			<option value="158">Nouvelle-Zélande</option>
+			<option value="159">Oman</option>
+			<option value="160">Ouganda</option>
+			<option value="161">Ouzbékistan</option>
+			<option value="162">Pakistan</option>
+			<option value="163">Palau</option>
+			<option value="164">Panama</option>
+			<option value="165">Papouasie-Nouvelle-Guinée</option>
+			<option value="166">Paraguay</option>
+			<option value="167">Pays-Bas</option>
+			<option value="168">Pérou</option>
+			<option value="169">Philippines</option>
+			<option value="170">Pitcairn</option>
+			<option value="171">Pologne</option>
+			<option value="172">Polynésie Française</option>
+			<option value="173">Porto Rico</option>
+			<option value="174">Portugal</option>
+			<option value="175">Qatar</option>
+			<option value="176">République Arabe Syrienne</option>
+			<option value="177">République Centrafricaine</option>
+			<option value="178">République Dém. Populaire Lao</option>
+			<option value="179">République Dominicaine</option>
+			<option value="180">République Tchèque</option>
+			<option value="181">Réunion</option>
+			<option value="182">Roumanie</option>
+			<option value="183">Royaume-Uni</option>
+			<option value="184">Russie (Fédération de)</option>
+			<option value="185">Rwanda</option>
+			<option value="186">Saint-Kitts-et-Nevis</option>
+			<option value="187">Saint-Marin</option>
+			<option value="188">Saint-Pierre-et-Miquelon</option>
+			<option value="189">Saint-Siège</option>
+			<option value="190">Saint-Vincent-et-les-Grenadines</option>
+			<option value="191">Sainte-Hélène</option>
+			<option value="192">Sainte-Lucie</option>
+			<option value="193">Salomon (îles)</option>
+			<option value="194">Samoa</option>
+			<option value="195">Samoa Américaines</option>
+			<option value="196">Sao Tomé-et-Principe</option>
+			<option value="197">Sénégal</option>
+			<option value="198">Seychelles</option>
+			<option value="199">Sierra Leone</option>
+			<option value="200">Singapour</option>
+			<option value="201">Slovaquie</option>
+			<option value="202">Slovénie</option>
+			<option value="203">Somalie</option>
+			<option value="204">Soudan</option>
+			<option value="205">Sri Lanka</option>
+			<option value="206">Suède</option>
+			<option value="207">Suisse</option>
+			<option value="208">Suriname</option>
+			<option value="209">Svalbard et île Jan Mayen</option>
+			<option value="210">Swaziland</option>
+			<option value="211">Tadjikistan</option>
+			<option value="212">Taïwan (Province chinoise de)</option>
+			<option value="213">Tanzanie (République-Unie de)</option>
+			<option value="214">Tchad</option>
+			<option value="215">Terres Australes Françaises</option>
+			<option value="216">Territoire Palestinien Occupé</option>
+			<option value="217">Thaïlande</option>
+			<option value="218">Timor Oriental</option>
+			<option value="219">Togo</option>
+			<option value="220">Tokélaou</option>
+			<option value="221">Tonga</option>
+			<option value="222">Trinité-et-Tobago</option>
+			<option value="223">Tunisie</option>
+			<option value="224">Turkménistan</option>
+			<option value="225">Turques et Caïques (îles)</option>
+			<option value="226">Turquie</option>
+			<option value="227">Tuvalu</option>
+			<option value="228">Ukraine</option>
+			<option value="229">Uruguay</option>
+			<option value="230">Vanuatu</option>
+			<option value="231">Venezuela</option>
+			<option value="232">Vietnam</option>
+			<option value="233">Wallis-et-Futuna (îles)</option>
+			<option value="234">Yémen</option>
+			<option value="235">Yougoslavie</option>
+			<option value="236">Zambie</option>
+			<option value="237">Zimbabwe</option>
+			<option value="238">Libye</option>
+		</list>
+		<list name="recrute.regions" lang="fr">
+			<option value="1">Agadir et région</option>
+			<option value="2">Al Hoceima et région</option>
+			<option value="3">Béni Mellal et région</option>
+			<option value="4">Casablanca et région</option>
+			<option value="5">Fès et région</option>
+			<option value="6">Kénitra et région</option>
+			<option value="7">Laâyoune et région</option>
+			<option value="8">Marrakech et région</option>
+			<option value="9">Meknès et région</option>
+			<option value="10">Ouad Ed Dahab et région</option>
+			<option value="11">Oujda et région</option>
+			<option value="12">Rabat et région</option>
+			<option value="13">Safi et région</option>
+			<option value="14">Settat et région</option>
+			<option value="15">Tan tan et région</option>
+			<option value="16">Tanger et région</option>
+			<option value="17">Adrar</option>
+			<option value="18">Ain Defla</option>
+			<option value="19">Ain Temouchent</option>
+			<option value="20">Alger</option>
+			<option value="21">Annaba</option>
+			<option value="22">Batna</option>
+			<option value="23">Béchar</option>
+			<option value="24">Béjaia</option>
+			<option value="25">Biskra</option>
+			<option value="26">Blida</option>
+			<option value="27">Bordj</option>
+			<option value="28">Bou Arréridj</option>
+			<option value="29">Bouira</option>
+			<option value="30">Boumerdès</option>
+			<option value="31">Chlef</option>
+			<option value="32">Constantine</option>
+			<option value="33">Djelfa</option>
+			<option value="34">El Bayadh</option>
+			<option value="35">El Oued</option>
+			<option value="36">El Tarf</option>
+			<option value="37">Ghardaia</option>
+			<option value="38">Guelma</option>
+			<option value="39">Illizi</option>
+			<option value="40">Jijel</option>
+			<option value="41">Khenchela</option>
+			<option value="42">Laghouat</option>
+			<option value="43">Mascara</option>
+			<option value="44">Médéa</option>
+			<option value="45">Mila</option>
+			<option value="46">Mostaganem</option>
+			<option value="47">Msila</option>
+			<option value="48">Naâma</option>
+			<option value="49">Oran</option>
+			<option value="50">Ouargla</option>
+			<option value="51">Oum El Bouaghi</option>
+			<option value="52">Relizane</option>
+			<option value="53">Saida</option>
+			<option value="54">Sétif</option>
+			<option value="55">Sidi Bel Abbès</option>
+			<option value="56">Skikda</option>
+			<option value="57">Souk Ahra</option>
+			<option value="58">Tamanrasset</option>
+			<option value="59">Tébessa</option>
+			<option value="60">Tiaret</option>
+			<option value="61">Tindouf</option>
+			<option value="62">Tipaza</option>
+			<option value="63">Tissemsilt</option>
+			<option value="64">Tizi Ouzou</option>
+			<option value="65">Tlemcen</option>
+			<option value="66">Ariana</option>
+			<option value="67">Beja</option>
+			<option value="68">Ben Arous</option>
+			<option value="69">Bizerte</option>
+			<option value="70">Gabes</option>
+			<option value="71">Gafsa</option>
+			<option value="72">Jendouba</option>
+			<option value="73">Kairouan</option>
+			<option value="74">Kasserine</option>
+			<option value="75">Kebili</option>
+			<option value="76">Kef</option>
+			<option value="77">Mahdia</option>
+			<option value="78">Manouba</option>
+			<option value="79">Medenine</option>
+			<option value="80">Monastir</option>
+			<option value="81">Nabeul</option>
+			<option value="82">Sfax</option>
+			<option value="83">Sidi bouzid</option>
+			<option value="84">Siliana</option>
+			<option value="85">Sousse</option>
+			<option value="86">Tataouine</option>
+			<option value="87">Tozeur</option>
+			<option value="88">Tunis</option>
+			<option value="89">Zaghouan</option>
+		</list>
+		<list name="recrute.salaires" lang="fr">
+			<option value="1">Moins de 4000 DH nets mensuels</option>
+			<option value="2">4000 - 6000 DH nets mensuels</option>
+			<option value="3">6000 - 8000 DH nets mensuels</option>
+			<option value="4">8000 - 10000 DH nets mensuels</option>
+			<option value="5">10000 - 15000 DH nets mensuels</option>
+			<option value="6">15000 - 20000 DH nets mensuels</option>
+			<option value="7">20000 - 30000 DH nets mensuels</option>
+			<option value="8">30000 - 40000 DH nets mensuels</option>
+			<option value="9">Plus de 40000 DH nets mensuel</option>
+		</list>
+		<list name="recrute.education" lang="fr">
+			<option value="auto">Autodidacte</option>
+			<option value="abac">Qualification avant Bac</option>
+			<option value="bac">Bac</option>
+			<option value="bac1">Bac +1</option>
+			<option value="bac2">Bac +2</option>
+			<option value="bac3">Bac +3</option>
+			<option value="bac4">Bac +4</option>
+			<option value="bac5+">Bac +5 et plus</option>
+		</list>
+		<list name="recrute.langues" lang="fr">
+			<option value="1">Allemand</option>
+			<option value="2">Amazigh</option>
+			<option value="3">Anglais</option>
+			<option value="4">Arabe</option>
+			<option value="5">Espagnol</option>
+			<option value="6">Français</option>
+			<option value="7">Italien</option>
+			<option value="8">Portugais</option>
+			<option value="9">Albanais</option>
+			<option value="10">Bulgare</option>
+			<option value="11">Chinois</option>
+			<option value="12">Coréen</option>
+			<option value="13">Croate</option>
+			<option value="14">Danois</option>
+			<option value="15">Finlandais</option>
+			<option value="16">Grec</option>
+			<option value="17">Hébreu</option>
+			<option value="18">Hindi</option>
+			<option value="19">Indonésien</option>
+			<option value="20">Islandais</option>
+			<option value="21">Japonais</option>
+			<option value="22">Kabyle</option>
+			<option value="23">Néerlandais</option>
+			<option value="24">Norvégien</option>
+			<option value="25">Perse</option>
+			<option value="26">Polonais</option>
+			<option value="27">Roumain</option>
+			<option value="28">Russe</option>
+			<option value="29">Serbe</option>
+			<option value="30">Slovaque</option>
+			<option value="31">Slovène</option>
+			<option value="32">Suédois</option>
+			<option value="33">Tchèque</option>
+			<option value="34">Thaï</option>
+			<option value="35">Turque</option>
+			<option value="36">Vietnamien</option>
+		</list>
+		<list name="recrute.typealerte" lang="fr">
+			<option value="instant">Candidature</option>
+			<option value="daily">Quotidien</option>
+			<option value="weekly">Hebdomadaire</option>
+		</list>
+		<!--Recrute end-->
+
+		<list name="recruitment.civility" lang="fr">
+			<option value="0">M.</option>
+			<option value="1">Mlle</option>
+			<option value="2">Mme</option>
+		</list>
+		<list name="recruitment.civility" lang="en">
+			<option value="0">Mr</option>
+			<option value="1">Miss</option>
+			<option value="2">Ms.</option>
+		</list>
+
+
+		<list name="recruitment.budget" lang="fr">
+			<option value="O">Oui</option>
+			<option value="N">Non</option>
+		</list>
+		<list name="recruitment.budget" lang="en">
+			<option value="O">Yes</option>
+			<option value="N">No</option>
+		</list>
+
+
+		<list name="recruitment.gender" lang="fr">
+			<option value="0">Homme</option>
+			<option value="1">Femme</option>
+		</list>
+		<list name="recruitment.gender" lang="en">
+			<option value="0">Man</option>
+			<option value="1">Woman</option>
+		</list>		
+
+
+		<list name="recruitment.pourcentage" lang="fr">
+			<option value="0">0%</option>
+			<option value="10">10%</option>
+			<option value="20">20%</option>
+			<option value="30">30%</option>
+			<option value="40">40%</option>
+			<option value="50">50%</option>
+			<option value="60">60%</option>
+			<option value="70">70%</option>
+			<option value="80">80%</option>
+			<option value="90">90%</option>
+			<option value="100">100%</option>
+		</list>
+		<list name="recruitment.pourcentage" lang="en">
+			<option value="0">0%</option>
+			<option value="10">10%</option>
+			<option value="20">20%</option>
+			<option value="30">30%</option>
+			<option value="40">40%</option>
+			<option value="50">50%</option>
+			<option value="60">60%</option>
+			<option value="70">70%</option>
+			<option value="80">80%</option>
+			<option value="90">90%</option>
+			<option value="100">100%</option>
+		</list>
+
+
+		
+		<list name="recruitment.read_state" lang="fr">
+			<option value="0">Lu</option>
+			<option value="1">Non lu</option>
+		</list>
+		<list name="recruitment.read_state" lang="en">
+			<option value="0">Read</option>
+			<option value="1">Not read</option>
+		</list>
+		
+
+		<list name="recruitment.is_read_by" lang="fr">
+			<option value="0">Tous</option>
+			<option value="1">CV consultés par vous</option>
+			<option value="2">CV consultés par quelqu un</option>
+			<option value="3">CV non consultés</option>
+		</list>
+		<list name="recruitment.is_read_by" lang="en">
+			<option value="0">All</option>
+			<option value="1">Read by you</option>
+			<option value="2">Read by another recruiter</option>
+			<option value="3">Unread</option>
+		</list>
+
+
+		<list name="recruitment.validation_state" lang="fr">
+			<option value="0">En attente</option>
+			<option value="1">Validé</option>
+			<option value="2">Non validé</option>
+		</list>
+		<list name="recruitment.validation_state" lang="en">
+			<option value="0">Pending</option>
+			<option value="1">Validated</option>
+			<option value="2">Not validated</option>
+		</list>
+		
+		<list name="recruitment.archive_state" lang="fr">
+			<option value="0">Non archivé</option>
+			<option value="1">Archivé</option>
+		</list>
+		<list name="recruitment.archive_state" lang="en">
+			<option value="0">Not archived</option>
+			<option value="1">Archived</option>
+		</list>
+
+		<list name="recruitment.workflow_task" lang="fr">
+			<option value="0">Autre</option>
+			<option value="1">Tâche recruteur</option>
+			<option value="2">Tâche client</option>
+			<option value="3">Intégration RH</option>
+		</list>
+		<list name="recruitment.workflow_task" lang="en">
+			<option value="0">Not a task</option>
+			<option value="1">Task</option>
+		</list>
+
+
+		<list name="recruitment.tri" lang="fr">
+				<option value="relevance_rate">Pertinence de recherche Full-text</option>
+				<option value="first_name">Prénom</option>
+				<option value="last_name">Nom</option>
+				<option value="town_oid">Ville</option>
+				<option value="diploma">Diplôme</option>
+				<option value="institution">Ecole</option>
+				<option value="studies_level">Niveau d'études</option>
+				<option value="years_of_practice">Années d'experience</option>
+				<option value="profile">Profil</option>
+				<option value="update_date">Date de mise à jour</option>
+				<option value="vacancy_name">Poste à pourvoir</option>
+				<option value="relevance">Pertinence Métier</option>
+				<option value="category_oid">Categorie</option>
+		</list>		
+		<list name="recruitment.tri" lang="en">
+				<option value="relevance_rate">Pertinence de recherche Full-text</option>
+				<option value="first_name">First name</option>
+				<option value="last_name">Last name</option>
+				<!-- <option value="gender">Gender</option>
+ -->				<option value="town_oid">City</option>
+				<!-- <option value="age">Age</option>
+ -->				<option value="diploma">Diploma</option>
+				<option value="institution">School</option>
+				<option value="studies_level">Academic level</option>
+				<option value="years_of_practice">Experience</option>
+				<option value="profile">Profile</option>
+				<option value="update_date">Last update</option>
+				<option value="vacancy_name">Vacancy</option>
+				<option value="relevance">Relevance</option>
+				<option value="category_oid">Category</option>
+		</list>		
+
+		<!-- Au pluriel -->
+
+		<list name="recruitment.archive_state_pl" lang="fr">
+			<option value="0">Non archivés</option>
+			<option value="1">Archivés</option>
+		</list>
+		<list name="recruitment.archive_state_pl" lang="en">
+			<option value="0">Not archived</option>
+			<option value="1">Archived</option>
+		</list>
+		
+
+		<list name="recruitment.application_type" lang="fr">
+			<option value="0">Via annonces</option>
+			<option value="1">Via cabinets</option>
+			<option value="2">Via sourcing</option>
+		</list>
+		<list name="recruitment.application_type" lang="en">
+			<option value="0">Direct</option>
+			<option value="1">Via recruitment agency</option>
+			<option value="2">Via sourcing</option>
+		</list>
+
+
+		<list name="recruitment.interview.type" lang="fr">
+				<option value="1">Face à face</option>
+				<option value="2">Téléphonique</option>
+				<option value="3">Vidéo</option>
+		</list>
+		<list name="recruitment.interview.type" lang="en">
+				<option value="1">Face to face</option>
+				<option value="2">Phone</option>
+				<option value="3">Video</option>
+		</list>
+		
+		<list name="recruitment.interview.etat">
+				<option value="1">Planifié</option>
+				<option value="2">Reporté</option>
+				<option value="6">Annulé</option>
+				<option value="3">Négatif candidat</option>
+				<option value="4">Positif</option>
+				<option value="5">Négatif interviewer</option>
+				
+		</list>
+		<list name="recruitment.interview.etat" lang="en">
+				<option value="1">Planned</option>
+				<option value="2">Postponed</option>
+				<option value="3">Négatif candidat</option>
+				<option value="4">Positif</option>
+				<option value="5">Négatif interviewer</option>
+				<option value="6">Cancelled</option>
+		</list>
+
+		<list name="recruitment.interview.feedback">
+				<option value="1">Non défini</option>
+				<option value="3">Négatif candidat</option>
+				<option value="2">Positif</option>
+				<option value="4">Négatif interviewer</option>
+		</list>
+		<list name="recruitment.interview.feedback" lang="en">
+				<option value="1">Undefined</option>
+				<option value="3">Négative candidate</option>
+				<option value="2">Positive</option>
+				<option value="4">Négative interviewer</option>
+		</list>
+		
+		<list name="recruitment.employment_type" lang="fr">
+			<option value="0">Stage</option>
+			<option value="1">Expérience professionnelle</option>
+		</list>
+		<list name="recruitment.employment_type" lang="en">
+			<option value="0">Grad. training</option>
+			<option value="1">Professional experience</option>
+		</list>
+		
+		<list name="recruitment.studies_level" lang="fr">
+			<!--<option value="Bac+5+">Bac+5 et plus</option>
+			<option value="Bac+5">Bac+5</option>
+			<option value="Bac+4">Bac+4</option>
+			<option value="Bac+3">Bac+3</option>
+			<option value="Bac+2">Bac+2</option>
+			<option value="Bac+1">Bac+1</option>
+			<option value="Bac">Bac</option>
+			<option value="Bac-1">Bac-1</option>
+			<option value="Bac-2">Bac-2</option>
+			<option value="Bac-3">Bac-3</option>-->
+			<option value="Bac+5+">Bac +5 et plus</option>
+			<option value="Bac+5">Bac +5</option>
+			<option value="Bac+4">Bac +4</option>
+			<option value="Bac+3">Bac +3</option>
+			<option value="Bac+2">Bac +2</option>
+			<option value="Bac+1">Bac +1</option>
+			<option value="Bac">Bac</option>
+			<option value="Bac-1">Qualification avant Bac</option>
+					
+		</list>
+		<list name="recruitment.studies_level" lang="en">
+			<!--<option value="Bac+5+">Bac+5 and upper levels</option>
+			<option value="Bac+5">Bac+5</option>
+			<option value="Bac+4">Bac+4</option>
+			<option value="Bac+3">Bac+3</option>
+			<option value="Bac+2">Bac+2</option>
+			<option value="Bac+1">Bac+1</option>
+			<option value="Bac">Bac</option>
+			<option value="Bac-1">Bac-1</option>
+			<option value="Bac-2">Bac-2</option>
+			<option value="Bac-3">Bac-3</option>-->
+			<option value="Bac+5+">Bac +5 et plus</option>
+			<option value="Bac+4">Bac +4</option>
+			<option value="Bac+3">Bac +3</option>
+			<option value="Bac+2">Bac +2</option>
+			<option value="Bac">Bac</option>
+			<option value="Bac-1">Qualification avant Bac</option>
+		</list>
+		
+		
+		<list name="recruitment.language_level" lang="fr">
+			<option value="0">Sans objet</option>
+			<option value="1">Minimal</option>
+			<option value="2">Débutant</option>
+			<option value="3">Intermédiaire</option>
+			<option value="4">Avancé</option>
+		</list>
+		<list name="recruitment.language_level" lang="en">
+			<option value="0">Not relevant</option>
+			<option value="1">Basic level</option>
+			<option value="2">Beginner</option>
+			<option value="3">Good</option>
+			<option value="4">Excellent</option>
+		</list>
+		
+		<list name="recruitment.vacancy_step" lang="fr">
+			<option value="0">En cours</option>
+			<option value="1">Suspendu</option>
+			<option value="2">Clôturé</option>
+			<option value="3">Archivé</option>
+		</list>
+		<list name="recruitment.vacancy_step" lang="en">
+			<option value="0">Open</option>
+			<option value="1">Postponed</option>
+			<option value="2">Closed</option>
+		</list>
+		<list name="recruitment.type_ao" lang="fr">
+			<option value="0">Récurrent</option>
+			<option value="1">Ponctuel</option>
+			<option value="2">En concurrence</option>
+			<option value="3">En exclusivité</option>
+			<option value="4">En prospective</option>
+			<option value="5">En prospection</option>
+		</list>
+		<list name="recruitment.type_ao" lang="en">
+			<option value="0">Récurrent</option>
+			<option value="1">Ponctuel</option>
+			<option value="2">En concurrence</option>
+			<option value="3">En exclusivité</option>
+			<option value="4">En prospective</option>
+			<option value="5">En prospection</option>
+		</list>
+		<list name="recruitment.vacancy_success" lang="fr">
+			<option value="1">Gagné</option>
+			<option value="0">Perdu</option>
+			<option value="3">Aucun profil</option>
+			<option value="4">Profil(s) pla</option>
+		</list>
+		<list name="recruitment.vacancy_success" lang="en">
+			<option value="1">Gagné</option>
+			<option value="0">Perdu</option>
+			<option value="3">Aucun profil</option>
+			<option value="4">Profil(s) pla</option>
+		</list>
+		
+		<list name="recruitment.rating" lang="fr">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</list>
+		<list name="recruitment.rating"  lang="en">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</list>
+		
+		<list name="recruitment.boolean_list" lang="fr">
+			<option value="0">Non</option>
+			<option value="1">Oui</option>
+		</list>
+		<list name="recruitment.boolean_list" lang="en">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</list>
+
+		<list name="recruitment.boolean_list_3" lang="fr">
+			<option value="0">Ne pas envoyer</option>
+			<option value="1">Envoyer</option>
+			<option value="2">Déja Envoyé</option>
+		</list>
+		<list name="recruitment.boolean_list_3"  lang="en">
+			<option value="0">Not sending</option>
+			<option value="1">Send</option>
+			<option value="2">Already sent</option>
+		</list>
+		
+		<list name="recruitment.candidate_action_sent_to">
+			<!--<option value="0">Client interne /manager</option>-->
+			<option value="0">Manager</option>
+			<option value="1">Candidat</option>
+		</list>
+		<list name="recruitment.candidate_action_sent_to" lang="en">
+			<option value="0">Internal client</option>
+			<option value="1">Candidate</option>
+		</list>
+		
+		<list name="recruitment.email_type">
+			<option value="1">Email simple</option>
+			<option value="2">Proposition</option>
+		</list>
+
+		<list name="recruitment.email_type.all">
+			<option value="2">Proposition</option>
+			<option value="3">Convocation entretien</option>
+			<option value="4">Annulation entretien</option>
+			<option value="5">Invitation recruteur</option>
+			<option value="6">Refus candidature</option>
+			<option value="7">Relance dossier</option>
+			<option value="8">Demande CV récent</option>
+			<option value="9">Accusé de réception</option>
+			<option value="10">Proposition CV(s) aux collaborateurs</option>
+			<option value="1">Email simple (autre type)</option>
+		</list>
+
+		<list name="recruitment.email_type" lang="en">
+			<option value="1">Unformal email</option>
+			<option value="2">Job proposal</option>
+		</list>
+		
+		<list name="recruitment.candidate_validation">
+			<option value="0">En attente</option>
+			<option value="1">Accepté</option>
+			<option value="2">Refusé</option>
+		</list>
+		<list name="recruitment.candidate_validation" lang="en">
+			<option value="0">Pending</option>
+			<option value="1">Accepted</option>
+			<option value="2">Not Accepted</option>
+		</list>
+	
+
+		<list name="recruitment.validation_state">
+			<option value="0">En attente</option>
+			<option value="1">Accepté</option>
+			<option value="2">Refusé</option>
+		</list>
+		<list name="recruitment.validation_state" lang="en">
+			<option value="0">Pending</option>
+			<option value="1">Accepted</option>
+			<option value="2">Not accepted</option>
+		</list>
+
+		
+
+		<!-- Workflow des dossiers -->
+		<list name="recruitment.workflow_state">
+			<option value="1">Demande en attente</option>
+			<option value="2">Demande validée</option>
+			<option value="3">Demande refusée</option>
+		</list>
+		<list name="recruitment.workflow_state" lang="en">
+			<option value="1">Pending request</option>
+			<option value="2">Validated request</option>
+			<option value="3">Request not validated</option>
+		</list>
+
+
+		<list name="recruitment.candidate_vacancy_action_list">
+			<option value="0">Associé au poste</option>
+			<option value="1">Mis en short-list</option>
+			<option value="2">Proposé au manager</option>
+			<option value="3">Contacté par email</option>
+			<option value="4">En entretien</option>
+			<option value="5">Accepté par le manager</option>
+			<option value="6">Refusé par le manager</option>
+			<option value="7">Accepté pour le poste</option>
+			<option value="8">Rejeté</option>
+			<option value="9">Proposition envoyée</option>
+			<option value="10">Proposition acceptée</option>
+			<option value="11">Proposition refusée</option>
+			<option value="12">Noté</option>
+		</list>
+		
+		<list name="recruitment.candidate_etat_type">
+			<option value="0">Accepté</option>
+			<option value="1">En cours</option>
+			<option value="2">Refusé</option>
+		</list>
+		<list name="recruitment.candidate_vacancy_action_list" lang="en">
+			<option value="0">Linked to job vacancy</option>
+			<option value="1">In short-list</option>
+			<option value="2">For review by internal client</option>
+			<option value="3">Email sent to candidate</option>
+			<option value="4">Interview</option>
+			<option value="5">Validated by internal client</option>
+			<option value="6">Not validated by internal client</option>
+			<option value="7">Validated for the job</option>
+			<option value="8">Rejected</option>
+			<option value="9">Proposal sent</option>
+			<option value="10">Proposal accepted</option>
+			<option value="11">Proposal not accepted</option>
+			<option value="12">Note</option>
+		</list>
+		
+		<list name="recruitment.candidate_vacancy_action">
+			<option value="0">Associé au poste</option>
+			<option value="1">Mis en short-list</option>
+			<option value="2">Proposé au manager</option>
+			<option value="3">Contacté par email</option>
+			<option value="4">En entretien</option>
+			<option value="5">Accepté par le manager</option>
+			<option value="6">Refusé par le manager</option>
+
+			<option value="7">Accepté pour le poste</option>
+			<option value="8">Rejeté</option>
+			<option value="9">Proposition envoyée</option>
+			<option value="10">Proposition acceptée</option>
+			<option value="11">Proposition refusée</option>
+			<option value="12">Noté</option>
+			<option value="13">Entretien validé</option>
+			<option value="14">Dissocié du poste</option>
+			<option value="15">Dissocié de la short-list</option>
+			<option value="16">Retiré de chez le manager</option>
+			<option value="17">Entretien refusé</option>
+			<option value="18">Dé-sélectionné du poste</option>		
+		</list>
+
+		<list name="recruitment.candidate_vacancy_action" lang="en">
+			<option value="0">Linked to job vacancy</option>
+			<option value="1">In short-list</option>
+			<option value="2">For review by internal cleint</option>
+			<option value="3">Email sent to candidate</option>
+			<option value="4">Interview</option>
+			<option value="5">Validated by internal client</option>
+			<option value="6">Not validated by internal client</option>
+			<option value="7">Validated for the job</option>
+			<option value="8">Rejected</option>
+			<option value="9">Proposal sent</option>
+			<option value="10">Proposal accepted</option>
+			<option value="11">Proposal not accepted</option>
+			<option value="12">Note</option>
+
+			<option value="13">Interview validated</option>
+			<option value="14">Detached from job</option>
+			<option value="15">Detached from short-list</option>
+			<option value="16">Removed from internal client list</option>
+			<option value="17">Interview not accepted</option>
+			<option value="18">Detached from job</option>		
+		</list>
+
+		<list name="recruitment.lang">
+			<option value="en">Anglais</option>
+			<option value="ar">Arabe</option>
+			<option value="fr">Français</option>
+			<option value="de">Allemand</option>
+			<option value="zh">Chinois</option>
+			<option value="es">Espagnol</option>
+			<option value="pt">Portugais</option>
+			<option value="ru">Russe</option>
+			<option value="ma-t">Tamazight</option>
+		</list>
+		<list name="recruitment.lang" lang="en">
+			<option value="en">English</option>
+			<option value="ar">Arabic</option>
+			<option value="fr">Franch</option>
+			<option value="de">German</option>
+			<option value="zh">Chinese</option>
+			<option value="es">Spanish</option>
+			<option value="pt">Portugues</option>
+			<option value="ru">Russian</option>
+			<option value="ma-t">Tamazight</option>
+		</list>
+		
+
+		<list name="recruitment.short_list_log">
+			<option value="1">Short-list créée sous le nom:</option>
+			<option value="2">Short-list renommée en:</option>
+			<option value="3">Proposée au manager</option>
+			<option value="4">Candidat dissocié</option>
+			<option value="5">Candidat(s) associé(s)</option>
+		</list>		
+		<list name="recruitment.short_list_log" lang="en">
+			<option value="1">Short-list create with name:</option>
+			<option value="2">Short-list renamed as :</option>
+			<option value="3">Proposed to internal client </option>
+			<option value="4">Candidate detached</option>
+			<option value="5">Candidate(s) attached</option>
+		</list>		
+
+		
+		<list name="recruitment.vacancy_progress_level">
+			<option value="0">Poste ouvert</option>
+			<option value="1">Validation de la demande d'ouverture</option>
+			<option value="2">Sollicitation de cabinets de recrutement</option>
+			<option value="3">Association de CV au poste</option>
+			<option value="4">Envoi de candidats aux managers</option>
+			<option value="5">Envoi de short-list aux managers</option>
+			<option value="6">Planification d'entretiens</option>
+			<option value="7">Acceptation de proposition</option>
+			<option value="8">Refus de proposition</option>
+			<option value="9">Candidat(s) retenu(s) pour le poste</option>
+			<option value="10">Sélection de candidat(s) annulée</option>
+			<option value="11">Proposition(s) envoyée(s)</option>
+			<option value="11">Evaluation ajoutée pour un candidat associé</option>
+		</list>
+		<list name="recruitment.vacancy_progress_level" lang="en">
+			<option value="0">Open vacancy</option>
+			<option value="1">Validation of opening request</option>
+			<option value="2">Sent to recruitement agencies</option>
+			<option value="3">Resume attached to job</option>
+			<option value="4">Candidate sent to internal clients</option>
+
+			<option value="5">Send short-list to internal clients</option>
+			<option value="6">Interview planning</option>
+			<option value="7">Proposal acceptatance</option>
+			<option value="8">Proposal refusal</option>
+			<option value="9">Candidate(s) accepted for the job</option>
+			<option value="10">Selection of candidate(s) cancelled</option>
+			<option value="11">Proposal(s) sent</option>
+		</list>
+
+
+			
+		<list name="recruitment.vacancy_action">
+			<option value="0">Poste ouvert</option>
+			<option value="1">Poste validé</option>
+			<option value="2">Poste modifié</option>
+			<option value="5">candidat associé</option>
+			<option value="6">candidat dissocié</option>
+			<option value="7">Cabinet sollicité</option>
+			<option value="8">Short-list envoyée au CI</option>
+			<option value="9">candidate envoyé au CI</option>
+			<option value="10">Nouvel entretien programmé</option>
+
+			<option value="11">Entretien modifié</option>
+			<option value="12">Proposition envoyée</option>
+			<option value="13">Clôture du poste</option>
+			<option value="14">Suspension du poste</option>
+			<option value="15">Evaluation saisie</option>
+			<option value="16">Evaluation complétée</option>
+			<option value="17">Evaluation à froid saisie</option>
+			<option value="18">Evaluation programmée</option>
+			<option value="19">Evaluation à froid programmée</option>
+			<option value="20">Evaluation supprimée</option>
+			<option value="21">Evaluation à froid supprimée</option>
+			<option value="22">Entretien supprimé</option>
+			<option value="23">Short-list créée</option>
+			<option value="24">Short-list supprimée</option>
+			<option value="25">Short-list renommée</option>
+			<option value="26">Notification supprimée</option>
+			<option value="27">Demande d'ouverture de poste</option>
+			<option value="28">Demande d'ouverture validée</option>
+			<option value="29">Demande d'ouverture refusée</option>
+			<option value="30">Annonce sur l'intranet diffusée</option>
+			<option value="31">Short-list supprimée</option>		
+			<option value="31">Dissociation du candidat de tous les postes</option>		
+		</list>
+
+		<list name="recruitment.vacancy_action" lang="en">
+			<option value="0">Opened job vacancy</option>
+			<option value="1">Job vacancy validated</option>
+			<option value="2">Job vacancy upated</option>
+			<option value="5">Candidate linked</option>
+			<option value="6">Candidate unlinked</option>
+			<option value="7">Recruitment agency requested</option>
+			<option value="8">Short-list sent to internal client</option>
+			<option value="9">candidate resume sent to internal client</option>
+			<option value="10">New interview planned</option>
+
+			<option value="11">Interview updated</option>
+			<option value="12">Proposal sent</option>
+			<option value="13">Vacancy closed</option>
+			<option value="14">Vacancy postponed</option>
+			<option value="15">Evaluation typed</option>
+			<option value="16">Evaluation completed</option>
+			<option value="17">Cold evaluation typed</option>
+			<option value="18">Evaluation planned</option>
+			<option value="19">Cold evaluation planned</option>
+			<option value="20">Evaluation deleted</option>
+			<option value="21">Cold evaluation deleted</option>
+			<option value="22">Interview cancelled</option>
+			<option value="23">Short-list created</option>
+			<option value="24">Short-list deleted</option>
+			<option value="25">Short-list renamed</option>
+			<option value="26">Notification deleted</option>
+			<option value="27">Job vacancy requested</option>
+			<option value="28">Job vacancy request validated</option>
+			<option value="29">Job vacancy request rejected</option>
+			<option value="30">Job ad published</option>
+			<option value="31">Short-list deleted</option>		
+		</list>
+				
+		<list name="recruitment.candidate_action">
+			<option value="0">Création</option>
+			<option value="1">Modification</option>
+			<option value="2">Archivage</option>
+			<option value="3">Association au poste</option>
+			<option value="4">Planification d'entretien</option>
+			<option value="5">Envoi à un client</option>
+			<option value="6">Entretien supprimé</option>
+			<option value="7">Envoi email candidat</option>
+			<option value="8">Changement état</option>
+			<option value="9">Ajout de commentaire</option>
+			<option value="10">Suppression de commentaire</option>
+			<option value="11">Mise à jour du CV</option>
+			<option value="12">Ajout de test</option>
+			<option value="13">Ajout de fichier attaché</option>
+			<option value="14">Dissociation du poste</option>
+			<option value="15">Service Web</option>
+			<option value="16">Le candidat a postulé pour le poste</option>
+			<option value="17">Dissociation du candidat de tous les postes</option>	
+		</list>
+
+		<list name="recruitment.candidate_action" lang="en">
+			<option value="0">Creation</option>
+			<option value="1">Modification</option>
+			<option value="2">Archival</option>
+			<option value="3">Linked to job vacancy</option>
+			<option value="4">Interview planned</option>
+			<option value="5">Sent to client</option>
+			<option value="6">Interview cancelled</option>
+			<option value="7">Email sent to candidate</option>
+			<option value="8">State changed</option>
+			<option value="31">Dissociation du candidat de tous les postes</option>	
+		</list>
+		
+
+		<list name="recruitment.acceptance_list">
+			<option value="0">Non renseigné</option>
+			<option value="1">Oui</option>
+			<option value="2">Non</option>
+		</list>
+		<list name="recruitment.acceptance_list" lang="en">
+			<option value="0">Undefined</option>
+			<option value="1">Yes</option>
+			<option value="2">No</option>
+		</list>
+
+		
+
+		<list name="recruitment.profile_categories">
+
+			<option value="Employé">Employé</option>
+
+			<option value="Assistant">Assistant</option>
+
+			<option value="manager">manager</option>
+
+			<option value="directeur">directeur</option>
+
+			<option value="formateur">formateur</option>
+
+			<option value="développeur">développeur</option>
+
+			<option value="ingénieur">ingénieur</option>
+
+			<option value="construction">construction</option>
+
+			<option value="secrétaire">secrétaire</option>
+
+			<option value="hotesse">hotesse</option>
+
+			<option value="coursier">coursier</option>
+
+			<option value="communication">communication</option>
+
+			<option value="manager">manager</option>
+
+			<option value="gestion">gestion</option>
+
+			<option value="gestion">gestion</option>
+
+			<option value="ingénieur">ingénieur</option>
+
+			<option value="recherche">recherche</option>
+
+			<option value="marketing">marketing</option>
+
+			<option value="CDP">CDP</option>
+
+			<option value="analyse">analyse</option>
+
+			<option value="commercial">commercial</option>
+
+			<option value="marketing">marketing</option>
+
+			<option value="RH">RH</option>
+
+			<option value="manager RH">manager RH</option>
+
+			<option value="gestion">gestion</option>
+
+			<option value="documentation">documentation</option>
+
+			<option value="comptable">comptable</option>
+
+			<option value="chimie">chimie</option>
+
+			<option value="mecanique">mecanique</option>
+
+			<option value="Tourisme">Tourisme</option>
+
+			<option value="commercial">commercial</option>
+
+			<option value="Tourisme">Tourisme</option>
+
+			<option value="achats">achats</option>
+
+			<option value="web">web</option>
+
+			<option value="surveillance">surveillance</option>
+
+			<option value="téléconseil">téléconseil</option>
+
+			<option value="gestion">gestion</option>
+
+		</list>
+
+		
+
+		<list name="recruitment.relevance">
+			<option value="0">Indéfini (Pertinent)</option>
+			<option value="1">Non pertinent</option>
+			<option value="2">Très pertinent</option>
+			<option value="4">Excellent profil</option>
+			<option value="5">A embaucher si poste</option>
+		</list>
+		<list name="recruitment.relevance" lang="en">
+			<option value="0">Undefined (compatibility match)</option>
+			<option value="1">Not relevant</option>
+			<option value="2">Excellent match</option>
+			<option value="3">Excellent profile</option>
+			<option value="4">Hire if vacancy</option>
+		</list>
+		
+
+		<!-- Au pluriel, pour la rechercher -->
+
+		<list name="recruitment.relevance_pl">
+			<option value="1">Non pertinents</option>
+			<option value="2">Très pertinents</option>
+			<option value="0">Pertinents</option>
+			<option value="3">Pertinents et très pertinents</option>
+			<option value="4">Excellent profil</option>
+			<option value="5">A embaucher si poste</option>
+		</list>
+		<list name="recruitment.relevance_pl" lang="en">
+			<option value="1">No  match</option>
+			<option value="2">Excellent match</option>
+			<option value="0">Average match</option>
+			<option value="3">Excellent or average match</option>
+		</list>
+		
+		<list name="recruitment.relevance_pl_search">
+			<option value="1">Non pertinents</option>
+			<option value="2">Très pertinents</option>
+			<option value="0">Pertinents</option>
+			<option value="3">Pertinents et très pertinents</option>
+			<option value="4">Excellent profil</option>
+			<option value="5">A embaucher si poste</option>
+			<option value="-1">Tout, sauf les non pertinents</option>
+		</list>
+		<list name="recruitment.relevance_pl_search" lang="en">
+			<option value="1">No  match</option>
+			<option value="2">Excellent match</option>
+			<option value="0">Average match</option>
+			<option value="3">Excellent or average match</option>
+		</list>
+		
+		<list name="recruitment.data_type">
+			<option value="1">Candidat</option>
+			<option value="2">Poste à pourvoir</option>
+			<option value="3">Entretien</option>
+		</list>
+		<list name="recruitment.data_type" lang="en">
+			<option value="1">Candidate</option>
+			<option value="2">Vacancy</option>
+			<option value="3">Interview</option>
+		</list>
+		
+		<list name="recruitment.auth_type">
+			<option value="1">GET</option>
+			<option value="2">POST</option>
+			<option value="3">OAUTH</option>
+		</list>
+		<list name="recruitment.auth_type" lang="en">
+			<option value="1">GET</option>
+			<option value="2">POST</option>
+			<option value="3">OAUTH</option>
+		</list>
+		
+		<list name="recruitment.interview_criteria_value">
+			<option value="1">Faible</option>
+			<option value="2">Insuffisant</option>
+			<option value="3">Moyen</option>
+			<option value="4">Bon</option>
+			<option value="5">Excellent</option>
+		</list>
+		<list name="recruitment.interview_criteria_value" lang="en">
+			<option value="1">Poor</option>
+			<option value="2">Below average</option>
+			<option value="3">Average</option>
+			<option value="4">Good</option>
+			<option value="5">Excellent</option>
+		</list>
+		<list name="recruitment.search_fields" lang="fr">
+            <option value="full_text_search">Recherche full-text</option>
+            <option value="first_name">Prénom</option>
+            <option value="last_name">Nom</option>
+            <option value="gender">Sexe</option>
+            <option value="town_oid">Ville/CP/Dept</option>
+            <option value="diploma">Diplôme</option>
+            <option value="school">Ecole</option>
+            <option value="studies_level">Niveau d'études</option>
+			<option value="years_of_practice">Années d'expérience</option>
+            <option value="salary">Prétentions</option>
+            <option value="available_from">Date dispo</option>
+			<option value="current_salary">Salaire actuel</option>
+            <option value="profile">Profil</option>
+            <option value="etat_oid">Etat</option>
+			<option value="relevance">Pertinence / Métier</option>
+			<option value="category_oid">Vivier(s)</option>
+			<option value="archive_state">Archive</option>
+			<option value="hr_manager">Responsable RH</option>
+            <option value="vacancy">Poste à pourvoir</option>
+            <option value="provider">Source</option>
+            <option value="update_date_min">Reçus depuis le</option>
+            <option value="update_date_max">Jusqu'au</option>
+			<option value="read_by">Statut CV</option>
+			<option value="establishment">Etablissement</option>
+            <option value="sort_by">Ordre par</option>
+            
+            <!--<option value="cand_channel">Canaux de candidatures</option>-->
+            
+        </list>
+        <list name="recruitment.search_fields" lang="en">
+            <option value="full_text_search">Full text search</option>
+            <option value="first_name">First name</option>
+            <option value="last_name">Last name</option>
+            <option value="gender">Gender</option>
+            <option value="town_oid">Town</option>
+            <option value="diploma">Diploma</option>
+            <option value="school">School</option>
+            <option value="studies_level">Studies level</option>
+            <option value="salary">Salary</option>
+            <option value="years_of_practice">Years of practice</option>
+            <option value="available_from">Available from</option>
+            <option value="profile">Profile</option>
+            <option value="current_salary">Current salary</option>
+            <option value="vacancy">Vacancy</option>
+            <option value="archive_state">Archive state</option>
+            <option value="relevance">Relevance</option>
+            <option value="category_oid">Category</option>
+            <option value="etat_oid">Etat</option>
+            <option value="provider">Provider</option>
+            <option value="update_date_min">Update date min</option>
+            <option value="update_date_max">Update date max</option>
+            <option value="sort_by">Sort by</option>
+            <option value="read_by">Read by</option>
+            <option value="hr_manager">Hr manager</option>
+            <option value="cand_channel">Cand channel</option>
+            <option value="establishment">Establishment</option>
+        </list>
+		
+	</lists>
+</nxl>		
+		

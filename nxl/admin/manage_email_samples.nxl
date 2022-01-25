@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../data_model/all.data.nxl"/>
+<include file = "components/table.comp.nxl"/>
+
+<composant 
+	xmlns				= "http://www.nxfrontier.com/admin/table.comp" 
+
+	name				= "manage_email_samples"
+	path				= "/recruitment/admin/"
+	skin				= "#global:RECRUITMENT_SKIN:generis#"
+	strings				= "recruitment_manage_email_samples"
+
+	ds_search			= "rct_email_sample.search"
+	ds_list				= "rct_email_sample.list"
+	ds_edit				= "rct_email_sample.record"
+	ds_view				= "rct_email_sample.record"
+	ds_add				= "rct_email_sample.record"
+	ds_add_process		= "rct_email_sample.record"
+	ds_delete			= "rct_email_sample.record"
+	
+	template_list			= "configuration.list"
+	template_add_record		= "recruitment.admin.configuration.add"
+	template_edit_record	= "recruitment.admin.configuration.edit"
+	template_email			= "directory.configuration.directory_mail"
+	template_view_record	= "directory.configuration.directory_config_view">
+	
+	<i8n:strings 
+		name		= "recruitment_manage_email_samples" 
+		lang		= "fr" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Gestion des modèles d'Email" />
+		
+		<i8n:string id="add" value="Ajouter un modèle d'Email" />
+		<i8n:string id="search" value="Rechercher un modèle d'Email" />
+		<i8n:string id="page_title_list" value="Gestion des modèles d'Email" />
+		<i8n:string id="page_title_add" value="Ajout d'un modèle d'Email" />
+		<i8n:string id="page_title_edit" value="Edition du modèle d'Email sélectionné" />
+		<i8n:string id="page_title_view" value="Informations sur le modèle d'Email sélectionné" />
+		<i8n:string id="page_title_validation" value="Validation du modèle d'Email sélectionné" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des modèles d'Email" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d'ajouter un nouveau modèle d'Email dans la base de données" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier le modèle d'Email sélectionné" />
+		<i8n:string id="page_message_view" value="modèle d'Email sélectionné" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Cliquer sur un modèle d'Email de recrutement pour modifier son contenu" />
+		<i8n:string id="page_message_add_details" 
+		value="Après avoir rempli le formulaire, cliquez sur le bouton 'Enregistrer' afin de valider et d'enregistrer le contenu du modèle d'Email" />
+		<i8n:string id="page_message_edit_details" 
+		value="Cliquer sur 'Enregistrer' pour valider les modifications et revenir à la liste des modèles d'Email, ou sur \'Liste des modèles d'Emails\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" 
+		value="Cliquer sur 'Liste des modèles d'Emails' pour revenir à la liste des modèles d'Email" />
+		
+		<i8n:string id="field:name" value ="Nom du modèle" />
+		<i8n:string id="field:email_title" value ="Objet de l'email" />
+		<i8n:string id="field:email_content" value ="Corps de l'email" />
+		<i8n:string id="field:docs" value="Pièces jointes" />
+		<i8n:string id="field:type_email" value="Type email" />
+
+		<i8n:string id="legend" value="Légende" />
+		<i8n:string id="empty_list" value="Aucun modèle d'Email n'est référencé dans la base de données" />
+
+		<i8n:string id="edit_helper" value="Modifier le contenu du modèle" />
+		<i8n:string id="delete_helper" value="Supprimer le modèle d'Email" />
+
+		<i8n:string id="back" value="Liste des modèles d'Emails" />
+		<i8n:string id="items_search" value="modèle(s) trouvé(s)" />
+		<i8n:string id="macros" value="Liste des macros" />
+
+		<i8n:string id="submit" value="Enregistrer" />
+
+	</i8n:strings>
+
+</composant>
+
+</nxl>

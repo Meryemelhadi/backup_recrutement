@@ -1,0 +1,35 @@
+﻿<div id="add_cv" onclick="window.stopEvent(event);" title="Ajout d'un CV :Le CV est envoyé pour analyse et une fiche est ensuite créée automatiquement si le candidat n'existe pas dans la base. Sinon la fiche candidat sera mise à jour avec le nouveau CV, sans modifier les informations de recrutement.">
+	<form name="add_cv_form" id="add_cv_form" enctype="multipart/form-data" action="?nxo=candidates@recruitment:upload_cv" method="post" onsubmitX="return window.checkAddCVform()" class="form-inline">
+		<input type="hidden" name="MAX_FILE_SIZE" value="100000000">
+		<input type="hidden" name="_form_method_" value="POST">
+		<a id="add_button"  onclick="return window.checkAddCVform()" value="Ajouter CV..." >
+			<span class="glyphicon glyphicon-plus" aria-hidden="true" style="margin-right: 5px;"></span> <span id="submit_value">Ajouter CV...</span>
+		</a>
+		<input id="cv_file" type="file" name="temp_cv_file" style="display:none;font-size:11px" class="form-control">
+			
+	</form>
+</div>
+
+<script>
+
+window.checkAddCVform = function() {
+	var frm = document.forms['add_cv_form'];
+	if(frm.elements['cv_file'].value == '')
+	{
+		if($('submit_value').innerHTML=="Envoyer CV")
+		{
+			$('cv_file').hide();
+			$('submit_value').innerHTML="Ajouter CV...";
+		}
+		else
+		{
+			$('cv_file').show();
+			$('submit_value').innerHTML="Envoyer CV";
+		}
+		return false;
+	}
+	document.getElementById('add_cv_form').submit();
+	return true;
+}
+
+</script>

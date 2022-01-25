@@ -1,0 +1,267 @@
+<?xml version="1.0"?> 
+<!-- 
+
+___________________________________
+Presence Media | Rabat
+___________________________________
+Package   : Gestion des recrutements
+Module    : Cvthèque
+Composant : Annuaire
+Auteur    : Meryem El Hadi
+Version   : 0.1
+___________________________________
+
+-->
+
+
+<xo:taglib 
+	uri					= "http://www.presencemedia.com/recruitment/annuaire/components/directory.comp"
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/annuaire/components/directory.comp"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"
+	
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<!-- ================= COMPONENT ================ -->
+
+	<xo:tag name="main">
+		<xo:param name="site_mode" value="user" />
+		<xo:param name="user_service" value="user" />
+		<xo:param name="path" />
+		<xo:param name="skin" value="intranet" />
+		<xo:param name="name" />
+		<xo:param name="application_name" value="#{$path}##{$name}#_"/>
+
+		<xo:param name="strings" />
+		<xo:param name="ds_search" />
+		<xo:param name="ds_list" />
+		<xo:param name="ds_add" />
+		<xo:param name="ds_add_process" />
+		<xo:param name="ds_edit" />
+		<xo:param name="ds_edit_process" />
+		<xo:param name="ds_disable" />
+		<xo:param name="ds_enable" />
+		<xo:param name="ds_delete" />
+		<xo:param name="ds_view" />
+		<xo:param name="ds_xls_export" />
+
+		<xo:param name = "record_search" value="page.search"/>
+		<xo:param name = "record_properties" value="page.records"/>
+		<xo:param name = "record_property" value="page.record"/>
+					
+		<xo:param name="template_list" />
+		<xo:param name="template_add" />
+		<xo:param name="template_edit" />
+		<xo:param name="template_view" />
+		<xo:param name="template_xls_export" />
+
+				
+		<!-- protected="#{$user_service}#" -->
+		<pages xmlns="http://www.nxfrontier.com/nxl/page">
+			<page	
+				name		= "#{$name}#" 
+				protected	= "#{$user_service}#" 
+				permissions	= "?-rh"
+				path		= "#{$path}#"
+				cache		= "no" 
+				lang		= "fr"
+				skin		= "#{$skin}#">
+				<exec logic="#{$application_name}#" strings="#{$strings}#">
+				</exec>
+			</page>
+		</pages>
+		
+		<!-- logic -->
+		<logic 
+			xmlns			= "http://www.nxfrontier.com/nxl/nxl"
+		   	xmlns:ds		= "http://www.nxfrontier.com/nxl/ds"
+		   	xmlns:button	= "http://www.nxfrontier.com/nxl/button">
+		
+			<application name="#{$application_name}#">
+				<operation name="list">
+					<step name="list">
+						<code>							
+							<tags_library:filter_key 
+								ds_search		= "#{$ds_search}#"
+								searchData		= "searchData"
+								filterKey		= "filterKey"
+								record_search	= "#{$record_search}#"
+							/>
+
+							<ds:load media="db" ds="#{$ds_list}#" property="#{$record_properties}#" multiple="yes" addProperties="no" record="#$searchData#" />
+
+							<button:set name="list" operation="list"  >
+								<button:param name="mode" value="ajax" />
+							</button:set>
+							
+							<button:set name="search" operation="list">
+						    	<button:param name="filterKey" value="#property:filterKey#"/>								
+								<button:param name="mode" value="ajax"/>							
+							</button:set>
+							
+							<button:set name="view" operation="view">
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="edit" operation="edit" >
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="add" operation="add" >
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+							</button:set>
+							
+							<button:set name="xls" operation="xls_export" params="#property:filterKey#" />							
+
+							<set name="var:viewMode" value="'page'" />
+							<if condition="in_array(#get:mode#,array('page','ajax'))">
+								<set name="var:viewMode" value="#get:mode#" />
+							</if>
+							
+							<choose>
+								<when test="$viewMode == 'page'">
+									<display view="#{$application_name}#_listpage" />
+								</when>
+								<otherwise>
+									<display view="#{$application_name}#_listajax" />
+								</otherwise>
+							</choose>
+						</code>
+					</step>
+				</operation>
+				<operation name="view">
+					<step name="view">
+						<code>						
+
+							<ds:load media="db" ds="#{$ds_view}#" property="#{$record_property}#" multiple="no" addProperties="no"/>
+
+							<button:set name="edit" operation="edit" >
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>							
+
+							<button:set name="back" operation="list" params="#request:filterKey#" >
+								<button:param name="mode" value="ajax" />
+							</button:set>
+
+							<display view="#{$application_name}#_view" />
+						</code>
+					</step>
+				</operation>
+				<operation name="edit">
+					<step name="edit">
+						<code>						
+						
+							<ds:load media="db" ds="#{$ds_edit}#" property="#{$record_property}#" multiple="no" addProperties="no"/>
+
+							<set name="page_message" value="#string:page_message_edit#" />
+							
+							<button:set name="submit" step="edit_process"/>
+
+							<button:set name="delete" operation="delete" />
+							
+							<button:set name="back" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+
+							<display view="#{$application_name}#_edit"/>
+						</code>
+					</step>
+
+					<step name="edit_process">
+						<code>
+							<set name="var:loadedRecord">
+								<ds:load media="post" ds="#{$ds_edit_process}#" property="#{$record_property}#" multiple="no" addProperties="no"/>
+							</set>
+
+							<ds:store ds="#{$ds_edit_process}#" media="db" mode="update" record="#$loadedRecord#"/>
+						</code>
+					</step>
+				</operation>
+				<operation name="add">
+					<step name="add">
+						<code>
+							<ds:load media="empty" ds="#{$ds_add}#" property="#{$record_property}#" multiple="no" addProperties="no" />
+
+							<button:set name="submit" step="add_process"/>
+							
+							<set name="page_message" value="#string:page_message_add#" />
+							
+							<button:set name="back" operation="list" params="#request:filterKey#">
+								<button:param name="mode" value="ajax" />
+							</button:set>
+
+							<display_form view="#{$application_name}#_add" />
+						</code>
+					</step>
+
+					<step name="add_process">
+						<code>
+							<set name="var:loadedRecord">
+								<ds:load media="post" ds="#{$ds_add_process}#" property="#{$record_properties}#" multiple="no" addProperties="no"/>		
+							</set>
+							
+							<ds:store ds="#{$ds_add_process}#" media="db" mode="insert" record="#$loadedRecord#"/>
+
+							<redirect operation="list" params="#request:filterKey#">
+								<url_param name="mode" value="ajax"/>
+							</redirect>
+						</code>
+					</step>
+				</operation>
+				<operation name="delete">
+					<step name="delete">
+						<code>
+						
+							<ds:delete ds="#{$ds_delete}#" media="db" />
+
+							<redirect operation="list">
+								<url_param name="mode" value="ajax"/>
+							</redirect>
+						</code>
+					</step>
+				</operation>
+				<operation name="xls_export">
+					<step name="xls_export">
+						<code>						
+							<ds:load media="db" ds="#{$ds_xls_export}#" property="#{$record_properties}#" multiple="yes" addProperties="yes" />
+							
+							<display view="#{$application_name}#_xls" type="XLS" />
+						</code>
+					</step>
+				</operation>
+					
+
+			</application>
+		</logic>
+		
+		<!-- views -->
+		<tpl:screens xmlns="http://www.nxfrontier.com/tpl/tpml"  xmlns:tpl="http://www.nxfrontier.com/tpl/tpml" skin="default">
+			  
+				<tpl:screen name="#{$application_name}#_listpage" trace="yes" inherit="page">	
+					<zone>
+						<load view="#{$template_list}#" />
+					</zone>
+				</tpl:screen>
+				<tpl:screen name="#{$application_name}#_listajax" trace="yes">
+					<load view="#{$template_list}#" />
+				</tpl:screen>
+				<tpl:screen name="#{$application_name}#_view" trace="yes">
+					<load view="#{$template_view}#" />
+				</tpl:screen>
+				<tpl:screen name="#{$application_name}#_edit" trace="yes">
+					<load view="#{$template_edit}#" />
+				</tpl:screen>
+				<tpl:screen name="#{$application_name}#_add" trace="yes">
+					<load view="#{$template_add}#" />
+				</tpl:screen>
+				<tpl:screen name="#{$application_name}#_xls" trace="yes">
+					<load view="#{$template_xls_export}#" />
+				</tpl:screen>
+			
+		</tpl:screens>
+		
+	</xo:tag>
+</xo:taglib>

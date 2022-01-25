@@ -1,0 +1,12 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','show'=>false,'srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_vacancy_oid','isEdit'=>false,'onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'code','label'=>'code','type'=>'text','direction'=>'asc','srcName'=>'code','ufname'=>'_code','qname'=>'rct_vacancy_code','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'name','label'=>'name','type'=>'text','srcName'=>'name','ufname'=>'_name','qname'=>'rct_vacancy_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'number','label'=>'number','type'=>'text','default'=>'1','srcName'=>'number','ufname'=>'_number','qname'=>'rct_vacancy_number','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'workflow_state','label'=>'workflow_state','type'=>'text_choice','list'=>'recruitment.workflow_state','control'=>'select','sqltype'=>'integer','srcName'=>'workflow_state','ufname'=>'_workflow_state','qname'=>'rct_vacancy_workflow_state','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'request_date','label'=>'request_date','type'=>'datetime','format'=>'%d %B %Y &agrave; %H:%M','srcName'=>'request_date','ufname'=>'_request_date','qname'=>'rct_vacancy_request_date',),
+array('name'=>'requested_by','label'=>'requested_by','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:user.ds_list@recruitment','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','srcName'=>'requested_by','ufname'=>'_requested_by','qname'=>'rct_vacancy_requested_by','sqltype'=>'integer','list'=>'requested_by','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','code'=>'code','_code'=>'code','name'=>'name','_name'=>'name','number'=>'number','_number'=>'number','workflow_state'=>'workflow_state','_workflow_state'=>'workflow_state','request_date'=>'request_date','_request_date'=>'request_date','requested_by'=>'requested_by','_requested_by'=>'requested_by',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_vacancy.pending_client_list','table'=>'_rct_vacancy');
+ ?>

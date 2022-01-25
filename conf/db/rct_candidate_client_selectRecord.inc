@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_date,_proposed_by,_proposed_to,_candidate_oid,_comment,_email_type,_email_title,_email_content,_email_docs FROM _rct_candidate_client"; ?>

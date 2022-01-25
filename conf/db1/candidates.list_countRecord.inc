@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_candidate WHERE ".$this->getWhereClause("_oid","'".$props->getProperty("candidates_oid","",true)."'",'=','OR','','',false,false,'|'); ?>

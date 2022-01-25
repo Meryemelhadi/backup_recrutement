@@ -1,0 +1,212 @@
+<?xml version="1.0"?> 
+<!-- 
+___________________________________________
+Presence Media | Rabat
+___________________________________________
+Module    : Sales force
+Composant : Module tableau de bord
+Auteur    : Nadir Elasri
+Version   : 0.1
+___________________________________________
+		
+-->
+<xo:taglib 
+	uri					= "http://www.presencemedia.com/recruitment/dashboards/components/dashboard.comp"
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns:this			= "http://www.nxfrontier.com/portal/user/login/login.comp"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"	
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<!-- ================= COMPONENT ================ -->
+
+	<xo:tag name="main">
+	
+		<!-- Component params ... -->
+
+		<!-- component parameters -->
+		<!-- @param string site mode	defines page and application settings related to this part of the site.
+			ex. skin or page name etc. Loads setting from site_config lib.	-->
+		<xo:param name="site_mode" value="user" />
+
+		<!-- @param string user_service		which user type (login service) -->
+		<xo:param name="user_service" value="user" />
+
+		<xo:param name="path" />
+		<xo:param name="skin" />
+
+		<xo:param name="name" />
+		<xo:param name="application_name" value="#{$path}##{$name}#_"/>
+
+		<xo:param name="strings" />
+
+		<xo:param name="ds_list" />
+		<xo:param name="ds_list_stats" />
+		<xo:param name="ds_export_list" />
+		<xo:param name="ds_search" />
+
+		<xo:param name="permissions" value="default"/>
+		
+		<xo:param name="record_search" value="page.search"/>
+		<xo:param name="property_records" value="page.records"/>
+		<xo:param name="property_record" value="page.record"/>
+
+		<xo:param name="service_class" />
+
+		<xo:param name="template_search" />
+		<xo:param name="template_list" />
+		<xo:param name="template_xls_export" />
+		<xo:param name="template_stat" />
+				
+		<pages xmlns="http://www.nxfrontier.com/nxl/page">
+			<page	name="#{$name}#" 
+					protected="#{$user_service}#" 
+					permissions="?-rh"
+					path="#{$path}#"
+					cache="no" 
+					lang="fr"
+					skin="#{$skin}#"
+				>
+				<exec logic="#{$application_name}#" strings="#{$strings}#">
+				</exec>
+			</page>
+		</pages>
+		
+		<!-- logic -->
+		<logic xmlns="http://www.nxfrontier.com/nxl/nxl"
+		   xmlns:ds="http://www.nxfrontier.com/nxl/ds"
+		   xmlns:button="http://www.nxfrontier.com/nxl/button">
+		
+			<application name="#{$application_name}#">
+				
+				<operation name="list">
+					<step name="display">	
+						<code>
+							<tags_library:filter_key 
+								ds_search		= "#{$ds_search}#"
+								searchData		= "searchData"
+								filterKey		= "filterKey"
+								record_search	= "#{$record_search}#"
+							/>
+							
+							<ds:load media="handler" ds="#{$ds_list}#" property="#{$property_records}#" multiple="yes" addProperties="no"  record="#$searchData#"/>
+														
+							<button:set name="search" operation="list">
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+								<button:param name="mode" value="ajax" />
+							</button:set>
+
+							<button:set name="xls_export" operation="xls_export" params="#property:filterKey#" />
+                            <button:set name="statistics" operation="statistics" params="#property:filterKey#"/>
+
+
+							<set name="var:viewMode" value="'page'" />
+							<if condition="in_array(#get:mode#,array('page','ajax'))">
+								<set name="var:viewMode" value="#get:mode#" />
+							</if>
+							
+
+							<choose>
+								<when test="$viewMode == 'page'">
+									<display view="#{$application_name}#_list"/>
+								</when>
+								<otherwise>
+									<display view="#{$application_name}#_list_ajax"/>
+								</otherwise>
+							</choose>
+						</code>
+					</step>
+				</operation>
+
+
+
+
+                <operation name="statistics">
+					<step name="statistics">	
+					<code>
+							<tags_library:filter_key 
+								ds_search		= "#{$ds_search}#"
+								searchData		= "searchData"
+								filterKey		= "filterKey"
+								record_search	= "#{$record_search}#"
+							/>
+							<set name="var:records">
+								<ds:load media="handler" ds="#{$ds_list_stats}#" property="#{$property_records}#" multiple="yes" addProperties="no"  record="#$searchData#"/>
+							</set>					
+
+                            <bean:call class="#{$service_class}#" method="load_stats" params="#$records#"
+                              xmlns:bean  = "http://www.nxfrontier.com/nxl/bean" />
+       	
+							<button:set name="search" operation="statistics">
+						    	<button:param name="filterKey" value="#property:filterKey#" encode="true"/>
+								<button:param name="mode" value="ajax" />
+							</button:set>
+
+							<button:set name="xls_export" operation="xls_export" params="#property:filterKey#" />
+                            <button:set name="list" operation="list" params="#property:filterKey#"/>
+                            <button:set name="statistics" operation="statistics" params="#property:filterKey#"/>
+
+							<set name="var:viewMode" value="'page'" />
+							<if condition="in_array(#get:mode#,array('page','ajax'))">
+								<set name="var:viewMode" value="#get:mode#" />
+							</if>
+							
+							<choose>
+								<when test="$viewMode == 'page'">
+									<display view="#{$application_name}#_stat"/>
+								</when>
+								<otherwise>
+									<display view="#{$application_name}#_stat_ajax"/>
+								</otherwise>
+							</choose>
+						</code>
+					</step>
+				</operation>
+				<operation name="xls_export">
+					<step name="xls_export">
+						<code>
+							<set name="var:searchData">
+								<ds:load media="request" ds="#{$ds_search}#" property="#{$record_search}#" multiple="no" addProperties="no"/>
+							</set>
+							
+							<ds:load media="handler" ds="#{$ds_export_list}#" property="#{$property_records}#" multiple="yes" addProperties="yes" record="#$searchData#" />
+
+							<display view="#{$application_name}#_xls" type="XLS" />
+						</code>
+					</step>
+				</operation>
+
+			</application>
+		</logic>
+		
+		<!-- views -->
+		<tpl:screens xmlns="http://www.nxfrontier.com/tpl/tpml"  xmlns:tpl="http://www.nxfrontier.com/tpl/tpml" skin="default">
+			  
+			<tpl:screen name="#{$application_name}#_list" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_list}#" />
+				</zone>
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_list_ajax" trace="yes">
+				<load view="#{$template_list}#" />
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_xls" trace="yes">
+				<load view="#{$template_xls_export}#" />
+			</tpl:screen>
+
+            <tpl:screen name="#{$application_name}#_stat" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_stat}#" />
+				</zone>
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_stat_ajax" trace="yes">
+				<load view="#{$template_stat}#" />
+		</tpl:screens>
+		
+	</xo:tag>
+</xo:taglib>

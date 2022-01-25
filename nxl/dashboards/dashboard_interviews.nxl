@@ -1,0 +1,25 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<application
+	application_type = "dashboard"
+	name		= "dashboard_interviews" 
+	path		= "/recruitment/dashboards/"
+	protected	= "user" 
+	permissions = "default"
+	cache		= "no" 
+	lang		= "fr"
+	skin		= "lightsky"
+	application = "dashboard_interviews"
+	table		= "rct_interview"
+	base_data	= "dashboard_interviews"
+	strings		= "dashboard_interviews"
+	string_base = "entretien"
+	type		= "html"
+
+		xmlns="http://www.nxfrontier.com/nxl/page"
+	/>
+
+	<include_once file = "/data_model/all.nxl"/>
+	<include_once file = "/strings/all.nxl"/>
+
+</nxl>

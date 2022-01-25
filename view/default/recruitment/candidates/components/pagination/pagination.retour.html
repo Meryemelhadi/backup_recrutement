@@ -1,0 +1,98 @@
+{if:pages.several_pages || pages.nb_records > 0}
+<?php
+if(isset($_REQUEST['ltr']) && $_REQUEST['ltr'])
+{
+	$ltrUrl = '&ltr='.$_REQUEST['ltr'];
+}
+else
+{
+	$ltrUrl = '';
+}
+
+
+$bnpages = ceil($_nxvar_nbpages)-1;
+
+?>
+
+<div class="pm-pagination clear-both">
+    {if:pages.several_pages}
+    <ul class="pages">
+        <!-- <li class="first-meta"><span>Page(s) {pages.current} sur {pages.nb_pages} : </span></li>
+ -->
+        <li class="previous"><a href="javascript:void(0);" onclick="ajax_navigate(event,'{=page.url}&amp;page=0&amp;mode=ajax','content');return false;">Début</a></li>
+
+        {pages:previous}
+        <li class="previous"><a href="javascript:void(0);" onclick="ajax_navigate(event,'{page.url}{var:ltrUrl}&amp;mode=ajax','content');return false;">&laquo; Page pr&eacute;c&eacute;dente</a></li>
+        {/pages}
+
+		<!--<li class="active">
+			<span>Page :</span>
+		</li>-->
+
+		<li class="active">
+			<input type="text" class ="nb_page_input" onkeyup="selectPageInput(event,this,'{pages.nb_pages}')" placeholder="Page" value="{pages.current}" />
+		</li>
+
+		<li class="active">
+			<span>
+				sur {pages.nb_pages}
+			</span>
+		</li>
+
+        {pages:next}
+        <li class="next"><a href="javascript:void(0);" onclick="ajax_navigate(event,'{page.url}{var:ltrUrl}&amp;mode=ajax','content');return false;">Page suivante &raquo;</a></li>
+        {/pages}
+        <li class="previous"><a href="javascript:void(0);" onclick="ajax_navigate(event,'{=page.url}&amp;page={var:bnpages}&amp;mode=ajax','content');return false;">Fin</a></li>
+    </ul>
+    {/if}
+
+    {if:pages.nb_records > 0}
+    <div class="items-count">
+        <span class="pm-pagination-records-count"><strong>{pages.nb_records}</strong> {string:"items_search"}</span>
+    </div>
+    {else}
+    <div class="items-count">
+        <span class="pm-pagination-records-count"><strong>{records.count}</strong> {string:"items_search"}</span>
+    </div>
+    {/if}
+</div>
+{/if}
+
+<script type="text/javascript">
+
+    function selectPage(select){
+        ajax_navigate(null,'{=page.url}&amp;page='+select.value+'&amp;mode=ajax','content');
+        return false;
+    }
+    function selectPageInput(event,input , nb_pages){
+
+        if(!isInt(input.value) || input.value == 0 || input.value > parseInt(nb_pages)){
+            input.value="";
+            return false;
+        }
+        if(event.keyCode == 13){
+            var value = parseInt(input.value)-1;
+            ajax_navigate(event,'{=page.url}&amp;page='+value+'&amp;mode=ajax','content');
+        }
+        return false;
+    }
+    function isInt(x) {
+        var y = parseInt(x, 10);
+        return !isNaN(y) && x == y && x.toString() == y.toString();
+    }
+
+</script>
+
+<style>
+    .nb_page_input{
+		width: 40px;
+		height: 13px;
+		padding: 5px;
+		margin-left: 5px;
+		text-align: center;
+		border: solid 1px #4C9ED9;
+		border-radius: 3px;
+		background-color: #4C9ED9;
+		color: white;
+		}
+</style>

@@ -1,0 +1,153 @@
+{content:attached_files}
+	{include:recruitment/vacancies/components/files_attached}
+{/content}
+
+{content:interview_synthesis}
+	{include:recruitment/vacancies/components/interview_synthesis}
+{/content}
+
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}&mode=ajax','content'); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_calendar"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-date-add">{string:"submit"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_deleteConfig, event); return false;">
+	<span class="btn-bg"><span class="s-icon si-delete">{string:"delete"}</span></span>
+</a>
+{/content}
+
+
+{form:page.record}
+<script>
+	window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=previous_operation.url}&mode=ajax", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+	
+	window.dlg_deleteConfig = { 
+		title : "{string:'dlg_delete_title_interview'}",
+		message : "{string:'dlg_delete_content_interview'}", 
+		viewMode : "okCancel", 
+		url : "{=delete_interview.url}{record.url_key}", 
+		target : "content", 
+		labels : { 
+			ok : "{string:'dlg_ok'}", 
+			cancel : "{string:'dlg_cancel'}" 
+	} };
+</script>
+
+<div class="pm-grid-outer-wrapper" id="add-interview-wrapper">
+
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	
+	
+	<div class="record_wrapper">
+		<div class="record">
+			<!--!{fields}-->
+			<div class="control-main-wrapper {if:#field.type# == 'records' || #field.csslayout# == 'normal-layout'}normal-layout-control{/if}" {if:#field.name# == 'default_email' || #field.name# == 'email_title' || #field.name# == 'email_content' ||  #field.name# == 'user_default_email' ||  #field.name# == 'user_email_content'||  #field.name# == 'user_email_title'}style='display:none'{/if} id="{field.name}_div">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label} :</div>
+				</div>
+				<div class="control-wrapper" id="{field.name}-control-wrapper">
+					<div class="control" id="{field.name}-control">{field}</div>
+					{if:field.is_help}
+					<div class="tooltip">{field.help}</div>
+					{/if}
+				</div>
+			</div>
+			<!--!{/fields}-->
+			
+			<div class="control-main-wrapper normal-layout-control">
+				<div class="control-label-wrapper">
+					<div class="control-label">{string:"add_files"} :</div>
+				</div>
+				<div class="control-wrapper" id="assoc-files-control-wrapper">
+					<div class="control" id="assoc-files-control">
+						
+						{=attached_files}
+						{include:recruitment/vacancies/components/files_add}
+						
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="control-main-wrapper normal-layout-control">
+				<div class="control-label-wrapper">
+					<div class="control-label">{string:"interview_synthesis"} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">
+						
+						{=interview_synthesis}						
+						<div class="add-item-wrapper">
+							<div class="add-item-title">
+								<a 
+									href="javascript:void(0);" 
+									onclick="ajax_navigate(event,'{=add_interview_synthesis.url}', 'content');" 
+									class="action s-icon si-add"><span>{string:"add_interview_synthesis"}</span></a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	
+	
+	
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+
+</div>
+<script>
+	Generis.Recruitment.appendAssocFilesHandlers('assoc-files-control');
+	
+	Generis.Recruitment.emailSampleHandler({
+		fieldname: 'default_email', 
+		element: 'add-interview-wrapper',
+		emailTitleField: 'email_title',
+		emailContentField:'email_content',
+		url: '{=get_email_sample.url}'});
+
+	Generis.Recruitment.emailSampleHandler({
+		fieldname: 'user_default_email', 
+		element: 'add-interview-wrapper',
+		emailTitleField: 'user_email_title',
+		emailContentField:'user_email_content',
+		url: '{=get_email_sample.url}'});
+
+	document.getElementById("candidate_email_not1").onchange=function() {
+        document.getElementById("default_email_div").style.display="none";
+		document.getElementById("email_title_div").style.display="none";
+		document.getElementById("email_content_div").style.display="none";
+    };
+	document.getElementById("candidate_email_not2").onchange=function() {
+        document.getElementById("default_email_div").style.display="block";
+		document.getElementById("email_title_div").style.display="block";
+		document.getElementById("email_content_div").style.display="block";
+    };
+
+	document.getElementById("interviewer_email_not1").onchange=function() {
+        document.getElementById("user_default_email_div").style.display="none";
+		document.getElementById("user_email_content_div").style.display="none";
+		document.getElementById("user_email_title_div").style.display="none";
+    };
+	document.getElementById("interviewer_email_not2").onchange=function() {
+        document.getElementById("user_default_email_div").style.display="block";
+		document.getElementById("user_email_content_div").style.display="block";
+		document.getElementById("user_email_title_div").style.display="block";
+    };
+</script>
+{/form}

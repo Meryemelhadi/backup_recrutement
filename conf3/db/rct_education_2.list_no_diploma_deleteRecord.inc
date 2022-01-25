@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_education WHERE _candidate_oid='".$props->getProperty("oid","0",true)."' AND (_diploma='' OR _diploma='?' OR _diploma is null ) "; ?>

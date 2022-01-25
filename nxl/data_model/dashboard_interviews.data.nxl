@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+	<!-- tables definitions -->
+		
+	<!-- DML Views (gernerating SQL requests)-->
+	<views>
+		<!-- list of items -->
+		<view name="dashboard_interviews.list" table="rct_interview">
+			<key>
+				<field name="date" label="date" type="date" />
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="15" />				
+		
+			<sort>
+				<field name="date" label="date" type="date" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				
+				<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+				<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				<field name="validated_by" label="validated_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				<field 
+					name			= "interview_by_oid"
+					label			= "interview_by_oid"  
+					type			= "text-choice-table" 
+					list			= "product_range"
+					prompt			= "interview_by_oid..."
+					multiple		= "yes"
+					control			= "facebook_list"
+					ds				= "db:user.ds_list_all@recruitment"
+					ds_link			= "rct_interview_by"
+					ds_format		= "{field:first_name} {field:last_name}"
+					ds_field_value	= "oid" />
+				
+				<field name="creation_date" label="creation_date" type="datetime" />
+				<field name="validation_date" label="validation_date" type="datetime" />
+
+				
+				<field name="date" label="date" type="date" />
+
+				<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="5" format="%H:%M" />
+
+				<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="5" format="%H:%M" />
+
+				<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" />
+
+				<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+				<field name="interview_etat" label="interview_etat" type="text-choice" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1"/>
+
+				<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+				<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>
+			</fields>		
+		</view>
+
+		<view name="dashboard_interviews.dashboard" table="rct_interview" handler="lib.recruitment.records.dashboard_interviews_requests">
+			<key>
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				
+				<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+				<field name="interview_by_oid" label="interview_by_oid" type="text-choice" />
+
+				<field name="date" label="date" type="date" />
+
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="15" />				
+		
+			<sort>
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+
+				<field name="date" label="date" type="date" />
+
+				<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+				
+				<!--
+				<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+				 <field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				-->
+
+				<field name="candidate" label="Candidat" type="line" is_transient="true"/>
+
+				<field name="vacancy" label="Poste" type="line" is_transient="true"/>
+				
+				<field 
+					name			= "interview_by_oid"
+					label			= "interview_by_oid"  
+					type			= "text-choice-table" 
+					list			= "product_range"
+					prompt			= "interview_by_oid..."
+					multiple		= "yes"
+					control			= "facebook_list"
+					ds				= "db:user.ds_list_all@recruitment"
+					ds_link			= "rct_interview_by"
+					ds_format		= "{field:first_name} {field:last_name}"
+					ds_field_value	= "oid" />
+								
+				<!-- 
+				<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" />
+				-->
+
+				<!-- <field name="interview_etat" label="interview_etat" type="text-choice" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1"/>
+ -->
+				<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+				<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>
+
+			</fields>		
+		</view>
+
+
+		<!-- export excel -->
+		<view name="dashboard_interviews.excel" table="rct_interview" handler="lib.recruitment.records.dashboard_interviews_requests">
+			<key>
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				
+				<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+				<field name="interview_by_oid" label="interview_by_oid" type="text-choice" />
+
+				<field name="date" label="date" type="date" />
+
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="15" />				
+		
+			<sort>
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+
+				<field name="date" label="date" type="date" />
+
+				<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+				
+				<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				
+				<field 
+					name			= "interview_by_oid"
+					label			= "interview_by_oid"  
+					type			= "text-choice-table" 
+					list			= "product_range"
+					prompt			= "interview_by_oid..."
+					multiple		= "yes"
+					control			= "facebook_list"
+					ds				= "db:user.ds_list_all@recruitment"
+					ds_link			= "rct_interview_by"
+					ds_format		= "{field:first_name} {field:last_name}"
+					ds_field_value	= "oid" />
+								
+				<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" />
+
+				<!-- <field name="interview_etat" label="interview_etat" type="text-choice" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1"/>
+ -->
+				<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+				<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>
+			</fields>	
+		</view>
+		
+		<!-- search form -->
+		<view name="dashboard_interviews.search" table="rct_interview">
+			<fields>
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				
+				<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+				<field 
+					name			= "interview_by_oid"
+					label			= "interview_by_oid"  
+					type			= "text-choice-table" 
+					list			= "product_range"
+					prompt			= "interview_by_oid..."
+					multiple		= "yes"
+					control			= "facebook_list"
+					ds				= "db:user.ds_list_all@recruitment"
+					ds_link			= "rct_interview_by"
+					ds_format		= "{field:first_name} {field:last_name}"
+					ds_field_value	= "oid" />
+
+			</fields>
+		</view>
+
+		<!-- record form -->
+		<view name="dashboard_interviews.record" table="rct_interview">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				
+				<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+				<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				<field name="validated_by" label="validated_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				<field 
+					name			= "interview_by_oid"
+					label			= "interview_by_oid"  
+					type			= "text-choice-table" 
+					list			= "product_range"
+					prompt			= "interview_by_oid..."
+					multiple		= "yes"
+					control			= "facebook_list"
+					ds				= "db:user.ds_list_all@recruitment"
+					ds_link			= "rct_interview_by"
+					ds_format		= "{field:first_name} {field:last_name}"
+					ds_field_value	= "oid" />
+				
+				<field name="creation_date" label="creation_date" type="datetime" />
+				<field name="validation_date" label="validation_date" type="datetime" />
+
+				
+				<field name="date" label="date" type="date" />
+
+				<field name="time_start" label="time_start" type="timestamp" control="time"  increment-mn="5" format="%H:%M" />
+
+				<field name="time_end" label="time_end" type="timestamp" control="time"  increment-mn="5" format="%H:%M" />
+
+				<field name="validation_state" label="validation_state" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" />
+
+				<field name="interview_type" label="interview_type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+				<field name="interview_etat" label="interview_etat" type="text-choice" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1"/>
+
+				<field name="interview_feedback" label="interview_feedback" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+				<field name="comment" label="comment" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>
+			</fields>		
+		</view>				
+	</views>
+	
+</data>
+</nxl>

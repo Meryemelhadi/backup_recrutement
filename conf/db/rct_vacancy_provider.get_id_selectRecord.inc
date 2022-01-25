@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _id_index,_index FROM _rct_vacancy_provider WHERE _oid='".$props->getProperty("oid","",true)."'"; ?>

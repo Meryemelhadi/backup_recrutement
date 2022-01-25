@@ -1,0 +1,193 @@
+<?php
+
+$app_desc = $this->ctxt->getProperty('application.desc');
+
+$icons = array(
+	'add'=>'si-add',
+	'edit'=>'si-page-white-edit',
+	'delete'=>'si-delete',
+	'save'=>'si-disk',
+	'export_excel'=>'si-page-white-excel');
+
+$strings   = $this->ctxt->getProperty('page.strings',$strings);
+$datasources   = $this->ctxt->getProperty('app.datasources');
+$forms   = $this->ctxt->getProperty('app.forms',array());
+$nxo = $this->ctxt->getProperty('nxo','nxo');
+
+$defaultLogic = function($workflow,$user) {
+	$ctxt = $workflow->ctxt;
+	$logic = $ctxt->getProperty('page.logic');
+	return $ctxt->runLogic($logic);
+};
+
+
+$properties=array
+(
+	// ========================= CRUD APPLICATION ==================
+	
+	'application' => array
+	(
+		'editor' => array
+		(
+			'meta' => array
+			(
+				'name' => ('List title'),
+				'description' => ('Edit items'),
+				'strings' => $strings,
+
+				'uid' => 'candidates@recruitment',
+
+				// data descriptors
+				'data'  => array(
+					'search' => 'rct_candidate.search@recruitment',
+					'new' => 'rct_candidate.add@recruitment',
+
+					'fields' => array
+					(
+						'search' => array(
+							'hide' => array('age'),
+						)
+					)
+				),
+			
+				// default display views 
+				'views' => array(
+					'list' => 'workflow.xlist_search@workflow',
+					'record' => 'workflow.xedit_generic@workflow',
+				),
+
+				'forms' => $forms,
+
+				'icons'=>$icons,
+
+				'list_operations' => array('edit'=>array('nxo'=>'edit'),'delete'=>array('nxo'=>'delete')),
+
+				'operation_init'=>'list',
+
+				// default tasks executed for loading a state
+				// 'state_loader'  => 'Workflow_StateLoader',
+				'onload'  => array(),
+
+				// tasks executed before executing an action : load submitted form
+				'onBeforeAction'  => array(),
+
+				// default tasks executed after executing an action
+				// 'onAfterAction'  => array( 'tasks' => array('log')),
+			),
+			
+			'operations' => array(
+
+				'list' => array(
+					'title' => 'Liste des candidats', // ('List items'),
+					'description' => ('List items'),
+
+					'tasks' => array(
+						'list_candidates'=>array(
+							'data'=>'list','search'=>'search','view'=>'list',
+						//	'buttons'=>array('action'=>'?nxo=action','add'=>'?nxo=add')
+						)
+					),
+
+					'actions'=>array(
+						'add' => array('name'=>('add'),'nxo' => 'add','id'  => 'content'),
+						// 'export_excel' => array('name'=>('export_excel'),'nxo' => 'export_excel')
+					)					
+				),
+
+				'add' => array(
+					'title' => ('Create record'),
+					'description' => ('Create record'),
+
+					/*
+					'tasks' => array(
+						'display_record' => array('ds'=>'new','media'=>'empty','buttons'=>array('back'=>'?nxo=list'))
+					),
+
+					'actions'=>array(
+						'submit' => array('name'=>('submit'), 'nxo' => 'add_process','id'  => 'content')
+					)
+					*/
+				),
+			
+				'add_process' => array(
+					'title' => ('process record'),
+					'description' => ('process record'),
+
+					'tasks' => array(
+						'save_record'=>array('media'=>'post','method'=>'insert'),
+						'redirect'=>array('url'=>'?nxo=list'),
+					)
+				),
+
+				'edit' => array(
+					'title' => ('edit record'),
+					'description' => ('exec_workflow'),
+
+					'tasks' => array(
+						$defaultLogic
+					),
+
+					'actions'=>array
+                    (
+						// 'save' => array('name'=>('save'), 'nxo' => 'edit_save','id'  => 'content'),
+						'submit' => array('name'=>'submit', 'nxo' => 'edit_process','id'  => 'content')
+					)				
+				),
+
+				'edit_save' => array(
+					'title' => ('process record'),
+					'description' => ('process record'),
+
+					'tasks' => array(
+						$defaultLogic
+					),
+					'actions'=>array
+                    (
+						//'back' => array('name'=>('back'), 'nxo' => 'list', 'id'  => 'content'),
+						'save' => array('name'=>('save'), 'nxo' => 'edit_save','id'  => 'content'),
+						'submit' => array('name'=>('submit'), 'nxo' => 'edit_process','id'  => 'content')
+					)				
+				),
+
+				'edit_process' => array(
+					'title' => ('process record'),
+					'description' => ('process record'),
+
+					'tasks' => array(
+						$defaultLogic
+					)
+				),
+
+				'delete' => array(
+					'title' => ('delete record'),
+					'description' => ('delete record'),
+
+					'tasks' => array(
+						$defaultLogic
+					)
+				),
+
+				'upload_cv' => array(
+					'title' => ('process record'),
+					'description' => ('process cv'),
+
+					'tasks' => array(
+						'upload_cv',
+					)
+				),
+
+				// default operation
+				'default' => array(
+					'title' => ('delete record'),
+					'description' => ('delete record'),
+
+					'tasks' => array(
+						$defaultLogic
+					)
+				)
+			)
+		)
+	)
+);
+
+?>

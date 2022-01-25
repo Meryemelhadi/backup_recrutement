@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _journal_file_attachements() VALUES("..")"; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_candidate SET _etat_oid=".$record->getFieldValue("etat_oid","DB","NULL")." WHERE _oid='".$props->getProperty("candidate_oid","",true)."'"; ?>

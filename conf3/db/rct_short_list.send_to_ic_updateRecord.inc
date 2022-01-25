@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_short_list SET _is_visible='".$props->getProperty("visibility","",true)."' WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

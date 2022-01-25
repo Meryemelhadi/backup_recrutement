@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview SET _video_link=".$record->getFieldValue("video_link","DB","NULL")." WHERE _oid='".$props->getProperty("interview_oid","",true)."'"; ?>

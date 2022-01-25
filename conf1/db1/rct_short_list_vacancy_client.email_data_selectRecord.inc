@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT  FROM _rct_short_list_vacancy_client"; ?>

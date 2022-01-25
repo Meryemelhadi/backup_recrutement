@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_candidate_language WHERE _oid=".$this->getFieldParam("oid","null",",",$record,"")." GROUP BY _lang "; ?>

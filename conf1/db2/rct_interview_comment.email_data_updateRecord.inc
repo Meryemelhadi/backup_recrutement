@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview_comment SET _docs=".$record->getFieldValue("docs","DB","NULL").",_user_docs=".$record->getFieldValue("user_docs","DB","NULL").",_ical_uid=".$record->getFieldValue("ical_uid","DB","NULL").",_ical_seq=".$record->getFieldValue("ical_seq","DB","'0'"); ?>

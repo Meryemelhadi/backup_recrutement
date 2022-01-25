@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_channel SET _oid=".$record->getFieldValue("oid","DB","NULL").",_name=".$record->getFieldValue("name","DB","NULL").",_to_email=".$record->getFieldValue("to_email","DB","NULL").",_establishment=".$record->getFieldValue("establishment","DB","NULL"); ?>

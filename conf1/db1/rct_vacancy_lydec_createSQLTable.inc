@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_vacancy_lydec(_oid INT AUTO_INCREMENT NOT NULL,_budget_O_N integer,_budget TEXT,_csp integer,_cc TEXT,_version TEXT,_Cout TEXT,PRIMARY KEY(_oid))"; ?>

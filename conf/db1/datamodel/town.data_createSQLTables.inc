@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("CREATE TABLE IF NOT EXISTS _directory_town(_oid INT AUTO_INCREMENT NOT NULL,_town_name TEXT,_country_oid TEXT,PRIMARY KEY(_oid))",); ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_url FROM _rct_saved_search WHERE _user_oid='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."'"; ?>

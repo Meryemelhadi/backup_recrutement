@@ -1,0 +1,153 @@
+{content:available_vacancies}
+{record:page.record}
+<div class="associate-to-vacancy">
+
+	<div class="pm-bx-form pm-bx-form-normal-layout">
+		<div class="record_wrapper">
+			<div class="record">
+				<div class="control-main-wrapper">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label:available_vacancies} :</div>
+					</div>
+					<div class="control-wrapper">
+						<div class="control" id="available_vacancies-control">
+							{field.form:available_vacancies}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="pm-button-wrapper clear-both">
+		<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="Generis.Recruitment.associateToVacancy('available_vacancies-control', 'available_vacancies', 'associate-to-vacancy', '{=associate_to_vacancy.url}'); this.blur(); return false;">
+			<span class="btn-bg"><span class="s-icon si-attach">{string:"Associer"}</span></span>
+		</a>
+		<div id="vacancy-button-loader" style="display:none;"></div>
+	</div>
+</div>
+{/record}
+{/content}
+
+{content:comments_part}
+	<div class="comments-wrapper" id="comments-wrapper">
+	{records:comments.records}
+		{record}
+			<div class="comment-wrapper_{field:oid}">
+
+				<table style="width:100%">
+					<tr>
+						<td style="width:98%">
+							<div class="comment"><span class="comment_author">{field:user_oid}</span>: {field:comment}</div>
+						</td>
+						<td style="width:2%,align:right"> 
+						{if:#user:oid# == #field.object:user_oid#}
+						<input type="button" class="s-icon si-cross" href="javascript:void(0);" onclick="Generis.Recruitment.deleteComment('{field:oid}','{=delete_comment.url}'); this.blur(); return false;" value="" style="cursor: pointer; background-color:transparent; border:solid 0px"/>
+						{/if}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="comment_date">{field:date}</div>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		{/record}
+	{/records}
+	</div>
+	<div class="add-comment-wrapper">
+		<div class="add-comment">
+			<div class="add-comment-inner">
+				<textarea rows="3" cols="30" name="add_comment_zone" type="text" class="text"></textarea>
+			</div>
+		</div>
+		<div class="add-comment-process clear-both">
+			<a 
+				class="pm-button btn-with-icon" 
+				href="javascript:void(0);" 
+				onclick="Generis.Recruitment.addComment(this, 'add_comment_zone', '{=add_comment.url}'); this.blur(); return false;">
+				<span class="btn-bg"><span class="s-icon si-comment-add">{string:"post_comment"}</span></span>
+			</a>
+			<div style="display: none;" id="vacancy-button-loader"></div>
+		</div>
+	</div>	
+{/content}
+
+{content:vacancy_comments_part}
+<script language="php">
+	if(isset($_GET['void']))
+	{
+		$comments = new PersistentCollection('rct_candidate_vacancy_comment.ds_list@recruitment','db',
+			array('vacancy_oid'=>$_GET['void'],'oid'=>$_GET['oid']));
+		if($comments->count())
+		{
+			$this->setProperty('comments.records',$comments->records);
+</script>
+	<div class="comments-wrapper" id="comments-wrapper">
+	{records:comments.records}
+		{record}
+			<div class="comment-wrapper_{field:oid}">
+
+				<table style="width:100%">
+					<tr>
+						<td style="width:98%">
+							<div class="comment"><span class="comment_author">{field:user_oid}</span>: {field:comment}</div>
+						</td>
+						<td style="width:2%,align:right"> 
+						{if:#user:oid# == #field.object:user_oid#}
+						<input type="button" class="s-icon si-cross" href="javascript:void(0);" onclick="Generis.Recruitment.deleteVacancyComment('{field:oid}','{=delete_vacancy_comment.url}'); this.blur(); return false;" value="" style="cursor: pointer; background-color:transparent; border:solid 0px"/>
+						{/if}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="comment_date">{field:date}</div>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		{/record}
+	{/records}
+	</div>
+	{/if}
+	{/if}
+{/content}
+
+<div class="pm-bxm-box-wrapper">
+	<div class="pm-bxm-box">
+	
+		<div class="box-title-wrapper box-title-blue">
+			<div class="box-title">
+				<h3><strong>{string:"historique"}</strong></h3>
+			</div>
+		</div>
+
+
+				<!-- <div class="box-simple-title">
+					<h3>{string:"comments"}</h3>
+				</div>
+			
+				<div class="pm-bxm-box-content">
+					{=comments_part}
+				</div>
+ -->
+		<div class="pm-bxm-box-content">
+
+			{records:candidate_log.records}
+				<div class="table-list-wrapper">
+					<table class="table-list">
+						{record}
+							<tr {if:record.is_last}class="last"{/if}>
+								<td class="entry"><strong>{field:action_oid}</strong> par {field:user_oid}<br/>{field:date}</td>
+							</tr>
+						{/record}
+					</table>
+				</div>
+			{/records}
+		</div>
+											
+	</div>
+</div>

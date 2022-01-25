@@ -1,0 +1,147 @@
+
+<nxl version="1.0"
+	xmlns="http://www.nxfrontier.com/nxl/nxl" 
+	package="recruitment"
+>
+
+	<!-- French Strings -->
+	<i8n:strings name="app_connected" lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:i8n="http://www.nxfrontier.com/nxl/i8n">
+
+		<i8n:string id="page_title" value="La liste des applications connectées" />
+		
+		<i8n:string id="create record" value="Ajouter application connectée" />
+
+		<i8n:string id="list records" value="Liste des applications connectées" />
+		<i8n:string id="add record" value="Ajout d\'une nouvelle applications connectées" />
+		<i8n:string id="edit record" value="Configuration application connectée" />
+		<i8n:string id="exec action" value="Configuration application connectée" />
+		<i8n:string id="page_title_view" value="Détails de l'application connectée" />
+		
+		<i8n:string id="items_search" value="application(s) connectée(s) trouvé(s)" />	
+		<i8n:string id="edit_helper" value="Editer" />	
+		<i8n:string id="delete_helper" value="Supprimer" />	
+		<i8n:string id="legend" value="Légende" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des applications connectées" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d\'ajouter une nouvelle application connectée" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier l'application connectée sélectionné" />
+		<i8n:string id="page_message_view" value="Détails de l'application connectée sélectionné" />
+		
+		<i8n:string id="page_message_list_details" value="Cliquer sur une application connectée pour en visualiser les détails" />
+		<i8n:string id="page_message_add_details" value="Après avoir remplis les champs du formulaire, cliquer sur envoyer pour ajouter la nouvelle applications connectées" />
+		<i8n:string id="page_message_edit_details" value="Cliquer sur \'Envoyer\' pour valider les modifications et revenir à la liste des applications connectées, ou sur \'Retour\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" value="Cliquer sur \'Retour\' pour revenir à la liste des applications connectées" />
+
+		<i8n:string id="dlg_wait_title" value="Veuillez patienter" />
+		<i8n:string id="dlg_wait_content" value="En cours d\'ajout des nouvelles données" />
+
+		<i8n:string id="dlg_success_title" value="Action réussie" />
+		<i8n:string id="dlg_success_content" value="Opération effectuée avec succès" />
+
+		<i8n:string id="dlg_back_title" value="Annulation de la saisie en cours" />
+		<i8n:string id="dlg_back_content" value="Cette action va supprimer les données en cours de saisie. Souhaitez-vous continuer ?" />
+
+		<i8n:string id="dlg_delete_title" value="Suppression d\'une application connectée" />
+		<i8n:string id="dlg_delete_content" value="Etes vous sûr de vouloir supprimer cet application connectée ?" />
+
+		<i8n:string id="dlg_success" value="Valider" />
+		<i8n:string id="dlg_cancel" value="Annuler" />
+		<i8n:string id="dlg_ok" value="Ok" />
+
+		<i8n:string id="empty_list" value="Aucun application connectée n\'est enregistrée" />
+		
+		<i8n:string id="details" value="Détails" />
+		<i8n:string id="edit" value="Modifier" />
+		<i8n:string id="delete" value="Supprimer" />
+
+		<i8n:string id="Next" value="Suivant" />
+		<i8n:string id="Previous" value="Précédent" />
+		<i8n:string id="Results" value="Résultats" />		
+
+		<i8n:string id="Success" value="Opération réussie" />
+		<i8n:string id="Error" value="Erreur" />
+		<i8n:string id="Warning" value="Attention" />
+
+		<i8n:string id="search" value="Rechercher" />
+		<i8n:string id="add" value="Ajouter" />
+		<i8n:string id="export_excel" value="Export Excel" />
+		<i8n:string id="save" value="Enregistrer" />
+		<i8n:string id="save and continue" value="Enregistrer et continuer" />
+		<i8n:string id="back" value="Retour" />
+		<i8n:string id="submit" value="Envoyer" />
+		<i8n:string id="attached_files_title" value="Fichiers attachés" />
+		<i8n:string id="title_menu" value="Titre des rubriques dans le menu" />
+		<i8n:string id="title_button_ns_rejoindre" value="Bouton 'Nous rejoindre'" />
+		<i8n:string id="title_banner" value="Bannière" />
+		<i8n:string id="title_description" value="Description de l'entreptise" />
+		
+		<i8n:string id="title_footer" value="Pied de la page" />
+		<i8n:string id="title_code_css_js" value="Ajouter votre propre code css/javascript" />
+		
+	
+		<!-- les labels des champs de données -->
+		<fields xmlns="http://www.nxfrontier.com/nxl/i8n">
+
+			<field name="name" label="Nom"  />
+			<field name="url" label="Lien"/>
+			<field name="identifiant" label="Identifiant"/>
+			<field name="key" label="Clé" />
+			<field name="app_credits" label="Permissions" />
+			<field name="compagnie_name" label="Nom de la société" />
+			<field name="description" label="Description de la société" />
+			<field name="contact_email" label="Email de contact" />
+			<field name="logo" label="Logo de la société" />
+			<field name="favicon" label="Favicon" />
+			<field name="adress" label="Adresse de l'entreprise" />
+			<field name="banner_background_image" label="Image de fond de la bannière" />
+			<field name="banner_second_background_image" label="Image de fond de la bannière secondaire" />
+			<field name="login" label="Login"  />
+			<field name="password" label="Mot de passe"  />
+			<field name="active_app" label="Active"  />
+			<field name="data_type" label="Type de donnée"  />
+			<field name="comment" label="Commentaire"  />
+			<field name="menu_text_color" label="Couleur du texte du menu"  />
+			<field name="menu_text_font_size" label="Taille du texte du menu"  />
+			<field name="menu_text_font_family" label="Police du texte du menu"  />
+			<field name="menu_background_color" label="Couleur d'arrière plan du menu"  />
+			<field name="banniere_title_color" label="Couleur du titre dans la bannière"  />
+			<field name="banniere_title_font_size" label="Taille du titre de la bannière"  />
+			<field name="banniere_title_font_family" label="Police du titre de la bannière"  />
+			<field name="banniere_title_text_align" label="Alignement du titre de la bannière"  />
+			<field name="banniere_description_color" label="Couleur du texte"  />
+			<field name="banniere_description_font_size" label="Taille du texte"  />
+			<field name="banniere_description_font_family" label="Police du texte"  />
+			<field name="banniere_description_text_align" label="Alignement de la description de la bannière"  />
+			<field name="button_nous_rejoindre_color" label="Couleur du bouton 'Nous rejoindre'"  />
+			<field name="button_nous_rejoindre_font_size" label="Taille du texte du bouton 'Nous rejoindre'"  />
+			<field name="button_nous_rejoindre_font_family" label="Police du texte du bouton 'Nous rejoindre'"  />
+			<field name="button_nous_rejoindre_rounded" label="Bouton 'Nous rejoindre' arrondie"  />
+			<field name="button_nous_rejoindre_color_text" label="Couleur du text dans le bouton 'Nous rejoindre'"  />
+			<field name="baniere_title_color" label="Couleur du titre dans la bannière"  />
+			<field name="baniere_title_font_size" label="Taille du text dans la bannière"  />
+			<field name="baniere_title_font_family" label="Police du titre dans la bannière"  />
+			<field name="baniere_title_text_align" label="Alignement du titre dans la bannière"  />
+			<field name="baniere_description_color" label="Couleur du texte"  />
+			<field name="baniere_description_font_size" label="Taille du texte"  />
+			<field name="baniere_description_font_family" label="Police du texte"  />
+			 
+			
+			<field name="footer_content" label="Contenu du pied de la page" />
+			<field name="footer_text_color" label="Couleur du texte dans le pied de page" />
+			<field name="footer_text_font_size" label="Taille du texte dans le pied de page"  />
+			<field name="footer_text_font_family" label="Police du texte dans le pied de page" />
+			<field name="footer_text_text_align" label="Alignement du texte dans le pied de page"  />
+			<field name="footer_text_height" label="Hauteur du pied de la page" />
+			<field name="footer_text_background_color" label="Couleur de l'arrière plan du pied de la page" />
+			<field name="actif" label="Active" />
+			<field name="css_txt" label="Code CSS" />
+			<field name="js_txt" label="Code Javascript" />
+				
+
+
+		</fields>
+			
+	</i8n:strings>
+	
+</nxl>

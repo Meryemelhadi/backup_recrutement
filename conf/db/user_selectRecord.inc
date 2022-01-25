@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_civility,_first_name,_last_name,_email,_role,_interim,_mobile_phone,_direct_phone,_local_phone,_fax,_personal_phone,_group,_photo FROM _user"; ?>

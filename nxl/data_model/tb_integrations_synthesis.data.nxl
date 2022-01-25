@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+		<views>
+			<view 
+				name	= "rct_vacancy.dashboards.integrations_synthesis.search"
+				table	= "rct_vacancy">
+				<fields>
+					<field name="first_name" label="first_name" type="line" />
+					<field name="last_name" label="last_name" type="line" />
+					
+					<field name="category_oid" label="category_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy_category.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="category..." />
+					
+					<field name="contract_type_oid" label="contract_type_oid" type="text-choice" control="select" multiple="false" ds="db:rct_contract_type.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="contract type" />
+					
+					<field name="hire_date_start" label="hire_date_start" type="date"  />
+					<field name="hire_date_end" label="hire_date_end" type="date"  />
+					
+					<field name="hire_date_3_month_start" label="hire_date_3_month_start" type="date" />
+					<field name="hire_date_3_month_end" label="hire_date_3_month_end" type="date" />
+					
+					<field name="hire_date_6_month_start" label="hire_date_6_month_start" type="date" />
+					<field name="hire_date_6_month_end" label="hire_date_6_month_end" type="date" />
+					
+					<field name="subsidiary_oid" label="subsidiary_oid" type="text-choice" control="select" multiple="false" ds="db:rct_subsidiary.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="subsidiary_oid..." />
+					
+					<field name="contrat_signing" label="contrat_signing" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="integration_plan" label="integration_plan" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="integration_note" label="integration_note" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="instant_feedback" label="instant_feedback" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="delayed_feedback" label="delayed_feedback" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="internship_title" label="internship_title" type="line" />
+					<field name="executive_committee_presentation" label="executive_committee_presentation" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="internship_start_start" label="internship_start_start" type="date" />
+					<field name="internship_start_end" label="internship_start_end" type="date" />
+					<field name="internship_end_start" label="internship_end_start" type="date" />
+					<field name="internship_end_end" label="internship_end_end" type="date" />
+				</fields>
+			</view>
+						
+			<view 
+				name	= "rct_vacancy.dashboards.integrations_synthesis.list"
+				table	= "rct_vacancy" 
+				handler	= "lib.recruitment.dashboards.records.integrations_synthesis">
+				<fields>				
+					<field name="first_name" label="first_name" type="line" />
+					<field name="last_name" label="last_name" type="line" />
+					<field name="category" label="category" type="line" />
+					<field name="contract_type" label="contract_type" type="line" />
+					<field name="subsidiary" label="subsidiary" type="line" />
+					<field name="contrat_signing" label="contrat_signing" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="hire_date" label="hire_date" type="date" format="%d %B %Y"  />
+				
+					<field name="hire_date_3_month" label="hire_date_3_month" type="date" format="%d %B %Y"  />
+					<field name="hire_date_6_month" label="hire_date_6_month" type="date" format="%d %B %Y"  />
+					<field name="integration_plan" label="integration_plan" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="integration_note" label="integration_note" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="instant_feedback" label="instant_feedback" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="delayed_feedback" label="delayed_feedback" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+					<field name="internship_title" label="internship_title" type="line" />
+					<field name="internship_start" label="internship_start" type="date" format="%d %B %Y"  />
+					<field name="internship_end" label="internship_end" type="date" format="%d %B %Y"  />
+					<field name="executive_committee_presentation" label="executive_committee_presentation" type="text-choice" list="recruitment.boolean_list" control="select" prompt="select state" sqlType="integer" />
+				</fields>
+			</view>
+		</views>
+	</data>
+</nxl>

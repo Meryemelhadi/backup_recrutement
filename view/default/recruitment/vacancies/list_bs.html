@@ -1,0 +1,480 @@
+{content:page.content}
+<!--! {require:css/recruitment/recruitment.css:skin} -->
+{require:css/recruitment/vacancies.css:skin}
+<link href="/nx/controls/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"  media="all" />
+<script>
+	/* set current page BC */
+	container.bc.resetLink();
+</script>
+
+<div class="pm-page-title-wrapper">
+    <div class="pm-page-title-inner-wrapper">
+        <div class="pm-title" style="color:rgb(74, 121, 204) !important; float:left">{string:"page_title_list"}</div>	
+	</div>
+</div>
+<script language="php">
+	$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+</script>
+<style>
+.table>tbody>tr>td {
+    border-top: none;
+}
+#form_rct_vacancy_search {
+    font-size: 12.8px;
+}
+.tab_panel {
+    border: solid 1px #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 300px;
+	background: rgba(221, 221, 221, 0.5);
+    margin-bottom: 10px;
+}
+.row {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 10px;
+	line-height: 22px;
+}
+.panel-content {
+    font-size: 13px;
+    font-weight: bold;
+}
+.stat-block {
+    clear: both;
+    padding: 13px;
+    margin: 0px;
+    margin-bottom: 5px;
+    background-color: #F6F6F6;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    line-height: 18px;
+}
+.details {
+    color: #888;
+    font-size: 13px;
+}
+.details span {
+    float: left;
+    margin-right: 10px;
+    color: #82a7e9;
+    font-size: 25px;
+}
+.boot_legend {
+    clear: both;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+    -webkit-box-shadow1: 0 1px 4px rgba(0, 0, 0, 0.07);
+    box-shadow1: 0 1px 4px rgba(0, 0, 0, 0.07);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.boot_legend .portlet-title {
+    background-color: #eee;
+    border-radius: 4px 4px 0 0;
+    padding: 8px;
+    height: 35px;
+    border-bottom: 1px solid #ddd;
+}
+.boot_legend .caption {
+    color: #333;
+    float: left;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 16px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    margin-top: 1px;
+}
+.boot_legend i {
+    float: left;
+    margin-top: 2px;
+    display: inline-block !important;
+    font-size: 13px;
+    margin-right: 5px;
+    color: #666;
+}
+.boot_legend .portlet-body {
+    clear: both;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 0px 0px 4px 4px;
+}
+.slimScrollDiv {
+    position: relative;
+    overflow: hidden;
+    width: auto;
+}
+.slimScrollDiv .scroller {
+    overflow: hidden;
+    width: auto;
+    height: auto;
+}
+.slimScrollDiv .task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+}
+#vacancy-directory-grid .panel-heading{
+	display: table;
+    width: 100%;
+}
+#vacancies_list .search-panel{
+	background: #FAFAFA;
+}
+#vacancies_list .search-panel button{
+	margin-right: 5px;
+}
+#vacancies_list .search-panel-inner-wrapper{
+	display: table;
+    width: 100%;
+}
+.search-panel a:hover { 
+    background: #eee !important;
+}
+.search-panel a { 
+    font-size: 14px;
+}
+</style>
+{include:common/search_condition}
+<!--<table class="table">
+	<tr>
+		<td class="left-column">--><br><br><br>
+	<div class="row" id="vacancies_list">
+			<div class="col-md-9">
+			<div class="pm-grid-outer-wrapper">
+				<div>
+					<div class="generis-toolbar-wrapper">
+						<div class="generis-toolbar" style="display:none;">
+							<a class="s-icon si-add" href="javascript:void(0);" onclick="document.location.href='{=add.url}'; return window.stopEvent(event);" onclickX="ajax_navigate(event,'{=add.url}','content'); return false;"><span>{string:"add"}</span></a>
+							<a class="s-icon si-zoom" href="javascript:void(0);" onclick="PMDH.toggle('search-panel', 'appear'); return false;"><span>{string:"search"}</span></a>
+							{if:#property:showSearch# == 'yes'}
+							<a class="s-icon si-arrow-refresh" href="javascript:void(0);" onclick="ajax_navigate(event,'{=list.url}','content'); return false;"><span>{string:"cancel_search"}</span></a>
+							{/if}
+							<a class="s-icon si-page-white-excel" onclick="document.location.href='{=xls_export.url}'; return window.stopEvent(event);" href="javascript:void(0);"><span>{string:"xls_export"}</span></a>
+						</div>
+						
+						<nav class="navbar navbar-default search-panel">
+						  <div class="container-fluid">
+							<div class="navbar-header">
+							  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							  </button>
+							</div>
+
+							<!-- Collect the nav links, forms, and other content for toggling -->
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							  <ul class="nav navbar-nav navbar-right">
+								<li>
+									<a style="margin-right: 5px;  border:0px;cursor:pointer;" onclick="document.location.href='{=add.url}'; return window.stopEvent(event);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;{string:"add"}</a> 
+								</li>
+								<li>
+									<a style="margin-right: 5px; border:0px;cursor:pointer;" onclick="PMDH.toggle('search-panel', 'appear'); return false;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;{string:"search"}</a> 
+								</li>
+								{if:#property:showSearch# == 'yes'}								
+								<li>
+									<a style="margin-right: 5px; border:0px;cursor:pointer;" onclick="ajax_navigate(event,'{=list.url}','content'); return false;"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;{string:"cancel_search"}</a> 
+								</li>
+								{/if}
+								<li>
+									<a style="margin-right: 5px;  border:0px;cursor:pointer;" onclick="document.location.href='{=xls_export.url}'; return window.stopEvent(event);"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;&nbsp;{string:"xls_export"}</a>  
+								</li>
+								
+							  </ul>
+							</div>
+						  </div>
+						</nav>
+
+						<!--<div class="search-panel" >
+							<div class="search-panel-inner-wrapper" style="height: 45px;"> 
+							   <button type="button" class="btn btn-default" onclick="document.location.href='{=add.url}'; return window.stopEvent(event);"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;{string:"add"}</button> 
+							   <button type="button" class="btn btn-default" onclick="PMDH.toggle('search-panel', 'appear'); return false;"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;{string:"search"}</button> 
+							   {if:#property:showSearch# == 'yes'}
+							   <button type="button" class="btn btn-default" onclick="ajax_navigate(event,'{=list.url}','content'); return false;"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;{string:"cancel_search"}</button> 
+							   {/if}
+							   <button type="button" class="btn btn-default" onclick="document.location.href='{=xls_export.url}'; return window.stopEvent(event);"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;&nbsp;{string:"xls_export"}</button>  
+							</div>
+						</div>-->
+					</div>
+					
+					
+					<?php $this->setProperty('forceDisplay','no'); ?>
+					<div onclick="return window.stopEvent(event);">
+					{include:common/search_get_bs}
+					</div>
+				</div>
+				
+				<!--! {records:page_pending.records} -->
+		
+				{if:records.count>0}
+				<div class="vacancies-validation-wrapper">
+					<div>
+						<a class="vacancies-validation-title" href="javascript:void(0)" onclick="PMDH.toggle(PMDH.getNextSibling(this));">{string:"title_pending_vacancies"}</a>
+						<div class="entries" style="display:none">
+							<!--! {record} -->
+							<a href="javascript:void(0)" onclick="ajax_navigate(event,'{=validate.url}{record.url_key}','content');">[{field:workflow_state}] <strong>{field:name} ({field:number})</strong>, {string:"by"} {field:requested_by} {string:"date_prefix_lc"} {field:request_date}</a>
+							<!--! {/record} -->
+						</div>
+					</div>
+				</div>
+				{/if}
+			
+				<!--! {/records} -->
+
+		<script language="php">
+		 $etat = '';
+		 $first = true;
+		</script>
+
+				<!--! {records:page.records} -->
+				{if:records.count > 0}
+				<script language="php">
+					$editUrl = $this->getProperty('edit.url');
+					$editUrlDir = dirname($editUrl).'/';
+					$editUrlBase = 'directory.php?nxo=edit&mode=page&filterKey='.urlencode($this->getProperty('filterKey'));
+					$candidatesUrlBase = 'directory.php?nxo=candidates&mode=page&filterKey='.urlencode($this->getProperty('filterKey'));
+				</script>
+					
+				<div class="directory-grid-wrapper" id="vacancy-directory-grid">
+				
+					<!--! {record} -->
+	
+<script language="php">
+	if(!$this->getProperty('no_project')){
+		$vacancy_project_record = $_nx_record->vacancy_project->html;
+		$vacancy_project_record_object = $_nx_record->vacancy_project->object;
+
+		if($vacancy_project!=$vacancy_project_record)
+		{
+			
+			if(!$first) {
+				echo '</div><br>';
+			}
+			$first = false;
+			$vacancy_project = $vacancy_project_record;
+			echo '<div class="tab_panel">';
+			if($vacancy_project_record_object != null && $vacancy_project_record_object != 0)
+				echo '<h4 style="color: #647C93 !important;">'.__('vacancy_project').' :   '.$vacancy_project_record.'</h4>';
+			else echo '<h4 style="color: #647C93 !important;">'. __("other_vacancies").'</h4>';
+			
+</script>
+
+<script language="php">
+		}
+	}
+</script>
+		
+
+					<script language="php">
+						$oid = $_nx_record->oid->object;
+						$editUrl = $editUrlDir.'void-'.$oid.'/'.$editUrlBase.$_nx_record->getUrlKey();
+						$candidateUrl = $editUrlDir.'void-'.$oid.'/'.$candidatesUrlBase.$_nx_record->getUrlKey();
+					</script>
+					<div class="panel panel-default" onclick="document.location.href='{var:editUrl}'" style="cursor:pointer">
+						<div class="panel-heading">
+							<i class="icon-folder-open" style="color:gray ; float: left; margin-right: 10px; font-size: 20px;" title="Planifié par vous"></i>
+							{if:%field.html:contract_type_oid% == 'Stage'}
+								<span style="font-weight: bold;color: #7FBA00;font-size: 20px;float: left;margin-right: 5px; top: -5px; position: relative;" title="Stage">S</span>
+							{/if}
+							{if:%field.object:manager_oid% == %user:oid%}
+								<div class="star-five yellow" style="float:left;margin-right:5px;" title="{string:'Poste dont je suis le recruteur'}"></div>
+							{/if}
+							<div class="panel-content">
+								<span>
+									<span id="565" style="font-size:1.1em">{field:name} , {if:#field.object:code# != ""}N° {field:code}{/if}</span>
+									<span class="right">
+										<i class="icon-user" style="color:gray; float: left; margin-right: 5px; font-size: 15px;"></i>
+										{string:"field:manager_oid"} : {field:manager_oid}
+									</span>
+									<span class="right" style="margin-right: 10px;">
+										{if:#field:opening_date# != '-/-/-'}<i class="icon-calendar" style="color:gray; float: left; margin-right: 5px; font-size: 15px;"></i>
+										{field.label:opening_date} : {field:opening_date}
+										{/if}
+									</span>
+									
+								</span>
+							</div>
+						</div>
+						<div class="panel-body last-inteviews-body">
+							<div class="row">
+								<div class="col-md-4 col-sm-4">
+									<span class="field-label">Poste : <span style="padding-left:0px">&nbsp;  {field:category_oid}{if:#field.object:category_oid# != '' && #field.object:contract_type_oid#}, {/if}{field:contract_type_oid}  &nbsp;
+									</span>
+									<br>
+									<span class="field-label">{field.label:closing_date} :</span>
+                                        <span class="field-content">
+                                        {if:#field:closing_date# != '-/-/-'}{field:closing_date}{else}-{/if}
+                                        </span>
+								</div>
+								<div class="col-md-4 col-sm-4">
+									
+									<span>{field.label:subsidiary_oid} :</span> <span class="field-content">{field:subsidiary_oid}</span>
+									<br/>
+									
+									<span class="field-label">{field.label:service_oid} :</span> <span class="field-content">{field:service_oid}</span>
+									<br/>
+								</div>
+								<div class="col-md-4 col-sm-4">
+									{if:#field.object:current_step# != 0}<span class="field-label">{field.label:current_step} :</span> <span class="field-content">{field:current_step}</span>
+                                        <br/>{/if}
+									<span class="field-label">{string:"recruited"} :</span> <span class="field-content">{field:rekrute_count}/{field:number} {string:"to recruit"}</span>
+                                        <br/>
+                                        <!--<span class="field-label">{string:"application_type"} :</span> <span class="field-content">{field:application_type}</span>
+                                        <br/>-->
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4 col-sm-4">
+								<span class="field-label">{string:"number_candidates"} :</span> <span class="field-content candidate_count">{field:candidates_count}</span>
+								</div>
+								<div class="col-md-4 col-sm-4">
+									<span class="field-label">{field.label:duty_station_oid} :</span> <span class="field-content">{field:duty_station_oid}</span>
+									<br/>
+									<span class="field-label">{field.label:establishment} :</span> <span class="field-content">{field:establishment}</span>
+								</div>
+								<div class="col-md-4 col-sm-4">{field.object:multiposting_status}
+								{if:#property:use_multiposting# == true}
+									{if:#field.html:multiposting_clics# != "#"}
+									<span class="field-label">{field.label:multiposting_status} :</span> 
+									{if:#field.object:multiposting_status# == 'Active' || #field.object:multiposting_status# == 'Active+Incomplete' || #field.object:multiposting_status# == 'Update'}
+										<span class="label" style="font-size:1em; background-color:rgba(0,128,0,0.31);border: solid 1px rgba(0,128,0,0.31);border-radius: 4px;color:#000">{field:multiposting_status}{field:status_pourcent}</span>
+									{elseif:#field.object:multiposting_status# == 'Incomplete' || #field.object:multiposting_status# == 'New' || #field.object:multiposting_status# == 'Validation Pending'}
+										<span class="label" style="font-size:1em; background-color:rgba(255,165,0,0.36);border: solid 1px rgba(255,165,0,0.36);border-radius: 4px;color:#000">{field:multiposting_status}{field:status_pourcent}</span>
+									{elseif:#field.object:multiposting_status# == 'Expired' || #field.object:multiposting_status# == 'Destroyed'}
+										<span class="label" style="font-size:1em; background-color:rgba(128,128,128,0.34);border: solid 1px rgba(128,128,128,0.34);border-radius: 4px;color:#000">{field:multiposting_status}{field:status_pourcent}</span>
+									{elseif:#field.object:multiposting_status# == 'Draft'}
+										<span class="label" style="font-size:1em; background-color:rgba(255,255,0,0.23);border: solid 1px rgba(255,255,0,0.23);border-radius: 4px;color:#000">{field:multiposting_status}{field:status_pourcent}</span>
+									{/if}
+									
+									
+									<br/>
+									{/if}
+								{/if}
+								{if:#property:use_multiposting# == true}
+											{if:#field.html:multiposting_clics# != "#"}
+											<span class="field-label">{field.label:multiposting_clics} :</span>
+											<span class="field-content">
+											{field.html:multiposting_clics}
+											</span>
+											<br/>
+											{/if}
+											{if:#field.html:multiposting_clics# != "#"}
+											<span class="field-label"><a href="{var:PORTAL_URL_PREFIX}/recruitmentmp/posting.php?nxo=edit&from_void=1&oid={field:multiposting_oid}">{string:"multiposting_url"}</a></span>
+
+											<br/>
+											{/if}
+										{/if}
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4 col-sm-4"></div>
+								<div class="col-md-4 col-sm-4">
+									{if:#field:key_readonly# == 0 or #field:key_recrute# != 0 or #field:key_total_control# !=0}
+									<a href="{var:editUrl}" style="background: #5382F5 none repeat scroll 0% 0%; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;"><span class="glyphicon glyphicon-edit" style="color:#fff ; margin-right:5px" title="{string:'edit_helper'}"></span>{string:"edit_helper"}</a>
+								
+									
+								{/if}
+								</div>
+								<div class="col-md-4 col-sm-4">
+								{if:#field:key_readonly# == 0 or #field:key_recrute# != 0 or #field:key_total_control# !=0}
+									
+								
+									<a href="javascript:void(0);" onclick="ajax_navigate(event,'{var:candidateUrl}','content');" style="background: #5382F5 none repeat scroll 0% 0%; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;" title="{string:'users_helper'}"><i class="icon-group" style="color:#fff ; margin-right:5px"></i>
+									
+									{string:"users_helper"}</a>
+								{/if}
+								</div>
+								
+								
+							</div>
+						</div>
+					</div>
+
+
+					
+					<!--! {/record} -->
+				</div>
+				{/if}
+				<!--! {/records} -->
+
+				{include:common/grid_empty}
+				{include:common/pagination}
+			
+			</div>
+		
+		</div>
+		</div>
+		<!--</td><td class="right-column" style="width: 20%;border: none;">-->
+		<div class="col-md-3">
+			<div class="stats-overview stat-block">
+				<div class="details">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>	
+					{string:"page_message_list"}<br/><br/>
+					{string:"page_message_list_details"}
+				</div>
+			</div>
+			
+			{if:#property:use_multiposting# == true}
+				{if:#property:count_multiposting# >0}
+				<div class="portlet tasks-widget boot_legend">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="fa fa-check"></i>{string:"multiposting-status-color"}
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="task-content">
+						<div class="slimScrollDiv">
+							<div class="scroller" data-always-visible="1" data-rail-visible1="1">
+								<!-- START TASK LIST -->
+								<ul class="task-list legend-list">
+									<li><div class="color-div color_yellow"></div><span class="legend color_legend"><span class="dots">|</span> <span class="span_status">{string:"Draft"}</span></span></li>
+									<li><div class="color-div color_green"></div><span class="legend color_legend"><span class="dots">|</span> <span class="span_status">{string:"Active"}, {string:"Active+Incomplete"}, {string:"Update"}</span></span></li>
+									<li><div class="color-div color_orange"></div><span class="legend color_legend"><span class="dots">|</span> <span class="span_status">{string:"New"}, {string:"Incomplete"}, {string:"Validation Pending"}</span></span></li>
+									<li><div class="color-div color_gray"></div><span class="legend color_legend"><span class="dots">|</span> <span class="span_status">{string:"Expired"}</span></span></li>
+
+								</ul>
+								<!-- END START TASK LIST -->
+							</div>
+						</div>
+					</div>
+							
+				</div>
+			</div>
+				
+				{/if}
+			{/if}
+		<!--</td>
+	</tr>
+</table>-->
+		</div>
+	</div>
+
+<script>
+	PMDH.Skin.LightSky.Grid.init('', {
+		wrapperClass	: 'directory-grid-wrapper',
+		gridClass		: 'directory-grid',
+		gridRowClass	: 'directory-grid-row'
+	});
+	window.stopEvent = function(evt) {
+		evt = evt || window.event;
+		if(evt.stopPropagation)evt.stopPropagation(); else evt.cancelBubble=true;
+		return false;
+	}
+</script>
+
+{/content}
+
+<?php
+if(isset($_GET['mode']) && $_GET['mode']!='page') {
+?>
+	{=page.content}
+{else}
+	{include:page_bs}
+{/if}

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_key FROM _rct_keyword"; ?>

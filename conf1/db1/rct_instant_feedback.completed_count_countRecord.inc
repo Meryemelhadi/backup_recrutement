@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_instant_feedback WHERE _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."' AND _fill_state='1'"; ?>

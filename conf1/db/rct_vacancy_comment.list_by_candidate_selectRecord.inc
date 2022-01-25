@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _interview_oid,_date,_synthesis_oid,_date_eval FROM _rct_vacancy_comment"; ?>

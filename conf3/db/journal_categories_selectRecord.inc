@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT * FROM _journal_categories"; ?>

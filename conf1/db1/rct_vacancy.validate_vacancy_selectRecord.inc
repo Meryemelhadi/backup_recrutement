@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _workflow_state,_opening_date,_progress_level,_current_step FROM _rct_vacancy WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

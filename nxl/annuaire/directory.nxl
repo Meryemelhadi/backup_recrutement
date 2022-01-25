@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../datamodel/all.data.nxl"/>
+<include file = "components/directory.comp.nxl"/>
+
+	<main 
+		xmlns				= "http://www.presencemedia.com/recruitment/annuaire/components/directory.comp" 
+	
+		name				= "directory"
+		path				= "/recruitment/annuaire/"
+		skin				= "#global:RECRUITMENT_SKIN:generis#"
+		strings				= "recruitment_annuaire_directory"
+
+		ds_search			= "rct_client.search"
+		ds_list				= "rct_client.list"
+		ds_add				= "rct_client"
+		ds_add_process		= "rct_client"
+		ds_edit				= "rct_client.edit"
+		ds_edit_process		= "rct_client.edit"
+		ds_delete			= "rct_client.delete"
+		ds_view				= "rct_client.view"
+		ds_xls_export 		= "rct_client.excel"
+
+		template_list		= "recruitment.annuaire.list"
+		template_add		= "recruitment.annuaire.add"
+		template_edit		= "recruitment.annuaire.edit"
+		template_view		= "recruitment.annuaire.view"
+		template_xls_export = "exports.excel.directory_rh"
+		>
+
+		
+		<i8n:strings 
+			name		= "recruitment_annuaire_directory" 
+			lang		= "fr" 
+			inherit		= "recruitment_default_strings"
+			xmlns		= "http://www.w3.org/1999/xhtml"
+			xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+	
+		<i8n:string id="page_title" value="Annuaire Clients" />
+		
+		<i8n:string id="page_title_list" value="L\'annuaire des clients externes" />
+		<i8n:string id="page_title_add" value="Ajout d\'un nouveau client" />
+		<i8n:string id="page_title_edit" value="Edition du client" />
+		<i8n:string id="page_title_view" value="Fiche du client" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des clients" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d\'ajouter un nouvau client" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier le client sélectionné" />
+		<i8n:string id="page_message_view" value="Détails du client sélectionné" />
+		
+		<i8n:string id="page_message_list_details" value="Cliquer sur un client pour en visualiser les détails" />
+		<i8n:string id="page_message_add_details" value="Après avoir remplis les champs du formulaire, cliquer sur envoyer pour ajouter le nouvau client" />
+		<i8n:string id="page_message_edit_details" value="Cliquer sur \'Envoyer\' pour valider les modifications et revenir à la liste des clients, ou sur \'Retour\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" value="Cliquer sur \'Retour\' pour revenir à la liste des clients" />
+
+		<i8n:string id="dlg_wait_title" value="Veuillez patienter" />
+		<i8n:string id="dlg_wait_content" value="En cours d\'ajout des nouvelles données" />
+
+		<i8n:string id="dlg_success_title" value="Action réussie" />
+		<i8n:string id="dlg_success_content" value="Opération effectuée avec succès" />
+
+		<i8n:string id="dlg_back_title" value="Annulation de la saisie en cours" />
+		<i8n:string id="dlg_back_content" value="Cette action va supprimer les données en cours de saisie. Souhaitez-vous continuer ?" />
+
+		<i8n:string id="dlg_delete_title" value="Suppression définitive d\'un client" />
+		<i8n:string id="dlg_delete_content" value="Etes vous sûr de vouloir supprimer ce client ? Cette action est irréversbile, vous perdrez toutes les informations qui lui sont relatives." />
+		
+		<i8n:string id="dlg_success" value="Valider" />
+		<i8n:string id="dlg_cancel" value="Annuler" />
+		<i8n:string id="dlg_ok" value="Ok" />
+		
+		<i8n:string id="details" value="Détails" />
+		<i8n:string id="edit" value="Modifier" />
+		<i8n:string id="delete" value="Supprimer définitivement" />
+
+		<i8n:string id="Next" value="Suivant" />
+		<i8n:string id="Previous" value="Précédent" />
+		<i8n:string id="Results" value="Résultats" />	
+		
+		<i8n:string id="cancel_search" value="Annuler la recherche" />
+
+		<i8n:string id="empty_list" value="Aucun client ne figure dans l'annuaire"/>
+
+		<i8n:string id="all_letters" value="#" />
+		<i8n:string id="search" value="Rechercher" />
+		<i8n:string id="add" value="Ajouter" />
+		<i8n:string id="back" value="Retour" />
+		<i8n:string id="submit" value="Enregistrer" />
+		<i8n:string id="xls_export" value="Export Excel" />	
+		
+		<i8n:string id="profil_general_informations" value="Informations sur la société" />
+		<i8n:string id="profile_infos" value="Identité" />
+		<i8n:string id="representant_informations" value="Informations sur le représentant de la société" />
+		<i8n:string id="coordinates" value="Coordonnées" />
+		<i8n:string id="profil_logo" value="Logo" />
+		<i8n:string id="new_logo" value="Nouveau logo" />
+		<i8n:string id="profil_personal_informations" value="Supprimer" />
+
+		<!-- les labels -->
+
+		<i8n:string id="field:rep_tel_fixe">Tel fixe du rprésentant</i8n:string>
+		<i8n:string id="field:rep_tel_mobile">Tel mobile du rprésentant</i8n:string>
+	    <i8n:string id="field:rep_fax">Fax du représentant</i8n:string>
+		<i8n:string id="field:email">Email</i8n:string>
+		<i8n:string id="field:tel">Tel</i8n:string>
+		<i8n:string id="field:fax">Fax</i8n:string>
+		<i8n:string id="field:logo">Logo</i8n:string>
+		<i8n:string id="field:adresse">Adresse</i8n:string>
+		<i8n:string id="field:ville">Ville</i8n:string>
+		<i8n:string id="field:rep_email"  value="Email du représentant"/>
+		<i8n:string id="field:rep_tel_mobile"  value="Tel du représentant"/>
+		<i8n:string id="representant"  value="Représentant"/>
+		<i8n:string id="field:nom_societe"  value="Nom Société"/>
+		<i8n:string id="field:rep_first_name"  value="Prénom du représentant"/>
+		<i8n:string id="field:rep_last_name"  value="Nom du représentant"/>
+		<i8n:string id="field:site_web"  value="Site Web"/>
+		<i8n:string id="field:rep_fonction"  value="Fonction du représentant"/>
+ 
+		<i8n:string id="field:disabled">Désactivé</i8n:string>
+		
+		<i8n:string id="rep_first_name" value="Nom" />	
+		<i8n:string id="rep_last_name" value="Prénom" />	
+		<i8n:string id="rep_fonction" value="Fonction" />
+		<i8n:string id="rep_tel_fixe" value="Tel fixe" />
+		<i8n:string id="items_search" value="Client(s) trouvé(s)" />	
+		<i8n:string id="view_helper" value="Détails" />	
+		<i8n:string id="edit_helper" value="Editer" />	
+		<i8n:string id="delete_helper" value="Supprimer définitivement" />	
+		
+		<i8n:string id="legend" value="Légende" />
+
+		<i8n:string id="field.prompt:town">Sélectionnez une ville ...</i8n:string>
+
+		<i8n:string id="field:mobile_phone">GSM</i8n:string>
+		
+		</i8n:strings>
+
+	</main>
+
+</nxl>

@@ -1,0 +1,89 @@
+<div class="pm-grid-outer-wrapper">
+	<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="ajax_navigate(event,'{=candidates_list.url}','content'); return false;">
+			<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_candidates"}</span></span>
+		</a>
+		<span class="pm-button-sep"></span>
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="PMDH.toggle('search-panel', 'appear'); return false;">
+			<span class="btn-bg"><span class="s-icon si-zoom">{string:"search"}</span></span>
+		</a>
+	</div>
+	{include:common/search_displayed}
+
+	<!--! {records:page.records} -->
+	<div class="directory-grid-wrapper" id="candidates_list_grid">
+	
+		<div class="directory-grid-selection clear-both">
+							
+			<div class="selection-wrapper">
+				<input type="checkbox" name="selection-checkbox" class="select-all-checkbox" />
+			</div>
+			
+			<div class="actions-droplist-wrapper">
+
+				<select name="grid-selection-actions" id="grid-selection-actions" style="display:none;">
+					<option value="?">{string:"actions_prompt"}</option>
+					<option value="{action:'urlInMB', config: window.dlg_mCreateSLCfg}">{string:'action_create_short_list'}</option>
+					<option value="{action:'urlInMB', config: window.dlg_mAddToSLCfg}">{string:'action_add_to_short_list'}</option>
+					<option value="{action:'navigate', config: window.dlg_mSendToICCfg}">{string:'action_send_to_internal_client'}</option>
+					<option value="{action:'navigate', config: window.dlg_mSelectForJobCfg}">{string:'action_select_for_job'}</option>
+					<option value="{action:'navigate', config: window.dlg_mRefuseCfg}">{string:'action_refuse_selection'}</option>
+					<option value="{action:'confirm', config: window.dlg_mUnlinkCfg}">{string:'action_unlink_selection'}</option>
+				</select>
+				
+				<script>
+					new Generis.Dropdownlist({
+						control: 'grid-selection-actions',
+						onchange: function() {
+							Generis.Recruitment.doSelectAction(this);
+						}
+					});
+				
+					window.dlg_mCreateSLCfg = { title:"{string:'add_short_list_title'}", url: "{=add_short_list.url}", width:550, paramName:'candidate_oid' };
+					window.dlg_mAddToSLCfg = { title:"{string:'add_to_short_list_title'}", url: "{=add_to_short_list.url}", width:550, paramName:'candidate_oid' };			
+					window.dlg_mSendToICCfg = { url :'{=send_to_ic.url}', paramName:'candidate_oid' };
+					window.dlg_mSelectForJobCfg = { url :'{=accepted_for_job.url}', paramName:'candidate_oid' };
+					window.dlg_mRefuseCfg = { url :'{=refuse_candidate.url}', paramName:'candidate_oid' };
+					
+					window.dlg_mUnlinkCfg = { 
+						title : "{string:'dlg_unlink_selection_title'}",
+						message : "{string:'dlg_unlink_selection_content'}", 
+						viewMode : "okCancel", 
+						url : "{=unlink_candidate.url}", 
+						paramName:'candidate_oid',
+						target : "content", 
+						labels : { 
+							ok : "{string:'dlg_ok'}", 
+							cancel : "{string:'dlg_cancel'}" 
+					} };					
+				</script>
+				
+			</div>
+		</div>
+
+		<h3 class="grid-header">{string:"candidates_search_results"}</h3>
+		
+		<!--! {record} -->
+		{include:recruitment/vacancies/components/candidates_list}
+		<!--! {/record} -->
+		
+	</div>
+	<script>
+		PMDH.Skin.LightSky.Grid.init('', {
+			wrapperClass	: 'directory-grid-wrapper',
+			gridClass		: 'directory-grid',
+			gridRowClass	: 'directory-grid-row'
+		});
+	</script>
+	<!--! {/records} -->
+	{no_record}
+	<div class="empty-records">{string:"empty_candidate_search_list"}</div>
+	{/no_record}
+	
+</div>

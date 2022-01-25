@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("CREATE TABLE IF NOT EXISTS _rct_email_sample(_oid INT AUTO_INCREMENT NOT NULL,_name TEXT,_type_email varchar(5),_email_title TEXT,_email_content TEXT,_docs varchar(255),PRIMARY KEY(_oid))","CREATE TABLE IF NOT EXISTS _rct_email_sample_attached_file(_oid INT AUTO_INCREMENT NOT NULL,_email_oid integer,_file_name TEXT,PRIMARY KEY(_oid))",); ?>

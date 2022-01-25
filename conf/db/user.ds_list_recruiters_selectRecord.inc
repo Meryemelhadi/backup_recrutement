@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_first_name,_last_name FROM _user WHERE ".$this->getWhereClause("_user_credits","'?-rh'",'LIKE','OR','%','%',true,false,'|','false')." ORDER BY _first_name ASC,_last_name ASC "; ?>

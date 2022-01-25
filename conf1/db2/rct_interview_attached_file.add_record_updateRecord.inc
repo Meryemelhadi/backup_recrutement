@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview_attached_file SET _interview_oid='".$props->getProperty("object_oid","",true)."',_file_name='".$props->getProperty("file_name","",true)."'"; ?>

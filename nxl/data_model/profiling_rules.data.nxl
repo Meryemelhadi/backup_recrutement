@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<lists 	xmlns="http://www.nxfrontier.com/nxl/lists">
+	<list name="profiling_on">
+		<option value="subject">Recherche mots clefs dans le sujet de l'email</option>
+		<option value="body">Recherche mots clefs dans le corps (texte) de l'email</option>
+		<option value="cv">Recherche mots clefs dans le CV</option>
+		<!-- <option value="form_field">Recherche mots clefs dans un champ de formulaire de l'email</option> -->
+		<option value="form_field_category">Affecter valeur de champ de formulaire au Vivier</option>
+		<option value="form_field_profile">Affecter valeur de champ de formulaire au Profil</option>
+		<!-- <option value="form_all_fields">Recherche mots clefs dans tous les champs de formulaire de l'email</option>-->	
+	</list>
+
+	<list name="profiling_value_for">
+		<option value="list">Affecter valeurs dans les listes suivantes</option>
+		<option value="category">Appliquer la valeur du champ de formulaire au Vivier</option>
+		<option value="profile">Appliquer la valeur du champ de formulaire au Profil</option>
+	</list>
+</lists>
+
+<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+	<!-- tables definitions -->
+	<tables  init="create">
+		<table name="rct_profiling_rules">
+			<fields>
+			
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="index" label="index"  type="line" size="200" />
+				<field name="name" label="name"  type="line" size="200" />
+
+				<field name="keywords" label="keywords"  type="line" size="200" />
+				<field name="not_keywords" label="not_keywords"  type="line" size="200" />
+
+				<field name="vacancy" label="vacancy" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list_all" ds_format="{field:name} (N {field:code})" ds_field_value="oid" />
+
+				<field 
+					name			= "cand_channel"
+					label			= "cand_channel" 
+					type			= "text-choice" 
+					prompt			= "cand_channel..."
+					multiple		= "false"
+					control			= "select"
+					ds				= "db:rct_channel.ds_list@recruitment"
+					ds_format		= "{field:name}" 
+					ds_field_value="oid" sqlType="integer"/>
+
+				<field name="profiling_on" label="profiling_on" type="text-choice" 
+						default="cv" list="profiling_on" control="select" />
+				<field name="form_field" label="form_field"  type="line" size="200" />
+				<field name="profiling_value_for" label="profiling_value_for" type="text-choice" 
+						default="list" list="profiling_value_for" control="select" />
+
+				<field name="category_oid" label="category_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_category.ds_list" ds_format="{field:name}" ds_field_value="oid" />
+
+				<field name="profile" prompt="profile ..." label="profile" type="text-choice" control="select" multiple="false" ds="db:rct_keyword.ds_list" ds_format="{field:name}" ds_field_value="key" />
+
+				<field name="provider" prompt="provider ..." label = "provider" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+
+				<field name="establishment" label="establishment"  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+
+			</fields>
+		</table>
+
+	</tables>
+		
+	<!-- DML Views (gernerating SQL requests)-->
+	<views>
+		<view name="rct_profiling_rules.list" table="rct_profiling_rules">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="20" />				
+		
+			<sort>
+				<field name="index" label="index"  type="line" size="200" />
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="index" label="index"  type="line" size="200" />
+				<field name="name" label="name"  type="line" size="200" />
+
+				<field name="profiling_on" label="profiling_on" type="text-choice" 
+						default="cv" list="profiling_on" control="select" />
+
+				<field name="keywords" label="keywords"  type="line" size="200" />
+				<field name="not_keywords" label="not_keywords"  type="line" size="200" />
+
+				<field name="vacancy" label="vacancy" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list_all" ds_format="{field:name} (N {field:code})" ds_field_value="oid"  />
+
+				<field 
+					name			= "cand_channel"
+					label			= "cand_channel" 
+					type			= "text-choice" 
+					prompt			= "cand_channel..."
+					multiple		= "false"
+					control			= "select"
+					ds				= "db:rct_channel.ds_list@recruitment"
+					ds_format		= "{field:name}" 
+					ds_field_value="oid" sqlType="integer"/>
+
+				<field name="category_oid" label="category_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_category.ds_list" ds_format="{field:name}" ds_field_value="oid" />
+
+				<field name="profile" prompt="profile ..." label="profile" type="text-choice" control="select" multiple="false" ds="db:rct_keyword.ds_list" ds_format="{field:name}" ds_field_value="key" />
+
+				<field name="provider" prompt="provider ..." label = "provider" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+
+				<field name="establishment" label="establishment"  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+
+			</fields>		
+		</view>
+
+		<view name="rct_profiling_rules.excel" table="rct_profiling_rules">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+			</key>
+			<sort>
+				<field name="index" label="index"  type="line" size="200" />
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="index" label="index"  type="line" size="200" />
+				<field name="name" label="name"  type="line" size="200" />
+
+				<field name="profiling_on" label="profiling_on" type="text-choice" 
+						default="cv" list="profiling_on" control="select" />
+				<field name="form_field" label="form_field"  type="line" size="200" />
+				<field name="profiling_value_for" label="profiling_value_for" type="text-choice" 
+						default="list" list="profiling_value_for" control="select" />
+
+				<field name="keywords" label="keywords"  type="line" size="200" />
+				<field name="not_keywords" label="not_keywords"  type="line" size="200" />
+
+				<field name="vacancy" label="vacancy" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list_all" ds_format="{field:name} (N {field:code})" ds_field_value="oid" />
+
+				<field 
+					name			= "cand_channel"
+					label			= "cand_channel" 
+					type			= "text-choice" 
+					prompt			= "cand_channel..."
+					multiple		= "false"
+					control			= "select"
+					ds				= "db:rct_channel.ds_list@recruitment"
+					ds_format		= "{field:name}" 
+					ds_field_value="oid" sqlType="integer"/>
+
+				<field name="category_oid" label="category_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_category.ds_list" ds_format="{field:name}" ds_field_value="oid" />
+
+				<field name="profile" prompt="profile ..." label="profile" type="text-choice" control="select" multiple="false" ds="db:rct_keyword.ds_list" ds_format="{field:name}" ds_field_value="key" />
+
+				<field name="provider" prompt="provider ..." label = "provider" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+
+				<field name="establishment" label="establishment"  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+
+			</fields>		
+		</view>
+		
+		<view name="rct_profiling_rules.search" table="rct_profiling_rules">
+			<fields>
+				<field name="name" label="name"  type="line" size="200" />
+			</fields>
+		</view>
+
+		<view name="rct_profiling_rules.record" table="rct_profiling_rules">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="index" label="index"  type="line" size="200" />
+				<field name="name" label="name"  type="line" size="200" />
+
+				<field name="profiling_on" label="profiling_on" type="text-choice" 
+						default="cv" list="profiling_on" control="select" />
+				<field name="form_field" label="form_field"  type="line" size="200" />
+				<field name="profiling_value_for" label="profiling_value_for" type="text-choice" 
+						default="list" list="profiling_value_for" control="select" />
+
+				<field name="keywords" label="keywords"  type="line" size="200" />
+				<field name="not_keywords" label="not_keywords"  type="line" size="200" />
+
+				<field name="vacancy" label="vacancy" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list_all" ds_format="{field:name} (N {field:code})" ds_field_value="oid"  />
+
+				<field 
+					name			= "cand_channel"
+					label			= "cand_channel" 
+					type			= "text-choice" 
+					prompt			= "cand_channel..."
+					multiple		= "false"
+					control			= "select"
+					ds				= "db:rct_channel.ds_list@recruitment"
+					ds_format		= "{field:name}" 
+					ds_field_value="oid" sqlType="integer"/>
+
+				<field name="category_oid" label="category_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_category.ds_list" ds_format="{field:name}" ds_field_value="oid" />
+
+				<field name="profile" prompt="profile ..." label="profile" type="text-choice" control="select" multiple="false" ds="db:rct_keyword.ds_list" ds_format="{field:name}" ds_field_value="key" />
+
+				<field name="provider" prompt="provider ..." label = "provider" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+
+				<field name="establishment" label="establishment"  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+
+			</fields>		
+		</view>				
+
+		<view name="rct_profiling_rules.active_list" table="rct_profiling_rules">
+			<sort>
+				<field name="index" label="index"  type="line" size="200" />
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="index" label="index"  type="line" size="200" />
+				<field name="name" label="name"  type="line" size="200" />
+
+				<field name="profiling_on" label="profiling_on" type="text-choice" 
+						default="cv" list="profiling_on" control="select" />
+				<field name="form_field" label="form_field"  type="line" size="200" />
+				<field name="profiling_value_for" label="profiling_value_for" type="text-choice" 
+						default="list" list="profiling_value_for" control="select" />
+
+				<field name="keywords" label="keywords"  type="line" size="200" />
+				<field name="not_keywords" label="not_keywords"  type="line" size="200" />
+
+				<field name="vacancy" label="vacancy" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list_all" ds_format="{field:name} (N {field:code})" ds_field_value="oid"  />
+
+				<field 
+					name			= "cand_channel"
+					label			= "cand_channel" 
+					type			= "text-choice" 
+					prompt			= "cand_channel..."
+					multiple		= "false"
+					control			= "select"
+					ds				= "db:rct_channel.ds_list@recruitment"
+					ds_format		= "{field:name}" 
+					ds_field_value="oid" sqlType="integer"/>
+
+				<field name="category_oid" label="category_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_category.ds_list" ds_format="{field:name}" ds_field_value="oid" />
+
+				<field name="profile" prompt="profile ..." label="profile" type="text-choice" control="select" multiple="false" ds="db:rct_keyword.ds_list" ds_format="{field:name}" ds_field_value="key" />
+
+				<field name="provider" prompt="provider ..." label = "provider" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+
+				<field name="establishment" label="establishment"  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+
+			</fields>		
+		</view>				
+
+		<view name="rct_profiling_rules.add" table="rct_profiling_rules">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="index" label="index"  type="line" size="200" />
+				<field name="name" label="name"  type="line" size="200" />
+
+				<field name="profiling_on" label="profiling_on" type="text-choice" 
+						default="cv" list="profiling_on" control="select" />
+				<field name="form_field" label="form_field"  type="line" size="200" />
+				<field name="profiling_value_for" label="profiling_value_for" type="text-choice" 
+						default="list" list="profiling_value_for" control="select" />
+
+				<field name="keywords" label="keywords"  type="line" size="200" />
+				<field name="not_keywords" label="not_keywords"  type="line" size="200" />
+
+				<field name="vacancy" label="vacancy" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list_all" ds_format="{field:name} (N {field:code})" ds_field_value="oid" prompt="Set vacancy..."/>
+
+				<field 
+					name			= "cand_channel"
+					label			= "cand_channel" 
+					type			= "text-choice" 
+					prompt			= "set channel..."
+					multiple		= "false"
+					control			= "select"
+					ds				= "db:rct_channel.ds_list@recruitment"
+					ds_format		= "{field:name}" 
+					ds_field_value="oid" sqlType="integer"/>
+
+				<field name="category_oid" label="category_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate_category.ds_list" ds_format="{field:name}" ds_field_value="oid"  prompt="Set category..."/>
+
+				<field name="profile" prompt="profile ..." label="profile" type="text-choice" control="select" multiple="false" ds="db:rct_keyword.ds_list" ds_format="{field:name}" ds_field_value="key" />
+
+				<field name="provider" prompt="provider ..." label = "provider" type="text-choice" control="select" multiple="false" ds="db:rct_provider.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer"/>
+
+				<field name="establishment" label="establishment"  multiLines="no" type="text-choice" multiple="false" control="select" ds="entities.my_entities.ds_list@admin2" ds_format="{field:entity_name}" ds_field_value="oid" isKey="secondary" />
+
+			</fields>		
+		</view>				
+	</views>
+	
+</data>
+</nxl>

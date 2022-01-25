@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy SET _count_recrute=".$record->getFieldValue("count_recrute","DB","NULL"); ?>

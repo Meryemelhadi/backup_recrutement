@@ -1,0 +1,6 @@
+<?php $properties["query"]="SELECT _oid,_logo,_nom_societe,_site_web,_tel,_rep_first_name,_rep_last_name,_rep_fonction,_rep_tel_mobile,_rep_email,_ville FROM _rct_client WHERE ".$this->getWhereClause("_nom_societe","'".$this->getParamValue("nom_societe","","request","|")."'",'LIKE','OR','%','%',true,false,'|','false')." AND ".$this->getWhereClause("_site_web","'".$this->getParamValue("site_web","","request","|")."'",'LIKE','OR','%','%',true,false,'|','false')." AND ".$this->getWhereClause("_rep_first_name","'".$this->getParamValue("rep_first_name","","request","|")."'",'LIKE','OR','%','%',true,false,'|','false')." AND ".$this->getWhereClause("_rep_last_name","'".$this->getParamValue("rep_last_name","","request","|")."'",'LIKE','OR','%','%',true,false,'|','false')." AND ".$this->getWhereClause("_rep_fonction","'".$this->getParamValue("rep_fonction","","request","|")."'",'LIKE','OR','%','%',true,false,'|','false')." AND (".$this->getWhereClause("_nom_societe","'".$this->getParamValue("ltr","","request","|")."'",'LIKE','OR','','%',true,false,'|','false').")  ORDER BY _nom_societe ASC ";
+	$properties["pageOffset"]=0+(isset($_GET["page"])?$_GET["page"]:"0");
+	$properties["pageAlias"]='page';
+	$properties["nbRecords"]=0+'10';
+	$properties["query"] .= " LIMIT ".(string)($properties["nbRecords"]*$properties["pageOffset"]).",".$properties['nbRecords'];
+; ?>

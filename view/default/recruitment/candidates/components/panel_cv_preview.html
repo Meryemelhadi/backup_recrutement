@@ -1,0 +1,22 @@
+{record:page.record}
+{if:#field.string:cv_path:url# == ""}
+	{if:#field.object:src_text# == ""}
+		<div class="empty-records">Il n’ya pas de CV attaché à cette fiche candidat, Merci d’utiliser le bouton mise à jour de CV qui se trouve au dessus pour ajouter un CV.
+		</div>
+		<br>
+		<div class="div_center">
+			<button type="button" class="btn btn-default" onclick="window.update_cvConfig.exec(); this.blur(); return false;">
+				<span class="glyphicon glyphicon-import" aria-hidden="true"></span>&nbsp;&nbsp; {string:"update_resume"} 
+			</button>
+		</div>
+	{else}
+		<pre>{field.html:src_text}</pre>
+	{/if}	
+{else}
+<iframe src="{field.string:cv_path:url}"
+        width="100%" height="800" frameborder="0" marginwidth="0" marginheight="0" align="top" hspace="0" vspace="0" scrolling="0">
+</iframe>
+
+{/if}
+
+{/record}

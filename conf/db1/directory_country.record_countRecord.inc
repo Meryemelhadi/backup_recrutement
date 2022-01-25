@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _directory_country WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

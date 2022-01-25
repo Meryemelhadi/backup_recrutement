@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_vacancy_oid,_file_name FROM _rct_vacancy_attached_file"; ?>

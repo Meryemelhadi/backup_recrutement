@@ -1,0 +1,86 @@
+<?php
+(sizeof($_SESSION["recruitment_default_search"]) == 1 && $_SESSION["recruitment_default_search"][0] == "" )?  $recruitment_default_search = 0 : $recruitment_default_search = $_SESSION["recruitment_default_search"];
+$index = 0;
+$search = false;
+
+?>
+
+<div class="search-panel-inner-wrapper">
+	<!--! {form:page.search} -->
+	<script language="javascript" type="text/javascript">
+	//<![CDATA[
+	 window.currentForm = document.getElementById('form_rct_candidate_search2');
+	 if(window.currentForm)
+	 {
+		window.content_form_handler = new window.Generis.Forms(window.currentForm);
+	 }
+
+	//]]>
+	</script>
+	<table class="pm-search-grid">
+		<!--!{fields}-->
+		{if: %var:recruitment_default_search% == 0 || in_array(#field.name# , %var:recruitment_default_search%)}
+		{if: (%var:index% % 4) == 0}<tr>{/if}
+			{$highlightClass=''}
+			{if:
+				(#field.object# != '' && #field.type# != 'date' && #field.object# != #field.default#) ||
+				(#field.type# == 'date' && #field.string# != '-/-/-')
+			}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				
+			{/if}
+			<td>
+				<div class="control-main-wrapper normal-layout-control {$highlightClass}">
+					<div class="control-label-wrapper">
+						<div class="control-label">{field.label} :</div>
+					</div>
+					<div class="control-wrapper" id="{field.name}-control-wrapper">
+						<div class="control" id="{field.name}-control">{field.form}</div>
+					</div>
+					{if:field.help}
+					<div class="control-help-wrapper">
+						<div class="control-help" id="{field.name}-control-help">
+							{field.help}
+						</div>
+					</div>
+					{/if}
+				</div>
+			</td>
+			{if:field.is_last && (%var:index% % 4) < 3 }
+				<td colspan="{expr:3 - (%var:index% % 4)}" style="width:{expr:100*((3-(field.index % 4))/4)}%;color:#333001">&nbsp;</td>
+			{/if}
+			{if: (%var:index% % #=form.nb_fields_per_row|4#) == 3}</tr>{/if}
+            <?php $index++; ?>
+			{/if}
+			<!--!{/fields}-->
+			{if: (%var:index% % 4) == 0}<tr>{/if}
+
+		</tr>
+	</table>
+	<div class="submit-panel clear-both">
+		<button type="button" class="btn btn-sm" onclick="ajax_navigate(event,'{=search.url}&mode=ajax','content'); return false;" style="float:left">
+		 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;
+		 {string:"Annuler la recherche"}
+		</button>
+		
+
+		{if:%var:search% && !%var:saved_search%}
+		<script type="text/javascript">
+			document.getElementById('btn_add_search').style.display= 'inline-block';
+		</script>
+		{/if}
+		{if:%var:saved_search%}
+		<script type="text/javascript">
+			document.getElementById('btn_delete_search').style.display= 'inline-block';
+		</script>
+		{/if}
+		<button type="button" class="btn btn-sm" onclick="ajax_submit(event,this,'content','{=search.url}&mode=ajax',false); this.blur(); return false;" style="float:right">
+		 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;
+		 {string:"search"}
+		</button>
+		
+		<input type="submit" style="width:0px; height: 0px; border: none; padding: 0px; font-size: 0px;" value="" name="dummy_submit" />
+	</div>
+	<!--! {/form} -->
+</div>

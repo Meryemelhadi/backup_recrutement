@@ -1,0 +1,12 @@
+{records:page.records}
+<ul class="candidate-history-content">
+<li>{string:"action_title_all_vacancies_associated_to"}
+{record}
+	<br/><img src="/nx/skins/default/img/recruitment3/icon_jobs.png" alt="" class="vacancy_history_icon"><span class="log-author">{field:vacancy_oid}</span>
+{/record}
+</li>
+</ul>
+{/records}
+{no_record}
+<div class="empty-records">{string:"empty_vacancies_list"}</div>
+{/no_record}

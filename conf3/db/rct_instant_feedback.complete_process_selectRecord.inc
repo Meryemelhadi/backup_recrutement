@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _completed_by,_completed_on,_complete_state,_recruitment_cost,_recruitment_budget_followed FROM _rct_instant_feedback WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

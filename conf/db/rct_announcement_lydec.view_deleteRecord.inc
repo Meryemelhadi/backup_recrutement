@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_announcement_lydec WHERE _oid='".$props->getProperty("announcement_oid","",true)."'"; ?>

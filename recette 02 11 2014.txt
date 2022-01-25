@@ -1,0 +1,7 @@
+
+Analyse CV:
+- pb de récupération des prénoms avec "El" ou "Ait"
+- pb récupération cv depuis Viadeo
+
+- revoir le format des associations de poste dans la fiche CV
+- mettre un auto save

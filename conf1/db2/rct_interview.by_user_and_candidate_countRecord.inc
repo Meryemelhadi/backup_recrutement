@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_interview,_rct_interview_by WHERE _rct_interview_by._val='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."' AND _rct_interview._candidate_oid='".$this->getParamValue("oid","","request",",")."' GROUP BY _rct_interview._oid "; ?>

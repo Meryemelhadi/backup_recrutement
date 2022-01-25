@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="/nx/controls/mini_calendar/css/calendar_inline.css" />
+
+	  <?php
+	if (!is_file(NX_DOC_ROOT.'nx/controls/mini_calendar/js/calendar.min.js'))
+	{
+		$fs=$this->getPlugin('FileSys');
+		$fs->copyDir(NX_DIS.'www/nx/controls/mini_calendar/',NX_DOC_ROOT.'nx/controls/mini_calendar/');
+	}
+	?>
+<script type="text/javascript">
+	ajax_require("/nx/controls/mini_calendar/js/config.js","config");
+	ajax_require("/nx/controls/mini_calendar/js/resources.js","resources");
+	ajax_require("/nx/controls/mini_calendar/js/calendar.min.js","calendar.min");
+
+</script>
+
+
+<div id="calendar" style="height:230px; margin-left:100px"></div>        
+     
+<script type="text/javascript">
+	window.ajax_onload(function(){
+		
+		window.ca1 = new JSCalender.InlineCalender("calendar");
+		window.ca1.show();
+		window.ca12 = new JSCalender.InlineCalender("calendar");
+	},"calendar.min");
+	
+</script>
+
+
+

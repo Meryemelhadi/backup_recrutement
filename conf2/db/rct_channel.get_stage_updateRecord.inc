@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_channel SET _oid=".$record->getFieldValue("oid","DB","NULL")." WHERE ".$this->getWhereClause("_name","'stag'",'LIKE','OR','%','%',true,false,'|','false'); ?>

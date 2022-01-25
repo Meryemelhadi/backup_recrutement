@@ -1,0 +1,1 @@
+<?php $properties["query"]=array("CREATE TABLE IF NOT EXISTS _user(_oid INT AUTO_INCREMENT NOT NULL,_civility TEXT,_first_name TEXT,_last_name TEXT,_email TEXT,_role TEXT,_interim TEXT,_mobile_phone VARCHAR(20),_direct_phone VARCHAR(20),_local_phone VARCHAR(20),_fax VARCHAR(20),_personal_phone VARCHAR(20),_group TEXT,_photo TEXT,PRIMARY KEY(_oid))",); ?>

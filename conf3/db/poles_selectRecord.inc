@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_group_name FROM _directory_group WHERE _group_type='pole'"; ?>

@@ -1,0 +1,121 @@
+
+<nxl version="1.0"
+	xmlns="http://www.nxfrontier.com/nxl/nxl" 
+	package="recruitment"
+>
+
+	<!-- French Strings -->
+	<i8n:strings name="dashboard_interviews" lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:i8n="http://www.nxfrontier.com/nxl/i8n">
+
+		<i8n:string id="dashboard" value="Tableau de bord - Liste des entretiens" />
+		<i8n:string id="page_title" value="La liste des entretiens" />
+		
+		<i8n:string id="create record" value="Création entretien" />
+
+		<i8n:string id="list records" value="Liste des entretiens" />
+		<i8n:string id="add record" value="Ajout d\'un nouvel entretien" />
+		<i8n:string id="edit record" value="Traitement entretien" />
+		<i8n:string id="exec action" value="Traitement entretien" />
+		<i8n:string id="page_title_view" value="Détails de l' entretien" />
+		
+		<i8n:string id="items_search" value="entretien(s) trouvé(s)" />	
+		<i8n:string id="edit_helper" value="Editer" />	
+		<i8n:string id="delete_helper" value="Supprimer" />	
+		<i8n:string id="legend" value="Légende" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des entretiens" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d\'ajouter un nouvel entretien" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier l' entretien sélectionné" />
+		<i8n:string id="page_message_view" value="Détails de l' entretien sélectionné" />
+		
+		<i8n:string id="page_message_list_details" value="Cliquer sur un entretien pour en visualiser les détails" />
+		<i8n:string id="page_message_add_details" value="Après avoir remplis les champs de l' formulaire, cliquer sur envoyer pour ajouter l' nouveau entretien" />
+		<i8n:string id="page_message_edit_details" value="Cliquer sur \'Envoyer\' pour valider les modifications et revenir à la liste des entretien, ou sur \'Retour\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" value="Cliquer sur \'Retour\' pour revenir à la liste des entretiens" />
+
+		<i8n:string id="dlg_wait_title" value="Veuillez patienter" />
+		<i8n:string id="dlg_wait_content" value="En cours d\'ajout des nouvelles données" />
+
+		<i8n:string id="dlg_success_title" value="Action réussie" />
+		<i8n:string id="dlg_success_content" value="Opération effectuée avec succès" />
+
+		<i8n:string id="dlg_back_title" value="Annulation de la saisie en cours" />
+		<i8n:string id="dlg_back_content" value="Cette action va supprimer les données en cours de saisie. Souhaitez-vous continuer ?" />
+
+		<i8n:string id="dlg_delete_title" value="Suppression d\'un entretien" />
+		<i8n:string id="dlg_delete_content" value="Etes vous sûr de vouloir supprimer cet entretien ?" />
+
+		<i8n:string id="dlg_success" value="Valider" />
+		<i8n:string id="dlg_cancel" value="Annuler" />
+		<i8n:string id="dlg_ok" value="Ok" />
+
+		<i8n:string id="empty_list" value="Aucun entretien n\'est enregistrée" />
+		
+		<i8n:string id="details" value="Détails" />
+		<i8n:string id="edit" value="Modifier" />
+		<i8n:string id="delete" value="Supprimer" />
+
+		<i8n:string id="Next" value="Suivant" />
+		<i8n:string id="Previous" value="Précédent" />
+		<i8n:string id="Results" value="Résultats" />		
+
+		<i8n:string id="search" value="Rechercher" />
+		<i8n:string id="add" value="Ajouter" />
+		<i8n:string id="export_excel" value="Export Excel" />
+		<i8n:string id="save" value="Enregistrer" />
+		<i8n:string id="save and continue" value="Enregistrer et continuer" />
+		<i8n:string id="back" value="Retour" />
+		<i8n:string id="submit" value="Envoyer" />
+		<i8n:string id="attached_files_title" value="Fichiers attachés" />
+	
+		<!-- les labels des champs de données -->
+		<fields xmlns="http://www.nxfrontier.com/nxl/i8n">
+
+				<field name="candidate_oid" label="Candidat" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				
+				<field name="candidate" label="Candidat" type="line" is_transient="true"/>
+
+				<field name="vacancy_oid" label="Poste" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+
+				<field name="created_by" label="Créé par" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				<field name="validated_by" label="Validé par" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				<field 
+					name			= "interview_by_oid"
+					label			= "Interview par"  
+					type			= "text-choice-table" 
+					list			= "product_range"
+					prompt			= "interview_by_oid..."
+					multiple		= "yes"
+					control			= "facebook_list"
+					ds				= "db:user.ds_list_all@recruitment"
+					ds_link			= "rct_interview_by"
+					ds_format		= "{field:first_name} {field:last_name}"
+					ds_field_value	= "oid" />
+				
+				<field name="creation_date" label="Date création" type="datetime" />
+				<field name="validation_date" label="Date validation" type="datetime" />
+
+				
+				<field name="date" label="Date interview"/>
+
+				<field name="time_start" label="Heure" type="timestamp" control="time"  increment-mn="5" format="%H:%M" />
+
+				<field name="time_end" label="Heure fin" type="timestamp" control="time"  increment-mn="5" format="%H:%M" />
+
+				<field name="validation_state" label="Validation date" type="text-choice" list="recruitment.validation_state" control="select" sqlType="integer" />
+
+				<field name="interview_type" label="Type" type="text-choice" list="recruitment.interview.type" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" />
+
+				<field name="interview_etat" label="Etat candidat" type="text-choice" control="radio" multiple="false" controlLayout="table" columns="4" sqlType="integer" default="1"/>
+
+				<field name="interview_feedback" label="Résultat" type="text-choice" list="recruitment.interview.feedback" control="checkbox" multiple="false"  controlLayout="table" columns="2" sqlType="integer" default="1" />
+
+				<field name="comment" label="Commentaire" type="text" multiLines="auto" size="255" rowsMaxBox="30"/>
+		</fields>
+			
+	</i8n:strings>
+	
+</nxl>

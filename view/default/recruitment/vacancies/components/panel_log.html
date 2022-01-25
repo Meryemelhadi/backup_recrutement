@@ -1,0 +1,29 @@
+<style>
+.log-table {
+    background-color: #FFF;
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+</style>
+	
+		<!--<div class="box-simple-title">
+			<h3>{string:"vacancy_log"}</h3>
+		</div>-->
+	
+		<div class="pm-bxm-box-content">
+			{records:candidate_log.records}
+			<div class="table-list-wrapper log-table">
+				<table class="table-list">
+					{record}
+					<tr>
+						<td class="entry"><strong>{field:action_oid}</strong> {field:additional_infos} {string:"date_prefix_lc"} {field:date} {string:"by"} {field:user_oid} </td>
+					</tr>
+					{/record}
+				</table>
+			</div>
+			{/records}
+			{no_record}
+			<div class="empty-records">{string:"empty_log_list"}</div>
+			{/no_record}
+		</div>
+		

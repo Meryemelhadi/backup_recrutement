@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_candidate_category WHERE _name='".$props->getProperty("value","",true)."'"; ?>

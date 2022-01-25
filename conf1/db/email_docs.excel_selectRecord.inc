@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_file,_dest FROM _rct_email_docs WHERE ".$this->getWhereClause("_name",$this->getFieldParam("name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false')." ORDER BY _index ASC,_name ASC "; ?>

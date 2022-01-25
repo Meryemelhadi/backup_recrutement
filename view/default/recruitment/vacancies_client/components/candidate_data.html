@@ -1,0 +1,34 @@
+<td class="dg-column" onclick="PMDH.toggle('candidate_history_{$currentGroup}_{record.index}', 'appear'); return false;">
+	<div class="dg-cell-wrapper">
+		<span class="field-content title-color"><strong>{field:first_name} {field:last_name}</strong></span>
+		<br/>
+		<span class="field-content">{if:#field.object:age# != '0'}{field:age} {string:'years_old'},{/if} {field:town_name}</span>
+	</div>
+</td>
+		
+<td class="dg-column" onclick="PMDH.toggle('candidate_history_{$currentGroup}_{record.index}', 'appear'); return false;" style="width:23%">
+	<div class="dg-cell-wrapper">
+		<span class="field-content">
+			{if:#field.object:diploma_type# != ''}<strong>{field:diploma_type}</strong>,{/if}
+			{if:#field.object:years_of_practice# != ''}
+				{if:#field.object:years_of_practice# != '0'}
+				<strong>
+				{field:years_of_practice} 
+				{string:'year'}{if:#field.object:years_of_practice# > '1'}s{/if}
+				</strong> {string:'experience_grid_label'}
+				{else}Aucune expérience{/if}
+			{/if}
+		</span>
+		{if:#field.object:institution# != ''}
+		<br/>
+		<span class="field-content">{field:institution}</span>
+		{/if}
+	</div>
+</td>
+
+<td class="dg-column" onclick="PMDH.toggle('candidate_history_{$currentGroup}_{record.index}', 'appear'); return false;" style="width:23%">
+	<div class="dg-cell-wrapper">
+		<span class="field-label">{field.label:status}:</span>
+		<span class="field-content">{field:status}</span>			
+	</div>
+</td>

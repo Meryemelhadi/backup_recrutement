@@ -1,0 +1,64 @@
+<script language="php">
+	$candidates = new PersistentCollection('handler:recruitment.candidates.list@recruitment','handler');
+	$this->setProperty('candidates.records',$candidates->records);
+	$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+</script>
+
+{records:candidates.records}
+	<div class="homepage-box box-theme-green">
+
+<div id="search_cv" style="float: right;margin-top:10px;">
+
+	<form method="post" action="{var:PORTAL_URL_PREFIX}/recruitment/candidates/directory.php" enctype="multipart/form-data">
+		<input type="hidden" value="POST" name="_form_method_">
+
+		<input type="text" style="border: solid 1px #999; border-radius: 5px; padding:3px;" 
+			class="text" name="full_text_search" maxlength="100000" value="">
+
+		<input type="submit" value="Rechercher" style="background: none repeat scroll 0% 0% #76A42E; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding:3px;">
+			
+	</form>
+
+</div>
+		<h4 class="homepage-box-title">{string:"Dernières Candidatures reçues"}</h4>
+
+		<div class="homepage-box-articles-list">
+		
+			{record}
+<script language="php">
+	$editUrl = PORTAL_URL_PREFIX.'/recruitment/candidates/coid-'.$_nx_record->oid->object.'/directory.php?nxo=edit&mode=page'.$_nx_record->getUrlKey();
+</script>
+
+			<div class="article {if:record.is_first}first{/if} clear-both">
+				<div class="article-title"><a href="{var:editUrl}">
+				<span>{field:update_date:short} : </span><span>{field:first_name} {field:last_name}</span> <span>,{field:zip} {field:town_name}</span></a> </div>
+<div>Première réception: {field:creation_date:short}
+<?php
+	if(!$_nx_record->update_date->isEqual($_nx_record->creation_date)) 
+	{
+?>
+, Mise à jour CV : {field:update_date:short} 
+<?php
+	}
+
+	$update_info_date = $_nx_record->update_info_date->time;
+	if($_nx_record->update_info_date->isOk()) 
+	{
+?>
+	, Mise à jour fiche recrutement : {field:update_info_date}
+<?php
+	}
+?>
+</div>
+			</div>
+			{/record}
+			{no_record}
+			<div class="article {if:record.is_first}first{/if} clear-both">
+				<div class="article-title">{string:"Vous n'avez pas encore de CV dans la base"}</div>
+			</div>
+			{/no_record}
+		
+		</div>
+
+	</div>
+{/records}

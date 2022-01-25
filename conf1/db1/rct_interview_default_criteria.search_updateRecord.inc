@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview_default_criteria SET _name=".$record->getFieldValue("name","DB","NULL"); ?>

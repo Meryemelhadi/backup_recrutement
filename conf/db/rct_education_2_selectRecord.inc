@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_date,_institution,_description FROM _rct_education GROUP BY _date,_institution  ORDER BY _date DESC "; ?>

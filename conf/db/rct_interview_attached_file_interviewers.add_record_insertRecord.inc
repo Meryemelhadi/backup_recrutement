@@ -1,0 +1,2 @@
+<?php $properties["query"]="INSERT INTO _rct_interview_attached_file_interviewers(_interview_oid,_file_name) VALUES('".$props->getProperty("object_oid","",true)."',".
+"'".$props->getProperty("file_name","",true)."')"; ?>

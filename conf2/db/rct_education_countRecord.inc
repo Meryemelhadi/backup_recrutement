@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_education GROUP BY _diploma,_date,_diploma_type "; ?>

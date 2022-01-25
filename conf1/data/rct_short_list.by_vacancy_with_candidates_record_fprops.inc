@@ -1,0 +1,8 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','isEdit'=>false,'show'=>false,'srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_short_list_oid','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'candidates_list','label'=>'candidates_list','type'=>'records','ds'=>'handler:recruitment.short_lists.candidates.list','ds_record'=>'handler:recruitment.short_lists.candidates.list','key'=>'oid','fkey'=>'candidate_oid','view'=>'recruitment.vacancies.components.candidates_short_list','edit_view'=>'recruitment.vacancies.components.candidates_short_list','srcName'=>'candidates_list','ufname'=>'_candidates_list','qname'=>'rct_short_list_candidates_list','is_transient'=>true,),
+array('name'=>'log','label'=>'log','type'=>'records','ds'=>'rct_short_list_action.list','ds_record'=>'rct_short_list_action.record','key'=>'oid','fkey'=>'candidate_oid','view'=>'recruitment.vacancies.components.short_list_log','edit_view'=>'recruitment.vacancies.components.short_list_log','srcName'=>'log','ufname'=>'_log','qname'=>'rct_short_list_log','is_transient'=>true,),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','candidates_list'=>'candidates_list','_candidates_list'=>'candidates_list','log'=>'log','_log'=>'log',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_short_list.by_vacancy_with_candidates_record','table'=>'_rct_short_list');
+ ?>

@@ -1,0 +1,20 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+    <application
+            name		= "actions_candidate_etat"
+            path		= "/recruitment/admin/"
+            protected	= "user"
+            permissions = "default"
+            cache		= "no"
+            lang		= "fr"
+            skin		= "lightsky"
+            application = "actions_candidate_etat"
+            table		= "rct_actions_candidate_etat"
+            base_data	= "actions_candidate_etat"
+            string_base = "actions_candidate_etat"
+            role = "editor"
+            xmlns="http://www.nxfrontier.com/nxl/page"
+            />
+
+    <include_once file="/all.nxl" />
+</nxl>

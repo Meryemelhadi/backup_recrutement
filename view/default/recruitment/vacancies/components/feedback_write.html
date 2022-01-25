@@ -1,0 +1,40 @@
+{content:buttons}
+	<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_feedback"}</span></span>
+	</a>
+	<span class="pm-button-sep"></span>
+	<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-disk">{string:"save"}</span></span>
+	</a>
+{/content}
+
+{form:page.record}
+<script>
+	window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=previous_operation.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+
+<div class="pm-grid-outer-wrapper">
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	
+	<div class="form-notification">
+		{string:"to_be_filled_by_uc"} <strong>{field.html:filled_by}</strong> 
+		({if:#field.object:fill_state#=='0'}<span class="s-state s-icon si-time">{string:"waiting_to_complete"}</span>{else}<span class="s-state s-icon si-tick">{string:"feedback_completed"}</span>{/if})
+		<br/>
+		{if:#field.object:completed_by#!=''}
+		{string:"feedback_completed_by"} <strong>{field.html:completed_by}</strong> {string:"date_prefix_lc"} {field.html:completed_on}
+		<br/>
+		{/if}
+		<span class="meta">{field.label:scheduled_by} <strong>{field.html:scheduled_by}</strong> {string:"date_prefix_lc"} {field.html:scheduled_on}</span>
+	</div>	
+	{include:common/record}
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+</div>
+{/form}

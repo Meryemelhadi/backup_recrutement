@@ -1,0 +1,16 @@
+<?php 
+	$_prevFormMethod = $this->getProperty('submit.form.method','POST'); 
+	$this->setProperty('submit.form.method','GET'); 
+?>
+<script> 
+	window.ajax_submit_method = 'get'; 
+	window.ajax_submit_mode = 'page'; 
+</script>
+
+{include:common/search_condition}
+
+<div class="search-panel" id="search-panel" style="border:0">{include:recruitment/vacancies/components/search/search_inner_bs_accordion_interview}</div>
+
+<?php 
+	$this->setProperty('submit.form.method',$_prevFormMethod); 
+?>

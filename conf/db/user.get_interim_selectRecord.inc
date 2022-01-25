@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _interim FROM _user WHERE _oid='".$props->getProperty("user_oid","",true)."'"; ?>

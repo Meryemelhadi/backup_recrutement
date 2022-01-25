@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview_attached_file_candidate SET _oid=".$record->getFieldValue("oid","DB","NULL").",_interview_oid=".$record->getFieldValue("interview_oid","DB","NULL").",_file_name=".$record->getFieldValue("file_name","DB","NULL").",_file=".$record->getFieldValue("file","DB","NULL")." WHERE _interview_oid='".$props->getProperty("oid","",true)."'"; ?>

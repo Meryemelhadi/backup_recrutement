@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_vacancy_project WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

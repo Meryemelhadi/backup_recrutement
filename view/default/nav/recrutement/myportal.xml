@@ -1,0 +1,25 @@
+<cont:nav_section
+	title="Mon espace"
+	xtype="nx_nav_panel" 
+	iconCls="icon-config"
+	xmlns:cont="http://www.presencemedia.ma/container/container">
+
+	<cont:nav_link 
+		title="Mes Entretiens"
+		url="/recruitment/vacancies/admin/directory.php?nxo=my_calendar"
+		app-title="Mes entretiens"
+		iconCls="icon-user"
+		qtip-title="Mon calendrier"
+		qtip-text="Mon calendrier entretiens" 	
+	/>
+
+	<cont:nav_link 
+		title="Mon profil"
+		url="/user/profile_editor.php?pagemode=minimal"
+		app-title="Administration &gt; Mon profil"
+		iconCls="icon-user"
+		qtip-title="Mes infos"
+		qtip-text="Ma fiche utilisateur" 	
+	/> 	
+		
+</cont:nav_section>

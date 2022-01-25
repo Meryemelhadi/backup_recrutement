@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_code,_name,_number,_workflow_state,_request_date,_requested_by FROM _rct_vacancy_readonly WHERE ((_workflow_state='1' AND _requested_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."')  OR (_workflow_state='3' AND _requested_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."') )  ORDER BY _name ASC,_code ASC "; ?>

@@ -1,0 +1,326 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+	<!-- tables definitions -->
+	<tables  init="create">
+		<table name="rct_email">
+			<key mode="by_user">
+				<field name="created_by" type="integer" value="%{property:user_oid}"/>
+			</key>
+			<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+					<field name="candidate_oid" label="candidate_oid" type="text-choice" control="checkbox" multiple="true" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="checkbox" multiple="true" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+					<field name="created_by" label="created_by" type="text-choice" control="checkbox" multiple="true" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+					<field name="creation_date" label="creation_date" type="datetime" />
+					<field 
+						name			= "user_cc"
+						label			= "user_cc" 
+						type			= "text-choice-table" 
+						list			= "product_range"
+						prompt			= "user_cc..."
+						multiple		= "yes"
+						control			= "facebook_list"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_link			= "rct_candidate_email_cc"
+						ds_format		= "{field:first_name} {field:last_name}"
+						ds_field_value	= "oid" />
+						
+					<field name="email_type" label="email_type" type="text-choice" list="recruitment.email_type.all" control="select" sqlType="integer" prompt="Sélectionnez email type ..." default="1" />
+					<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />				
+					<field name="docs" label="docs" 
+						type="text-choice" control="checkbox" multiple="true" columns="2" controlLayout="table"
+						ds="db:email_docs.ds_list" 
+						ds_format="{field:name}" 
+						ds_field_value="oid" 
+						sqlType="varchar(255)" />
+
+					<field 
+							name		= "attached_files"
+							type		= "records" 
+							ds			= "rct_email_attached_file.by_email@recruitment"
+							ds_record	= "rct_email_attached_file.record@recruitment"
+							key			= "oid"
+							fkey		= "email_oid"
+							edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+							edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+							insert_new  = "bottom"
+						/>
+
+			</fields>
+		</table>
+
+		<table name="rct_email_attached_file">
+			<key mode="record">
+				<field name="oid" type="oid" />
+			</key>
+
+			<key mode="get_record">
+				<field name="oid" type="oid" relation="EQ" value="%{property:oid}" />
+			</key>
+
+			<key mode="by_email">
+				<field name="email_oid" type="ref-oid" relation="EQ" value="%{property:oid}" />
+			</key>			
+
+			<fields mode="add_record">
+				<field name="email_oid" type="ref-oid" value="%{property:object_oid}" />
+				<field name="file_name" type="line" value="%{property:file_name}" />
+			</fields>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="email_oid" label="email_oid" type="ref-oid" isKey="secondary" sqlType="integer" />
+				<field name="file" label="file" type="file" control="file_no_update"/>
+			</fields>
+		</table>
+		<table name="rct_candidate_email_cc">	
+			<key mode="by_key">
+				<field name="key"  type="ref-oid" value="%{property:key}"/>   
+			</key>
+
+			<key>
+				<field name="key"  type="ref-oid" value="%{property:key}"/>
+			</key>
+
+			<fields>
+				<field name="oid"  label="oid" type="oid" isKey="primary" show="hidden" isEdit="no"/>
+				<field name="key"  type="ref-oid" />
+				<field name="val"  type="ref-oid" />
+			</fields>
+
+		</table>
+
+	</tables>
+		
+	<!-- DML Views (gernerating SQL requests)-->
+	<views>
+		<view name="rct_email_cand.list" table="rct_email">
+			<key>
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" value="%{request:coid}" />
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="15" />				
+		
+			<sort>
+				<field name="creation_date" label="creation_date" type="datetime" direction="desc"/>
+			</sort>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="creation_date" label="creation_date" type="datetime" />
+
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				<field name="email_type" label="email_type" type="text-choice" list="recruitment.email_type.all" control="select" sqlType="integer" prompt="Sélectionnez email type ..." default="1" />
+
+				<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+			</fields>		
+		</view>
+
+		<view name="rct_email_cand.excel" table="rct_email">
+			<key>
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" value="%{request:coid}" />
+			</key>
+			<sort>
+				<field name="name" direction="asc"/>
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				
+				<field name="vacancy_oid" label="vacancy_oid" type="text-choice" control="select" multiple="false" ds="db:rct_vacancy.ds_list" ds_format="{field:name} ({field:code})" ds_field_value="oid" sqlType="integer" />
+				
+				<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+
+				<field name="creation_date" label="creation_date" type="datetime" />
+
+				<field name="email_type" label="email_type" type="text-choice" list="recruitment.email_type.all" control="select" sqlType="integer" prompt="Sélectionnez email type ..." default="1" />
+				<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+			</fields>		
+		</view>
+		
+		<view name="rct_email_cand.search" table="rct_email">
+			<fields>
+				<field name="name" label="name"  type="line" size="200" />
+			</fields>
+		</view>
+
+		<view name="rct_email_cand.record" table="rct_email">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" 
+					/>
+
+				<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				<field name="creation_date" label="creation_date" type="datetime" />
+				<field 
+					name			= "user_cc"
+					label			= "user_cc" 
+					type			= "text-choice-table" 
+					list			= "product_range"
+					prompt			= "user_cc..."
+					multiple		= "yes"
+					control			= "facebook_list"
+					ds				= "db:user.ds_list_all@recruitment"
+					ds_link			= "rct_candidate_email_cc"
+					ds_format		= "{field:first_name} {field:last_name}"
+					ds_field_value	= "oid" />
+				<field name="email_type" label="email_type" type="text-choice" list="recruitment.email_type.all" control="select" sqlType="integer" prompt="Sélectionnez email type ..." default="1" />
+				<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+				<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />			
+
+				<field name="docs" label="docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+
+				<field 
+						name		= "attached_files"
+						type		= "records" 
+						ds			= "rct_email_attached_file.by_email"
+						ds_record	= "rct_email_attached_file.record"
+						key			= "oid"
+						fkey		= "email_oid"
+						edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+						edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+						insert_new  = "bottom"
+					/>
+				
+			</fields>		
+		</view>		
+
+		<view name="rct_email_cand.add_process" table="rct_email">
+			<key>
+				<field name="oid"  value="%{property:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" 
+					/>
+
+				<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				<field name="creation_date" label="creation_date" type="datetime" />
+				<field 
+					name			= "user_cc"
+					label			= "user_cc" 
+					type			= "text-choice-table" 
+					list			= "product_range"
+					prompt			= "user_cc..."
+					multiple		= "yes"
+					control			= "facebook_list"
+					ds				= "db:user.ds_list_all@recruitment"
+					ds_link			= "rct_candidate_email_cc"
+					ds_format		= "{field:email}"
+					ds_field_value	= "oid" />
+				<field name="email_type" label="email_type" type="text-choice" list="recruitment.email_type.all" control="select" sqlType="integer" prompt="Sélectionnez email type ..." default="1" />
+				<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+				<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />			
+
+				<field name="docs" label="docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+
+				<field 
+						name		= "attached_files"
+						type		= "records" 
+						ds			= "rct_email_attached_file.by_email"
+						ds_record	= "rct_email_attached_file.record"
+						key			= "oid"
+						fkey		= "email_oid"
+						edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+						edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+						insert_new  = "bottom"
+					/>
+				
+			</fields>		
+		</view>		
+
+		<view name="rct_email_cand.by_oid" table="rct_email">
+			<key>
+				<field name="oid"  value="%{property:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary" />
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" 
+					/>
+
+				<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer" />
+				<field name="creation_date" label="creation_date" type="datetime" />
+
+				<field name="email_type" label="email_type" type="text-choice" list="recruitment.email_type.all" control="select" sqlType="integer" prompt="Sélectionnez email type ..." default="1" />
+				<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+				<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />				
+				<field name="docs" label="docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+
+				<field 
+						name		= "attached_files"
+						type		= "records" 
+						ds			= "rct_email_attached_file.by_email"
+						ds_record	= "rct_email_attached_file.record"
+						key			= "oid"
+						fkey		= "email_oid"
+						edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+						edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+						insert_new  = "bottom"
+					/>
+
+			</fields>		
+		</view>				
+
+		<view name="rct_email_cand.add" table="rct_email">
+
+			<fields>		
+				<field name="oid" alias="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+				<field name="candidate_oid" label="candidate_oid" type="text-choice" control="select" multiple="false" ds="db:rct_candidate.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" isEdit="false"
+				show="show" value="%{request:coid}"/>
+				
+				<field 
+					name			= "user_cc"
+					label			= "user_cc" 
+					type			= "text-choice-table" 
+					list			= "product_range"
+					prompt			= "user_cc..."
+					multiple		= "yes"
+					control			= "facebook_list"
+					ds				= "db:user.ds_list_all@recruitment"
+					ds_link			= "rct_candidate_email_cc"
+					ds_format		= "{field:first_name} {field:last_name}"
+					ds_field_value	= "oid" />
+						
+				<field name="created_by" label="created_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" sqlType="integer"  show="hidden" value="%{user:oid}"/>
+
+				<field name="creation_date" label="creation_date" type="datetime" value="now" show="hidden"/>
+
+				<field name="email_type" label="email_type" type="text-choice" list="rrecruitment.email_type.all" control="select" sqlType="integer" prompt="Sélectionnez email type ..." default="1" show="hidden" />
+
+				<field name="default_email" label="default_email" type="text-choice" control="select" multiple="false" ds="db:rct_email_sample.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="select an email..." 
+					with_refresh="false" is_transient="true" prompt="Autre email ..."/>
+ 
+				<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+				<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />				
+				<field name="docs" label="docs" type="text-choice" control="checkbox" multiple="true" ds="db:email_docs.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" />
+
+				<field 
+						name		= "attached_files"
+						type		= "records" 
+						ds			= "rct_email_attached_file.by_email"
+						ds_record	= "rct_email_attached_file.record"
+						key			= "oid"
+						fkey		= "email_oid"
+						edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+						edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+						insert_new  = "bottom"
+					/>
+			</fields>		
+		</view>		
+	</views>	
+</data>
+</nxl>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_employment_end_date,_employment_start_date,_employment_content,_type FROM _rct_employment ORDER BY _employment_end_date DESC "; ?>

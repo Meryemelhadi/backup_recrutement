@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview_synthesis_lydec SET _oid=".$record->getFieldValue("oid","DB","NULL")." WHERE _interview_oid='".$props->getProperty("interview_oid","",true)."'"; ?>

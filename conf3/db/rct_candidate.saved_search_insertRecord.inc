@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _(_saved_search) VALUES(".$record->getFieldValue("saved_search","DB","%{request:search_oid}").")"; ?>

@@ -1,0 +1,33 @@
+<?php 
+	$_prevFormMethod = $this->getProperty('submit.form.method','POST'); 
+	$this->setProperty('submit.form.method','GET'); 
+?>
+<script> 
+	window.ajax_submit_method = 'get'; 
+	window.ajax_submit_mode = 'page'; 
+</script>
+
+{include:common/search_condition}
+
+<div class="generis-toolbar-wrapper" >
+	<div class="generis-toolbar search-toolbar">
+		<input type="button" value="{string:'delete search'}" style="background: none repeat scroll 0% 0% rgb(175, 177, 173); border: medium none rgb(175, 177, 173); border-radius: 5px; color: rgb(255, 255, 255);padding: 5px; float:left; display:none" onclick="deleteSearch(); this.blur(); return false;"  id="btn_delete_search" title="{string:'title_delete_search'}"/>
+		
+		<input type="button" value="{string:'save search'}" style="background: none repeat scroll 0% 0% #76A42E; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding: 5px; display:none" onclick="window.setUrlField();window.save_searchConfig.exec(); this.blur(); return false;"  id="btn_add_search"/>
+		<div class="saved_search_class" id="saved_search" title="{string:'title_select_search'}">
+		<!--! {form:saved_search.record} -->
+			{field:saved_search}
+		<!--! {/form} -->
+		
+		</div>
+		
+	</div>
+</div>
+<div class="search-panel" id="search-panel" style="{if:%property:showSearch%!='yes'}display:none{/if}">{include:recruitment/candidates/components/search/search_inner_bs}</div>
+
+<?php 
+	$this->setProperty('submit.form.method',$_prevFormMethod); 
+?>
+<script type="text/javascript">
+	window.ajax_load('/nx/skins/default/js/recruitment/form_candidate_search.js','form_candidate_search_js');
+</script>

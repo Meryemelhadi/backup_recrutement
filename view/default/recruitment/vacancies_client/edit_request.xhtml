@@ -1,0 +1,250 @@
+
+
+{content:buttons}
+
+<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=back_list.url}';return false;"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+ {string:"back"}</button>
+<span class="pm-button-sep"></span>
+<button type="button" class="btn btn-default submit_marge" onclick="PMFormSubmit.submit(this, dlg_submitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;&nbsp;
+	{string:"submit"} </button>
+{/content}
+
+
+{form:page.record}
+<script>
+	window.dlg_submitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+	window.dlg_deleteConfig = {
+								title : "{string:'dlg_delete_title'}",
+								message : "{string:'dlg_delete_content'}",
+								viewMode : "okCancel",
+								url : "{=delete.url}{record.url_key}",
+								target : "content",
+								labels : {
+									ok : "{string:'dlg_ok'}",
+									cancel : "{string:'dlg_cancel'}"
+							} };
+		
+	window.dlg_archiveConfig = {
+								title : "{string:'dlg_archive_title'}",
+								message : "{string:'dlg_archive_content'}",
+								viewMode : "okCancel",
+								url : "{=archive.url}{record.url_key}",
+								target : "content",
+								labels : {
+									ok : "{string:'dlg_ok'}",
+									cancel : "{string:'dlg_cancel'}"
+							} };
+</script>
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_edit"}</div>
+	</div>
+</div>
+
+<div class="pm-button-wrapper clear-both pm-bxm-top-button-wrapper">					
+	{=buttons}
+</div>
+
+<div id="panel_" class="form-panel-bs">
+ 	<div class="">
+ 		<div class="pm-bxm-box-content pm-bxm-box-content-panel pm-bxm-box-content-">
+			 <div class="columns-layout-bs row">
+ 				<div class="column-1 col-md-6">
+ 					<div class="row">
+ 						<fieldset id="group_1" class="field-group-bs">
+ 							<legend class="">{string:"title_vacancy_identity_section"}</legend>
+ 							<div class="form-group-content"> 
+ 								<div id="field_name" class="form-group form-group-bs field-type-text ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="name" class="control-label-bs control-label">{field.label:name} <span class="required-field">*</span> :</label>
+ 									</div>
+									<div class="form-control-bs" id="name-control">
+										{field:name}
+									</div>
+								</div> 
+								<div id="field_number" class="form-group form-group-bs field-type-text ">
+									<div class="control-label-wrapper-bs">
+ 										<label for="number" class="control-label-bs control-label">{field.label:number} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="number-control">{field:number}</div>
+ 								</div>
+ 								<div id="field_category_oid" class="form-group form-group-bs field-type-text_choice ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="category_oid" class="control-label-bs control-label">{field.label:category_oid} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="category_oid-control">
+ 										{field:category_oid}
+ 									</div>
+ 								</div> 
+								
+ 								<div id="field_contract_type_oid" class="form-group form-group-bs field-type-text ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="contract_type_oid" class="control-label-bs control-label">{field.label:contract_type_oid} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="contract_type_oid-control">
+ 										{field:contract_type_oid}
+ 									</div>
+ 								</div> 
+ 								<div id="field_mission_start_date" class="form-group form-group-bs field-type-date ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="mission_start_date" class="control-label-bs control-label">{field.label:mission_start_date} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="mission_start_date-control">
+ 										{field:mission_start_date}
+ 									</div>
+ 								</div>
+ 								<div id="field_suited_recruitment_date" class="form-group form-group-bs field-type-date ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="suited_recruitment_date" class="control-label-bs control-label">{field.label:suited_recruitment_date} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="osuited_recruitment_date-control">
+ 										{field:suited_recruitment_date}
+ 									</div>
+ 								</div>
+ 								<div id="field_subsidiary_oid" class="form-group form-group-bs field-type-text_choice  ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="subsidiary_oid" class="control-label-bs control-label">{field.label:subsidiary_oid} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="subsidiary_oid-control">
+ 										{field:subsidiary_oid}
+ 									</div>
+ 								</div>
+ 								<div id="field_service_oid" class="form-group form-group-bs field-type-text_choice  ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="service_oid" class="control-label-bs control-label">{field.label:service_oid} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="service_oid-control">
+ 										{field:service_oid}
+ 									</div>
+ 								</div>
+ 								<div id="field_mduty_station_oid" class="form-group form-group-bs field-type-text_choice  ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="duty_station_oid" class="control-label-bs control-label">{field.label:duty_station_oid} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="duty_station_oid-control">
+ 										{field:duty_station_oid}
+ 									</div>
+ 								</div>
+ 								<div id="field_work_schedule" class="form-group form-group-bs field-type-text_choice  ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="work_schedule" class="control-label-bs control-label">{field.label:work_schedule} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="work_schedule-control">
+ 										{field:work_schedule}
+ 									</div>
+ 								</div>
+ 								<div id="field_manager_oid" class="form-group form-group-bs field-text_choice ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="manager_oid" class="control-label-bs control-label">{field.label:manager_oid} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="manager_oid-control">
+ 										{field:manager_oid}
+ 									</div>
+ 								</div>
+ 							</div>
+ 					</fieldset>
+ 					<fieldset id="group_2" class="field-group-bs">
+ 						<legend class="">{string:"title_vacancy_requirement_section"} </legend>
+ 							<div class="form-group-content"> 
+ 								<div id="field_technical_qualifications" class="form-group form-group-bs field-text_choice ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="technical_qualifications" class="control-label-bs control-label">{field.label:technical_qualifications} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="technical_qualifications-control">
+ 										{field:technical_qualifications}
+ 									</div>
+ 								</div>
+ 								<div id="field_behavioral_qualifications" class="form-group form-group-bs field-text_choice ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="behavioral_qualifications" class="control-label-bs control-label">{field.label:behavioral_qualifications} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="behavioral_qualifications-control">
+ 										{field:behavioral_qualifications}
+ 									</div>
+ 								</div>
+ 						 		
+ 							</div>
+ 						</fieldset>
+ 					</div>
+ 				</div>
+ 				<div class="column-1 col-md-6">
+ 					<div class="row">
+ 						<fieldset id="group_1" class="field-group-bs">
+ 							<legend class="">{string:"title_sought_after_profile_section"}</legend>
+ 							<div class="form-group-content"> 
+ 								<div id="field_years_of_practice" class="form-group form-group-bs field-text_choice ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="years_of_practice" class="control-label-bs control-label">{field.label:years_of_practice} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="years_of_practice-control">
+ 										{field:years_of_practice}
+ 									</div>
+ 								</div> 
+ 								
+ 								<div id="field_suited_diplomas" class="form-group form-group-bs field-text_choice ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="suited_diplomas" class="control-label-bs control-label">{field.label:suited_diplomas} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="suited_diplomas-control">
+ 										{field:suited_diplomas}
+ 									</div>
+ 								</div>
+ 								
+ 								<div id="field_companies_having_same_profile" class="form-group form-group-bs field-text_choice ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="companies_having_same_profile" class="control-label-bs control-label">{field.label:companies_having_same_profile} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="companies_having_same_profile-control">
+ 										{field:companies_having_same_profile}
+ 									</div>
+ 								</div>
+ 								
+ 								<div id="field_recruitment_reasons" class="form-group form-group-bs field-text_choice ">
+ 									<div class="control-label-wrapper-bs">
+ 										<label for="recruitment_reasons" class="control-label-bs control-label">{field.label:recruitment_reasons} :</label>
+ 									</div>
+ 									<div class="form-control-bs" id="recruitment_reasons-control">
+ 										{field:recruitment_reasons}
+ 									</div>
+ 								</div>
+ 							</div>
+ 						</fieldset>
+ 						<fieldset id="group_1" class="field-group-bs">
+ 							<legend class="">{string:"title_mission_definitions_section"}</legend>
+ 							<div class="form-group-content"> 
+ 								<div id="field_mission_definitions" class="form-group form-group-bs field-text_choice ">
+ 									<div class="form-control-bs" id="mission_definitions-control">
+ 										{field:mission_definitions}
+ 									</div>
+ 								</div> 
+ 							</div>
+ 						</fieldset>
+ 						<fieldset id="group_1" class="field-group-bs">
+ 							<legend class="">{string:"title_mission_means_section"}</legend>
+ 							<div class="form-group-content"> 
+ 								<div id="mission_means_definitions" class="form-group form-group-bs field-text_choice ">
+ 									<div class="form-control-bs" id="mission_means-control">
+ 										{field:mission_means}
+ 									</div>
+ 								</div> 
+ 							</div>
+ 						</fieldset>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
+ </div>
+<div class="pm-button-wrapper align-left clear-both pm-bxm-bottom-button-wrapper">				
+	{=buttons}
+</div>		
+				
+			
+
+{/form}
+

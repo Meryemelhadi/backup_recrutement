@@ -1,0 +1,215 @@
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		{record:vacancy_title_record}
+		<div class="pm-title">
+			{string:"vacancy"}: {field.html:name}{if:#field.object:code# != ''} (N° {field.html:code}){/if}
+			{if:#field.object:current_step# != 0 || #field.object:progress_level# != 0}
+				<br/>
+				{if:#field.object:current_step# != 0} {field.label:current_step}: {field.html:current_step}, {/if}
+				{if:#field.object:progress_level# != 0} {field.label:progress_level}: {field.html:progress_level}{/if}
+			{/if}
+		</div>
+		{content:vtitle}{field.html:name}{/content}
+		{/record}		
+	</div>
+</div>
+
+<script>
+	/* set current page BC */
+	container.bc
+		.resetLink().addAjaxLink('{=vtitle}','{=edit.url}&mode=ajax').addLink('{var:linkText}','');
+</script>
+
+{content:buttons}
+<div class="btn-group button_bs_right" role="group">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	<span class="glyphicon glyphicon-menu-hamburger"></span>
+	&nbsp;{string:"actions_vacancy"}</button>
+	
+	<ul class="dropdown-menu">
+		<li><a onclick="document.location.href='{=edit.url}&mode=page'"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;&nbsp;{string:"title_general_infos"}</a></li>
+		<li><a onclick="document.location.href='{=calendar.url}&mode=page'"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;{string:"title_calendar"}</a></li>
+		<!--<li><a onclick="document.location.href='{=feedback.url}&mode=page'"><img src="/nx/skins/lightsky/img/eval-noir.png" style="width: 20px;float: left; margin-left: -5px;">&nbsp;&nbsp;{string:"title_evaluation"}</a></li>-->
+		<li><a onclick="document.location.href='{=warning.url}&mode=page'"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;&nbsp;{string:"title_warnings"}</a></li>
+		<li><a onclick="document.location.href='{=history.url}&mode=page'"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;&nbsp;{string:"title_history"}</a></li>
+		{if: %property:use_multiposting% && %property:multiposting_url% }
+		<li><a href="{=multiposting_url}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>&nbsp;&nbsp;{string:"multiposting_access"}</a></li>
+		{/if}
+		<li><a onclick="PMModalbox.display(dlg_deleteConfig{record.index}, event);"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>&nbsp;&nbsp;{string:"dlg_delete_definitly"}</a></li>
+		<li><a onclick="PMModalbox.display(dlg_archiveConfig{record.index}, event);"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;&nbsp;{string:"archive_helper"}</a></li>
+		<!--<li><a href="{=applicant.url}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;Candidats</a></li>
+		<li><a href="{=calendar.url}"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>&nbsp;&nbsp;Entretiens</a></li>-->
+		<li><a href="{=candidate_add.url}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;&nbsp;Ajouter Candidat</a></li>
+	</ul>
+	
+</div>
+<button type="button" class="btn btn-default right submit_marge" onclick="PMFormSubmit.submit(this, dlg_submitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>&nbsp;&nbsp;
+	{string:"submit"} </button>
+{/content}
+{content:menu}
+<div id="nav">
+<ul>
+	<!-- <li class="">
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=candidates.url}','content'); return false;">
+			<b>{string:"resume"}</b>
+		</a>
+	</li>
+ -->	
+	<li class="">
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=associated_candidate.url}','content'); return false;">
+			<b>{string:"title_associated_candidates"}</b>
+		</a>
+	</li>
+	<li class="current">
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=shorts_list.url}','content'); return false;">
+			<b>{string:"title_short_lists"}</b>
+		</a>
+	</li>
+	<li class="" >
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=rated.url}','content'); return false;">
+			<b>{string:"title_rated_candidates"}</b>
+		</a>
+	</li>
+	<li class="" >
+		<a href="javascript:void(0);" onclick="ajax_navigate(event,'{=refused_candidate.url}','content'); return false;">
+			<b>{string:"title_refused_candidates"}</b>
+		</a>
+	</li>
+</ul>
+</div>
+{/content}
+
+{if:%property:from_home%}
+	<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=back_to_home.url}'">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+		{string:"back_to_home"}
+	</button>
+	{else}
+	<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=list.url}'">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+		{string:"back"}
+	</button>
+	{/if}
+	{=buttons}
+<div class="pm-grid-outer-wrapper">
+{=menu}
+<br/>
+	<!-- <div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+		<a 
+			class="pm-button btn-with-icon" 
+			href="javascript:void(0);" 
+			onclick="PMDH.toggle('search-panel', 'appear'); return false;">
+			<span class="btn-bg"><span class="s-icon si-zoom">{string:"search"}</span></span>
+		</a>
+	</div> 
+	{include:common/search}	
+ -->
+	<div style="display: block;" id="help" class="help">
+		<div style="display: block;" id="permission_help" class="tab-help">{string:'title_short_lists_help'}</div>
+	</div>
+	{if:#=short_lists.records# }
+	<div class="directory-grid-wrapper" id="candidates_list_grid">
+	
+		<div class="directory-grid-selection clear-both">
+							
+			<div class="selection-wrapper">
+				<input type="checkbox" name="selection-checkbox" class="select-all-checkbox" />
+			</div>
+			
+			<div class="actions-droplist-wrapper">
+				<select name="grid-selection-actions" id="grid-selection-actions" style="display:none;">
+					<option value="?">{string:"actions_prompt"}</option>
+					<option value="{action:'urlInMB', config: window.dlg_mCreateSLCfg}">{string:'action_create_short_list'}</option>
+					<option value="{action:'urlInMB', config: window.dlg_mAddToSLCfg}">{string:'action_add_to_short_list'}</option>
+                    <option value="{action:'urlInMB', config: window.dlg_mMoveToSLCfg}">{string:'action_move_to_short_list'}</option>
+                    <option value="{action:'urlInMB', config: window.dlg_mSendToICCfg}">{string:'action_send_to_internal_client'}</option>
+					<option value="{action:'confirm', config: window.dlg_mSelectForJobCfg}">{string:'action_select_for_job'}</option>
+					<option value="{action:'confirm', config: window.dlg_mRefuseCfg}">{string:'action_refuse_selection'}</option>
+					<option value="{action:'confirm', config: window.dlg_mUnlinkCfg}">{string:'action_unlink_selection'}</option>
+					
+					<option value="{action:'navigate', config: window.dlg_mScheduleInterviewDlg}">{string:'action_schedule_interview'}</option>
+					<option value="{action:'navigate', config: window.dlg_mSendMailDlg}">{string:'action_send_mail'}</option>
+				</select>
+				
+				<script>
+					new Generis.Dropdownlist({
+						control: 'grid-selection-actions',
+						onchange: function() {
+							Generis.Recruitment.doSelectAction(this);
+						}
+					});	
+					
+					window.dlg_mScheduleInterviewDlg = { url: '{=add_interview.url}', paramName:'candidate_oid' };
+					window.dlg_mSendMailDlg = { url: '{=add_email.url}', paramName:'candidate_oid' };	
+				
+					window.dlg_mCreateSLCfg = { title:"{string:'add_short_list_title'}", url: "{=add_short_list.url}", width:550, paramName:'candidate_oid' };
+					window.dlg_mAddToSLCfg = { title:"{string:'add_to_short_list_title'}", url: "{=add_to_short_list.url}", width:550, paramName:'candidate_oid' };
+                    window.dlg_mMoveToSLCfg = { title:"{string:'move_to_short_list_title'}", url: "{=move_to_short_list.url}&mode=ajax", width:550, paramName:'candidate_oid' };
+                    window.dlg_mSendToICCfg = { title:"{string:'send_to_client_title'}", width:550, url :'{=send_to_ic.url}', paramName:'candidate_oid' };
+					
+					window.dlg_mSelectForJobCfg = { 
+						title : "{string:'dlg_massive_select_for_job_title'}",
+						message : "{string:'dlg_massive_select_for_job_content'}", 
+						viewMode : "okCancel", 
+						url : "{=accepted_for_job.url}", 
+						paramName:'candidate_oid',
+						target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" 
+					} };
+					
+					window.dlg_mRefuseCfg = { 
+						title : "{string:'dlg_massive_refuse_title'}",
+						message : "{string:'dlg_massive_refuse_content'}", 
+						viewMode : "okCancel", 
+						url : "{=refuse_candidate.url}", 
+						paramName:'candidate_oid',
+						target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" 
+					} };
+
+					window.dlg_mUnlinkCfg = { 
+						title : "{string:'dlg_unlink_selection_title'}",
+						message : "{string:'dlg_unlink_selection_content'}", 
+						viewMode : "okCancel", 
+						url : "{=unlink_candidate.url}", 
+						paramName:'candidate_oid',
+						target : "content", 
+						labels : { 
+							ok : "{string:'dlg_ok'}", 
+							cancel : "{string:'dlg_cancel'}" 
+					} };		
+				</script>
+				
+			</div>
+		</div>
+		{$disableCheckbox = ''}
+		<script>
+			window.dlg_addSLCfg = { title:"{string:'add_short_list_title'}", url: "{=add_short_list.url}", width:550 }
+		</script>
+		<h3 class="grid-header">{string:"title_short_lists"}</h3>
+		<div class="grid-links-toolbar"><a 
+			class="action s-icon si-add" 
+			onclick="PMModalbox.loadFromUrl(window.dlg_addSLCfg, event); return false;"
+			href="javascript:void(0);"><span>{string:"add_short_list"}</span></a></div>
+		
+		{if:#=short_lists.records#}
+			<!--! {records:short_lists.records} -->
+			{if:records.count>0}
+			<?php $currentGroup = 'short_lists'; ?>
+			<!--! {record} -->
+			{include:recruitment/vacancies/components/short_lists}
+			<!--! {/record} -->
+			{/if}
+			<!--! {/records} -->
+		{/if}
+	</div>
+	<script>
+		PMDH.Skin.LightSky.Grid.init('', {
+			wrapperClass	: 'directory-grid-wrapper',
+			gridClass		: 'directory-grid',
+			gridRowClass	: 'directory-grid-row'
+		});
+	</script>
+	{else}
+	<div class="empty-records">{string:"empty_candidates_list"}</div>
+	{/if}
+	
+</div>

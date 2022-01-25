@@ -1,0 +1,95 @@
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_feedback"}</span></span>
+</a>
+{/content}
+
+{record:page.record}
+<div class="pm-grid-outer-wrapper">
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	
+	<div class="form-notification">{string:"delayed_feedback_concerning"} <strong>{field:candidate_oid}</strong></div>
+
+	<div class="record_wrapper">
+		<div class="record">
+
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:still_in_office} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:still_in_office}</div>
+				</div>
+			</div>
+			
+			{if:#field.object:still_in_office# == '1'}
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:integration_degree} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:integration_degree}</div>
+				</div>
+			</div>
+			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:job_ownership_degree} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:job_ownership_degree}</div>
+				</div>
+			</div>
+			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:learning_ease} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:learning_ease}</div>
+				</div>
+			</div>
+			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:autonomy_degree} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:autonomy_degree}</div>
+				</div>
+			</div>
+			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:recruit_satisfaction} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:recruit_satisfaction}</div>
+				</div>
+			</div>
+			{elseif:#field.object:still_in_office# == '0'}			
+			<div class="control-main-wrapper">
+				<div class="control-label-wrapper">
+					<div class="control-label">{field.label:comment} :</div>
+				</div>
+				<div class="control-wrapper">
+					<div class="control">{field:comment}</div>
+				</div>
+			</div>
+			{/if}
+			
+
+
+
+
+		</div>
+	</div>
+	
+
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+</div>
+{/record}

@@ -1,0 +1,10 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','show'=>false,'isEdit'=>false,'srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_candidate_client_oid','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'proposed_by','label'=>'proposed_by','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:user.ds_list@recruitment','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','srcName'=>'proposed_by','ufname'=>'_proposed_by','qname'=>'rct_candidate_client_proposed_by','list'=>'proposed_by','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'date','label'=>'date','type'=>'datetime','value'=>'now','format'=>'%d %B %Y &agrave; %H:%M','srcName'=>'date','ufname'=>'_date','qname'=>'rct_candidate_client_date',),
+array('name'=>'comment','label'=>'comment','type'=>'text','multiLines'=>'auto','size'=>'255','srcName'=>'comment','ufname'=>'_comment','qname'=>'rct_candidate_client_comment','onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'candidates_list','label'=>'candidates_list','type'=>'records','ds'=>'handler:recruitment.candidates.client.list','ds_record'=>'handler:recruitment.candidates.client.list','key'=>'oid','fkey'=>'candidate_oid','view'=>'recruitment.candidates.client.candidates_list','edit_view'=>'recruitment.candidates.client.candidates_list','srcName'=>'candidates_list','ufname'=>'_candidates_list','qname'=>'rct_candidate_client_candidates_list','is_transient'=>true,),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','proposed_by'=>'proposed_by','_proposed_by'=>'proposed_by','date'=>'date','_date'=>'date','comment'=>'comment','_comment'=>'comment','candidates_list'=>'candidates_list','_candidates_list'=>'candidates_list',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_candidate_client.user_list','table'=>'_rct_candidate_client');
+ ?>

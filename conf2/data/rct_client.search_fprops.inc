@@ -1,0 +1,12 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','isEdit'=>false,'show'=>false,'srcName'=>'oid','ufname'=>'_oid','alias'=>'oid','qname'=>'rct_client_oid','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'nom_societe','label'=>'nom_societe','type'=>'text','srcName'=>'nom_societe','ufname'=>'_nom_societe','qname'=>'rct_client_nom_societe','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'rep_first_name','label'=>'rep_first_name','type'=>'text','srcName'=>'rep_first_name','ufname'=>'_rep_first_name','qname'=>'rct_client_rep_first_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'rep_last_name','label'=>'rep_last_name','type'=>'text','srcName'=>'rep_last_name','ufname'=>'_rep_last_name','qname'=>'rct_client_rep_last_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'rep_fonction','label'=>'rep_fonction','type'=>'text','srcName'=>'rep_fonction','ufname'=>'_rep_fonction','qname'=>'rct_client_rep_fonction','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'ville','label'=>'ville','type'=>'text','srcName'=>'ville','ufname'=>'_ville','qname'=>'rct_client_ville','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'site_web','label'=>'site_web','type'=>'text','srcName'=>'site_web','ufname'=>'_site_web','qname'=>'rct_client_site_web','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','nom_societe'=>'nom_societe','_nom_societe'=>'nom_societe','rep_first_name'=>'rep_first_name','_rep_first_name'=>'rep_first_name','rep_last_name'=>'rep_last_name','_rep_last_name'=>'rep_last_name','rep_fonction'=>'rep_fonction','_rep_fonction'=>'rep_fonction','ville'=>'ville','_ville'=>'ville','site_web'=>'site_web','_site_web'=>'site_web',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_client.search','table'=>'_rct_client');
+ ?>

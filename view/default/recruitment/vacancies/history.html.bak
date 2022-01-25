@@ -1,0 +1,32 @@
+<!--! {require:css/rct.css:skin} -->
+
+
+
+
+
+
+{content:log}
+	{include:recruitment/vacancies/components/panel_log}
+{/content}
+
+{content:vacancy_history}
+	{include:recruitment/vacancies/components/panel_vacancy_history}
+{/content}
+
+
+
+
+<div class="directory-card-main-content clear-both">
+	
+		
+					
+						{=vacancy_history}
+									{=log}
+									
+
+</div>
+
+
+
+
+

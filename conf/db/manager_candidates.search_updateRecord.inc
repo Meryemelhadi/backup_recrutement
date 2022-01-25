@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _manager_candidates SET _name=".$record->getFieldValue("name","DB","NULL"); ?>

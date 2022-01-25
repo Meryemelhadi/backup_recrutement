@@ -1,0 +1,652 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../datamodel/all.data.nxl"/>
+<include file = "components/directory.comp.nxl"/>
+
+<include file = "components/candidate_card_edit.comp.nxl"/>
+
+	<main 
+		xmlns				= "http://www.presencemedia.com/recruitment/candidates/components/directory.comp" 
+	
+		name				= "directory"
+		path				= "/recruitment/candidates/"
+		skin				= "#global:RECRUITMENT_SKIN:generis#"
+		strings				= "recruitment_candidates_directory"
+
+		service_class		= "lib.recruitment.candidates.services.directory"
+		service_class_denorm = "lib.recruitment.candidates.services.denormalisation"
+		email_service_class	= "lib.recruitment.candidates.services.message"
+								
+		ds_search			= "rct_candidate.search"
+		ds_list				= "handler:recruitment.candidates.list"
+        	ds_list_stats       = "handler:recruitment.candidates.list"
+		
+		ds_find				= "rct_candidate.find"
+		ds_add				= "rct_candidate.add"
+		ds_add_process		= "rct_candidate.add"
+		ds_edit				= "rct_candidate.edit"
+		ds_edit_process		= "rct_candidate.edit_process"
+		ds_mark_as_read		= "rct_candidate.mark_as_read"
+		ds_delete			= "rct_candidate.delete"
+		ds_archive			= "rct_candidate.archive"
+
+		ds_relevance		= "rct_candidate.relevance"
+		ds_add_log			= "rct_candidate_action.record"
+		ds_get_log			= "rct_candidate_action.by_candidate_oid"
+
+		ds_vacancies_list 	= "rct_vacancy.ds_list_all"
+
+		ds_categories_list 	= "rct_candidate_category.ds_list"
+		ds_tri_list 	= "recruitment.tri"
+		ds_add_vacancy_assoc = "rct_candidate_vacancy.add_assoc"
+		ds_get_vacancy_assoc = "rct_candidate_vacancy.get_assoc"
+
+		ds_delete_read_relation	= "rct_candidate_read_state.delete"
+
+		ds_change_reading_state	= "rct_candidate.change_reading_state"
+
+		
+
+		ds_send_to_client			= "rct_candidate_client.add"
+		ds_send_to_many_client		= "rct_candidate_client.add_many"
+
+		ds_send_to_client_process	= "rct_candidate_client.add"
+		ds_send_to_many_client_process	= "rct_candidate_client.add_many"
+		
+		ds_candidate_vacancies	= "rct_candidate_vacancy.candidate_vacancies"
+		ds_candidate_interviews	= "rct_interview.candidate_interviews"
+
+        service_class_stats			= "lib.recruitment.candidates.services.dashboard"
+
+		template_send_to_client_email	= "recruitment.emails.tpl_send_to_client"
+
+		template_interview_add	= "recruitment.candidates.components.interview_add"
+
+		template_interview_edit	= "recruitment.candidates.components.interview_edit"
+		
+		template_redirect	= "recruitment.candidates.components.redirect"
+
+		template_stat					= "recruitment.candidates.stat"
+
+		
+
+		template_interview_synthesis_add	= "recruitment.candidates.components.interview_synthesis_add"
+
+		template_interview_synthesis_edit	= "recruitment.candidates.components.interview_synthesis_edit"
+
+		template_interview_synthesis_view	= "recruitment.candidates.components.interview_synthesis_view"
+
+
+		template_list					= "recruitment.candidates.list"
+
+		template_preview				= "recruitment.candidates.components.preview"
+		template_add_record				= "recruitment.candidates.add"
+		template_edit_record			= "recruitment.candidates.edit"
+
+		template_send_to_client			= "recruitment.candidates.components.send_to_client"
+		template_send_cvs_to_client			= "recruitment.candidates.components.send_cvs_to_client"
+		template_vacancy_assoc_record	= "recruitment.candidates.components.vacancy_assoc"
+
+		template_vacancy_massive_assoc 	= "recruitment.candidates.components.vacancy_massive_assoc"
+
+		template_relevance				= "recruitment.candidates.components.relevance"
+
+		
+
+		
+
+		new_candidate_email_notification = "recruitment.emails.tpl_new_candidate_email">
+
+		
+
+	</i8n:strings>
+		
+		<i8n:strings 
+			name		= "recruitment_candidates_directory" 
+			lang		= "fr" 
+			inherit		= "recruitment_default_strings"
+			xmlns		= "http://www.w3.org/1999/xhtml"
+			xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+	
+			<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+	
+			<i8n:string id="page_title" value="CVThèque" />
+			
+			<i8n:string id="add" value="Ajouter une fiche CV" />
+			<i8n:string id="page_title_list" value="CVThèque" />
+			<i8n:string id="page_title_add" value="ajout d'une nouvelle fiche CV" />
+			<i8n:string id="page_title_edit" value="Edition de la fiche CV sélectionnée" />
+			<i8n:string id="page_title_view" value="Informations sur la fiche CV sélectionnée" />
+			<i8n:string id="page_title_validation" value="Validation de la fiche CV sélectionnée" />
+	
+			<i8n:string id="page_message_list" value="Voici la liste des fiches CV" />
+			<i8n:string id="page_message_add" value="Ce formulaire vous permet de référencer une nouvelle fiche CV dans la base de données" />
+			<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier les informations sur la fiche sélectionnée" />
+			<i8n:string id="page_message_view" value="Détails sur la fiche CV sélectionnée" />
+			
+			<i8n:string id="page_message_list_details" 
+			value="Cliquer sur une fiche CV pour en visualiser les détails" />
+			<i8n:string id="page_message_add_details" 
+			value="Après avoir rempli les champs du formulaire, cliquer sur le bouton 'Enregistrer' afin de valider et d'enregistrer les informations sur la nouvelle fiche CV" />
+			<i8n:string id="page_message_edit_details" 
+			value="Cliquer sur 'Enregistrer' pour valider les modifications et revenir à la liste des fiches CV, ou sur \'Retourner à la CVThèque\' pour annuler les modifications" />
+			<i8n:string id="page_message_view_details" 
+			value="Cliquer sur 'Retourner à la CVThèque' pour revenir à la liste des fiches CV" />
+
+			
+			<i8n:string id="field.prompt:studies_level" value="Indiquez le niveau d'études..." />
+			<i8n:string id="field.prompt:school" value="Indiquez l'école..." />
+			
+
+			<i8n:string id="field:user_default_email" value="Email par défaut (intervieweur)" />
+
+			<i8n:string id="field.prompt:user_default_email" value="Sélectionnez un email par défaut ..." />
+
+			<i8n:string id="field:user_email_title" value="Titre de l'email (intervieweur)" />
+
+			<i8n:string id="field:user_email_content" value="Contenu de l'email (intervieweur)" />
+
+			<i8n:string id="search_on_facebook_helper" value="Rechercher sur Facebook" />
+
+			<i8n:string id="viewers" value="Consulter les visiteurs" />
+			<i8n:string id="search_on_viadeo_helper" value="Rechercher sur Viadeo" />
+			<i8n:string id="search_on_linkedin_helper" value="Rechercher sur LinkedIn" />
+
+			<i8n:string id="field:name" value ="Nom" />
+			<i8n:string id="field:email" value ="Email" />
+			<i8n:string id="field:adress" value ="Adresse" />
+			<i8n:string id="field:contact_name" value ="Contact" />
+			<i8n:string id="field:notes" value ="Notes" />
+			
+			<i8n:string id="field.prompt:diploma" value="Indiquez le diplôme..." />
+			<i8n:string id="field.prompt:institution" value="Indiquez l'école..." />
+						
+			<i8n:string id="add" value="Ajouter une fiche" />
+			<i8n:string id="search" value="Rechercher" />
+			<i8n:string id="search_in_archive" value="Rechercher aussi parmi les archives" />
+			
+	
+			<i8n:string id="legend" value="Légende" />
+			<i8n:string id="empty_list" value="Aucune fiche CV n'est référencée dans la base de données" />
+	
+			<i8n:string id="edit_helper" value="Modifier la fiche" />
+			<i8n:string id="archive_helper" value="Archiver la fiche" />
+			<i8n:string id="associate_to_vacancy_helper" value="Associer à un dossier" />
+			<i8n:string id="delete_helper" value="Supprimer la fiche" />
+	
+			<i8n:string id="back" value="Retourner à la CVThèque" />
+			<i8n:string id="items_search" value="Fiche(s) CV trouvée(s)" />
+
+			<i8n:string id="back_to_interview" value="Retourner à l'entretien" />
+			
+			<i8n:string id="hello" value="Bonjour" />
+
+			
+			<i8n:string id="flags_helper" value="Signification des drapeaux" />
+			<i8n:string id="not_read_helper" value="CV non consulté" />
+			<i8n:string id="read_by_someone_helper" value="CV consulté par quelqu'un" />
+			<i8n:string id="already_read_helper" value="CV consulté par vous" />
+
+			<i8n:string id="no_cv_associated" value="Aucun CV associé" />
+			
+			<i8n:string id="dlg_delete_title" value="Suppression de la fiche CV" />
+			<i8n:string id="dlg_delete_content" value="Attention, la suppression de la fiche est irreversible. Souhaitez-vous continuer ?" />
+
+			
+
+			<i8n:string id="massive_assoc_to_vacancy_title" value="Associer les CV sélectionnés au dossier :" />
+
+			<i8n:string id="assoc_to_vacancy_title" value="Associer le CV sélectionné au dossier :" />
+
+			<i8n:string id="massive_relevance_title" value="Pertinence des CV sélectionnés :" />
+
+			
+
+			<i8n:string id="dlg_massive_delete_title" value="Suppression des fiches CV" />
+
+			<i8n:string id="dlg_massive_delete_content" value="Attention, la suppression des fiches est irreversible. Souhaitez-vous continuer ?" />
+
+			
+
+			<i8n:string id="select_relevance_label" value="Pertinence" />
+
+			<i8n:string id="select_relevance_prompt" value="Indiquez la pertinence ...." />
+
+			
+
+			<i8n:string id="no_cv_associated" value="Aucun CV associé" />
+			<i8n:string id="dlg_ok" value="Ok" />
+			<i8n:string id="dlg_cancel" value="Annuler" />
+			
+			<i8n:string id="dlg_archive_title" value="Archivage de la fiche CV" />
+			<i8n:string id="dlg_archive_content" value="En archivant la fiche, elle ne sera plus visible dans la cvthèque courante. Souhaitez-vous continuer ?" />
+
+			
+
+			<i8n:string id="dlg_massive_archive_title" value="Archivage des fiches CV" />
+
+			<i8n:string id="dlg_massive_archive_content" value="En archivant les fiches, elles ne seront plus visible dans la cvthèque courante. Souhaitez-vous continuer ?" />
+
+			
+
+			<i8n:string id="upload_cl_label" value="Nouvelle LM" />
+
+			<i8n:string id="upload_cv_label" value="Nouveau CV" />
+
+			
+
+			<i8n:string id="preview_cv_helper" value="Prévisualiser le CV original" />
+
+			
+
+			<i8n:string id="filled_by" value="Saisi par" />
+
+			<i8n:string id="by" value="par" />
+
+			<i8n:string id="date_prefix" value="Le" />
+
+			<i8n:string id="date_prefix_lc" value="le" />
+			
+
+			<i8n:string id="field:full_text_search" value="Recherche full-text (Corps des CV)" />
+
+			
+
+			<i8n:string id="cancel_search" value ="Annuler la recherche" />
+			<i8n:string id="field:first_name" value ="Prénom" />
+			<i8n:string id="field:last_name" value ="Nom" />
+			<i8n:string id="field:civility" value ="Civilité" />
+			<i8n:string id="field.prompt:civility" value ="Sélectionnez la civilité ..." />
+			<i8n:string id="field:gender" value ="Sexe" />
+			<i8n:string id="field.prompt:gender" value ="Sélectionnez le sexe ..." />
+			<i8n:string id="field:date_of_birth" value ="Date de naissance" />
+			<i8n:string id="field:age" value ="Age" />
+			<i8n:string id="field:nationality" value ="Nationalité" />
+			<i8n:string id="field:email" value ="Email" />
+			<i8n:string id="field:phone_1" value ="Téléphone N°1" />
+			<i8n:string id="field:phone_2" value ="Téléphone N°2" />
+			<i8n:string id="field:mobile" value ="Mobile" />
+			<i8n:string id="field:address" value ="Adresse" />
+			<i8n:string id="field:zip" value ="Code postal" />
+			<i8n:string id="field:country_oid" value ="Pays" />
+			<i8n:string id="field.prompt:country_oid" value ="Sélectionnez un pays ..." />
+			<i8n:string id="field:town_oid" value ="Ville" />
+			<i8n:string id="field.prompt:town_oid" value ="Sélectionnez une ville ..." />
+			<i8n:string id="field:category_oid" value ="Catégorie(s)" />
+			<i8n:string id="field.prompt:category_oid" value ="Sélectionnez une catégorie ..." />
+			<i8n:string id="field:years_of_practice" value ="Années d'expérience" />
+			<i8n:string id="field:application_type" value="Type de candidature" />
+			<i8n:string id="field.prompt:application_type" value="Sélectionnez le type de candidature ..." />
+			<i8n:string id="field:keywords" value ="Mots-clés" />
+			<i8n:string id="field:bachelor_title" value ="Baccalauréat" />
+			<i8n:string id="field:bachelor_school" value ="Lycée" />
+			<i8n:string id="field:bachelor_year" value ="Année" />
+			<i8n:string id="field:cv_path" value ="CV associé" />
+			<i8n:string id="field:cl_path" value ="LM associée" />
+
+			<i8n:string id="field:cv_path_temp" value ="CV associé" />
+
+			<i8n:string id="field:cl_path_temp" value ="LM associée" />
+			<i8n:string id="field:creation_date" value ="Date de création" />
+			<i8n:string id="field:update_date" value ="Date de mise à jour" />
+			<i8n:string id="field:update_date_min" value ="Reçus depuis le" />
+			<i8n:string id="field:update_date_max" value ="Jusqu\'au" />
+			<i8n:string id="field:reading_state" value ="Etat de lecture" />
+			<i8n:string id="field:archive_state" value ="Archive" />
+
+			<i8n:string id="field.prompt:archive_state" value ="Indiquez l'état de l'archive ..." />
+
+			
+
+			<i8n:string id="back_to_candidate" value="Retourner à la fiche candidat" />
+
+			
+
+			<i8n:string id="field:relevance" value ="Pertinence" />
+
+			<i8n:string id="field.prompt:relevance" value ="Indiquez la pertinence ..." />
+
+			
+			<i8n:string id="category" value ="Catégorie" />
+			<i8n:string id="field:profile" value ="Profil" />
+
+			<i8n:string id="field.prompt:profile" value ="Tapez un mot-clé ..." />
+
+			
+
+			<i8n:string id="vacancy" value ="Dossier" />
+
+			<i8n:string id="current_step" value ="Etape courante" />
+
+			
+
+			<i8n:string id="cv_state" value ="Etat du CV" />
+
+			
+
+			<i8n:string id="actions_prompt" value="Autres actions..."/>
+
+			<i8n:string id="action_assoc_to_vacancy" value="Associer à un dossier"/>
+
+			<i8n:string id="action_relevance" value="Indiquer la pertinence"/>
+
+			<i8n:string id="action_archive" value="Archiver"/>
+
+			<i8n:string id="action_delete" value="Supprimer"/>
+
+			
+
+			<i8n:string id="preview_cv_title" value="CV de : " />
+
+			<i8n:string id="preview_cl_title" value="Lettre de motivation de : " />
+			
+			<i8n:string id="new_candidate_doc" value="Nouvelle fiche CV" />
+
+			
+
+			<i8n:string id="select_vacancy_label" value="Sélectionnez un dossier" />
+
+			<i8n:string id="cancel" value="Annuler" />
+
+			
+
+			<i8n:string id="select_vacancy_prompt" value="Liste des dossiers ..." />
+
+			
+
+			<i8n:string id="years_old" value="ans" />
+			
+			<i8n:string id="field:diploma_type" value ="Type de diplôme" />
+			<i8n:string id="field:institution" value ="Ecole" />
+			<i8n:string id="field:description" value ="Description" />
+
+			<i8n:string id="diploma_date" value="Date d'obtention" />
+			
+			<i8n:string id="field:studies_level" value="Niveau d'études" />
+			<i8n:string id="field:vacancy" value="Dossier" />
+			<i8n:string id="field.prompt:vacancy" value="Sélectionnez un dossier ..." />
+			
+			<i8n:string id="field:match_keywords" value="Mots-clés" />
+			<i8n:string id="field:diploma" value="Diplôme" />
+			<i8n:string id="field:school" value="Ecole" />
+			
+			<i8n:string id="field:language_oid" value="Langue" />
+			<i8n:string id="field:language_level" value="Niveau" />
+			<i8n:string id="field.prompt:language_oid" value="Sélectionnez la langue ..." />
+			<i8n:string id="field.prompt:language_level" value="Indiquez le niveau ..." />
+			<i8n:string id="field:language_entries" value="Langues" />
+			<i8n:string id="field.prompt:language_entries" value="Ajouter une nouvelle langue" />
+			
+			<i8n:string id="field:training_entries" value="Stages" />
+			<i8n:string id="field.prompt:training_entries" value="Ajouter un stage" />
+			
+			<i8n:string id="delete_experience" value="Supprimer l'expérience" />
+			<i8n:string id="experiences" value="Stages et expérience professionnelle" />
+			
+			<i8n:string id="field:employment_entries" value="Expériences" />
+			<i8n:string id="field.prompt:employment_entries" value="Ajouter une expérience" />
+			
+			<i8n:string id="field:employment_start_date" value="Date de début" />
+			<i8n:string id="field:employment_end_date" value="Date de fin" />
+			<i8n:string id="field:employment_content" value="Description" />
+			<i8n:string id="toolbox" value="Que souhaitez-vous faire :"/>
+			
+			<i8n:string id="field:cv_path" value="Nouveau CV" />
+			<i8n:string id="field:cl_path" value="Nouvelle LM" />
+			<i8n:string id="candidate_vacancies" value="Dossiers associés" />
+			<i8n:string id="candidate_interviews" value="Entretiens réalisés" />
+			<i8n:string id="candidate_log" value="Historique des modifications" />
+			
+			<i8n:string id="download_cv" value="Télécharger le CV" />
+			<i8n:string id="download_cl" value="Télécharger la LM" />
+			<i8n:string id="schedule_an_interview" value="Planifier un entretien" />
+			<i8n:string id="preview_cv" value="Prévisualiser le CV" />
+			<i8n:string id="preview_cl" value="Prévisualiser la LM" />
+			<i8n:string id="send_to_client" value="Envoyer à un client" />
+			
+			<i8n:string id="employment" value="Expérience professionnelle" />
+			<i8n:string id="training" value="Stages" />
+			
+			<i8n:string id="experience_grid_label" value="d'expérience" />
+			<i8n:string id="year" value="an" />
+			<i8n:string id="education_entries" value="Diplômes, formations ..."/>
+			<i8n:string id="field.prompt:education_entries" value="Ajouter une formation"/>
+			<i8n:string id="field:education_entries" value="Formations"/>
+			<i8n:string id="general_infos" value="Informations générales" />
+			<i8n:string id="profile_infos" value="Informations sur le profil" />
+			<i8n:string id="candidate_infos" value="Informations sur le candidat" />
+			<i8n:string id="coordinates" value="Coordonnées" />
+			<i8n:string id="bachelor" value="Baccalauréat"/>
+			<i8n:string id="languages" value="Langues"/>
+			<i8n:string id="education_infos" value="Formations, diplômes ..." />
+			<i8n:string id="candidate_doc" value="Fiche CV" />
+			<i8n:string id="delete_education" value="Supprimer la formation" />
+			<i8n:string id="delete_language" value="Supprimer la langue" />
+			
+			<i8n:string id="go_to_vacancy" value="Voir le dossier" />
+			<i8n:string id="empty_vacancies_list" value="Aucun dossier associé" />
+			<i8n:string id="empty_log_list" value="Aucun historique à afficher" />
+			<i8n:string id="empty_interviews_list" value="Aucun entretien programmé" />
+			<i8n:string id="more_details" value="Plus de détails" />
+			<i8n:string id="with" value="avec" />
+			<i8n:string id="date_prefix" value="Le" />
+			
+			<i8n:string id="field:available_vacancies" value="Associer à" />
+			<i8n:string id="field.prompt:available_vacancies" value="Sélectionnez un dossier ..." />
+
+			<i8n:string id="at" value="à" />
+
+			<i8n:string id="send_to_client_title" value="Envoi à des clients internes" />
+
+			<i8n:string id="field:proposed_to" value="Proposer à" />
+
+			<i8n:string id="field.prompt:proposed_to" value="Sélectionnez un utilisateur ..." />
+
+			<i8n:string id="field:comment" value="Commentaire" />
+
+			
+
+			<i8n:string id="field:candidate_oid" value="Candidat" />
+
+			<i8n:string id="field:interview_by_oid" value="Interviewé par" />
+
+			<i8n:string id="field.prompt:interview_by_oid" value="Sélectionnez un recruteur..." />
+
+			<i8n:string id="field.prompt:candidate_oid" value="Sélectionnez un candidat..." />
+
+			<i8n:string id="field:date" value="Date" />
+
+			<i8n:string id="field:time_start" value="Heure de début" />
+
+			<i8n:string id="field:time_end" value="Heure de fin" />
+
+			
+
+			<i8n:string id="field:email_title" value="Titre de l'email" />
+
+			<i8n:string id="field:email_content" value="Contenu de l'email" />
+
+			<i8n:string id="field:candidate_email_not" value="Notif. Email candidat" />
+
+			<i8n:string id="field:interviewer_email_not" value="Notif. Email intervieweur" />
+
+			<i8n:string id="field:default_email" value="Email par défaut" />
+
+			<i8n:string id="field.prompt:default_email" value="Sélectionnez un email par défaut ..." />
+
+			<i8n:string id="add_files" value="Fichiers associés" />
+
+			<i8n:string id="action_add_file" value="Ajouter un nouveau fichier" />
+
+			
+
+			<i8n:string id="page_title_add_interview" value="Nouvel entretien" />
+
+			<i8n:string id="page_title_edit_interview" value="Edition d'entretien" />
+
+			
+
+			<i8n:string id="page_message_interview_add" value="Ce formulaire vous permet de programmer un nouvel entretien pour le candidat que vous avez sélectionné" />
+
+			<i8n:string id="page_message_interview_edit" value="Ce formulaire vous permet de modifier les informations relatives à l'entretien que vous avez sélectionné" />
+
+			<i8n:string id="empty_interview_synthesis" value="Aucun compte rendu d'entretien n'a été saisi" />
+
+			<i8n:string id="interview_synthesis" value="Comptes rendus d'entretien" />
+
+			<i8n:string id="add_interview_synthesis" value="Ajouter un compte rendu d'entretien" />
+
+			<i8n:string id="empty_attached_files" value="Aucun fichier attaché" />
+
+			
+
+			<i8n:string id="field:created_by" value="Créé par" />
+
+			<i8n:string id="field:validated_by" value="Validé par" />
+
+			
+
+			<i8n:string id="deleted" value="supprimé" />
+
+			<i8n:string id="action_restore" value="Restaurer" />
+
+			
+
+			<i8n:string id="field:education" value="Formation" />
+
+			<i8n:string id="field:motivations" value="Motivations" />
+
+			<i8n:string id="field:experiences" value="Expériences" />
+
+			<i8n:string id="field:qualifications" value="Connaissances techniques / Aptitudes" />
+
+			<i8n:string id="field:current_salary" value="Salaire actuel" />
+
+			<i8n:string id="field:desired_salary" value="Salaire demandé" />
+
+			<i8n:string id="field:leaving_period" value="Préavis" />
+
+			<i8n:string id="field:hobbies" value="Passions" />
+
+			<i8n:string id="field:best_professional_moment" value="Meilleur souvenir professionnel" />
+
+			<i8n:string id="field:worst_professional_moment" value="Plus mauvais souvenir professionnel" />
+
+			<i8n:string id="field:person_who_marked_me_posivively" value="Personne vous ayant le plus marqué positivement" />
+
+			<i8n:string id="field:person_who_marked_me_negatively" value="Personne vous ayant le plus marqué négativement" />
+
+			<i8n:string id="field:parents_jobs" value="Que font vos parents" />
+
+			<i8n:string id="field:spouse_job" value="Que fait votre conjoint" />
+
+			<i8n:string id="field:best_quality" value="Qualité la plus appréciée chez les autres" />
+
+			<i8n:string id="field:worst_lack" value="Votre plus grand défaut pour le poste" />
+
+			<i8n:string id="field:lucky_or_brave" value="Chanceux ou courageux" />
+
+			<i8n:string id="field:last_making_authority" value="Votre dernière reprise d'autorité" />
+
+			
+
+			<i8n:string id="last_experience" value="Dernière expérience" />
+
+			
+
+			<i8n:string id="no_experience" value="Aucune expérience" />
+
+			
+
+			<i8n:string id="preview_helper" value="Prévisualiser le CV" />
+
+			
+
+			<i8n:string id="field.prompt:criterias_entries" value="Ajouter un critère" />
+
+			
+
+			<i8n:string id="new_interview_synthesis_title" value="Nouveau compte rendu d'entretien" />
+
+			
+
+			<i8n:string id="page_message_interview_synthesis_add" value="Ce formulaire vous permet de saisir un nouveau compte rendu d'entretien" />
+
+			
+
+			<i8n:string id="page_message_interview_synthesis_edit" value="Ce formulaire vous permet d'éditer un nouveau compte rendu d'entretien sélectionné" />
+
+			
+
+			<i8n:string id="page_message_interview_synthesis_view" value="Ce formulaire vous permet de visualiser un nouveau compte rendu d'entretien sélectionné" />
+
+			
+			<i8n:string id="add_files_interviewer" value="Fichiers associés pour les interviewers" />
+
+			<i8n:string id="add_files_candidate" value="Fichiers associés pour le candidat" />
+
+			<i8n:string id="title_interview_synthesis" value="Comptes rendus d'entretien" />
+
+			<i8n:string id="title_interview_summary" value="Résumé de l'entretien" />
+
+			<i8n:string id="title_salary_package" value="Package salarial" />
+
+			<i8n:string id="title_capabilities_assessment" value="Appréciation des capacités" />
+
+			<i8n:string id="title_personality" value="Personnalité" />
+
+			
+
+			<i8n:string id="interview_feedback_title" value="Compte rendu d'entretien" />
+
+			<i8n:string id="title_interview_synthesis_view" value="Compte rendu d'entretien" />
+
+			
+
+			<i8n:string id="dlg_delete_title_interview" value="Suppression d'entretien" />
+
+			<i8n:string id="dlg_delete_content_interview" value="Confirmez-vous la suppression de l'entretien ?" />
+
+			
+			
+			<i8n:string id="new_candidate_proposal_notification" value="Proposition d'un nouveau candidat" />
+			<i8n:string id="new_candidate_proposal_chunk1" value="vous envoie le candidat" />
+			<i8n:string id="new_candidate_proposal_chunk2" value="pour consultation avec le commentaire suivant:" />
+			<i8n:string id="new_candidate_proposal_chunk3" value="Proposition d'un nouveau candidat" />
+			<i8n:string id="new_candidate_proposal_chunk4" value="Proposition d'un nouveau candidat" />
+
+			
+
+			<i8n:string id="new_candidate_email_subject" value="Accusé de réception de votre candidature" />
+
+			<i8n:string id="new_candidate_email_chunk1" value="Nous avons bien reçu votre candidature et nous vous remercions de l'intérêt que vous portez à notre société" />
+
+			<i8n:string id="new_candidate_email_chunk2" value="Nous allons étudier avec le plus grand soin votre candidature" />
+
+			<i8n:string id="new_candidate_email_chunk3" value="Service Ressources Humaines," />
+
+			<i8n:string id="statistics"				value="Statistiques" />
+            <i8n:string id="candidacy_kind"				value="Pourcentage Categorie de Candidature" />
+			<i8n:string id="candidacy_level_study"				value="Pourcentage Niveau d'Etude" />
+			<i8n:string id="candidacy_folder"				value="Nombre Cvs par Dossier" />
+			<i8n:string id="candidacy_school"	value="Pourcentage Cvs par Ecole" />
+			<i8n:string id="viewer_list"	value="Liste des consultations" />
+			<i8n:string id="sort-by"	value="Trier par .." />
+			<i8n:string id="croissant"	value="Croissant" />
+			<i8n:string id="decroissant"	value="Décroissant" />
+			<i8n:string id="send_email" value="Envoyer par email" />
+			
+		</i8n:strings>
+
+
+
+
+
+	
+	</main>
+
+</nxl>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_interview_synthesis_oid,_name,_level FROM _rct_interview_synthesis_criterias WHERE _interview_synthesis_oid='".$props->getProperty("synthesis_oid","0",true)."'"; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_candidate_comment WHERE _oid='".$props->getProperty("comment_oid","",true)."'"; ?>

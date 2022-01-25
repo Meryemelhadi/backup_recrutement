@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="directory_town">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+	
+				<fields mode="search">
+					<field name="town_name" label="town_name" type="line" />
+				</fields>
+				
+				<key mode="ds_list"></key>
+
+				<pages mode="ds_list_country" alias="page" pageOffset="%{get:page}" recordsPerPage="10" />
+				<key mode="ds_list_country">
+					<field name="country_oid" label="country_oid" type="line" relation="in" value="%{property:portal.recruitement.country}"/>
+					<field name="town_name" label="town_name" type="line" relation="LIKE" value="%{request:keyword}"/>
+				</key>
+				
+				<sort>
+					<field name="town_name" direction="asc" />
+				</sort>
+				
+				<pages mode="list" alias="page" pageOffset="%{get:page}" recordsPerPage="10" />
+				<key mode="list">
+					<field name="town_name" label="town_name" type="line" relation="LIKE" />
+				</key>
+				<fields mode="list">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="town_name" label="town_name" type="line" />
+					<field name="country_oid" label="country_oid" type="text-choice" control="select" multiple="false" ds="db:directory_country.ds_list" ds_format="{field:country_name}" ds_field_value="oid" />
+					<field name="cp" label="cp" type="line" />
+				</fields>
+	
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="town_name" label="town_name" type="line" />
+					<field name="country_oid" label="country_oid" type="text-choice" control="select" multiple="false" ds="db:directory_country.ds_list" ds_format="{field:country_name}" ds_field_value="oid" />
+					<field name="cp" label="cp" type="line" />
+				</fields>
+			</table>
+		
+		</tables>
+	</data>
+</nxl>

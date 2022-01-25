@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_short_list_action WHERE _short_list_oid='".$props->getProperty("oid","0",true)."'"; ?>

@@ -1,0 +1,763 @@
+{content:attached_files_candidate}
+	{include:recruitment/vacancies/components/files_attached_candidate}
+{/content}
+{content:attached_files_interviewers}
+	{include:recruitment/vacancies/components/files_attached_interviewers}
+{/content}
+
+{content:interview_synthesis}
+	{include:recruitment/vacancies/components/interview_synthesis}
+{/content}
+
+
+{content:interviews}
+{include:recruitment/candidates/components/calendar/interviews}
+{/content}
+
+{content:menu}
+<div id="nav">
+<ul>
+	<li class="current" id="planification">
+		<a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('planification','planification_div')">
+			<b>{string:"planification"}</b>
+		</a>
+	</li>
+	<li class="" id="comment">
+		<a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('comment','comment_div')">
+			<b>{string:"comment"}</b>
+		</a>
+	</li>
+	<li class="" id="email_candidat">
+		<a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('email_candidat','email_candidat_div')">
+			<b>{string:"email_candidat"}</b>
+		</a>
+	</li>
+	<li class="" id="email_interviewer">
+		<a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('email_interviewer','email_interviewer_div')">
+			<b>{string:"email_interviewer"}</b>
+		</a>
+	</li>
+	<li class="" id="evaluation">
+		<a href="javascript:void(0);" onclick="Generis.Recruitment.current_menu('evaluation','evaluation_div')">
+			<b>{string:"evaluation"}</b>
+		</a>
+	</li>
+</ul>
+</div>
+{/content}
+
+{record:candidate.record}
+	{content:cv_preview}
+	<iframe src="{field.string:cv_path:url}"
+		width="100%" height="800" frameborder="0" marginwidth="0" marginheight="0" align="top" hspace="0" vspace="0" scrolling="0">
+		<object width="100%" height="2000">      
+		  <param name="MOVIE" value="{field.string:cv_path:url}.swf">      
+		  <param name="PLAY" value="true">      
+		  <param name="LOOP" value="true">      
+		  <param name="QUALITY" value="high">      
+		  <embed src="{field.string:cv_path:url}.swf" width="100%" height="2000"      
+		   play="true" align="" loop="true" quality="high"      
+		   TYPE="application/x-shockwave-flash"      
+		   PLUGINSPAGE="[[http://www.macromedia.com/go/getflashplaye]r]">      
+		  </embed>      
+		</object>
+	</iframe>
+	{/content}
+
+	{content:candidate_etat}
+		<div class="control-main-wrapper">
+			<div class="control-label-wrapper">
+				<div class="control-label">{field.label:etat_oid}</div>
+			</div>
+			<div class="control-wrapper">
+				<div class="control">
+					{field.form:etat_oid}
+				</div>
+			</div>
+		</div>
+	{/content}
+{/record}
+
+
+{form:page.record}
+
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_calendar"}</span></span>
+</a>
+
+
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="{=candidate.url}">
+		<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"retour_cv"}</span></span>
+	</a>
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-date-add">{string:"submit"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.display(window.dlg_deleteConfig, event); return false;">
+	<span class="btn-bg"><span class="s-icon si-delete">{string:"delete"}</span></span>
+</a>
+
+{if:#field.object:candidate_oid# !='0'}
+<span class="pm-button-sep"></span>
+	<a 
+		class="pm-button btn-with-icon" 
+		href="javascript:void(0);" 
+		onclick="PMModalbox.loadFromUrl({ title:'{string:'preview_cv_title'} {field.html:candidate_oid}', fullscreen: true, url: '{=preview_cv.url}{field.object:candidate_oid}'}, event);">
+		<span class="btn-bg"><span class="s-icon si-page-white-acrobat">{string:"preview_cv_helper"}</span></span>
+	</a>
+{/if}
+{/content}
+
+
+<script>
+	window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=previous_operation.url}&mode=ajax", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+	
+	window.dlg_deleteConfig = { 
+		title : "{string:'dlg_delete_title_interview'}",
+		message : "{string:'dlg_delete_content_interview'}", 
+		viewMode : "okCancel", 
+		url : "{=delete_interview.url}{record.url_key}", 
+		target : "content", 
+		labels : { 
+			ok : "{string:'dlg_ok'}", 
+			cancel : "{string:'dlg_cancel'}" 
+	} };
+</script>
+
+<div class="pm-grid-outer-wrapper" id="add-interview-wrapper">
+
+	<div class="pm-button-wrapper clear-both">					
+		{=buttons}
+	</div>
+	
+	
+	{=menu}
+	
+
+
+<div class="pm-bxm-wrapper wide-column" id="planification_div" style="display:block">
+	<table class="pm-bxm">
+		<tr>
+			<td class="pm-bxm-main-column">	
+					<div class="pm-bxm-box-wrapper">
+						<div class="pm-bxm-box">
+							<div class="box-title-wrapper box-title-blue">
+								<div class="box-title">
+									<h3>{string:"Planification"}</h3>
+								</div>
+							</div>
+							<div class="pm-bxm-box-content">
+								<div class="columns-layout clear-both">	
+									<div class="column-1">
+										<div class="section-title-wrapper">
+											<h3 class="section-title inline-block">{string:"planification"}</h3>
+										</div>
+										<!-- planification-->
+											<div class="pm-bx-form">
+	
+												<div class="record_wrapper">
+													<div class="record">
+													
+														<br/>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:candidate_oid}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:candidate_oid}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:interview_type}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:interview_type}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:interview_etat}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:interview_etat}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:interview_feedback}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:interview_feedback}
+																</div>
+															</div>
+														</div>
+														<br/>
+														{=candidate_etat}
+														<br/>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:date}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:date}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:time_start}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	<div class="control">
+																		{field:time_start}
+																	</div>
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:time_end}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control width-66">
+																	{field:time_end}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:interview_by_oid}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control width-66">
+																	{field:interview_by_oid}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:location}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control width-66">
+																	{field:location}
+																</div>
+															</div>
+														</div>
+														<br/>
+														
+													</div>
+												</div>
+												
+											</div>
+										<!--end planification-->
+									</div>
+									<div class="column-2">
+										<div class="section-title-wrapper">
+											<h3 class="section-title inline-block">{string:"agenda"}</h3>
+										</div>
+											{include:recruitment/candidates/components/calendar/index}
+										<div class="section-title-wrapper">
+											<h3 class="section-title inline-block">{string:"interviews"}</h3>
+										</div>
+										
+										<div id="interviews">
+											{=interviews}
+										</div>
+									</div>
+								</div>
+							</div>		
+							
+						</div>
+					</div>
+						
+			</td>
+			
+		</tr>
+	</table>
+</div>
+
+
+<!-- Commentaire-->
+
+<div class="pm-bxm-wrapper wide-column" id="comment_div" style="display:none">
+	<table class="pm-bxm">
+		<tr>
+			<td class="pm-bxm-main-column">	
+					<div class="pm-bxm-box-wrapper">
+						<div class="pm-bxm-box">
+							
+							<div class="box-title-wrapper box-title-blue">
+								<div class="box-title">
+									<h3>{string:"comment"}</h3>
+								</div>
+							</div>
+							<div class="pm-bxm-box-content">
+								<div class="columns-layout clear-both">	
+									<div class="">
+										<div class="section-title-wrapper">
+											<h3 class="section-title inline-block">{string:"comment"}</h3>
+										</div>
+										<!-- commentaire-->
+											<div class="pm-bx-form">
+	
+												<div class="record_wrapper">
+													<div class="record">
+													
+														<br/>
+														<div class="">
+															<div class="control-wrapper">
+																<div class="control" id="comment_style">
+																	{field:comment}
+																</div>
+															</div>
+														</div>
+														<br/>
+													</div>
+												</div>
+												
+											</div>
+										<!--end commentaire-->
+									</div>
+								</div>
+							</div>		
+							
+						</div>
+					</div>
+						
+			</td>
+			
+		</tr>
+	</table>
+</div>
+
+<!-- Email pour candidat-->
+
+<div class="pm-bxm-wrapper wide-column" id="email_candidat_div" style="display:none">
+	<table class="pm-bxm">
+		<tr>
+			<td class="pm-bxm-main-column">	
+					<div class="pm-bxm-box-wrapper">
+						<div class="pm-bxm-box">
+							
+							<div class="box-title-wrapper box-title-blue">
+								<div class="box-title">
+									<h3>{string:"candidat_email"}</h3>
+								</div>
+							</div>
+							<div class="pm-bxm-box-content" id="email-candidate-wrapper">
+								<div class="columns-layout clear-both">	
+									<div class="">
+										<div class="section-title-wrapper">
+											<h3 class="section-title inline-block">{string:"candidat_email"}</h3>
+										</div>
+										<!-- candidate_email-->
+											<div class="pm-bx-form">
+	
+												<div class="record_wrapper">
+													<div class="record">
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label"> {field.label:candidate_email_not}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:candidate_email_not}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper" id="default_email_div" style="display:none">
+															<div class="control-label-wrapper" >
+																<div class="control-label">{field.label:default_email}</div>
+															</div>
+															<div class="control-wrapper" id="default_email-control-wrapper">
+																<div class="control" id="default_email-control">
+																	{field:default_email}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper" id="email_title_div" style="display:none">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:email_title}</div>
+															</div>
+															<div class="control-wrapper" id="email_title-control-wrapper">
+																<div class="control" id="email_title-control">
+																	{field:email_title}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper" id="email_content_div" style="display:none">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:email_content}</div>
+															</div>
+															<div class="control-wrapper" id="email_content-control-wrapper">
+																<div class="control" id="email_content-control">
+																	{field:email_content}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper" id="email_docs_div" style="display:none">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:email_docs}</div>
+															</div>
+															<div class="control-wrapper" id="email_docs-control-wrapper">
+																<div class="control" id="email_docs-control">
+																	{field:email_docs}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper" id='attached_files_candidate' style="display:none">
+															<div class="control-label-wrapper">
+																<div class="control-label">{string:"add_files_candidate"} :</div>
+															</div>
+															<div class="control-wrapper" id="assoc-files-control-wrapper">
+																<div class="control" id="candidate">
+																	
+																	<div class="add-file-wrapper">
+																		<div class="add-file-title">
+																			<a href="javascript:void(0);" class="action s-icon si-add af-add-action"><span>{string:"action_add_file"}</span></a>
+																		</div>
+																	</div>
+																	{=attached_files_candidate}
+
+																</div>
+															</div>
+														</div>
+	
+													</div>
+												</div>
+												
+											</div>
+										<!--end candidate email-->
+									</div>
+								</div>
+							</div>		
+							
+						</div>
+					</div>
+						
+			</td>
+			
+		</tr>
+	</table>
+</div>
+
+<!-- Email pour interviewer-->
+
+<div class="pm-bxm-wrapper wide-column" id="email_interviewer_div" style="display:none">
+	<table class="pm-bxm">
+		<tr>
+			<td class="pm-bxm-main-column">	
+					<div class="pm-bxm-box-wrapper">
+						<div class="pm-bxm-box">
+							
+							<div class="box-title-wrapper box-title-blue">
+								<div class="box-title">
+									<h3>{string:"interviewer_email"}</h3>
+								</div>
+							</div>
+							<div class="pm-bxm-box-content" id="email-interviewer-wrapper">
+								<div class="columns-layout clear-both">	
+									<div class="">
+										<div class="section-title-wrapper">
+											<h3 class="section-title inline-block">{string:"interviewer_email"}</h3>
+										</div>
+										<!-- interviewer_email-->
+											<div class="pm-bx-form">
+	
+												<div class="record_wrapper">
+													<div class="record">
+													<br/>
+													<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:interviewer_email_not}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:interviewer_email_not}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper" id="user_default_email_div" style="display:none">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:user_default_email}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:user_default_email}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper" id="user_email_title_div" style="display:none">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:user_email_title}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:user_email_title}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper" id="user_email_content_div" style="display:none">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:user_email_content}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">
+																	{field:user_email_content}
+																</div>
+															</div>
+														</div>
+														<br/>
+														<div class="control-main-wrapper" id="user_email_docs_div" style="display:none">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:user_email_docs}</div>
+															</div>
+															<div class="control-wrapper" id="user_email_docs-control-wrapper">
+																<div class="control" id="user_email_docs-control">
+																	{field:user_email_docs}
+																</div>
+															</div>
+														</div>
+
+														<br/>
+														<div class="control-main-wrapper" id='attached_files_interviewers' style="display:none">
+															<div class="control-label-wrapper">
+																<div class="control-label">{string:"add_files_interviewer"} :</div>
+															</div>
+															<div class="control-wrapper" id="assoc-files-control-wrapper">
+																<div class="control" id="interviewers">
+																	
+																	<div class="add-file-wrapper">
+																		<div class="add-file-title">
+																			<a href="javascript:void(0);" class="action s-icon si-add af-add-action"><span>{string:"action_add_file"}</span></a>
+																		</div>
+																	</div>
+
+																	{=attached_files_interviewers}
+																	
+																</div>
+															</div>
+														</div>
+	
+													</div>
+												</div>
+												
+											</div>
+										<!--end candidate email-->
+									</div>
+								</div>
+							</div>		
+							
+						</div>
+					</div>
+						
+			</td>
+		</tr>
+	</table>
+</div>
+<!-- CV -->
+
+<div class="pm-bxm-wrapper wide-column" id="cv_div" style="display:none">
+	<table class="pm-bxm">
+		<tr>
+			<td class="pm-bxm-main-column">	
+					<div class="pm-bxm-box-wrapper">
+						<div class="pm-bxm-box">
+							
+							<div class="box-title-wrapper box-title-blue">
+								<div class="box-title">
+									<h3>{string:"cv"}</h3>
+								</div>
+							</div>
+							<div class="pm-bxm-box-content">
+								<div class="columns-layout clear-both">	
+									<div id="cv_preview">{=cv_preview}</div>
+							</div>		
+							
+						</div>
+					</div>
+						
+			</td>
+			
+		</tr>
+	</table>
+</div>
+
+<!-- evaluation -->
+
+<div class="pm-bxm-wrapper wide-column" id="evaluation_div" style="display:none">
+	<table class="pm-bxm">
+		<tr>
+			<td class="pm-bxm-main-column">	
+					<div class="pm-bxm-box-wrapper">
+						<div class="pm-bxm-box">
+							
+							<div class="box-title-wrapper box-title-blue">
+								<div class="box-title">
+									<h3>{string:"evaluation"}</h3>
+								</div>
+							</div>
+							<div class="pm-bxm-box-content">
+								<div class="columns-layout clear-both">	
+									<div class="control-wrapper">
+								<div class="control-wrapper">
+									<div class="control">
+										
+										{=interview_synthesis}						
+										<div class="add-item-wrapper">
+											<div class="add-item-title">
+												<a 
+													href="javascript:void(0);" 
+													onclick="ajax_navigate(event,'{=add_interview_synthesis.url}', 'content');" 
+													class="action s-icon si-add"><span>{string:"add_interview_synthesis"}</span></a>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							</div>		
+							
+						</div>
+					</div>
+						
+			</td>
+			
+		</tr>
+	</table>
+</div>
+			
+	<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+		{=buttons}
+	</div>
+
+</div>
+{/form}
+<script>
+
+	Generis.Recruitment.appendAssocFilesHandlers('interviewers','file_attachement_interviewers');		  
+	Generis.Recruitment.appendAssocFilesHandlers('candidate','file_attachement_candidate');
+	
+	Generis.Recruitment.emailSampleHandler({
+		fieldname: 'default_email', 
+		element: 'add-interview-wrapper',
+		emailTitleField: 'email_title',
+		emailContentField:'email_content',
+		url: '{=get_email_sample.url}'});
+
+	Generis.Recruitment.emailSampleHandler({
+		fieldname: 'user_default_email', 
+		element: 'add-interview-wrapper',
+		emailTitleField: 'user_email_title',
+		emailContentField:'user_email_content',
+		url: '{=get_email_sample.url}'});
+
+	if(document.getElementById("candidate_email_not2").checked)
+	{  
+	    document.getElementById("candidate_email_not3").checked=true;
+		document.getElementById("default_email_div").style.display="block";
+		document.getElementById("email_title_div").style.display="block";
+		document.getElementById("email_content_div").style.display="block";
+		document.getElementById("email_docs_div").style.display="block";
+		document.getElementById("attached_files_candidate").style.display="block";
+	}
+
+	if(document.getElementById("candidate_email_not3").checked)
+	{  
+		document.getElementById("default_email_div").style.display="block";
+		document.getElementById("email_title_div").style.display="block";
+		document.getElementById("email_content_div").style.display="block";
+		document.getElementById("email_docs_div").style.display="block";
+		document.getElementById("attached_files_candidate").style.display="block";
+	}
+
+	if(document.getElementById("interviewer_email_not2").checked)
+	{
+		document.getElementById("interviewer_email_not3").checked=true;
+		document.getElementById("user_default_email_div").style.display="block";
+		document.getElementById("user_email_content_div").style.display="block";
+		document.getElementById("user_email_title_div").style.display="block";
+		document.getElementById("user_email_docs_div").style.display="block";
+		document.getElementById("attached_files_interviewers").style.display="block";
+	}
+	
+
+	document.getElementById("candidate_email_not1").onchange=function() {
+        document.getElementById("default_email_div").style.display="none";
+		document.getElementById("email_title_div").style.display="none";
+		document.getElementById("email_content_div").style.display="none";
+		document.getElementById("email_docs_div").style.display="none";
+		document.getElementById("attached_files_candidate").style.display="none";
+    };
+	document.getElementById("candidate_email_not2").onchange=function() {
+        document.getElementById("default_email_div").style.display="block";
+		document.getElementById("email_title_div").style.display="block";
+		document.getElementById("email_content_div").style.display="block";
+		document.getElementById("email_docs_div").style.display="block";
+		document.getElementById("attached_files_candidate").style.display="block";
+    };
+
+	document.getElementById("candidate_email_not3").onchange=function() {
+        document.getElementById("default_email_div").style.display="block";
+		document.getElementById("email_title_div").style.display="block";
+		document.getElementById("email_content_div").style.display="block";
+		document.getElementById("email_docs_div").style.display="block";
+		document.getElementById("attached_files_candidate").style.display="block";
+    };
+
+	document.getElementById("interviewer_email_not1").onchange=function() {
+        document.getElementById("user_default_email_div").style.display="none";
+		document.getElementById("user_email_content_div").style.display="none";
+		document.getElementById("user_email_title_div").style.display="none";
+		document.getElementById("user_email_docs_div").style.display="none";
+		document.getElementById("attached_files_interviewers").style.display="none";
+    };
+
+	document.getElementById("interviewer_email_not2").onchange=function() {
+        document.getElementById("user_default_email_div").style.display="block";
+		document.getElementById("user_email_content_div").style.display="block";
+		document.getElementById("user_email_title_div").style.display="block";
+		document.getElementById("user_email_docs_div").style.display="block";
+		document.getElementById("attached_files_interviewers").style.display="block";
+    };
+	document.getElementById("interviewer_email_not3").onchange=function() {
+        document.getElementById("user_default_email_div").style.display="block";
+		document.getElementById("user_email_content_div").style.display="block";
+		document.getElementById("user_email_title_div").style.display="block";
+		document.getElementById("user_email_docs_div").style.display="block";
+		document.getElementById("attached_files_interviewers").style.display="block";
+    };
+</script>

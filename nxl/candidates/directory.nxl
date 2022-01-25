@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+	<include_once file = "/data_model/all.nxl"/>
+	<include_once file = "/strings/all.nxl"/>
+
+	<include_once file = "components/directory.comp.nxl"/>
+	<include_once file = "components/candidate_card_edit.comp.nxl"/>
+
+	<main 
+		xmlns				= "http://www.presencemedia.com/recruitment/candidates/components/directory.comp" 
+	
+		name				= "directory"
+		path				= "/recruitment/candidates/"
+		skin				= "#global:RECRUITMENT_SKIN:generis#"
+		strings				= "recruitment_candidates_directory"
+
+		service_class		= "lib.recruitment.candidates.services.directory"
+		service_class_denorm = "lib.recruitment.candidates.services.denormalisation"
+		email_service_class	= "lib.recruitment.candidates.services.message"
+								
+		ds_search			= "rct_candidate.search"
+		ds_list				= "handler:recruitment.candidates.list"
+        	ds_list_stats       = "handler:recruitment.candidates.list"
+		
+		ds_find				= "rct_candidate.find"
+		ds_add				= "rct_candidate.add"
+		ds_add_process		= "rct_candidate.add"
+		ds_edit				= "rct_candidate.edit"
+		ds_edit_process		= "rct_candidate.edit_process"
+		ds_mark_as_read		= "rct_candidate.mark_as_read"
+		ds_delete			= "rct_candidate.delete"
+		ds_archive			= "rct_candidate.archive"
+		ds_delete_test		= "rct_candidate_test_assoc.delete"
+		ds_relevance		= "rct_candidate.relevance"
+		ds_add_log			= "rct_candidate_action.record"
+		ds_get_log			= "rct_candidate_action.by_candidate_oid"
+		ds_comments_list		= "rct_candidate_comment.ds_list"
+
+		ds_attached_files_base	= "rct_candidate_files"
+		
+		ds_comment					= "rct_candidate_comment.record"
+		ds_add_comment				= "rct_candidate_comment.add"
+		ds_delete_comment		= "rct_candidate_comment.delete"
+
+		ds_file					= "rct_candidate_file.record"
+		ds_file_add				= "rct_candidate_file.add"
+		ds_file_delete			= "rct_candidate_file.delete"
+
+		ds_candidate_etat_add		= "rct_candidate.edit_etat"
+		ds_delete_comment			= "rct_candidate_comment.delete"
+		ds_get_comment				= "rct_candidate_comment.get_record"
+		ds_delete_etat		= "rct_candidate_etat_assoc.delete"
+		ds_candidate_etats_add	= "rct_candidate_etat_assoc.add@recruitment"
+		ds_candidate_etat		= "rct_candidate_etat_assoc.candidate_etat@recruitment"
+		ds_candidate_etats		= "rct_candidate_etat_assoc.candidate_etats@recruitment"
+		ds_vacancies_list 	= "rct_vacancy.ds_list_all"
+
+		ds_categories_list 	= "rct_candidate_category.ds_list"
+		ds_tri_list 	= "recruitment.tri"
+		ds_add_vacancy_assoc = "rct_candidate_vacancy.add_assoc"
+		ds_get_vacancy_assoc = "rct_candidate_vacancy.get_assoc"
+
+		ds_delete_read_relation	= "rct_candidate_read_state.delete"
+
+		ds_change_reading_state	= "rct_candidate.change_reading_state"
+
+		ds_export_list="rct_candidate.xls_export"
+
+		ds_send_to_client			= "rct_candidate_client.add"
+		ds_send_to_many_client		= "rct_candidate_client.add_many"
+
+		ds_send_to_client_process	= "rct_candidate_client.add"
+		ds_send_to_many_client_process	= "rct_candidate_client.add_many"
+		
+		ds_candidate_vacancies	= "rct_candidate_vacancy.candidate_vacancies"
+		ds_candidate_interviews	= "rct_interview.candidate_interviews"
+		ds_candidate_tests_add	= "rct_candidate_test_assoc.add@recruitment"
+		ds_candidate_tests		= "rct_candidate_test_assoc.candidate_tests@recruitment"
+		ds_candidate_test		= "rct_candidate_test_assoc.candidate_test@recruitment"
+		ds_get_title			= "rct_candidate.ds_get_title"
+
+		ds_user_interviews		="rct_interview.by_user_day"
+
+		ds_user_default_interviews		="rct_interview.by_user_day_now"
+
+        service_class_stats			= "lib.recruitment.candidates.services.dashboard"
+
+		template_comment					= "recruitment.candidates.components.comment"
+		template_send_to_client_email	= "recruitment.emails.tpl_send_to_client"
+		template_interview_add	= "recruitment.candidates.components.interview_add"
+		template_interview_edit	= "recruitment.candidates.components.interview_edit"	
+		template_redirect	= "recruitment.candidates.components.redirect"
+		template_stat					= "recruitment.candidates.stat"
+		template_etat_assoc_record		= "recruitment.candidates.components.etat_assoc"
+		template_interviews_user		= "recruitment.candidates.components.calendar.interviews"
+		template_interview_synthesis_add	= "recruitment.candidates.components.interview_synthesis_add"
+		template_interview_synthesis_edit	= "recruitment.candidates.components.interview_synthesis_edit"
+		template_interview_synthesis_view	= "recruitment.candidates.components.interview_synthesis_view"
+		template_attached_files		= "recruitment.candidates.components.panel_files"
+		template_list					= "recruitment.candidates.list"
+
+		template_preview				= "recruitment.candidates.components.preview"
+		template_add_record				= "recruitment.candidates.add"
+		template_edit_record			= "recruitment.candidates.edit"
+
+		template_send_to_client			= "recruitment.candidates.components.send_to_client"
+		template_send_cvs_to_client			= "recruitment.candidates.components.send_cvs_to_client"
+		template_vacancy_assoc_record	= "recruitment.candidates.components.vacancy_assoc"
+
+		template_vacancy_massive_assoc 	= "recruitment.candidates.components.vacancy_massive_assoc"
+		template_relevance				= "recruitment.candidates.components.relevance"
+
+		template_xls_export = "recruitment.candidates.list_excel"
+		template_test_assoc_record		= "recruitment.candidates.components.test_assoc"
+		template_interview_wrapper		= "recruitment.candidates.components.interview_wrapper"
+		new_candidate_email_notification = "recruitment.emails.tpl_new_candidate_email">
+	</main>
+
+</nxl>

@@ -1,0 +1,47 @@
+{records:selected_candidates.records}
+	{if:records.count>0}
+	<div class="section-title-wrapper">
+		<h3 class="section-title inline-block">{string:'selected_candidates'}</h3>
+	</div>
+	<div class="pm-bxm-box-content">
+
+		<div class="table-list-wrapper">
+			<table class="table-list">
+			
+				{record}
+				<tr>
+					<td class="entry">
+						<strong>{field:full_name}</strong>
+						<br/>
+						<script>
+							window.dlg_change_contrat_signingCfg{record.index} = { title:"{string:'change_contrat_signing_title'}", url: "{=change_contrat_signing.url}{record.url_key}", width:550 };
+
+							window.dlg_change_integration_planCfg{record.index} = { title:"{string:'change_integration_plan_title'}", url: "{=change_integration_plan.url}{record.url_key}", width:550 };
+
+							window.dlg_change_integration_noteCfg{record.index} = { title:"{string:'change_integration_note_title'}", url: "{=change_integration_note.url}{record.url_key}", width:550 };
+
+							window.dlg_change_hire_dateCfg{record.index} = { title:"{string:'change_hire_date_title'}", url: "{=change_hire_date.url}{record.url_key}", width:550 };
+						</script>
+						<u>{field.label:contrat_signing}</u>: <strong>{field:contrat_signing}</strong> (<a onclick="PMModalbox.loadFromUrl(window.dlg_change_contrat_signingCfg{record.index}, event); return false;" href="javascript:void(0);"><span>{string:"change_data"}</span></a>)
+						<br/>
+						<u>{field.label:hire_date}</u>: <strong>{if:#field.object:hire_date_raw#!=''}{field:hire_date}{else}{string:"empty_hire_date"}{/if}</strong> (<a onclick="PMModalbox.loadFromUrl(window.dlg_change_hire_dateCfg{record.index}, event); return false;" href="javascript:void(0);"><span>{string:"change_data"}</span></a>)
+						<br/>
+						<u>{field.label:integration_plan}</u>: <strong>{field:integration_plan}</strong> (<a onclick="PMModalbox.loadFromUrl(window.dlg_change_integration_planCfg{record.index}, event); return false;" href="javascript:void(0);"><span>{string:"change_data"}</span></a>)
+						<br/>
+						<u>{field.label:integration_note}</u>: <strong>{field:integration_note}</strong> (<a onclick="PMModalbox.loadFromUrl(window.dlg_change_integration_noteCfg{record.index}, event); return false;" href="javascript:void(0);"><span>{string:"change_data"}</span></a>)
+						<br/>
+
+					</td>
+				</tr>
+				{/record}
+		   
+			</table>
+		</div>
+
+	</div>
+	{/if} 
+ {/records}
+
+
+
+

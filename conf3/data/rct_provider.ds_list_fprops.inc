@@ -1,0 +1,14 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','isEdit'=>false,'show'=>false,'srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_provider_oid','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'name','label'=>'name','type'=>'text','srcName'=>'name','ufname'=>'_name','qname'=>'rct_provider_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'code','label'=>'code','type'=>'text','srcName'=>'code','ufname'=>'_code','qname'=>'rct_provider_code','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'contact_name','label'=>'contact_name','type'=>'text','srcName'=>'contact_name','ufname'=>'_contact_name','qname'=>'rct_provider_contact_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'email','label'=>'email','type'=>'text','srcName'=>'email','ufname'=>'_email','qname'=>'rct_provider_email','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'web','label'=>'web','type'=>'text','srcName'=>'web','ufname'=>'_web','qname'=>'rct_provider_web','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'color','label'=>'color','type'=>'text','size'=>'20','control'=>'colorpicker','show'=>true,'srcName'=>'color','ufname'=>'_color','qname'=>'rct_provider_color','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'adress','label'=>'adress','type'=>'text','size'=>'255','multiLines'=>'auto','srcName'=>'adress','ufname'=>'_adress','qname'=>'rct_provider_adress','onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'notes','label'=>'notes','type'=>'text','size'=>'255','multiLines'=>'auto','srcName'=>'notes','ufname'=>'_notes','qname'=>'rct_provider_notes','onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','name'=>'name','_name'=>'name','code'=>'code','_code'=>'code','contact_name'=>'contact_name','_contact_name'=>'contact_name','email'=>'email','_email'=>'email','web'=>'web','_web'=>'web','color'=>'color','_color'=>'color','adress'=>'adress','_adress'=>'adress','notes'=>'notes','_notes'=>'notes',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_provider.ds_list','table'=>'_rct_provider');
+ ?>

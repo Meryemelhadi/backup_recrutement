@@ -1,0 +1,9 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','show'=>false,'srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_candidate_test_assoc_oid','isEdit'=>false,'onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'test_oid','label'=>'test_oid','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:rct_candidate_test.ds_list','ds_format'=>'{field:name}','ds_field_value'=>'oid','sqltype'=>'integer','srcName'=>'test_oid','ufname'=>'_test_oid','qname'=>'rct_candidate_test_assoc_test_oid','isProp'=>'val','isKey'=>'secondary','list'=>'test_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'pourcentage','label'=>'%','type'=>'text','srcName'=>'pourcentage','ufname'=>'_pourcentage','alias'=>'pourcentage','qname'=>'rct_candidate_test_assoc_pourcentage','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'comment','label'=>'comment','type'=>'text','srcName'=>'comment','ufname'=>'_comment','alias'=>'comment','qname'=>'rct_candidate_test_assoc_comment','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','test_oid'=>'test_oid','_test_oid'=>'test_oid','val'=>'test_oid','pourcentage'=>'pourcentage','_pourcentage'=>'pourcentage','comment'=>'comment','_comment'=>'comment',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_candidate_test_assoc.candidate_test','table'=>'_rct_candidate_test_assoc');
+ ?>

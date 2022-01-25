@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _user WHERE ".$this->getWhereClause("_user_credits","'?-rh'",'LIKE','OR','%','%',true,false,'|','false'); ?>

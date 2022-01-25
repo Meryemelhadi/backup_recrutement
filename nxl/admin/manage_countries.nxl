@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../datamodel/all.data.nxl"/>
+<include file = "components/table.comp.nxl"/>
+
+<composant 
+	xmlns				= "http://www.nxfrontier.com/admin/table.comp" 
+
+	name				= "manage_countries"
+	path				= "/recruitment/admin/"
+	skin				= "#global:RECRUITMENT_SKIN:generis#"
+	strings				= "recruitment_manage_countries"
+
+	ds_search			= "directory_country.search"
+	ds_list				= "directory_country.list"
+	ds_edit				= "directory_country.record"
+	ds_view				= "directory_country.record"
+	ds_add				= "directory_country.record"
+	ds_add_process		= "directory_country.record"
+	ds_delete			= "directory_country.record"
+	
+	template_list			= "configuration.list"
+	template_add_record		= "configuration.add"
+	template_edit_record	= "configuration.edit"
+	template_email			= "directory.configuration.directory_mail"
+	template_view_record	= "directory.configuration.directory_config_view">
+	
+	<i8n:strings 
+		name		= "recruitment_manage_countries" 
+		lang		= "fr" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Gestion des pays" />
+		
+		<i8n:string id="add" value="Ajouter un pays" />
+		<i8n:string id="search" value="Rechercher un pays" />
+		<i8n:string id="page_title_list" value="Gestion des pays" />
+		<i8n:string id="page_title_add" value="Ajout d'un nouveau pays" />
+		<i8n:string id="page_title_edit" value="Edition du nom du pays sélectionné" />
+		<i8n:string id="page_title_view" value="Informations sur le pays sélectionné" />
+		<i8n:string id="page_title_validation" value="Validation du pays sélectionné" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des pays" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d'ajouter un nouveau pays dans la base de données" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier le pays sélectionné" />
+		<i8n:string id="page_message_view" value="pays sélectionné" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Cliquer sur un pays pour modifier son nom" />
+		<i8n:string id="page_message_add_details" 
+		value="Après avoir rempli le formulaire, cliquez sur le bouton 'Enregistrer' afin de valider et d'enregistrer le nom du pays" />
+		<i8n:string id="page_message_edit_details" 
+		value="Cliquer sur 'Enregistrer' pour valider les modifications et revenir à la liste des pays, ou sur \'Liste des payss\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" 
+		value="Cliquer sur 'Liste des pays' pour revenir à la liste" />
+		
+		<i8n:string id="field:country_name" value ="Pays" />
+
+		<i8n:string id="legend" value="Légende" />
+		<i8n:string id="empty_list" value="Aucun pays n'est référencé dans la base de données" />
+
+		<i8n:string id="edit_helper" value="Modifier le nom du pays" />
+		<i8n:string id="delete_helper" value="Supprimer le pays" />
+
+		<i8n:string id="back" value="Liste des pays" />
+		<i8n:string id="items_search" value="Pays trouvé(s)" />
+
+	</i8n:strings>
+
+</composant>
+
+</nxl>

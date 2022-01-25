@@ -1,0 +1,8 @@
+<?php $properties["fprops"]=array(
+array('name'=>'status','type'=>'text','value'=>$props->getProperty("status_value","",true),'label'=>'status','srcName'=>'status','ufname'=>'_status','qname'=>'rct_candidate_vacancy_status','list'=>'recruitment.candidate_vacancy_action','control'=>'select','sqltype'=>'integer','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'proposal_acceptance_date','type'=>'date','value'=>$props->getProperty("rawdate","",true),'label'=>'proposal_acceptance_date','srcName'=>'proposal_acceptance_date','ufname'=>'_proposal_acceptance_date','qname'=>'rct_candidate_vacancy_proposal_acceptance_date','onSubmitCheck'=>"checkDate('%3\$s',%1\$s.%2\$s_day,%1\$s.%2\$s_month,%1\$s.%2\$s_year,%4\$s)",),
+array('name'=>'proposal_acceptance_state','type'=>'text','value'=>$props->getProperty("proposal_acceptance_state","",true),'label'=>'proposal_acceptance_state','srcName'=>'proposal_acceptance_state','ufname'=>'_proposal_acceptance_state','qname'=>'rct_candidate_vacancy_proposal_acceptance_state','list'=>'recruitment.acceptance_list','control'=>'select','sqltype'=>'integer','multiple'=>false,'default'=>'0','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),);
+$properties["falias"]=array('status'=>'status','_status'=>'status','proposal_acceptance_date'=>'proposal_acceptance_date','_proposal_acceptance_date'=>'proposal_acceptance_date','proposal_acceptance_state'=>'proposal_acceptance_state','_proposal_acceptance_state'=>'proposal_acceptance_state',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_candidate_vacancy.change_proposal_status','table'=>'_rct_candidate_vacancy');
+ ?>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+	<include_once file = "/vacancies/cron.nxl"/>
+	<include_once file = "/vacancies/admin/directory.nxl"/>
+	<include_once file = "/vacancies/client/directory.nxl"/>
+
+</nxl>

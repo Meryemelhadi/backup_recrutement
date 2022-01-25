@@ -1,0 +1,76 @@
+<cont:nav_section 
+title		= "Accueil" 
+permission	= "$isRH || $isRHClient || $isAdmin || $isDRH"
+iconCls		= "icon-chart-pie"
+xmlns:cont	= "http://www.presencemedia.ma/container/container">
+	<cont:nav_branch 
+		title		= "Applications Recrutement"
+		app-title	= "Recrutement"
+		iconCls		= "icon-config">
+
+		<cont:nav_link 
+			title="Accueil"
+			app-title="Page d\'accueil"
+			url="/homepage/"
+			iconCls="icon-home"
+			qtip-title="Page d\'accueil"
+			qtip-text="Page d\'accueil"
+		/> 
+
+		<cont:permission permission="$isRH || $isAdmin || $isDRH">
+			<cont:nav_link 
+				title		= "CVThèque" 
+				app-title	= "CVThèque" 
+				icon-class	= "icon-addressbook" 
+				url			= "/recruitment/candidates/directory.php"
+				target		= "document"
+				qtip-title	= "CVThèque" 
+				qtip-text	= "Le vivier des candidats"
+			/>
+		</cont:permission>
+		<cont:permission permission="$isRHClient"> 
+			<cont:nav_link 
+				title		= "CVThèque (services)" 
+				app-title	= "CVThèque (services)" 
+				icon-class	= "icon-addressbook" 
+				url			= "/recruitment/candidates/directory_client.php"
+				target		= "document"
+				qtip-title	= "CVThèque (services)" 
+				qtip-text	= "Gestion des fiches CV"
+			/>
+		</cont:permission>
+		<cont:permission permission="$isRH || $isAdmin || $isDRH">
+			<cont:nav_link 
+					title		= "Postes à Pourvoir" 
+					app-title	= "Postes à Pourvoir" 
+					icon-class	= "icon-folder" 
+					url			= "/recruitment/vacancies/admin/directory.php"
+					target		= "document"
+					qtip-title	= "Gestion des dossiers"
+					qtip-text	= "Gestion des dossiers des postes à pourvoir."
+				/>
+		</cont:permission>
+		<cont:permission permission="$isRHClient"> 
+			<cont:nav_link 
+				title		= "Gestion des Postes à Pourvoir (services)" 
+				app-title	= "Gestion des Postes à Pourvoir (services)" 
+				icon-class	= "icon-folder" 
+				url			= "/recruitment/vacancies/client/directory.php"
+				target		= "document"
+				qtip-title	= "Gestion des dossiers (services)"
+				qtip-text	= "Gestion des dossiers de recrutement au niveau des services"
+			/>
+		</cont:permission>
+
+		<cont:permission permission="$isRH || $isAdmin || $isDRH">
+			<cont:nav_link 
+					title="Agenda Entretiens"
+					url="/recruitment/vacancies/admin/directory_2.php?nxo=my_calendar"
+					app-title="Agenda"
+					iconCls="icon-user"
+					qtip-title="Mon agenda d\'entretien"
+					qtip-text="Mon calendrier avec les entretiens qui me sont affectés."
+				/>
+		</cont:permission>
+	</cont:nav_branch>
+</cont:nav_section>

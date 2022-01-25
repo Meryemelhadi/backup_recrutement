@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT  FROM _rct_candidate WHERE ".$this->getWhereClause("_oid",$this->getFieldParam("oid","null","|",$record,""),'=','OR','','',true,false,'|'); ?>

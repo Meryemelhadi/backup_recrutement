@@ -1,0 +1,208 @@
+<?xml version="1.0"?> 
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "interview_lib.comp.nxl"/>
+<include file = "../../candidates/components/candidate_card_lib.comp.nxl"/>
+
+<xo:taglib 		   
+	uri					= "http://www.presencemedia.com/recruitment/vacancies/components/directory_manager.comp"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/vacancies/components/directory_manager.comp"
+	
+	xmlns:interview_lib 	= "http://www.presencemedia.com/recruitment/vacancies/components/interview_lib.comp"
+	xmlns:candidate_lib		= "http://www.presencemedia.com/recruitment/candidates/components/candidate_card_lib.comp"
+	
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<xo:tag name="main">
+	
+		<xo:param name="site_mode" value="user" />
+		<xo:param name="user_service" value="user" />
+		<xo:param name="path" />
+		<xo:param name="skin" value="intranet" />
+
+		<xo:param name="name" />
+		<xo:param name="application_name" value="#{$path}##{$name}#_"/>
+
+		<xo:param name="strings" />
+		
+		<xo:param name="service_class" />
+		<xo:param name="template_my_calendar"/>
+		<xo:param name="ds_my_interviews_list" />
+		<xo:param name="template_interviews_list"/>
+		<xo:param name="template_calendar"/>
+		<xo:param name="template_edit_wrapper"/>
+
+		
+		<!-- protected="#{$user_service}#" -->
+		<pages xmlns="http://www.nxfrontier.com/nxl/page">
+			<page	
+				name		= "#{$name}#" 
+				protected	= "#{$user_service}#" 
+				permissions	= "?-rhmanager"
+				path		= "#{$path}#"
+				cache		= "no" 
+				lang		= "fr"
+				skin		= "#{$skin}#">
+<![CDATA[
+
+	include_once GENERIS_PACKAGES."workflow/lib/workflow/ExecuteApp.inc";
+
+	$page=new ExecuteApp(
+		array(
+		'app.role' => 'editor',	
+		'app.id' => 'vacancies@recruitment',	
+		'nx.package' => 'recruitment',
+		'application.dir'=>'application',
+
+		'page.logic' => 'recruitment.vacancies.manager.directory_'.'@recruitment',
+		'page.skin' => (isset($GLOBALS["RECRUITMENT_SKIN"])?$GLOBALS["RECRUITMENT_SKIN"]:"generis"),
+		'page.strings' => 'recruitment_vacancies_directory_admin@recruitment',
+		),
+		$siteDesc);
+
+	$page->run();
+]]>
+			</page>
+
+			<page	
+				name		= "#{$name}#_2" 
+				protected	= "#{$user_service}#" 
+				permissions	= "?-rhmanager"
+				path		= "#{$path}#"
+				cache		= "no" 
+				lang		= "fr"
+				skin		= "#{$skin}#">
+<![CDATA[
+
+	include_once GENERIS_PACKAGES."workflow/lib/workflow/ExecuteApp.inc";
+
+	$page=new ExecuteApp(
+		array(
+		'app.role' => 'editor',	
+		'app.id' => 'vacancies@recruitment',	
+		'nx.package' => 'recruitment',
+		'application.dir'=>'application',
+
+		'page.logic' => 'recruitment.vacancies.manager.directory_'.'@recruitment',
+		'page.skin' => (isset($GLOBALS["RECRUITMENT_SKIN"])?$GLOBALS["RECRUITMENT_SKIN"]:"generis"),
+		'page.strings' => 'recruitment_vacancies_directory_admin@recruitment',
+		),
+		$siteDesc);
+
+	$page->run();
+]]>
+			</page>
+		</pages>
+		
+		<!-- logic -->
+		<logic 
+			xmlns			= "http://www.nxfrontier.com/nxl/nxl"
+		   	xmlns:ds		= "http://www.nxfrontier.com/nxl/ds"
+		   	xmlns:button	= "http://www.nxfrontier.com/nxl/button">
+		
+			<application name="#{$application_name}#">
+				
+				<operation name="my_calendar">
+					<step name="my_calendar">	
+						<code>						
+																							
+							<button:set name="interviews_list" operation="my_interviews_list">
+								<button:param name="oid" value="#request:oid#" />
+							</button:set>
+							
+							<set name="ics_export.url">
+								PORTAL_URL_PREFIX.'/recruitment/vacancies/manager/directory.php?nxo=ics_export'
+							</set>
+														
+							<display view="#{$application_name}#_my_calendar"/>
+							
+						</code>
+					</step>
+
+				</operation>
+
+				<operation name="ics_export">
+                    <step name="ics_export">
+                        <code>
+                            <load>
+                                <bean:call
+                                    xmlns:bean	= "http://www.nxfrontier.com/nxl/bean"
+                                    class		= "#{$service_class}#"
+                                    method		= "ics_export"
+                                    params		= ""
+                                />
+                            </load>
+ 
+                        </code>
+                    </step>
+                </operation>
+					
+				<operation name="my_interviews_list">
+					<step name="interviews_list">	
+						<code>
+							<interview_lib:manager_interviews_list 
+								application_name="#{$application_name}#" 
+								ds_interviews_list="#{$ds_my_interviews_list}#"
+								operation="my_calendar"
+							/>
+						
+							<display view="#{$application_name}#_interviews_list"/>
+							
+						</code>
+					</step>
+				</operation>
+				
+				<!-- Prévisualisation des pièces jointes (CV, LM) -->
+				<operation name="preview">
+					<step name="preview">	
+						<code>	
+												
+							<candidate_lib:preview
+								application_name	= "#{$application_name}#"
+							/>
+							
+						</code>
+					</step>
+				</operation>
+					
+
+			</application> 
+		</logic>
+		
+		
+		<!-- views -->
+
+		<tpl:screens xmlns="http://www.nxfrontier.com/tpl/tpml"  xmlns:tpl="http://www.nxfrontier.com/tpl/tpml" skin="default">
+	  
+			<tpl:screen name="#{$application_name}#_my_calendar" trace="yes" inherit="page">
+				<zone>
+					<load view="#{$template_my_calendar}#" />
+				</zone>
+			</tpl:screen>
+
+			<tpl:screen name="#{$application_name}#_calendar" trace="yes" inherit="#{$template_edit_wrapper}#">
+				<zone>
+					<load view="#{$template_calendar}#" />
+				</zone>
+			</tpl:screen>
+			
+			
+			<tpl:screen name="#{$application_name}#_interviews_list" trace="yes">
+				<load view="#{$template_interviews_list}#" />
+			</tpl:screen>
+			
+			
+		</tpl:screens>
+		
+	</xo:tag>
+</xo:taglib>
+</nxl>

@@ -1,0 +1,7 @@
+<?php $properties["fprops"]=array(
+array('name'=>'validation_state','type'=>'text','value'=>$props->getProperty("validation_state","",true),'label'=>'validation_state','srcName'=>'validation_state','ufname'=>'_validation_state','qname'=>'rct_interview_validation_state','list'=>'recruitment.validation_state','control'=>'select','sqltype'=>'integer','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'validated_by','type'=>'text','value'=>$GLOBALS["_NX_user"]->getProperty("oid","",true),'label'=>'validated_by','srcName'=>'validated_by','ufname'=>'_validated_by','qname'=>'rct_interview_validated_by','control'=>'select','multiple'=>false,'ds'=>'db:user.ds_list','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','sqltype'=>'integer','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),);
+$properties["falias"]=array('validation_state'=>'validation_state','_validation_state'=>'validation_state','validated_by'=>'validated_by','_validated_by'=>'validated_by',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_interview.validate_process','table'=>'_rct_interview');
+ ?>

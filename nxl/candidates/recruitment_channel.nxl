@@ -1,0 +1,21 @@
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<application
+	name		= "recruitment_channel" 
+	path		= "/recruitment/candidates/"
+	protected	= "user" 
+	permissions = "default"
+	cache		= "no" 
+	lang		= "fr"
+	skin		= "lightsky"
+	application = "recruitment_channel"
+	table		= "rct_channel"
+	base_data	= "rct_channel"
+	string_base = "Canal"
+	role = "editor"
+		xmlns="http://www.nxfrontier.com/nxl/page"
+	/>
+
+<include_once file="/all.nxl" />
+
+</nxl>

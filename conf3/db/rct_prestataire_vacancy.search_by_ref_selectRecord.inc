@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_vacancy_oid,_provider_oid,_ref FROM _rct_vacancy_provider WHERE _ref='".$props->getProperty("ref","",true)."'"; ?>

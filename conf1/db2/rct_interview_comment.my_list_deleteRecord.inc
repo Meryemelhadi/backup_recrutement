@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_interview_comment WHERE _key=_rct_interview._oid AND _val='".$GLOBALS["_NX_user"]->getProperty("user.oid","",true)."'"; ?>

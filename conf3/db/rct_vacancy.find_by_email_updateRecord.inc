@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy SET _oid=".$record->getFieldValue("oid","DB","NULL")." WHERE _job_email='".$props->getProperty("job_email","",true)."'"; ?>

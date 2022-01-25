@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_provider_username,_provider_password FROM _rct_provider WHERE ".$this->getWhereClause("_name","'".$props->getProperty("provider_name","",true)."'",'LIKE','OR','%','%',true,false,'|','false')." ORDER BY _name ASC "; ?>

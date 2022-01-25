@@ -1,0 +1,23 @@
+	<div class="comments-wrapper" id="comments-wrapper">
+	{records:page.records}
+		{record}
+			<div class="comment-wrapper_{field:oid}">
+
+				<table style="width:100%">
+					<tr>
+						<td style="width:98%">
+							<div class="comment"><span class="comment_author">{field:user_oid}</span>: {field:comment}</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="comment_date">{field:date}</div>
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		{/record}
+	{/records}
+	</div>
+

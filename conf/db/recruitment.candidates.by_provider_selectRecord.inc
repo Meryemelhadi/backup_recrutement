@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_assoc_oid,_first_name,_last_name,_cv_path,_years_of_practice,_keywords,_rating,_status,_is_visible FROM _rct_candidate"; ?>

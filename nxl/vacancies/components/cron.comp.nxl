@@ -1,0 +1,141 @@
+<?xml version="1.0"?> 
+
+<xo:taglib 		   
+	uri					= "http://www.presencemedia.com/recruitment/vacancies/components/cron.comp"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/vacancies/components/cron.comp"
+	
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+	<xo:tag name="main">
+	
+		<xo:param name="site_mode" value="user" />
+		<xo:param name="user_service" value="user" />
+		<xo:param name="path" />
+		<xo:param name="skin" value="intranet" />
+
+		<xo:param name="name" />
+		<xo:param name="application_name" value="#{$path}##{$name}#_"/>
+
+		<xo:param name="strings" />
+		
+		<xo:param name="ds_feedback_list" />
+		<xo:param name="ds_notification_list" />
+		
+		<xo:param name="template_delayed_feedback" value="recruitment.emails.tpl_delayed_feedback" />
+		<xo:param name="template_warning" value="recruitment.emails.tpl_warning" />
+		
+		<!-- protected="#{$user_service}#" -->
+		<pages xmlns="http://www.nxfrontier.com/nxl/page">
+			<page	
+				name		= "#{$name}#" 
+				protected	= "" 
+				permissions	= ""
+				path		= "#{$path}#"
+				cache		= "no" 
+				lang		= "fr"
+				skin		= "#{$skin}#">
+				<exec logic="#{$application_name}#" strings="#{$strings}#">
+				</exec>
+			</page>
+		</pages>
+		
+		<!-- logic -->
+		<logic 
+			xmlns			= "http://www.nxfrontier.com/nxl/nxl"
+		   	xmlns:ds		= "http://www.nxfrontier.com/nxl/ds"
+		   	xmlns:button	= "http://www.nxfrontier.com/nxl/button">
+		
+			<application name="#{$application_name}#">
+				<operation name="main">
+					<step name="main">	
+					
+						<code>
+						
+							<bean:call
+								xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+								class		= "lib.recruitment.vacancies.services.message"
+								method		= "cronaction"
+							/>				
+						
+						</code>
+					
+					</step>
+				</operation>
+				
+				
+				<operation name="testmail">
+					<step name="testmail">
+						<code>
+							
+							<ds:load media="empty" ds="sendtestmail" property="page.record" multiple="no" addProperties="no"/>
+							<button:set name="submit" step="testmailprocess" />
+							
+							<form view="#{$application_name}#_viewform"/>
+							
+						</code>
+					</step>
+					
+					<step name="testmailprocess">
+						<code>
+							
+							<!---->
+							
+							<set name="var:record">
+								<ds:load media="post" ds="sendtestmail" property="page.record" multiple="no" addProperties="no"/>
+							</set>
+							
+							<bean:call
+								xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+								class		= "lib.recruitment.vacancies.services.message"
+								method		= "testEmail"
+								params		= "#var:record#"
+							/>
+							
+							<set name="property:page.record" value="#var:record#" />
+							
+							<button:set name="back" step="testmail" />
+							<form view="#{$application_name}#_resultform"/>
+							
+						</code>
+					</step>
+					
+				</operation>
+				
+
+			</application>
+		</logic>
+		
+		<!-- views -->
+		<tpl:screens xmlns="http://www.nxfrontier.com/tpl/tpml"  xmlns:tpl="http://www.nxfrontier.com/tpl/tpml" skin="default">
+			
+			<tpl:screen name="#{$application_name}#_viewform" trace="yes">
+				<load view="recruitment.cron.email" />
+			</tpl:screen>
+			
+								
+			<tpl:screen name="#{$application_name}#_resultform" trace="yes">
+				<load view="recruitment.cron.email_process" />
+			</tpl:screen>
+			
+			
+			
+			<tpl:screen name="cron_delayed_feedback_view" trace="yes">
+				<load view="#{$template_delayed_feedback}#" />
+			</tpl:screen>
+			
+			<tpl:screen name="cron_warning_view" trace="yes">
+				<load view="#{$template_warning}#" />
+			</tpl:screen>
+			
+			
+
+		</tpl:screens>
+		
+	</xo:tag>
+</xo:taglib>

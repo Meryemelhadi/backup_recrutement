@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_url,_identifiant,_key,_app_credits,_compagnie_name,_description,_contact_email,_logo,_banner_background_image,_login,_password,_active_app,_comment,_data_type FROM _rct_app_connected"; ?>

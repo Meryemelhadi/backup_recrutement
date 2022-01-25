@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _candidate_oid,_email_type,_created_by,_creation_date,_vacancy_oid,_email_title,_email_content FROM _rct_email WHERE _oid='".$props->getProperty("email_oid","",true)."'"; ?>

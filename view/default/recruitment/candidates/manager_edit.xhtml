@@ -1,0 +1,351 @@
+    <p:page
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://www.presencemedia.ma/views/page2"
+        xmlns:form1="http://www.presencemedia.ma/views/form"
+        xmlns:form="http://www.presencemedia.ma/views/form2_bs"
+        xmlns:record="http://www.presencemedia.ma/views/record#skin"
+        enveloppe="page_bs"
+        >
+    <script language="php"><![CDATA[
+		$workflow = $this->getProperty('workflow');
+		$candidate = $this->getProperty('page.record');
+		]]></script>
+	<link href="/nx/controls/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+	
+    <p:head>
+        <p:title>
+        </p:title>
+        <p:resources>
+            <!-- <p:resource type="css" path="css/recruitment/candidate_bs.css" /> -->
+		</p:resources>
+        
+    </p:head>
+
+    <p:body>
+        <style>
+			
+            {=app.form.css}
+			.ws_notif{
+				padding: 5px; 
+				background: rgba(0, 128, 0, 0.25);
+			}
+			.ws_notif strong{
+				font-size: 13px;
+			}
+			#actions_ws{
+				display:none;
+				background: rgba(128, 128, 128, 0.18);
+				padding: 5px; 
+				border-radius: 5px;
+			}
+			#notification_action{
+				margin: 5px 0px;
+			}
+			.pm-page-title-wrapper{
+				float: left;
+				margin-right: 10px;
+			}
+			#content_form{
+				margin-top: 50px;
+			}
+        </style>
+
+        <script>
+            {=app.form.js}
+        </script>
+
+        {include:common.messages_log}
+        {include:common.message_help}
+
+        {content:panel_files}
+            {include:recruitment/candidates/components/panel_files}
+        {/content}
+
+        {content:interviews}
+            {include:recruitment/candidates/components/panel_interviews}
+        {/content}
+		{content:evaluations}
+            {include:recruitment/candidates/components/panel_evaluations}
+        {/content}
+
+        {content:tests}
+        {include:recruitment/candidates/components/panel_tests2_bs}
+        {/content}
+
+        {content:update_resume}
+        {include:recruitment/candidates/components/panel_update_resume}
+        {/content}
+
+        {content:comments_part}
+        {include:recruitment/candidates/components/comments_part}
+        {/content}
+
+        {content:emails}
+        {include:recruitment/candidates/components/panel_emails}
+        {/content}
+
+        {content:emails_received}
+        {include:recruitment/candidates/components/received_emails}
+        {/content}
+
+        {content:vacancies_list}
+        {include:recruitment/vacancies/components/vacancies_list}
+        {/content}
+
+        {content:panel_cv_preview}
+        {include:recruitment/candidates/components/panel_cv_preview}
+        {/content}
+
+        {content:panel_toolbox}
+        {include:recruitment/candidates/components/panel_toolbox}
+        {/content}
+
+		{content:comments_part}
+        {include:recruitment/candidates/components/comments_part}
+        {/content}
+		
+        {content:buttons_cv}
+        {include:recruitment/candidates/components/edit_buttons_cv}
+        {/content}
+
+        {content:button_save}
+        {include:recruitment/candidates/components/edit_button_save}
+        {/content}
+
+        {content:button_associer}
+        {include:recruitment/candidates/components/edit_button_associer}
+        {/content}
+		{content:all_buttons}
+        {include:recruitment/candidates/components/all_edit_buttons}
+        {/content}
+
+        {content:buttons_send_to_collab}
+        <!--<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.loadFromUrl({ title:'{string:'send_to_client_title'}',width:550,url: '{=send_to_client.url}{record.url_key}'}, event); return false;" style="float:right">
+            <span class="btn-bg"><span class="s-icon si-send">{string:"send_to_collab"}</span></span>
+        </a>-->
+		<button type="button" class="btn btn-default button_bs_right button_bs_margin" onclick="PMModalbox.loadFromUrl({ title:'{string:'send_to_client_title'}',width:550,url: '{=send_to_client.url}{record.url_key}'}, event); return false;">
+			<span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;&nbsp;{string:"send_to_collab"}
+		</button>
+		<!--<a href="javascript:void(0);" onclick="PMModalbox.loadFromUrl({ title:'{string:'send_to_client_title'}',width:550,url: '{=send_to_client.url}{record.url_key}'}, event); return false;" class="button_bs button_bs_right button_bs_margin" >
+			<span class="icon-reply icon-2" style="margin-right: 5px;"></span> {string:"send_to_collab"}
+		</a>-->
+        {/content}
+
+		{content:button_delete}
+        {include:recruitment/candidates/components/panel_delete}
+        {/content}
+
+        {content:buttons}
+        {include:recruitment/candidates/components/edit_buttons}
+        {/content}
+
+        {content:upload_file}
+        {include:recruitment/candidates/components/upload_file}
+        {/content}
+
+        {content:historique}
+        {include:recruitment/candidates/components/panel_historique}
+        {/content}
+		
+		{content:consultations}
+        {include:recruitment/candidates/components/panel_consultations}
+        {/content}
+		
+
+        <form:record id="content_form" record="page.record">
+			<script>
+			
+			document.getElementById('page_title').innerHTML = '<h1 class="title_candidate">Fiche candidat : <a style="font-size:36px !important">{field.html:first_name} {field.html:last_name}</a> </h1>';
+            if (typeof document.getElementById('page-bread-crumb') === "undefined") {
+				document.getElementById('page-bread-crumb').innerHTML += ' > <span class="png_bg"><a class="nav-item" href="#">'+document.getElementById('page_title').innerHTML+'</a></span>';
+			}
+
+			window.dlg_waitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+			window.dlg_successConfig = {
+				title : "{string:'dlg_success_title'}",
+				message : "{string:'dlg_success_content'}",
+				viewMode : "ok",
+				url : "{=edit.url}&mode=ajax",
+				target : "content",
+				labels : { ok : "{string:'dlg_success'}" }
+			};
+
+			window.dlg_failureConfig = {
+				title : "{string:'dlg_failure_title'}",
+				message : "{string:'dlg_failure_content'}",
+				viewMode : "cancel",
+				target : "content",
+				labels : { cancel : "{string:'dlg_cancel'}" }
+			};
+
+			</script>
+            <form:main>
+                <table class="table-edit">
+                    <tr>
+                        <td>
+							
+                            <form:toolbar>
+								<div class="btn-group btn-group-width">
+								    <button type="button" class="btn btn-default button_back {if:!%property:from_vacancy% && !%property:from_vacancy_calendar% && !%property:my_calendar% && !%property:from_mes_candidats% && !%property:from_eval%}green{/if}" onclick="document.location.href='{=previous_operation_link.url}'">
+										<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;{string:"back"}
+									</button>
+									<span class="pm-button-sep"></span>
+									<button type="button" class="btn btn-default" onclick="PMFormSubmit.submit(this, dlg_waitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+										<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;&nbsp;{string:"submit"}
+									</button>			
+							   </div> 
+                            </form:toolbar>
+                            <form:tabs>
+                            <form:tab id="cv" title="{string:'cv'}">
+                                <form:panels>
+                                    <form:panel XXtitle="{string:'cv'}">
+                                        {=panel_cv_preview}
+                                    </form:panel>
+                                </form:panels>
+                            </form:tab>
+							
+							 <form:tab id="general_infos" title="{string:'candidate_infos'}">
+								<form:panels>
+									<form:panel xxtitle="Profil Candidat">
+										<form:columns>
+											<form:column index="1">
+												<form:group title="{string:'profile_infos'}">
+
+													<form:field name="last_name"/>
+													<form:field name="first_name"/>
+													<form:field name="civility"/>
+													<form:field name="gender"/>
+													<form:field name="date_of_birth"/>
+
+													<form:field name="nationality"/>
+
+												</form:group>
+												<!-- <form:group title="{string:'candidate_infos'}">
+													<form:field name="studies_level"/>
+												</form:group>
+-->
+											</form:column>
+											<form:column index="2">
+												<form:group title="{string:'coordinates'}">
+													<form:field name="email"/>
+													<form:field name="mobile"/>
+													<form:field name="phone_1"/>
+													<form:field name="phone_2"/>
+													<form:field name="zip"/>
+													<form:field name="country_oid"/>
+													<form:field name="town_oid"/>
+												</form:group>
+
+											</form:column>
+										</form:columns>
+
+									</form:panel>
+									<form:panel title="{string:'education_infos'}">
+										<form:columns>
+											<form:column index="1">
+												<form:group title="{string:'education_entries_1'}">
+
+													<form:field-no-label name="education_entries"/>
+
+												</form:group>
+												<form:group title="{string:'bachelor'}">
+													<form:field name="bachelor_year"/>
+												</form:group>
+
+											</form:column>
+											<form:column index="2">
+												<form:group title="{string:'languages'}">
+													<form:field-no-label name="language_entries"/>
+												</form:group>
+												<form:group title="{string:'education_entries_2'}">
+													<form:field-no-label name="education_entries_2"/>
+												</form:group>
+
+											</form:column>
+										</form:columns>
+
+									</form:panel>
+									<form:panel titleXX="{string:'experiences'}" title="{string:'Parcours Professionel'}">
+										<form:columns>
+											<form:column index="1">
+												<form:group title="{string:'experiences'}">
+
+													<form:field-no-label name="employment_entries"/>
+
+												</form:group>
+
+											</form:column>
+											<form:column index="2">
+												<form:group title="{string:'training'}">
+													<form:field-no-label name="training_entries"/>
+												</form:group>
+
+											</form:column>
+										</form:columns>
+
+									</form:panel>
+								</form:panels>
+							</form:tab>
+								
+                            
+                        </form:tabs>
+                        <!-- <form:toolbar>
+                            {=buttons}
+                            {=buttons_send_to_collab}
+                        </form:toolbar>
+ -->                    </td>
+                    <td class="td-toolbox">
+                        <form:panel titleXX="{string:'toolbox'}" title="{string:'qualification CV'}" id="toolbox">
+
+                            <form:group title="{string:'suivi-recrutement'}">
+                                <!--<form:field name="etat_oid"/>-->
+								<!--<div id="actions_ws" >
+									
+								</div>-->
+                                <form:field name="hr_manager" />
+								<form:field name="category_oid"/>
+                            </form:group>
+                           <form:group title="{string:'comments'}">
+								{=comments_part}
+							</form:group>
+							<form:group titleXX="{string:'qualification CV'}" title="{string:'Infos clefs'}">
+								<form:field-double name="available_delai" name2="available_from"/>
+								<form:field-double name="salary_min" name2="salary_max"/>
+
+                                <form:field name="profile"/>
+                                <form:field name="years_of_practice"/>
+                                <form:field name="studies_level"/>
+								<!--<form:field name="relevance"/>-->
+								<form:field name="archive_state"/>
+
+                            </form:group>
+
+                        </form:panel>
+                    </td>
+                </tr>
+            </table>
+         </form:main>
+    </form:record>
+    {=update_resume}
+    {=upload_file}
+
+    <script type="text/javascript">
+		var edit_url = "{=submit.url}";
+        window.ajax_load('/nx/skins/default/js/recruitment/form_candidate.js','form_candidate_js');
+		window.sendWS = function(service_web , candidate_oid){
+			new Ajax.Request('/recruitment/candidates/directory.php?nxo=action&action='+service_web+'&candidate='+candidate_oid,{
+					 method : 'GET',
+					 asynchronous: true,
+					 contentType : 'application/x-www-form-urlencoded',
+					 encoding : 'UTF-8',
+					 onSuccess : function(data) {
+						document.location.reload();
+					 }
+				});
+		}
+    </script>
+
+
+
+    </p:body>
+</p:page>

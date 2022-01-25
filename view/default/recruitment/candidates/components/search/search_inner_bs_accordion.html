@@ -1,0 +1,760 @@
+<?php
+//DebugBreak();
+(sizeof($_SESSION["recruitment_default_search"]) == 1 && $_SESSION["recruitment_default_search"][0] == "" )?  $recruitment_default_search = 0 : $recruitment_default_search = $_SESSION["recruitment_default_search"];
+$index = 0;
+$search = false;
+$page_search = $this->getProperty('page.search');
+$etat_list = $page_search->etat_oid->list;
+$provider_list = $page_search->provider->list;
+$vacancy_list = $page_search->vacancy->list;
+
+?>
+<style type="text/css">
+.saved_search_class select{
+    border-radius: 5px;
+    padding: 3px;
+	font-weight:normal;
+}
+.saved_search_class{
+    padding: 0px;
+    margin-top: 5px;
+	display: inline-block;
+}
+.search-toolbar{
+	background: #EAF7CE; 
+	text-align:right ; 
+	padding: 5px 5px 0px 5px;
+}
+.search-toolbar a{
+	float:right; 
+	padding-right: 20px;
+	font-weight: normal;
+}
+.search-toolbar span{
+	border:none;
+}
+</style>
+
+
+<div class="search-panel-inner-wrapper" style="background:transparent">
+	<!--! {form:page.search} -->
+	
+	{var:search=false}
+	{var:collapse=0}
+	<table class="pm-search-grid">
+		<div class="panel-group" id="search-accordion">
+		 {if: %var:recruitment_default_search% == 0 || in_array(#field.name:full_text_search# , %var:recruitment_default_search%)}
+			{$highlightClass=''} 
+			{if:(#field.object:full_text_search# != #field.default:full_text_search#)}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				<script language="javascript" type="text/javascript">
+					document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:full_text_search}<span onclick="window.formObj.changefield(\'full_text_search\' , \'\')">X<span></button>';
+				</script>
+			{/if}
+			<div class="list-group-item full-text-input {$highlightClass}">
+				<div class="control-wrapper" id="{field.name:full_text_search}-control-wrapper">
+					<div class="control" id="{field.name:full_text_search}-control">{field.form:full_text_search}</div>
+				</div>
+			</div>
+		  {/if}
+		  
+		  {if: %var:recruitment_default_search% == 0 || in_array(#field.name:vacancy# , %var:recruitment_default_search%)}
+			{$highlightClass=''} 
+			{if:(#field.object:vacancy# != #field.default:vacancy#)}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				<script language="javascript" type="text/javascript">
+					{if:%field.object:vacancy% == -1}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">Candidatures spontanées<span onclick="window.formObj.changefield(\'vacancy\' , \'?\')">X<span></button>';
+					{elseif:%field.object:vacancy% == -2}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">Candidatures pour mes postes ouverts<span onclick="window.formObj.changefield(\'vacancy\' , \'?\')">X<span></button>';
+					{elseif:%field.object:vacancy% == -3}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">Candidatures pour les postes ouverts<span onclick="window.formObj.changefield(\'vacancy\' , \'?\')">X<span></button>';
+					{else}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:vacancy}<span onclick="window.formObj.changefield(\'vacancy\' , \'?\')">X<span></button>';
+					{/if}
+					</script>
+			{/if}
+			<div class="list-group-item full-text-input {$highlightClass}">
+				<div class="control-wrapper" id="{field.name:vacancy}-control-wrapper">
+					<div class="control" id="{field.name:vacancy}-control">
+						<select type="select" class="form-control" name="vacancy">
+							<option value="?">{field.prompt:vacancy}</option>
+							<option value="-1" <?php if(-1 == $_nx_record->vacancy->object) print " selected";?>>{string:"Candidatures spontanées"}</option>
+							<option value="-2" <?php if(-2 == $_nx_record->vacancy->object) print " selected";?>>{string:"Candidatures pour mes postes ouverts"}</option>
+							<option value="-3" <?php if(-3 == $_nx_record->vacancy->object) print " selected";?>>{string:"Candidatures pour les postes ouverts"}</option>
+							<?php foreach($vacancy_list as $oid => $name){
+							print '<option value="'.$oid.'"';
+							if($oid == $_nx_record->vacancy->object) print " selected";
+							print " >".$name."</option>";
+							 } ?>
+						</select>
+					</div>
+				</div>
+			</div>
+		  {/if}
+		  {if: %var:recruitment_default_search% == 0 || in_array(#field.name:profile# , %var:recruitment_default_search%)}
+			{$highlightClass=''} 
+			{if:(#field.object:profile# != #field.default:profile#)}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				<script language="javascript" type="text/javascript">
+					document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:profile}<span onclick="window.formObj.changefield(\'profile\' , \'?\')">X<span></button>';
+				</script>
+			{/if}
+			<div class="list-group-item full-text-input {$highlightClass}">
+				<div class="control-wrapper" id="{field.name:profile}-control-wrapper">
+					<div class="control" id="{field.name:profile}-control">{field.form:profile}</div>
+				</div>
+			</div>
+		  {/if}
+		  {if: %var:recruitment_default_search% == 0 || in_array(#field.name:tag# , %var:recruitment_default_search%)}
+			{$highlightClass=''} 
+			{if:(#field.object:tag# != #field.default:tag#)}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				<script>
+					document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:tag}<span onclick="window.formObj.changefield(\'tag\' , \'\')">X<span></button>';
+				</script>
+			{/if}
+			<div class="list-group-item full-text-input {$highlightClass}">
+				<div class="control-wrapper" id="{field.name:tag}-control-wrapper">
+					<div class="control" id="{field.name:tag}-control">{field.form:tag}</div>
+				</div>
+			</div>
+		  {/if}
+		  {if: %var:recruitment_default_search% == 0 || in_array(#field.name:etat_oid# , %var:recruitment_default_search%)}
+			{$highlightClass=''} 
+			{if:(#field.object:etat_oid# != #field.default:etat_oid#)}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				<script language="javascript" type="text/javascript">
+					{if:%field.object:etat_oid% == -1}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">A classé<span onclick="window.formObj.changefield(\'etat_oid\' , \'?\')">X<span></button>';
+					{elseif:%field.object:etat_oid% == -2}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">Qualifié<span onclick="window.formObj.changefield(\'etat_oid\' , \'?\')">X<span></button>';
+					{else}
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:etat_oid}<span onclick="window.formObj.changefield(\'etat_oid\' , \'?\')">X<span></button>';
+					{/if}
+				</script>
+			{/if}
+			<div class="list-group-item full-text-input {$highlightClass}">
+				<div class="control-wrapper" id="{field.name:etat_oid}-control-wrapper">
+					<div class="control" id="{field.name:etat_oid}-control">
+						<select type="select" class="form-control" name="etat_oid">
+							<option value="?">{field.prompt:etat_oid}</option>
+							<?php foreach($etat_list as $oid => $name){
+							print '<option value="'.$oid.'"';
+							if($oid == $_nx_record->etat_oid->object) print " selected";
+							print " >".$name."</option>";
+							 } ?>
+							<option value="-1" <?php if(-1 == $_nx_record->etat_oid->object) print " selected";?>>{string:"A classé"}</option>
+							<option value="-2" <?php if(-2 == $_nx_record->etat_oid->object) print " selected";?>>{string:"Qualifié"}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		  {/if}
+		  {if: %var:recruitment_default_search% == 0 || in_array(#field.name:category_oid# , %var:recruitment_default_search%)}
+			{$highlightClass=''} 
+			{if:(#field.object:category_oid# != #field.default:category_oid#)}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				<script language="javascript" type="text/javascript">
+					document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:category_oid}<span onclick="window.formObj.changefield(\'category_oid\' , \'\')">X<span></button>';
+				</script>
+			{/if}
+			<div class="list-group-item full-text-input {$highlightClass}">
+				<div class="control-wrapper" id="{field.name:category_oid}-control-wrapper">
+					<div class="control" id="{field.name:category_oid}-control">{field.form:category_oid}</div>
+				</div>
+			</div>
+		  {/if}
+		
+		  <br>
+		  <div class="panel panel-default" id="panel1" style="display:none">
+			<div class="panel-heading panel-search" data-toggle="collapse" data-target="#collapse1">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse1">{string:"info_perso"}</a>
+			  </h4>
+			</div>
+			<div id="collapse1" class="panel-collapse collapse">
+			  <ul class="list-group">
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:first_name# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel1").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:first_name# != #field.default:first_name#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=1}
+					<script>
+						document.getElementById("collapse1").className += ' in';
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:first_name}<span onclick="window.formObj.changefield(\'first_name\' , \'\')">X<span></button>';
+					</script>
+					
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:first_name}-control-wrapper">
+						<div class="control" id="{field.name:first_name}-control">{field.form:first_name}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:last_name# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel1").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:last_name# != #field.default:last_name#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{if:%var:collapse% != 1}
+						<script>
+							document.getElementById("collapse1").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:last_name}<span onclick="window.formObj.changefield(\'last_name\' , \'\')">X<span></button>';
+					</script>
+					{var:collapse=1}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:last_name}-control-wrapper">
+						<div class="control" id="{field.name:last_name}-control">{field.form:last_name}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:gender# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel1").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:gender# != #field.default:gender#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 1}
+						<script>
+							document.getElementById("collapse1").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:gender}<span onclick="window.formObj.changefield(\'gender\' , \'?\')" >X<span></button>';
+					</script>
+					{var:collapse=1}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:gender}-control-wrapper">
+						<div class="control" id="{field.name:gender}-control">{field.form:gender}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:town_oid# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel1").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:town_oid# != #field.default:town_oid#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{if:%var:collapse% != 1}
+						<script>
+							document.getElementById("collapse1").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:town_oid}<span onclick="window.formObj.changefield(\'town_oid\' , \'\')">X<span></button>';
+					</script>
+					{var:collapse=1}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:town_oid}-control-wrapper">
+						<div class="control" id="{field.name:town_oid}-control">{field.form:town_oid}</div>
+					</div>
+				</li>
+				{/if}
+			  </ul>
+
+			</div>
+		  </div>
+		  <div class="panel panel-default" id="panel2" style="display:none">
+			<div class="panel-heading panel-search" data-toggle="collapse" data-target="#collapse2">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse2">{string:"studies_experiences"}</a>
+			  </h4>
+			</div>
+			<div id="collapse2" class="panel-collapse collapse">
+			  <ul class="list-group">
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:diploma# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel2").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:diploma# != #field.default:diploma#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=2}
+					<script>
+						document.getElementById("collapse2").className += ' in';
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:diploma}<span onclick="window.formObj.changefield(\'diploma\' , \'\')">X<span></button>';
+					</script>
+				{/if}
+				<li class="list-group-item  {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:diploma}-control-wrapper">
+						<div class="control" id="{field.name:diploma}-control">{field.form:diploma}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:school# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel2").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:school# != #field.default:school#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 2}
+						<script>
+							document.getElementById("collapse2").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:school}<span onclick="window.formObj.changefield(\'school\' , \'\')">X<span></button>';
+					</script>
+					{var:collapse=2}
+				{/if}
+				<li class="list-group-item  {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:school}-control-wrapper">
+						<div class="control" id="{field.name:school}-control">{field.form:school}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:studies_level# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel2").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:studies_level# != #field.default:studies_level#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 2}
+						<script>
+							document.getElementById("collapse2").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:studies_level}<span onclick="window.formObj.changefield(\'studies_level\' , \'\')">X<span></button>';
+					</script>
+					{var:collapse=2}
+				{/if}
+				<li class="list-group-item  {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:studies_level}-control-wrapper">
+						<div class="control" id="{field.name:studies_level}-control">{field.form:studies_level}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:years_of_practice# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel2").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{field.default:years_of_practice}
+				{if:(#field.object:years_of_practice# != #field.default:years_of_practice#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 2}
+						<script>
+							document.getElementById("collapse2").className += ' in';
+						</script>
+					{/if}
+					<script>
+						var label = "{field.label:years_of_practice}";
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">'+label.replace(/"/g,"&quot;")+':{field.html:years_of_practice}<span onclick="window.formObj.changefield(\'years_of_practice\' , \'\' , \'max_min\')">X<span></button>';
+					</script>
+				{/if}
+				
+				<li class="list-group-item  {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:years_of_practice}-control-wrapper">
+						<label class="search-label">{field.label:years_of_practice}</label>
+						<div class="control" id="{field.name:years_of_practice}-control">{field.form:years_of_practice}</div>
+					</div>
+				</li>
+				{/if}
+			  </ul>
+
+			</div>
+		  </div>
+		  
+		  <div class="panel panel-default" id="panel3" style="display:none">
+			<div class="panel-heading panel-search" data-parent="#search-accordion" data-toggle="collapse" data-target="#collapse3">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse3">{string:"salary_title"}</a>
+			  </h4>
+			</div>
+			<div id="collapse3" class="panel-collapse collapse">
+			  <ul class="list-group">
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:salary# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel3").style.display = 'block';</script>
+			    {$highlightClass=''} 
+				{if:(#field.object:salary# != #field.default:salary#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=3}
+					<script>
+						document.getElementById("collapse3").className += ' in';
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.label:salary}:{field.html:salary}<span onclick="window.formObj.changefield(\'salary\' , \'\', \'max_min\')">X<span></button>';
+					</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:salary}-control-wrapper">
+						<label class="search-label">{field.label:salary}</label>
+						<div class="control" id="{field.name:salary}-control">{field.form:salary}</div>
+					</div>
+				</li>
+				{/if}
+				
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:available_from# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel3").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.type:available_from# == 'date' && #field.string:available_from# != '-/-/-')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 3}
+						<script>
+							document.getElementById("collapse3").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.label:available_from}:{field.html:available_from}<span onclick="window.formObj.changefield(\'available_from\' , \'\')">X<span></button>';
+					</script>
+					
+					{var:collapse=3}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:available_from}-control-wrapper">
+						<label class="search-label">{field.label:available_from}</label>
+						<div class="control" id="{field.name:available_from}-control">{field.form:available_from}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:current_salary# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel3").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:current_salary# != #field.default:current_salary#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 3}
+						<script>
+							document.getElementById("collapse3").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.label:current_salary}:{field.html:current_salary}<span onclick="window.formObj.changefield(\'current_salary\' , \'\' , \'max_min\')">X<span></button>';
+					</script>
+				
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:current_salary}-control-wrapper">
+						<label class="search-label">{field.label:current_salary}</label>
+						<div class="control" id="{field.name:current_salary}-control">{field.form:current_salary}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:mobility_town_oid# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel3").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:mobility_town_oid# != #field.default:mobility_town_oid#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{if:%var:collapse% != 1}
+						<script>
+							document.getElementById("collapse3").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:mobility_town_oid}<span onclick="window.formObj.changefield(\'mobility_town_oid\' , \'\')">X<span></button>';
+					</script>
+					{var:collapse=1}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:mobility_town_oid}-control-wrapper">
+						<label class="search-label">{field.label:mobility_town_oid}</label>
+						<div class="control" id="{field.name:mobility_town_oid}-control">{field.form:mobility_town_oid}</div>
+					</div>
+				</li>
+				{/if}
+			  </ul>
+
+			</div>
+		  </div>
+		  
+		  <div class="panel panel-default" id="panel4" style="display:none">
+			<div class="panel-heading panel-search" data-parent="#search-accordion" data-toggle="collapse" data-target="#collapse4">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#search-accordion" href="#collapse4">{string:"status"}</a>
+			  </h4>
+			</div>
+			<div id="collapse4" class="panel-collapse collapse">
+			  <ul class="list-group">
+				
+				
+				<!--
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:relevance# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel4").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:relevance# != '')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 4}
+						<script>
+							document.getElementById("collapse4").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:relevance}<span onclick="window.formObj.changefield(\'relevance\' , \'?\')">X<span></button>';
+					</script>
+					{var:collapse=4}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:relevance}-control-wrapper">
+						<div class="control" id="{field.name:relevance}-control">{field.form:relevance}</div>
+					</div>
+				</li>
+				{/if}
+				-->
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:archive_state# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel4").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:archive_state# != "")}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 4}
+						<script>
+							document.getElementById("collapse4").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:archive_state}<span onclick="window.formObj.changefield(\'archive_state\' , \'?\')">X<span></button>';
+					</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:archive_state}-control-wrapper">
+						<div class="control" id="{field.name:archive_state}-control">{field.form:archive_state}</div>
+					</div>
+				</li>
+				{/if}
+				
+			  </ul>
+
+			</div>
+		  </div>
+		 
+		  <div class="panel panel-default" id="panel6" style="display:none">
+			<div class="panel-heading panel-search" data-parent="#search-accordion" data-toggle="collapse" data-target="#collapse6">
+			  <h4 class="panel-title">
+				<a data-toggle="collapse" href="#collapse6">{string:"others"}</a>
+			  </h4>
+			</div>
+			<div id="collapse6" class="panel-collapse collapse">
+			  <ul class="list-group">
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:hr_manager# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel6").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:hr_manager# != #field.default:hr_manager#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=6}
+					<script>
+						document.getElementById("collapse6").className += ' in';
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:hr_manager}<span onclick="window.formObj.changefield(\'hr_manager\' , \'?\')">X<span></button>';
+					</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:hr_manager}-control-wrapper">
+						<div class="control" id="{field.name:hr_manager}-control">{field.form:hr_manager}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:provider# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel6").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:provider# != #field.default:provider#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=6}
+					<script>
+						document.getElementById("collapse6").className += ' in';
+						{if:%field.object:provider% == -1}
+							document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">Candidatures directes<span onclick="window.formObj.changefield(\'provider\' , \'?\')">X<span></button>';
+						{else}
+							document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:provider}<span onclick="window.formObj.changefield(\'provider\' , \'?\')">X<span></button>';
+						{/if}
+						
+					</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:provide}-control-wrapper">
+						<div class="control" id="{field.name:provider}-control">
+							<select type="select" class="form-control" name="provider">
+								<option value="?">{field.prompt:provider}</option>
+								<option value="-1" <?php if(-1 == $_nx_record->provider->object) print " selected";?>>{string:"Candidatures directes"}</option>
+								<?php foreach($provider_list as $oid => $name){
+								print '<option value="'.$oid.'"';
+								if($oid == $_nx_record->provider->object) print " selected";
+								print " >".$name."</option>";
+								 } ?>
+							</select>
+						</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:update_date# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel6").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.type:update_date_min# == 'date' && #field.string:update_date_min# != '-/-/-')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=6}
+					<script>
+						document.getElementById("collapse6").className += ' in';
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.label:update_date_min}:{field.html:update_date_min}<span onclick="window.formObj.changefield(\'update_date_min\' , \'\')">X<span></button>';
+					</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:update_date_min}-control-wrapper">
+						<label class="search-label">{field.label:update_date_min}</label>
+						<div class="control" id="{field.name:update_date_min}-control">{field.form:update_date_min}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:update_date# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel6").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.type:update_date_max# == 'date' && #field.string:update_date_max# != '-/-/-')}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					{var:collapse=6}
+					<script>
+						label = "{field.label:update_date_max}";
+						document.getElementById("collapse6").className += ' in';
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">'+label.replace(/"/g,"&quot;")+':{field.html:update_date_max}<span onclick="window.formObj.changefield(\'update_date_max\' , \'\')">X<span></button>';
+					</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:update_date_max}-control-wrapper">
+						<label class="search-label">{field.label:update_date_max}</label>
+						<div class="control" id="{field.name:update_date_max}-control">{field.form:update_date_max}</div>
+					</div>
+				</li>
+				{/if}
+				
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:read_by# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel6").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:read_by# != #field.default:read_by#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 6}
+						<script>
+							document.getElementById("collapse6").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:read_by}<span onclick="window.formObj.changefield(\'read_by\' , \'?\')">X<span></button>';
+					</script>
+					
+					{var:collapse=6}
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:read_by}-control-wrapper">
+						<div class="control" id="{field.name:read_by}-control">{field.form:read_by}</div>
+					</div>
+				</li>
+				{/if}
+				{if: %var:recruitment_default_search% == 0 || in_array(#field.name:establishment# , %var:recruitment_default_search%)}
+				<script>document.getElementById("panel6").style.display = 'block';</script>
+				{$highlightClass=''} 
+				{if:(#field.object:establishment# != #field.default:establishment#)}
+					{$highlightClass='highlight-class'} 
+					{var:search=true}
+					
+					{if:%var:collapse% != 6}
+						<script>
+							document.getElementById("collapse6").className += ' in';
+						</script>
+					{/if}
+					<script>
+						document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:establishment}<span onclick="window.formObj.changefield(\'establishment\' , \'?\')">X<span></button>';
+					</script>
+				{/if}
+				<li class="list-group-item {$highlightClass}">
+					<div class="control-wrapper" id="{field.name:establishment}-control-wrapper">
+						<div class="control" id="{field.name:establishment}-control">{field.form:establishment}</div>
+					</div>
+				</li>
+				{/if}
+				
+			  </ul>
+
+			</div>
+		  </div>
+		
+		  {if: %var:recruitment_default_search% == 0 || in_array(#field.name:sort_by# , %var:recruitment_default_search%)}
+			{$highlightClass=''} 
+			{if:(#field.object:sort_by# != #field.default:sort_by#)}
+				{$highlightClass='highlight-class'} 
+				{var:search=true}
+				<script>
+					document.getElementById('search-tags').innerHTML +='<button type="button" class="btn btn-xs btn-tag">{field.html:sort_by}<span onclick="window.formObj.changefield(\'sort_by\' , \'?\')">X<span></button>';
+				</script>
+		   {/if}
+		   <div class="list-group-item full-text-input {$highlightClass}">
+				<div class="control-wrapper" id="{field.name:sort_by}-control-wrapper">
+					<div class="control" id="{field.name:sort_by}-control">{field.form:sort_by}</div>
+				</div>
+			</div>
+		  {/if}
+		  
+		</div>
+		
+	</table>
+	<script language="javascript" type="text/javascript">
+	//<![CDATA[
+	 if(document.getElementById('form_rct_candidate_search2') !== null)
+		window.currentForm = document.getElementById('form_rct_candidate_search2');
+	 else window.currentForm = document.getElementById('form_rct_candidate_search_drh2');
+	 if(window.currentForm)
+	 {
+		window.content_form_handler = new window.Generis.Forms(window.currentForm);
+	 }
+
+	 
+	//]]>
+	</script>
+	<div class="clear-both">
+		<button type="button" class="btn btn-primary btn-block green-cvthque-background" onclick="window.currentForm.submit();" style="float:right">
+		 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;&nbsp;
+		 {string:"search"}
+		</button>
+		{if:%var:saved_search%}
+		<script type="text/javascript">
+			document.getElementById('btn_delete_search').style.display= 'inline-block';
+		</script>
+		{/if}
+		{if:%var:search%}
+			<script type="text/javascript">
+				//document.getElementById('config-box').className += ' show';
+			</script>
+		{/if}
+		
+		<button type="button" class="btn btn-default btn-block" onclick="ajax_navigate(event,'{=search.url}&mode=ajax','content'); return false;" style="float:left; margin-top: 5px;">
+		 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>&nbsp;&nbsp;
+		 {string:"Annuler la recherche"}
+		</button>
+		<input type="submit" style="width:0px; height: 0px; border: none; padding: 0px; font-size: 0px;" value="" name="dummy_submit" />
+		
+		<button class="btn btn-primary btn-block green-cvthque-background" style="display:none; margin-top: 5px; background: rgb(90, 156, 93) !important" onclick="window.setUrlField();window.save_searchConfig.exec(); this.blur(); return false;"  id="btn_add_search"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp;&nbsp;{string:'save search'}</button>
+		<div class="saved_search_class" id="saved_search" title="{string:'title_select_search'}" style="display:block">
+		
+		{if:%var:search% && !%var:saved_search%}
+		<script type="text/javascript">
+			document.getElementById('btn_add_search').style.display= 'inline-block';
+		</script>
+		{/if}
+	</div>
+	<!--! {/form} -->
+</div>

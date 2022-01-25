@@ -1,0 +1,544 @@
+<!--! {require:css/rct.css:skin} -->
+
+<script>
+
+	function changeImage(num)
+		{   
+		    var id='idButton_'+num;
+			if(document.getElementById(id).className =='s-icon si-arrow-down')
+				{document.getElementById(id).className ='s-icon si-arrow-up';}
+			else document.getElementById(id).className ='s-icon si-arrow-down';
+		}
+</script>
+
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_list"}</div>
+	</div>
+</div>
+{content:vacancies_ddlist}
+{records:page.vacancies_records}
+{record}
+<option value="{field:oid}">{field:name}{if:trim(#field.object:code#)!=""} ({field:code}){/if}</option>
+{/record}
+{/records}
+{/content}
+
+{content:categories_ddlist}
+{records:candidate_categories.records}
+{record}
+<option value="{field:oid}">{field:name}</option>
+{/record}
+{/records}
+{/content}
+
+{include:common/search_condition}
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			<div class="pm-grid-outer-wrapper">
+				
+				
+				<div class="generis-toolbar-wrapper">
+					<div class="generis-toolbar">
+						<a class="s-icon si-add" href="javascript:void(0);" onclick="ajax_navigate(event,'{=add.url}','content'); return false;"><span>{string:"add"}</span></a>
+						<!--<a class="s-icon si-zoom" href="javascript:void(0);" onclick="PMDH.toggle('search-panel', 'appear'); return false;"><span>{string:"search"}</span></a>-->	
+						{if:#property:showSearch# == 'yes'}
+						<a class="s-icon si-arrow-refresh" href="javascript:void(0);" onclick="ajax_navigate(event,'{=list.url}','content'); return false;"><span>{string:"cancel_search"}</span></a>
+						{/if}
+						<a class="s-icon si-chart-bar" href="{=statistics.url}"><span>{string:"statistics"}</span></a>
+					</div>
+				</div>
+				
+				
+				<?php $this->setProperty('forceDisplay','yes'); ?>
+				{include:common/search}
+				<!--! {records:page.records} -->
+				{include:common/pagination_count}
+				
+				<div class="directory-grid-wrapper" id="cv-directory-grid">
+				
+					<div class="directory-grid-selection clear-both">
+					
+						<div class="selection-wrapper">
+							<input type="checkbox" name="selection-checkbox" class="select-all-checkbox" />
+						</div>
+						
+						<div class="actions-droplist-wrapper">
+													
+							<select name="grid-selection-vacancies" id="grid-vacancies-list" style="display:none;">
+								<option value="?">Associer à un dossier ...</option>
+								{=vacancies_ddlist}
+							</select>
+
+							<select name="grid-selection-relevance" id="grid-relevance" style="display:none;">
+								<option value="?">Indiquer la pertinence ...</option>
+								<?php $list = $this->getChoiceList('recruitment.relevance@recruitment');
+								$listArray = $list->getListAsArray();
+								foreach ($listArray as $k=>$v) { ?>
+								<option value="{$k}">{$v}</option>
+								<?php } ?>
+							</select>
+
+
+							<select name="grid-selection-category" id="grid-category" style="display:none;">
+								<option value="?">Associer à une catégorie ...</option>
+								{=categories_ddlist}
+							</select>
+
+							<select name="grid-selection-actions" id="grid-selection-actions" style="display:none;">
+								<option value="?">{string:"actions_prompt"}</option>
+								<!--
+								<option value="{action:'urlInMB', config: window.dlg_massiveAssocToVacancyCfg}">{string:'action_assoc_to_vacancy'}</option>
+								<option value="{action:'urlInMB', config: window.dlg_massiveRelevanceCfg}">{string:'action_relevance'}</option>
+								-->
+								<option value="{action:'confirm', config: window.dlg_massiveArchiveCfg}">{string:'action_archive'}</option>
+								<option value="{action:'confirm', config: window.dlg_massiveDeleteCfg}">{string:'action_delete'}</option>
+								<option value="send_email">{string:'send_email'}</option>
+							</select>
+							<script>
+								new window.Generis.Dropdownlist({
+									control: 'grid-selection-actions',
+									onchange: function() {
+										var e =this.getSelectedValue();
+									    if(e == "send_email")
+										{	
+										
+										
+										// On récupère la grille parente
+											var gridWrapper = PMDH.getParentElementByClassName(this.getControl(), 'directory-grid-wrapper');
+											// on récupère la selection
+											var candidatesOids = gridWrapper.owner.getSelection();
+											this.setSelectedValueByValue('?');	
+											if( candidatesOids == '?' || candidatesOids == '' ) {
+												return false;
+												}
+											window.send_cvs_to_many_client = { 
+											title 		: "{string:'send_to_client_title'}",
+											url 		: "{=send_cvs_to_many_client.url}&amp;candidates_oid=|"+candidatesOids+"|", 
+											width:550
+											};
+											PMModalbox.loadFromUrl(window.send_cvs_to_many_client,null);
+											return false;
+										}
+										else{
+											Generis.Recruitment.doSelectAction(this);
+										}
+									}
+								});
+						
+								new window.Generis.Dropdownlist({
+									control: 'grid-vacancies-list',
+									onchange: function() {
+										
+										// On récupère la grille parente
+										var gridWrapper = PMDH.getParentElementByClassName(this.getControl(), 'directory-grid-wrapper');
+										// on récupère la selection
+										var candidatesOids = gridWrapper.owner.getSelection();
+										
+										var vacancyOid = this.getSelectedValue();
+										this.setSelectedValueByValue('?');					
+										if( candidatesOids == '?' || candidatesOids == '' || vacancyOid=='?' || vacancyOid=='' ) {
+											return false;
+										}
+										var url = "{=massive_associate_to_vacancy_process.url}";
+										url += "&amp;vacancy_oid="+vacancyOid;
+										url += "&amp;candidates_oid="+candidatesOids;
+																	
+										ajax_navigate(null,url,"content");
+									}
+								});
+								
+								new window.Generis.Dropdownlist({
+									control: 'grid-relevance',
+									onchange: function() {
+										
+										// On récupère la grille parente
+										var gridWrapper = PMDH.getParentElementByClassName(this.getControl(), 'directory-grid-wrapper');
+										// on récupère la selection
+										var candidatesOids = gridWrapper.owner.getSelection();
+										var relevanceOid = this.getSelectedValue(); // récupération de la valeur
+										this.setSelectedValueByValue('?'); // remise à 0 du contrôle				
+										if( candidatesOids == '?' || candidatesOids == '' || relevanceOid=='?' || relevanceOid=='' ) {
+											return false;
+										}
+										var url = "{=massive_relevance_process.url}";
+										url += "&amp;relevance_oid="+relevanceOid;
+										url += "&amp;oid="+candidatesOids;					
+										ajax_navigate(null,url,"content");
+									}
+								});
+								
+								new window.Generis.Dropdownlist({
+									control: 'grid-category',
+									onchange: function() {
+										
+										// On récupère la grille parente
+										var gridWrapper = PMDH.getParentElementByClassName(this.getControl(), 'directory-grid-wrapper');
+										// on récupère la selection
+										var candidatesOids = gridWrapper.owner.getSelection();
+										var categoryOid = this.getSelectedValue(); // récupération de la valeur
+										this.setSelectedValueByValue('?'); // remise à 0 du contrôle				
+										if( candidatesOids == '?' || candidatesOids == '' || categoryOid=='?' || categoryOid=='') {
+											return false;
+										}
+										var url = "{=category.url}";
+										url += "&amp;category_oid="+categoryOid;
+										url += "&amp;candidates_oid="+candidatesOids;					
+										ajax_navigate(null,url,"content");
+									}
+									
+								});
+								
+								// Configs
+								window.dlg_massiveDeleteCfg = { 
+									title 		: "{string:'dlg_massive_delete_title'}",
+									message 	: "{string:'dlg_massive_delete_content'}", 
+									viewMode 	: "okCancel", 
+									url 		: "{=delete.url}", 
+									target 		: "content", 
+									labels	 	: { 
+										ok 		: "{string:'dlg_ok'}", 
+										cancel 	: "{string:'dlg_cancel'}" 
+									} 
+								};
+								
+								window.dlg_massiveArchiveCfg = { 
+									title 		: "{string:'dlg_massive_archive_title'}",
+									message 	: "{string:'dlg_massive_archive_content'}", 
+									viewMode 	: "okCancel", 
+									url 		: "{=archive.url}", 
+									target 		: "content", 
+									labels	 	: { 
+										ok 		: "{string:'dlg_ok'}", 
+										cancel 	: "{string:'dlg_cancel'}" 
+									} 
+								};
+
+								window.dlg_massiveAssocToVacancyCfg = { 
+									title:"{string:'massive_assoc_to_vacancy_title'}",
+									url: "{=massive_associate_to_vacancy.url}",
+									width:550
+								};
+
+								window.dlg_massiveRelevanceCfg = { 
+									title:"{string:'massive_relevance_title'}",
+									url: "{=relevance.url}"
+								};
+								
+
+							</script>
+							
+						</div>
+					</div>
+					<table class="directory-grid">
+						<!--! {record} -->
+						<tr class="directory-card columns-layout columns-layout-3 width-padding-v">						
+							<td class="directory-grid-row selection-checkbox-wrapper">
+								<div class="dg-cell-wrapper"><input type="checkbox" class="selection-checkbox" name="selection-checkbox-{field.object:oid}" value="{field.object:oid}" /></div>
+							</td>
+							<td >
+								<table width="100%">
+									<tr class="directory-grid-row columns-layout columns-layout-3 width-padding-v">
+										<td class="dg-flag-wrapper" onclick="Generis.Recruitment.changeReadingState(this, {readState:{field.object:read_state}, userReadState:{field.object:user_read_state}, url:'{=change_reading_state.url}{record.url_key}'});">
+											{if:#field.object:user_read_state# == '1'}
+												<div class="dg-flag dg-flag-gray"></div>
+											{elseif:#field.object:read_state# == '1'}
+												<div class="dg-flag dg-flag-yellow"></div>
+											{elseif:#field.object:read_state# == '0'}
+												<div class="dg-flag dg-flag-blue"></div>
+											{/if}
+										</td>
+							
+										<td class="dg-column dg-column-title" onclick="ajax_navigate(event,'{=edit.url}{record.url_key}','content')">
+											<div class="dg-cell-wrapper">
+												<!--{field:relevance_rate}
+												<br/>-->
+												<span class="field-content title-color capitalize">
+													<strong>{field:first_name} {field:last_name}</strong>
+												</span>
+												{if:(#field.object:age# != '0' && #field.object:age# != '') || trim(#field.string:town_name#) != ''}
+												<br/>								
+												<span class="field-content">{if:#field.object:age# != '0'}{field:age} {string:'years_old'}{/if}{if:#field.object:age# != '0' && trim(#field.string:town_name#) != ''},{/if} {field:town_name}</span>
+												{/if}
+												<br/>
+												{if:#field:add_date#==#field:update_date#}
+												<span class="field-label">Ajout:</span> <span class="field-content">{field:add_date}</span>
+												{else}
+												<span class="field-label">Ajout:</span> <span class="field-content">{field:add_date}</span><span class="field-label">, MàJ:</span> <span class="field-content">{field:update_date}</span>{/if}							
+											</div>
+										</td>						
+										
+										<td class="dg-column elastic" onclick="ajax_navigate(event,'{=edit.url}{record.url_key}','content')">
+											<div class="dg-cell-wrapper">
+												<span class="field-content">
+													{if:#field:studies_level# != ''}{field:studies_level}{/if}{if:trim(#field.object:studies_level#) != '' && trim(#field.object:diploma#) != ''},{/if} {field.string:diploma}
+													{if:#field.object:institution# != ''}
+													<br/>
+													{field:institution}
+													{/if}
+													<br/>
+													<!--{if:#field.object:institution# != ''} {field:institution}, {/if}-->
+													{if:#field.object:years_of_practice# != '' && #field.object:years_of_practice# != '0'}
+														{field:years_of_practice} 
+														{string:'year'}{if:#field.object:years_of_practice# > '1'}s{/if} {string:'experience_grid_label'}
+													{elseif:#field.object:years_of_practice# == '0'}
+													{string:"no_experience"}
+													{/if}
+												</span>
+												{if:trim(#field.object:last_employment#) != ''}
+												<br/>
+												<span class="field-content"><!--{if:#field:last_employment_start_date#==#field:last_employment_end_date#}{field:last_employment_start_date}{else}{field:last_employment_start_date} au {field:last_employment_end_date}{/if}: -->{field:last_employment_summary}</span>
+												{elseif:trim(#field.object:last_employment#) == '' && trim(#field.object:last_training#) != ''}
+												<br/>
+												<span class="field-content"><!--{if:#field:last_training_start_date#==#field:last_training_end_date#}{field:last_training_start_date}{else}{field:last_training_start_date} au {field:last_training_end_date}{/if}: -->{field:last_training_summary}</span>
+												{/if}
+												
+											</div>
+										</td>
+										
+										<td class="dg-column elastic" onclick="ajax_navigate(event,'{=edit.url}{record.url_key}','content')">
+											<div class="dg-cell-wrapper">
+												{if:trim(#field.object:profile#) != ''}
+												<span class="field-label">{field.label:profile}:</span> <span class="field-content">{field:summary_keywords}</span>
+												<br/>
+												{/if}
+												{if:#field.object:relevance# != '' && #field.object:relevance# != '0'}
+												<span class="field-label">{field.label:relevance}:</span> <span class="field-content">{field:relevance}</span>
+												<br/>
+												{/if}
+												{if:#field.object:vacancy_name# != ''}
+												<span class="field-label">{string:"vacancy"}:</span> <span class="field-content">{field:vacancy_name}{if:#field.object:vacancy_code#!=''} (N° {field:vacancy_code}){/if}</span>
+												<br/>
+												{/if}
+												{if:trim(#field.object:category_oid#)!=''}
+												<span class="field-label">{field.label:category_oid}:</span> <span class="field-content">{field:category_oid}</span>
+												{/if}
+												
+											</div>
+										</td>
+									</tr>
+									<tr class="slidingDiv_{field:oid}" id="slidingDiv_{field:oid}" style="padding:20px; margin-top:10px; display:none; ">
+										<td colspan="4" class="viewers">
+										<p class="fontTitle">{string:'viewer_list'} </p>
+													
+													{field:viewers}  
+											
+											</td>
+									</tr>
+								</table>
+							</td>
+							<td class="dg-operations dg-3-operations">
+								<div class="dg-cell-wrapper">
+								
+									<script>
+									window.dlg_deleteConfig{record.index} = { 
+										title : "{string:'dlg_delete_title'}",
+										message : "{string:'dlg_delete_content'}", 
+										viewMode : "okCancel", 
+										url : "{=delete.url}{record.url_key}", 
+										target : "content", 
+										labels : { 
+											ok : "{string:'dlg_ok'}", 
+											cancel : "{string:'dlg_cancel'}" 
+									} };
+											
+									window.dlg_archiveConfig{record.index} = { 
+										title : "{string:'dlg_archive_title'}",
+										message : "{string:'dlg_archive_content'}", 
+										viewMode : "okCancel", 
+										url : "{=archive.url}{record.url_key}", 
+										target : "content", 
+										labels : { 
+											ok : "{string:'dlg_ok'}", 
+											cancel : "{string:'dlg_cancel'}" 
+									} };
+										
+									window.dlg_associateToVacancy{record.index} = { 
+										title : "{string:'assoc_to_vacancy_title'}",
+										url: "{=massive_associate_to_vacancy.url}{record.url_key}",
+										width:550
+									};
+									
+									window.dlg_preview{record.index} = { 
+										title:'{string:'preview_cv_title'} {field.html:first_name} {field.html:last_name}',
+										fullscreen: true, 
+										url: '{=preview_cv.url}{record.url_key}',								
+
+										readStateCfg: {
+											url				: '{=change_reading_state.url}{record.url_key}',
+											state			: 0,
+											readState		: {field.object:read_state}, 
+											userReadState	: {field.object:user_read_state},
+											searchParentByClass : 'directory-card',
+											searchFlagByClass : 'dg-flag-wrapper'
+										}
+										
+									};
+									
+									window.toggleHistory = function() {
+											  document.getElementById('flags').style.display = 'none'; 
+											  document.getElementById('flag-gray').style.display='block';
+		
+										return false;
+									}
+									
+									</script>
+
+								
+									{if:trim(#field.string:cv_path#) != ''}
+									<a 
+										class="s-icon si-page-white-magnify" 
+										href="javascript:void(0);" 
+										onclick="Generis.Recruitment.preview(this, window.dlg_preview{record.index}, event)" 
+										title="{string:'preview_cv_helper'}">
+										<span>{string:"preview_cv_helper"}</span>
+									</a>
+									{else}
+									<a 
+										class="s-icon-disabled si-page-white-magnify" 
+										href="javascript:void(0);"  
+										title="{string:"no_cv_associated"}">
+										<span>{string:"no_cv_associated"}</span>
+									</a>
+									{/if}								
+									<a 
+										class="s-icon si-page-white-edit" 
+										href="javascript:void(0);" 
+										onclick="ajax_navigate(event,'{=edit.url}{record.url_key}','content');" 
+										title="{string:'edit_helper'}">
+										<span>{string:"edit_helper"}</span>
+									</a>
+									<a 
+										class="s-icon si-folder-page-white" 
+										href="javascript:void(0);" 
+										onclick="PMModalbox.loadFromUrl(window.dlg_associateToVacancy{record.index}, event); return false;" 
+										title="{string:'associate_to_vacancy_helper'}">
+										<span>{string:"associate_to_vacancy_helper"}</span></a>
+									<br/>
+									<a 
+										class="s-icon si-linkedin"
+										target="_blank"
+										href="http://www.linkedin.com/search/fpsearch?lname={field:last_name}&fname={field:first_name}" 
+										title="{string:'search_on_linkedin_helper'}">
+										<span>{string:"search_on_linkedin_helper"}</span>
+									</a>
+									<a 
+										class="s-icon si-viadeo"
+										target="_blank"
+										href="http://www.viadeo.com/recherche/re<?php ?>sultat_membres/?fullName={field:last_name}%20{field:first_name}&amp;search=Chercher&amp;language=fr" 
+										title="{string:'search_on_viadeo_helper'}">
+										<span>{string:"search_on_viadeo_helper"}</span>
+									</a>
+									<a 
+										class="s-icon si-facebook"
+										target="_blank"
+										href="https://www.facebook.com/search.php?init=s%3Aname&q={field:first_name}%20{field:last_name}&type=users" 
+										title="{string:'search_on_facebook_helper'}">
+										<span>{string:"search_on_facebook_helper"}</span>
+									</a>
+									<a></a>
+									{if:(#field.object:user_read_state# == '1'  || #field.object:read_state# == '1')}
+									<a 
+										class="s-icon si-arrow-down"
+										id="idButton_{field:oid}" 
+										target="_blank"
+										onclick="PMDH.toggle('slidingDiv_{field:oid}', 'appear'); changeImage({field:oid});"
+										title="{string:'viewers'}">
+										<span>{string:"viewers"}</span>
+									</a>
+									{/if}
+									<!--									
+									<a 
+										class="s-icon si-page-white-zip" 
+										href="javascript:void(0);" 
+										onclick="PMModalbox.display(dlg_archiveConfig{record.index}, event);" 
+										title="{string:'archive_helper'}">
+										<span>{string:"archive_helper"}</span>
+									</a>									
+									<a 
+										class="s-icon si-delete" 
+										href="javascript:void(0);" 
+										onclick="PMModalbox.display(dlg_deleteConfig{record.index}, event);" 
+										title="{string:'delete_helper'}">
+										<span>{string:"delete_helper"}</span>
+									</a>
+									-->
+								</div>
+							</td>
+						</tr>
+						<!--<tr class="information-row columns-layout">
+							<td colspan="6">
+								<div class="dg-cell-wrapper">
+									
+									
+								</div>
+							</td>
+						</tr>-->
+						<!--! {/record} -->
+					</table>
+				</div>
+				
+				<!--! {/records} -->
+
+				{include:common/grid_empty}
+				{include:common/pagination}
+			
+			</div>
+		</td>
+
+		<td class="right-column">
+			
+			{include:common/page_message_list}
+
+			<div class="nipple-box nbt-legend">
+				<div class="box-title"><h4>{string:"legend"}</h4></div>
+				<div class="border-nipple"></div>
+				<div class="nipple"></div>
+
+				<div class="box-content">
+					<ul class="legend-list">
+						
+						<li><span class="l-icon s-icon si-page-white-magnify"></span><span class="legend"><span class="dots">|</span> {string:"preview_helper"}</span></li>
+						<li><span class="l-icon s-icon si-page-white-edit"></span><span class="legend"><span class="dots">|</span> {string:"edit_helper"}</span></li>
+						<li><span class="l-icon s-icon si-folder-page-white"></span><span class="legend"><span class="dots">|</span> {string:"associate_to_vacancy_helper"}</span></li>
+						<li><span class="l-icon s-icon si-flag-not-read"></span><span class="legend"><span class="dots">|</span> {string:"not_read_helper"}</span></li>
+						<li><span class="l-icon s-icon si-flag-read-by-someone"></span><span class="legend"><span class="dots">|</span> {string:"read_by_someone_helper"}</span></li>
+						<li><span class="l-icon s-icon si-flag-read"></span><span class="legend"><span class="dots">|</span> {string:"already_read_helper"}</span></li>
+						<li><span class="l-icon s-icon si-linkedin"></span><span class="legend"><span class="dots">|</span> {string:"search_on_linkedin_helper"}</span></li>
+						<li><span class="l-icon s-icon si-viadeo"></span><span class="legend"><span class="dots">|</span> {string:"search_on_viadeo_helper"}</span></li>
+						<li><span class="l-icon s-icon si-facebook"></span><span class="legend"><span class="dots">|</span> {string:"search_on_facebook_helper"}</span></li>
+						<li><span class="l-icon s-icon si-arrow-down"></span><span class="legend"><span class="dots">|</span> {string:"viewer_list"}</span></li>
+						<!--<li><span class="l-icon s-icon si-page-white-zip"></span><span class="legend"><span class="dots">|</span> {string:"archive_helper"}</span></li>
+						<li><span class="l-icon s-icon si-delete"></span><span class="legend"><span class="dots">|</span> {string:"delete_helper"}</span></li>-->
+						
+					</ul>
+				</div>
+			</div>
+			
+			
+			
+
+		</td>
+	</tr>
+</table>
+
+<script>
+	PMDH.Skin.LightSky.Grid.init('', {
+		wrapperClass	: 'directory-grid-wrapper',
+		gridClass		: 'directory-grid',
+		gridRowClass	: 'directory-grid-row'
+	});
+	
+	(function() {
+		var form = document.getElementById("form_rct_candidate_search");
+		for(var i=0; i<form.elements.length; i++) {
+			var cElement = form.elements[i];
+			if( typeof cElement.size != 'undefined' ) {
+				cElement.removeAttribute('size');
+			}
+		}
+	})();
+	
+</script>

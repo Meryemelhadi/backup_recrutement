@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_profiling_rules SET _name=".$record->getFieldValue("name","DB","NULL"); ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _directory_town WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

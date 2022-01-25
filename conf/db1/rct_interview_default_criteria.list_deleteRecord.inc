@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_interview_default_criteria WHERE ".$this->getWhereClause("_name",$this->getFieldParam("name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|'); ?>

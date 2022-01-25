@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_vacancy_action(_progress_level) VALUES('".$props->getProperty("progress_level","",true)."')"; ?>

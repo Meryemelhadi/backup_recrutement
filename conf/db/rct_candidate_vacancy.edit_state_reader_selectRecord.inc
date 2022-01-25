@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_etat_oid FROM _rct_candidate_vacancy WHERE _candidate_oid='".$this->getParamValue("oid","","request",",")."' AND _vacancy_oid=".$this->getFieldParam("vacancy_oid","null",",",$record,""); ?>

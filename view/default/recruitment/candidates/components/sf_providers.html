@@ -1,0 +1,25 @@
+{records:page.records}
+<div class="sf_record">
+	{record}
+		{fields:all}{if:field.hidden}{field.form}{/if}{/fields}
+
+		<div class="open">
+			<div class="report-grid-entry">
+				<table>
+					<tr class="provider-tr">
+						<td class="form-control-bs date">{field.form:provider}</td>
+
+						<td class="op_open_close">
+							<a href="javascript:void(0);" class="delete" title="{string:'delete'}" style="width:30px;"><span><label for="{record.id}__delete__">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label></span></a>
+
+							<input type="checkbox" style="display:none" class="delete-control-checkbox" onclick="this.parentNode.parentNode.parentNode.parentNode.parentNode.style.display='none'" name="{record.id}__delete__" value="delete" id="{record.id}__delete__"/>
+
+						</td>
+					</tr>
+				</table>
+				
+			</div>
+		</div>
+	{/record}
+</div>
+{/records}

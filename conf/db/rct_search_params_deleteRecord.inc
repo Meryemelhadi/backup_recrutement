@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_search_params"; ?>

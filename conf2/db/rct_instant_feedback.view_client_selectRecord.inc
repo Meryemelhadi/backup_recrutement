@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _first_sl_period,_cv_in_sl,_cv_pc_in_interview,_cv_having_good_level,_period_before_agreement,_hr_staff_need_identification,_cv_in_sl_quality,_cv_in_interview_quality,_satisfaction_with_candidate,_instant_comment FROM _rct_instant_feedback WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

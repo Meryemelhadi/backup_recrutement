@@ -1,0 +1,7 @@
+<?php $properties["fprops"]=array(
+array('name'=>'vacancy_oid','label'=>'vacancy_oid','type'=>'text_choice','multiple'=>false,'control'=>'select','ds'=>'handler:recruitment.vacancy.list@recruitment','ds_format'=>'{field:name} (N {field:code})','ds_field_value'=>'oid','srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_candidate_vacancy_vacancy_oid','isProp'=>'val','isKey'=>'secondary','sqltype'=>'integer','list'=>'vacancy_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'etat_oid','label'=>'etat_oid','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:rct_candidate_etat.ds_list','ds_format'=>'{field:name}','ds_field_value'=>'oid','sqltype'=>'integer','isKey'=>'','srcName'=>'etat_oid','ufname'=>'_etat_oid','qname'=>'rct_candidate_vacancy_etat_oid','list'=>'etat_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),);
+$properties["falias"]=array('vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid','val'=>'vacancy_oid','etat_oid'=>'etat_oid','_etat_oid'=>'etat_oid',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_candidate_vacancy.edit_state_process','table'=>'_rct_candidate_vacancy');
+ ?>

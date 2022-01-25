@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include_once file = "/data_model/all.nxl"/>
+<include_once file = "/strings/all.nxl"/>
+
+<include_once file = "../components/directory.comp.nxl"/>
+
+	<main 
+		xmlns				= "http://www.presencemedia.com/recruitment/vacancies/components/directory.comp" 
+	
+		name				= "directory"
+		path				= "/recruitment/vacancies/client/"
+		skin				= "#global:RECRUITMENT_SKIN:generis#"
+		strings				= "recruitment_vacancies_directory_client"
+		
+		service_class		= "lib.recruitment.vacancies.services.directory"
+	
+		ds_search			= "rct_vacancy.search"
+		ds_list				= "rct_vacancy.client_list"
+		ds_add				= "rct_vacancy.request"
+		ds_add_process		= "rct_vacancy.request"
+		ds_export_list			= "rct_vacancy.client_list"
+		
+		ds_edit_request			= "rct_vacancy.request"
+		ds_edit_request_process	= "rct_vacancy.request"
+		
+		ds_edit				= "rct_vacancy.edit-validate-request"
+		ds_edit_process		= "rct_vacancy.edit-validate-request"
+		ds_permission_control = "rct_vacancy_total_control.permission"
+		ds_permission_recruteur	=	"rct_vacancy.manager_permission"
+		ds_attached_files			= "rct_vacancy_attached_file.by_vacancy"
+		ds_comments_list			= "rct_vacancy_comment.ds_list"
+		ds_edit_fib			= "rct_vacancy.edit_fib"
+		ds_edit_fib_process	= "rct_vacancy.edit_fib"
+		ds_delete			= "rct_vacancy.delete"
+		ds_archive			= "rct_vacancy.archive"
+		ds_relevance		= "rct_vacancy.relevance"
+		ds_get_title		= "rct_vacancy.get_title"
+		
+		ds_pending_list		= "rct_vacancy.pending_client_list"
+		ds_pending_item		= "rct_vacancy.pending_item"
+		
+		ds_comments_list			= "rct_vacancy_comment.ds_list"
+		ds_add_comment				= "rct_vacancy_comment.add"
+		ds_comment					= "rct_vacancy_comment.record"
+		ds_get_comment				= "rct_vacancy_comment.get_record"
+		
+		ds_add_log					= "rct_vacancy_action.record"
+		ds_get_log					= "rct_vacancy_action.by_vacancy_oid"
+		
+		ds_instant_feedback_count	= "rct_instant_feedback.completed_count"
+		ds_delayed_feedback_count	= "rct_delayed_feedback.completed_count"
+
+		ds_get_email_sample			= "rct_email_sample.record"
+		
+		ds_accepted_proposals		= "rct_candidate_vacancy.accepted_proposals"
+		ds_selected_candidates		= "rct_candidate_vacancy.selected_candidates"
+				
+		ds_attached_files			= "rct_vacancy_attached_file.by_vacancy"
+		ds_attached_files_add		= "rct_vacancy_attached_file.add_record"
+		ds_attached_files_remove	= "rct_vacancy_attached_file.get_record"
+		ds_attached_files_download	= "rct_vacancy_attached_file.get_record"
+		
+		ds_interviews_list						= "rct_interview.ds_calendar_list"
+		ds_interviews_validation_list			= "rct_interview.validation_list"
+		ds_interview_add						= "rct_interview.add"
+		ds_interview_add_process 				= "rct_interview.add"
+		ds_interview_edit						= "rct_interview.edit"
+		ds_interview_edit_process 				= "rct_interview.edit"
+		ds_interview_validate					= "rct_interview.validate"
+		ds_interview_validate_process			= "rct_interview.validate_process"
+		
+		ds_interview_attached_files				= "rct_interview_attached_file.by_interview"
+		ds_interview_attached_files_add			= "rct_interview_attached_file.add_record"
+		ds_interview_attached_files_remove		= "rct_interview_attached_file.get_record"
+		ds_interview_attached_files_download	= "rct_interview_attached_file.get_record"
+		
+		ds_vacancy_max_oid					= "rct_vacancy.max_oid"
+		
+		
+		template_list						= "recruitment.vacancies_client.list"
+		template_add						= "recruitment.vacancies_client.add"
+		template_edit						= "recruitment.vacancies_client.edit"
+		template_edit						= "recruitment.vacancies_client.edit_request"
+		template_edit_wrapper				= "recruitment.vacancies_client.edit_wrapper"
+		template_edit_wrapper_bs			= "recruitment.vacancies.edit_wrapper_bs"
+		template_new_comment				= "recruitment.vacancies_client.components.new_comment"
+		template_redirect					= "recruitment.vacancies_client.components.redirect"
+		template_requirements				= "recruitment.vacancies_client.components.requirements"
+		template_calendar					= "recruitment.vacancies_client.components.calendar"
+		template_candidates					= "recruitment.vacancies_client.components.candidates"
+		template_candidates_search_results	= "recruitment.vacancies_client.components.candidates_search_results"
+		template_recruitment_providers		= "recruitment.vacancies_client.components.recruitment_providers"
+		template_synthesis					= "recruitment.vacancies_client.components.synthesis"
+		template_feedback					= "recruitment.vacancies_client.components.feedback"
+		template_feedback_schedule			= "recruitment.vacancies_client.components.feedback_schedule"
+		template_feedback_write				= "recruitment.vacancies_client.components.feedback_write"
+		template_feedback_view				= "recruitment.vacancies_client.components.feedback_view"
+		template_comment					= "recruitment.vacancies_client.components.comment"
+		
+		template_edit_request				= "recruitment.vacancies_client.edit_request"
+		
+		template_feedback_delayed_write		= "recruitment.vacancies_client.components.feedback_delayed_write"
+		template_feedback_instant_view		= "recruitment.vacancies_client.components.feedback_instant_view"
+		
+		template_short_lists				= "recruitment.vacancies_client.components.short_lists"
+		template_short_list_add				= "recruitment.vacancies_client.components.short_list_add"
+		template_short_list_edit			= "recruitment.vacancies_client.components.short_list_edit"
+		template_short_list_add_candidates	= "recruitment.vacancies_client.components.short_list_add_candidates"
+		
+		template_candidate_details			= "recruitment.candidates.components.candidate_details"
+		
+		template_email_add					= "recruitment.vacancies_client.components.email_add"
+		template_email_view					= "recruitment.vacancies_client.components.email_view"
+		
+		template_provider_add				= "recruitment.vacancies_client.components.provider_add"
+		template_provider_view				= "recruitment.vacancies_client.components.provider_view"
+		
+		template_warning					= "recruitment.vacancies_client.components.warning"
+		template_warning_schedule			= "recruitment.vacancies_client.components.warning_form"
+		template_warning_edit				= "recruitment.vacancies_client.components.warning_form"
+		
+		template_handle_proposal			= "recruitment.vacancies_client.components.handle_proposal"
+		
+		template_view						= "recruitment.vacancies_client.view"
+		
+		template_interviews_list			= "recruitment.vacancies_client.components.interviews_list"
+		template_interview_add				= "recruitment.vacancies_client.components.interview_add"
+		template_interview_edit				= "recruitment.vacancies_client.components.interview_edit"
+		template_interview_validate			= "recruitment.vacancies_client.components.interview_validate"
+		template_interview_synthesis_add	= "recruitment.vacancies_client.components.interview_synthesis_add"
+		template_interview_synthesis_edit	= "recruitment.vacancies_client.components.interview_synthesis_edit"
+		template_interview_synthesis_view	= "recruitment.vacancies_client.components.interview_synthesis_view"
+		template_xls_export					= "recruitment.vacancies.list_excel"
+		template_email_sample				= "recruitment.vacancies_client.components.email_sample"> 
+
+	</main>
+</nxl>

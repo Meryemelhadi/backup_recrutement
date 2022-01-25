@@ -1,0 +1,61 @@
+<!--<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+	<a 
+		class="pm-button btn-with-icon" 
+		href="javascript:void(0);" 
+		onclick="ajax_navigate(event,'{=add_interview.url}','content'); this.blur(); return false;">
+		<span class="btn-bg"><span class="s-icon si-add">{string:"add_interview"}</span></span>
+	</a>
+</div>-->
+<button type="button" class="btn btn-default button_back right" onclick="document.location.href='{=back_to_calendar.url}'">
+	<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+	{string:"back_to_vacancy_calendar"}
+</button>
+<br><br>
+	
+<div class="directory-card-main-content clear-both">
+
+	<!--! {records:page.records} -->
+	{if:records.count>0}
+	<div class="interviews-validation-wrapper">
+		<div>
+			<div class="interviews-validation-title">{string:"title_pending_interviews"}:</div>
+			<div class="entries">
+				<!--! {record} -->
+				<a href="javascript:void(0)" onclick="ajax_navigate(event,'{=validate_interview.url}&amp;interview_oid={field:oid}&amp;candidate_oid={field.object:candidate_oid}','content');"><strong>{field:candidate_oid}</strong>, le {field:date} à {field:time_start} ({field:created_by})</a>
+				<!--! {/record} -->
+			</div>
+		</div>
+	</div>
+	{/if}
+	<!--! {/records} -->
+
+	<div id="interviews-calendar"></div>
+	
+	<div class="calendar-legend">
+		<div class="calendar-legend-label">
+			<span>{string:"legend"} :</span>
+		</div>
+		<div class="clear-both calendar-legend-entry">
+			<div class="entry legend-status-1"></div><div class="label">{string:"accepted_interview"}</div>
+		</div>
+		<div class="clear-both calendar-legend-entry">
+			<div class="entry legend-status-0"></div><div class="label">{string:"pending_interview"}</div>
+		</div>
+		<div class="clear-both calendar-legend-entry">
+			<div class="entry legend-status-2"></div><div class="label">{string:"refused_interview"}</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	ajax_require('/nx/controls/pm/pm-calendar.js','calendar');
+	ajax_load_css('/nx/skins/lightsky/css/calendar.css');
+
+	ajax_onload(
+	function() {
+		window.interviewsCalendar = new PMCalendar(new Date(), 'interviews-calendar', 'interviewsCalendar', '{=interviews_list.url}');
+		window.interviewsCalendar.getCalendarHTML(0);
+
+		},'calendar');
+
+</script>

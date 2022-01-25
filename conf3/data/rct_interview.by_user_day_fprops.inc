@@ -1,0 +1,8 @@
+<?php $properties["fprops"]=array(
+array('name'=>'rct_interview_time_start','label'=>'time_start','type'=>'datetime','control'=>'time','format'=>'%H:%M','increment-mn'=>'10','srcName'=>'time_start','ufname'=>'rct_interview_time_start','qname'=>'rct_interview_time_start',),
+array('name'=>'rct_interview_time_end','label'=>'time_end','type'=>'datetime','control'=>'time','format'=>'%H:%M','increment-mn'=>'10','srcName'=>'time_end','ufname'=>'rct_interview_time_end','qname'=>'rct_interview_time_end',),
+array('name'=>'rct_interview_candidate_oid','label'=>'candidate_oid','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'db:rct_candidate.ds_list','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','sqltype'=>'integer','srcName'=>'candidate_oid','ufname'=>'rct_interview_candidate_oid','qname'=>'rct_interview_candidate_oid','list'=>'candidate_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),);
+$properties["falias"]=array('time_start'=>'rct_interview_time_start','time_start'=>'rct_interview_time_start','_time_start'=>'rct_interview_time_start','time_end'=>'rct_interview_time_end','time_end'=>'rct_interview_time_end','_time_end'=>'rct_interview_time_end','candidate_oid'=>'rct_interview_candidate_oid','candidate_oid'=>'rct_interview_candidate_oid','_candidate_oid'=>'rct_interview_candidate_oid',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_interview.by_user_day','table'=>'_rct_interview');
+ ?>

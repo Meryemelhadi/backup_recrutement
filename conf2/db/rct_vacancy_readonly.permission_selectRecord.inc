@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_key,_val FROM _rct_vacancy_readonly WHERE _key='".$props->getProperty("vacancy_id","",true)."' AND _val='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."'"; ?>

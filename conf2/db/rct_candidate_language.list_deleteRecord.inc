@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_candidate_language WHERE _candidate_oid='".$props->getProperty("oid","0",true)."'"; ?>

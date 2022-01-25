@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_index,_name,_keywords,_not_keywords,_vacancy,_cand_channel,_profiling_on,_form_field,_profiling_value_for,_category_oid,_profile,_provider,_establishment FROM _rct_profiling_rules"; ?>

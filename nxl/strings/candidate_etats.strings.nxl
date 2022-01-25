@@ -1,0 +1,105 @@
+
+<nxl version="1.0"
+	xmlns="http://www.nxfrontier.com/nxl/nxl" 
+	package="recruitment"
+>
+
+	<!-- French Strings -->
+	<i8n:strings name="candidate_etats" lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:i8n="http://www.nxfrontier.com/nxl/i8n">
+
+		<i8n:string id="page_title" value="La liste des Etapes de recruitement - Candidat" />
+		
+		<i8n:string id="create record" value="Création Etape de recruitement - Candidat" />
+
+		<i8n:string id="list records" value="Liste des Etapes de recrutement - Candidat" />
+		<i8n:string id="add record" value="Ajout d\'une nouvelle Etape" />
+		<i8n:string id="edit record" value="Traitement Etape" />
+		<i8n:string id="exec action" value="Traitement Etape" />
+		<i8n:string id="page_title_view" value="Détails de l' Etape" />
+
+		
+		<i8n:string id="items_search" value="Etape(s) trouvée(s)" />	
+		<i8n:string id="edit_helper" value="Editer" />	
+		<i8n:string id="delete_helper" value="Supprimer" />	
+		<i8n:string id="legend" value="Légende" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des Etapes" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d\'ajouter une nouvelle Etape" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier l' Etape sélectionnée" />
+		<i8n:string id="page_message_view" value="Détails de l' Etape sélectionnée" />
+		
+		<i8n:string id="page_message_list_details" value="Cliquer sur une Etape pour en visualiser les détails" />
+		<i8n:string id="page_message_add_details" value="Après avoir remplis les champs de l' formulaire, cliquer sur envoyer pour ajouter l' nouvelle Etape" />
+		<i8n:string id="page_message_edit_details" value="Cliquer sur \'Envoyer\' pour valider les modifications et revenir à la liste des Etapes de recrutement, ou sur \'Retour\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" value="Cliquer sur \'Retour\' pour revenir à la liste des Etapes de recrutement" />
+
+		<i8n:string id="dlg_wait_title" value="Veuillez patienter" />
+		<i8n:string id="dlg_wait_content" value="En cours d\'ajout des nouvelles données" />
+
+		<i8n:string id="dlg_success_title" value="Action réussie" />
+		<i8n:string id="dlg_success_content" value="Opération effectuée avec succès" />
+
+		<i8n:string id="dlg_back_title" value="Annulation de la saisie en cours" />
+		<i8n:string id="dlg_back_content" value="Cette action va supprimer les données en cours de saisie. Souhaitez-vous continuer ?" />
+
+		<i8n:string id="dlg_delete_title" value="Suppression d\'un Etape de recrutement" />
+		<i8n:string id="dlg_delete_content" value="Etes vous sûr de vouloir supprimer cette Etape de recrutement - Candidat ?" />
+
+		<i8n:string id="dlg_success" value="Valider" />
+		<i8n:string id="dlg_cancel" value="Annuler" />
+		<i8n:string id="dlg_ok" value="Ok" />
+
+		<i8n:string id="empty_list" value="Aucune Etape n\'est enregistrée" />
+		
+		<i8n:string id="details" value="Détails" />
+		<i8n:string id="edit" value="Modifier" />
+		<i8n:string id="delete" value="Supprimer" />
+
+		<i8n:string id="Next" value="Suivant" />
+		<i8n:string id="Previous" value="Précédent" />
+		<i8n:string id="Results" value="Résultats" />		
+
+		<i8n:string id="Success" value="Opération réussie" />
+		<i8n:string id="Error" value="Erreur" />
+		<i8n:string id="Warning" value="Attention" />
+
+		<i8n:string id="search" value="Rechercher" />
+		<i8n:string id="add" value="Ajouter" />
+		<i8n:string id="export_excel" value="Export Excel" />
+		<i8n:string id="save" value="Enregistrer" />
+		<i8n:string id="save and continue" value="Enregistrer et continuer" />
+		<i8n:string id="back" value="Retour" />
+		<i8n:string id="submit" value="Envoyer" />
+		<i8n:string id="attached_files_title" value="Fichiers attachés" />
+
+		<i8n:string id="field:index" value ="Index" />
+		<i8n:string id="field:name" value ="Intitulé" />
+		<i8n:string id="field:taskType" value ="Tâche pour" />
+		<i8n:string id="field:in_home" value ="En page accueil" />
+
+		<i8n:string id="field:color" value ="Couleur" />
+		<i8n:string id="field:vacancy_status" value="Lié à l'action dans le poste" />
+		<i8n:string id="field.prompt:vacancy_status" value="Action candidat dans poste..." />
+		<i8n:string id="field:is_default" value ="Etape par défaut (entrée dans la CVThèque)" />
+		<i8n:string id="field:is_short_list" value ="Short List" />
+		<i8n:string id="field:etat_type" value ="Catégorie" />
+		<i8n:string id="field:etat_next" value ="Etape suivante" />
+
+		<i8n:string id="legend" value="Légende" />
+		<i8n:string id="empty_list" value="Aucune étape de recrutement candidat n'est référencée dans la base de données" />
+
+		<i8n:string id="edit_helper" value="Modifier l'intitulé de l'étape de recrutement - Candidat" />
+		<i8n:string id="delete_helper" value="Supprimer l'état" />
+
+		<i8n:string id="back" value="Liste des étapes de recrutement - Candidat" />
+		<i8n:string id="items_search" value="Etape(s) trouvée(s)" />
+	
+		<!-- les labels des champs de données -->
+		<fields xmlns="http://www.nxfrontier.com/nxl/i8n">
+
+		</fields>
+			
+	</i8n:strings>
+	
+</nxl>

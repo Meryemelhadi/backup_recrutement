@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview_comment SET _oid=".$record->getFieldValue("oid","DB","NULL")." WHERE _oid='".$props->getProperty("interview_oid","",true)."'"; ?>

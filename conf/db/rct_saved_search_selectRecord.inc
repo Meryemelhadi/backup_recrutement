@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_url,_user_oid FROM _rct_saved_search"; ?>

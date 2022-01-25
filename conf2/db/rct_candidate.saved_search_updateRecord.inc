@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _ SET _saved_search=".$record->getFieldValue("saved_search","DB","'%{request:search_oid}'"); ?>

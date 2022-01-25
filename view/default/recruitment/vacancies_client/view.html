@@ -1,0 +1,445 @@
+{content:buttons}			
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=list.url}','content'); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+</a>
+{/content}
+
+{record:page.record}
+
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_view"}</div>
+	</div>
+</div>
+
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			<div class="pm-grid-outer-wrapper"  id="add-interview-wrapper">
+				
+				<div class="pm-button-wrapper clear-both">					
+					{=buttons}
+				</div>				
+				
+				
+				<div class="directory-card-main-content clear-both">
+					<div class="directory-card-column-1">
+						<div class="directory-card-column-w">
+					
+							<div class="pm-bxm-box-wrapper">
+								<div class="pm-bxm-box">
+				
+									
+					
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"title_vacancy_identity_section"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+																				
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+												
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:requested_by}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:requested_by}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:request_date}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:request_date}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:workflow_state}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:workflow_state}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:name}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:name}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:number}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:number}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:category_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:category_oid}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:contract_type_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:contract_type_oid}</div>
+														</div>
+													</div>
+												
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:mission_start_date}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:mission_start_date}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:suited_recruitment_date}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:suited_recruitment_date}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:taking_office_date}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:taking_office_date}</div>
+														</div>
+													</div>
+												
+				
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:subsidiary_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:subsidiary_oid}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:service_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:service_oid}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:duty_station_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:duty_station_oid}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:work_schedule}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:work_schedule}</div>
+														</div>
+													</div>			
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							
+							<div class="pm-bxm-box-wrapper">
+								<div class="pm-bxm-box">
+				
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"title_internship_section"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+																				
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+				
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:internship_title}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:internship_title}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:internship_start}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control width-66">{field.html:internship_start}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:internship_end}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control width-66">{field.html:internship_end}</div>
+														</div>
+													</div>
+					
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							
+							<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+								<div class="pm-bxm-box">
+				
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"title_vacancy_requirement_section"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+																				
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+												
+													<div class="control-main-wrapper normal-layout-control">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:technical_qualifications}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:technical_qualifications}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper normal-layout-control">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:behavioral_qualifications}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:behavioral_qualifications}</div>
+														</div>
+													</div>	
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							
+						</div>
+					</div>
+					
+					<div class="directory-card-column-2">
+						<div class="directory-card-column-w">
+						
+							
+							
+							<div class="pm-bxm-box-wrapper">
+								<div class="pm-bxm-box">
+				
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"title_sought_after_profile_section"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+																				
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+				
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:years_of_practice}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:years_of_practice}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:suited_diplomas}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:suited_diplomas}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:companies_having_same_profile}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:companies_having_same_profile}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:recruitment_reasons}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field.html:recruitment_reasons}</div>
+														</div>
+													</div>										
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							
+							
+							<div class="pm-bxm-box-wrapper">
+								<div class="pm-bxm-box">
+				
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"title_mission_definitions_section"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+																				
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+				
+													<div class="control-main-wrapper normal-layout-control">
+														<div class="control-wrapper">
+															<div class="control">{field.html:mission_definitions}</div>
+														</div>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							<div class="pm-bxm-box-wrapper">
+								<div class="pm-bxm-box">
+				
+									<div class="box-simple-title">
+										<h3 class="double-padding">{field.label:recruitment_motivation}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+																				
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+				
+													<div class="control-main-wrapper normal-layout-control">
+														<div class="control-wrapper">
+															<div class="control">{field.html:recruitment_motivation}</div>
+														</div>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+								<div class="pm-bxm-box">
+					
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"title_mission_means_section"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+																				
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+					
+													<div class="control-main-wrapper normal-layout-control">
+														<div class="control-wrapper">
+															<div class="control">{field.html:mission_means}</div>
+														</div>
+													</div>			
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							
+							
+							
+						</div>
+					</div>
+				</div>
+				
+
+				
+				
+				
+				
+				<div class="pm-button-wrapper pm-bottom-button-wrapper clear-both">				
+					{=buttons}
+				</div>		
+				
+			</div>
+		</td>
+		<td class="right-column">
+			<div class="notice-message notice-message-with-icon png_bg">
+				<p>{string:"page_message_view"}</p>
+				<p>{if:#field.object:workflow_state# == '1'}{string:"page_message_pending"}{else}{string:"page_message_refused"}{/if}</p>
+			</div>
+		</td>
+	</tr>
+</table>
+
+{/record}
+

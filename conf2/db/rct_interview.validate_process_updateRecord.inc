@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview SET _validation_state='".$props->getProperty("validation_state","",true)."',_validated_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."' WHERE _oid='".$props->getProperty("interview_oid","",true)."'"; ?>

@@ -1,0 +1,408 @@
+
+<style type="text/css">
+	{=app.form.css}
+	#field_technical_qualifications .control-label, #field_behavioral_qualifications .control-label{
+	}
+	#field_companies_having_same_profile{
+		margin-bottom: 24px;
+	}
+	#field_suited_recruitment_date{
+		display:none;
+	}
+	#requirements_div .control-label-wrapper{
+		width:35% !important;
+	}
+	#groups_user_total_control_1 , .control_lists_filter td, #filter_val_groups_user_total_control, #filter_val_groups_user_readonly, #groups_user_total_control_2, #groups_user_readonly_1, #groups_user_readonly_2{
+		width: 170px !important;
+		font-size: 11px !important;
+	}
+	#descriptionProfil-control-wrapper{
+		margin-top:3px;
+	}
+	#field_companies_having_same_profile .control-label{
+	}
+	.mp_span{
+		float: left; 
+		width: 80px;
+	}
+	.mp_btn{
+		width : 126px;
+	}
+	.dropdown-menu {
+		right: 0px;
+		left: auto !important;
+	}
+	.checkbox_label{
+		font-size : 14px;
+	}
+	#group_1 .control_lists_filter td {
+		position: relative;
+	}
+	#group_1 .control_lists_filter td select{
+		top: 0;
+		bottom: 0;
+		position: absolute;
+		height: inherit;
+	}
+	#groups_user_total_control-control table, #groups_user_readonly-control table{
+		min-height: 250px !important;
+	}
+	#groups_user_total_control-control  td:nth-child(2), #groups_user_readonly-control  td:nth-child(2){
+		padding-left: 70px !important;
+	}
+	#field_archive_state{
+		display:none;
+	}
+</style>
+
+<script>
+	{=app.form.js}
+</script>
+{include:common.messages_log}
+{include:common.message_help}
+
+
+{content:comments}
+	{include:recruitment/vacancies/components/comments}
+{/content}
+
+{content:accepted_proposals}
+	{records:accepted_proposals.records}
+		{record}
+			<div class="vacancy-meta-entry"><strong>{field:full_name}</strong> {string:"date_prefix_lc"} {field:proposal_acceptance_date}</div>
+		{/record}
+	{/records}
+{/content}
+
+
+
+{content:selected_candidates}
+	{include:recruitment/vacancies/components/selected_candidates}
+{/content}
+
+
+{content:attached_files}
+	{include:recruitment/vacancies/components/files_vacancy}
+{/content}
+{content:instant_feedback_count}
+	{records:instant_feedback_count.records}
+		{if:records.count > 0}
+			{string:"yes"} ({records.count})
+		{else}
+			{string:"no"}
+		{/if}
+	{/records}
+{/content}
+
+{content:delayed_feedback_count}
+	{records:delayed_feedback_count.records}
+		{if:records.count > 0}
+			{string:"yes"} ({records.count})
+		{else}
+			{string:"no"}
+		{/if}		
+	{/records}
+{/content}
+
+{content:offer}
+{if: %property:use_multiposting% && %property:multiposting_url% }
+	{record:multiposting.record}
+	<form:group title="{string:'title_offer'}">
+	<div class="pm-bxm-box-content">
+		<div class="table-list-wrapper">
+			<table class="table-list">
+				<tr>
+					<td class="entry">{field.label:status}: <strong>{field.html:status}</strong></td>
+				</tr>
+				<tr>
+					<td class="entry">{field.label:nbr_jobboard}: <strong>{field.html:nbr_jobboard}</strong></td>
+				</tr>
+				<tr>
+					<td class="entry">{field.label:nbr_clics}: <strong>{field.html:nbr_clics}</strong> clic(s)</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	</form:group>
+	{/record}
+{/if}
+{/content}
+{content:publication}
+	<div class="pm-bxm-box-content">
+		<div class="table-list-wrapper">
+			<table class="table-list">
+				<tr>
+					<td class="entry"><span class="mp_span">{string:"publiate"}: </span>
+						<a class="pm-button btn-with-icon mp_btn" href="{=multiposting_url}" >
+							<span class="btn-bg"><span class="s-icon si-arrow-right">{string:"multiposting_access_new"}</span></span>
+						</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+{/content}
+{content:history}
+	{include:recruitment/vacancies//panel_history}
+{/content}
+
+<form:record id="content_form" record="page.record">
+	{content:email_field}
+		{include:recruitment/vacancies/components/email_field_bs}
+	{/content}
+	{content:vacancy_dashboard}
+		{include:recruitment/vacancies/components/vacancy_dashboard_bs}
+	{/content}
+	<script>
+		window.debugme = 2;
+
+		window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{=back_list.url}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+
+		window.dlg_submitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+		window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+		window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+		
+		window.dlg_deleteConfig{record.index} = {
+										title : "{string:'dlg_delete_title'}",
+										message : "{string:'dlg_delete_content'}",
+										viewMode : "okCancel",
+										url : "{=delete.url}{record.url_key}",
+										target : "content",
+										labels : {
+											ok : "{string:'dlg_ok'}",
+											cancel : "{string:'dlg_cancel'}"
+									} };
+		
+		window.dlg_archiveConfig{record.index} = {
+                                                title : "{string:'dlg_archive_title'}",
+                                                message : "{string:'dlg_archive_content'}",
+                                                viewMode : "okCancel",
+                                                url : "{=archive.url}{record.url_key}",
+                                                target : "content",
+                                                labels : {
+                                                    ok : "{string:'dlg_ok'}",
+                                                    cancel : "{string:'dlg_cancel'}"
+                                            } };
+	</script>
+
+	<form:main>
+		<form:toolbar>
+			{if:%property:from_home%}
+			<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=back_to_home.url}'">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+				{string:"back_to_home"}
+			</button>
+			{else}
+			<button type="button" class="btn btn-default button_back" onclick="document.location.href='{=list.url}'">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp;
+				{string:"back"}
+			</button>
+			{/if}
+			
+		</form:toolbar>
+		<form:tabs>
+			<form:tab id="informations" title="{string:'title_vacancy_fiche'}">
+				<form:panels>
+					<form:panel titleXX="{string:'title_vacancy_fiche'}">
+						<form:columns>
+							<form:column index="1">
+								<form:group title="{string:'general_infos'}">
+									<form:field name="name"/>
+									<form:field name="code"/>
+									<form:field name="vacancy_project"/>
+									<form:field name="number"/>
+									
+									<form:field name="opening_date"/>
+									
+								</form:group>
+								<form:group title="{string:'title_contract'}">
+									<form:field name="contract_type_oid"/>
+									<form:field name="category_oid"/>
+									<form:field name="mission_start_date"/>
+
+									<form:field name="closing_date">
+										<form:field-help>Date de fermeture du poste</form:field-help>
+									</form:field>
+
+									
+									<form:field name="suited_recruitment_date"/>
+									<form:field name="taking_office_date"/>
+								</form:group>
+								<!--<form:group title="{string:'title_classement_poste'}">
+									
+									<form:field name="archive_state"/>
+								</form:group>-->
+								<div id="stage_group" style='display:none'>
+									 <form:group title="{string:'title_internship_section'}">
+										<form:field name="internship_title"/>
+										<form:field name="internship_start"/>
+										<form:field name="internship_end"/>
+										<form:field name="executive_committee_presentation"/>
+									</form:group>
+								</div>	
+
+							</form:column>
+							<form:column index="2">
+								<form:group title="{string:'title_manage_recruitment'}">
+									<form:field name="manager_oid"/>
+									<form:field name="cand_channel"/>
+									{=email_field}
+									<form:field name="current_step">
+										<form:field-help>Les différentes états de recrutement:<br/>
+											1 - En cours<br/>
+											2 - Suspendu <br/>
+											3 - Clôturé <br/>
+											4 - Archivé <br/>
+										</form:field-help>
+									</form:field>
+									<form:field name="archive_state"/>
+								</form:group>
+								<form:group title="{string:'title_poste_affectation'}">
+									<form:field name="client_oid" />
+									<form:field name="subsidiary_oid"/>
+									<form:field name="establishment"/>
+									<form:field name="pole"/>
+									<form:field name="direction"/>
+									<form:field name="service_oid"/>
+									<form:field name="duty_station_oid"/>
+								</form:group>
+								<form:group title="{string:'title_salary_package'}">
+									<form:field-double name="salary_min" name2="salary_max"/>
+									<form:field name="salary_type" />
+								</form:group>
+								<form:group title="{string:'title_vacancy_dashboard'}">
+									{=vacancy_dashboard}
+								</form:group>
+								{=selected_candidates}
+								{=offer}
+								
+							</form:column>
+						</form:columns>
+					</form:panel>
+				</form:panels>
+			</form:tab>
+
+			<form:tab id="requirements" title="{string:'title_requirements'}">
+				<form:panels>
+					<form:panel titleXX="{string:'title_vacancy_identity_section'}">
+						<form:columns>
+							<form:column index="1">
+								<form:group title="{string:'title_sought_after_profile_section'}">
+									<form:field name="recruitment_reasons"/>
+									<form:field name="suited_diplomas"/>
+									<form:field name="years_of_practice"/>
+									<form:field name="work_schedule"/>
+									<form:field name="companies_having_same_profile"/>
+								</form:group>
+
+								<form:group title="{string:'title_vacancy_requirement_section'}">
+									<form:field name="technical_qualifications"/>
+									<form:field name="behavioral_qualifications"/>									
+								</form:group>
+
+							</form:column>
+							<form:column index="2">
+								<form:group title="{string:'field:descriptionProfil'}">
+									<form:field-no-label name="descriptionProfil" />
+								</form:group>
+
+								<form:group title="{string:'title_mission_definitions_section'}">
+									<form:field-no-label  name="mission_definitions"/>
+								</form:group>
+								<form:group title="{string:'title_mission_means_section'}">
+									<form:field-no-label  name="mission_means"/>
+								</form:group>
+							</form:column>
+						</form:columns>
+					</form:panel>
+				</form:panels>
+			</form:tab>
+			<form:tab id="attached_files" title="{string:'title_files_notes'}">
+				<form:panels>
+					<form:panel titleXX="{string:'title_files_notes'}">
+						<form:columns>
+							<form:column index="1">
+								<form:group title="{string:'title_notes'}">
+									{=comments}
+								</form:group>
+							</form:column>
+							<form:column index="2">
+								<form:group title="{string:'title_associated_documents'}">
+									{=attached_files}
+								</form:group>
+							</form:column>
+						</form:columns>
+					</form:panel>
+				</form:panels>
+			</form:tab>
+			
+			<form:tab id="publication" title="{string:'title_vacancy_publication'}">
+				<form:panels>
+					<form:panel titleXX="{string:'title_files_notes'}">
+						<form:columns>
+							<form:column index="1">
+								<form:group title="{string:'title_publication_detail'}">
+									<form:field name="announce_date"/>
+									<form:field name="closing_announce_date"/>
+									<form:field name="application_type"/>
+								</form:group>
+								
+							</form:column>
+							
+							<form:column index="2">
+								<div id="annonce_group" style='display:block'>
+									 <form:group title="{string:'title_app_connected_section'}">
+										<form:field name="app_connected"/>
+									</form:group>
+								</div>
+								{if:%property:use_multiposting%}
+								<form:group title="{string:'multiposting_publication'}">
+									{=publication}
+								</form:group>
+								{/if}
+							</form:column>
+						
+						</form:columns>
+					</form:panel>
+				</form:panels>
+				
+			</form:tab>
+			<form:tab id="evaluation" title="{string:'title_eval_criteria'}">
+				<form:panels>
+					<form:panel titleXX="{string:''}">
+						<form:group title="{string:'title_eval_criteria'}">
+							<form:field-no-label name="evaluation_criteria"/>
+						</form:group>
+					</form:panel>
+				</form:panels>
+			</form:tab>
+			<form:tab id="history" title="{string:'title_history'}">
+				<form:panels>
+					<form:panel>
+						<form:columns>
+							<form:column index="1">
+								<form:group title="{string:'vacancy_log'}">
+									{=log}
+								</form:group>
+							</form:column>
+							<form:column index="2">
+								<form:group title="{string:'vacancy_history_title'}">
+									{=vacancy_history}
+								</form:group>
+							</form:column>
+						</form:columns>
+					</form:panel>
+				</form:panels>
+			</form:tab>
+			
+		</form:tabs>
+
+		<form:toolbar>
+			
+		</form:toolbar>
+
+	</form:main>
+</form:record>
+

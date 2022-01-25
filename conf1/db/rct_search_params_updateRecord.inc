@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_search_params SET _oid=".$record->getFieldValue("oid","DB","NULL").",_name=".$record->getFieldValue("name","DB","NULL").",_fields=".$record->getFieldValue("fields","DB","NULL").",_is_default=".$record->getFieldValue("is_default","DB","NULL"); ?>

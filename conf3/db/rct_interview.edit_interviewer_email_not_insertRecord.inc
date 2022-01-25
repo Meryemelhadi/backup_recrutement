@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_interview(_interviewer_email_not) VALUES(".$record->getFieldValue("interviewer_email_not","DB","0").")"; ?>

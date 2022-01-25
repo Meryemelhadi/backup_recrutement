@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_created_by,_creation_date,_sent_by,_sending_date,_vacancy_oid,_is_visible FROM _rct_short_list WHERE _vacancy_oid='".$props->getProperty("vacancy_oid","",true)."' ORDER BY _creation_date DESC "; ?>

@@ -1,0 +1,11 @@
+{if:%property:previous_operation_link.url%}
+<a class="pm-button btn-with-icon" href="{=previous_operation_link.url}">
+    <span class="btn-bg"><span class="s-icon si-application-side-contract">
+        {if:%property:back_home% ==  true}{string:"back_to_home"}{else}{string:"back"}{/if}
+    </span></span>
+</a>
+{else}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="Generis.Recruitment.hide_cv_menu();PMFormSubmit.validate(this, dlg_backConfig, event); this.blur(); return false;">
+    <span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+</a>
+{/if}

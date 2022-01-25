@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_provider WHERE ".$this->getWhereClause("_name","'".$props->getProperty("provider_name","",true)."'",'LIKE','OR','%','%',true,false,'|','false'); ?>

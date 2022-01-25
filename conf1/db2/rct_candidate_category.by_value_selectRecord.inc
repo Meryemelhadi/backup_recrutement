@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name FROM _rct_candidate_category WHERE _name='".$props->getProperty("value","",true)."' ORDER BY _name ASC "; ?>

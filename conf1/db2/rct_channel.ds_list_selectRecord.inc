@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_to_email FROM _rct_channel ORDER BY _name ASC "; ?>

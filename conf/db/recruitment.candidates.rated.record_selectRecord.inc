@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_ci_acceptance_state,_job_acceptance_state,_proposal_acceptance_state,_proposal_acceptance_date FROM _rct_candidate"; ?>

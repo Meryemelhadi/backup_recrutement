@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _archive_state FROM _rct_vacancy WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

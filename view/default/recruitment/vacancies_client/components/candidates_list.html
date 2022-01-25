@@ -1,0 +1,106 @@
+<table class="directory-grid">
+	<tr class="directory-grid-row columns-layout columns-layout-3 width-padding">
+	
+		{include:recruitment/vacancies_client/components/candidate_data}
+		
+		<td class="dg-operations rating-operation">
+			<div id="candidate-rating-{$currentGroup}-{record.index}"></div>
+			<script>
+				new Starry('candidate-rating-{$currentGroup}-{record.index}', {showNull:true, startAt:{field:rating}, cb: function(cfg) {
+					if( cfg.value == cfg.oValue ) return;
+					ajax_navigate(cfg.event,'{=rate_candidate.url}{record.url_key}&amp;rating_value='+cfg.value,'content');
+				}});
+			</script>
+		</td>
+		
+		<td class="dg-operations dg-6-operations">
+			<div class="dg-cell-wrapper">
+			
+				<script>
+				window.dlg_previewConfig_{$currentGroup}_{record.index} = { 
+					title:'{string:'preview_cv_title'} {field:first_name} {field:last_name}',
+					fullscreen: true, 
+					url: '{=preview_cv.url}{record.url_key}'
+				};
+				
+				window.dlg_unlinkConfig_{$currentGroup}_{record.index} = { 
+					title : "{string:'dlg_unlink_candidate_title'}",
+					message : "{string:'dlg_unlink_candidate_content'}", 
+					viewMode : "okCancel", 
+					url : "{=unlink_candidate.url}{record.url_key}", 
+					target : "content", 
+					labels : { 
+						ok : "{string:'dlg_ok'}", 
+						cancel : "{string:'dlg_cancel'}" 
+				} };
+				
+				
+				window.dlg_accepted_proposal_{$currentGroup}_{record.index} = { title:"{string:'accepted_proposal_title'}", url: "{=accepted_proposal.url}{record.url_key}", width:550 }
+				window.dlg_refused_proposal_{$currentGroup}_{record.index} = { title:"{string:'refused_proposal_title'}", url: "{=refused_proposal.url}{record.url_key}", width:550 }
+	
+				</script>
+
+			
+				{if:trim(#field.object:cv_path#) != ''}
+				<a 
+					class="s-icon si-page-white-magnify" 
+					href="javascript:void(0);" 
+					onclick="PMModalbox.loadFromUrl(window.dlg_previewConfig_{$currentGroup}_{record.index}, event); return false;" 
+					title="{string:'preview_cv_helper'}">
+					<span>{string:"preview_cv_helper"}</span>
+				</a>
+				{else}
+				<a 
+					class="s-icon-disabled si-page-white-magnify" 
+					href="javascript:void(0);"  
+					title="{string:'no_cv_associated'}">
+					<span>{string:"no_cv_associated"}</span>
+				</a>
+				{/if}
+				
+				<a 
+					class="s-icon si-page-white-text" 
+					href="javascript:void(0);" 
+					onclick="ajax_navigate(event,'{=candidate_details.url}{record.url_key}','content');" 
+					title="{string:'cv_details'}">
+					<span>{string:"cv_details"}</span>
+				</a>										
+				<a 
+					class="s-icon si-date-add" 
+					href="javascript:void(0);" 
+					onclick="ajax_navigate(event,'{=add_interview.url}{record.url_key}','content');" 
+					title="{string:'add_interview_helper'}">
+					<span>{string:"add_interview_helper"}</span>
+				</a>
+				
+				<a 
+					class="s-icon si-comment-add" 
+					href="javascript:void(0);" 
+					onclick="Generis.Recruitment.focusComment(this);" 
+					title="{string:'comment_candidate_helper'}">
+					<span>{string:"comment_candidate_helper"}</span>
+				</a>				
+				<a 
+					class="s-icon si-tick" 
+					href="javascript:void(0);" 
+					onclick="ajax_navigate(event,'{=accept_by_client.url}{record.url_key}','content');" 
+					title="{string:'accept_candidate_helper'}">
+					<span>{string:"accept_candidate_helper"}</span>
+				</a>
+				<a 
+					class="s-icon si-cross" 
+					href="javascript:void(0);" 
+					onclick="ajax_navigate(event,'{=refuse_by_client.url}{record.url_key}','content');" 
+					title="{string:'refuse_candidate_helper'}">
+					<span>{string:"refuse_candidate_helper"}</span>
+				</a>
+				
+			</div>
+		</td>
+	</tr>
+</table>
+
+{include:recruitment/vacancies_client/components/candidate_history}
+
+
+

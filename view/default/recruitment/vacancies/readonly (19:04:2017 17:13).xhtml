@@ -1,0 +1,205 @@
+<style type="text/css">
+	{=app.form.css}
+	#field_technical_qualifications .control-label, #field_behavioral_qualifications .control-label{
+		width:200px;
+	}
+	#field_companies_having_same_profile{
+		margin-bottom: 24px;
+	}
+	#field_suited_recruitment_date{
+		display:none;
+	}
+	#requirements_div .control-label-wrapper{
+		width:35% !important;
+	}
+</style>
+
+<script>
+	{=app.form.js}
+</script>
+{include:common.messages_log}
+{include:common.message_help}
+
+
+{content:comments}
+	{include:recruitment/vacancies/components/comments_readonly}
+{/content}
+
+{content:accepted_proposals}
+	{records:accepted_proposals.records}
+		{record}
+			<div class="vacancy-meta-entry"><strong>{field:full_name}</strong> {string:"date_prefix_lc"} {field:proposal_acceptance_date}</div>
+		{/record}
+	{/records}
+{/content}
+
+{content:selected_candidates}
+	{include:recruitment/vacancies/components/selected_candidates}
+{/content}
+
+{content:email_field}
+	{include:recruitment/vacancies/components/email_field}
+{/content}
+
+{content:buttons}
+	<a 
+		class="pm-button btn-with-icon" 
+		href="javascript:void(0);" 
+		onclick="ajax_navigate(event,'{=list.url}','content'); return false;"
+	>
+		<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+	</a>
+	<span class="pm-button-sep"></span>
+
+{/content}
+
+
+{content:attached_files}
+	{include:recruitment/vacancies/components/files_readonly}
+{/content}
+
+<form:record id="content_form" record="page.record">
+	{content:field_state_with_help}
+		{include:recruitment/vacancies/components/field_state_with_help}
+	{/content}
+	{content:field_closing_date_with_help}
+		{include:recruitment/vacancies/components/field_closing_date_with_help}
+	{/content}
+	{content:vacancy_dashboard}
+		{include:recruitment/vacancies/components/vacancy_dashboard}
+	{/content}
+	
+	<script>
+		window.debugme = 2;
+
+		window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{=back_list.url}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+
+		window.dlg_submitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+
+		window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=submit.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+
+		window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+	</script>
+	<form:main>
+		<form:toolbar>
+			{=buttons}
+		</form:toolbar>
+		<form:tabs>
+			<form:tab id="informations" title="{string:'title_vacancy_fiche'}">
+				<form:panels>
+					<form:panel title="{string:'title_vacancy_fiche'}">
+						<form:columns>
+							<form:column index="1">
+								<form:group title="{string:'general_infos'}">
+									<form:field name="name"/>
+									<form:field name="code"/>
+									<form:field name="number"/>
+									<form:field name="opening_date"/>
+									{=field_state_with_help}
+								</form:group>
+								<form:group title="{string:'title_contract'}">
+									<form:field name="contract_type_oid"/>
+									<form:field name="category_oid"/>
+									<form:field name="mission_start_date"/>
+									{=field_closing_date_with_help}
+									<form:field name="suited_recruitment_date"/>
+									<form:field name="taking_office_date"/>
+								</form:group>
+								<form:group title="{string:'title_classement_poste'}">
+									<form:field name="application_type"/>
+									<form:field name="archive_state"/>
+								</form:group>
+								<div id="stage_group" style='display:none'>
+									 <form:group title="{string:'title_internship_section'}">
+										<form:field name="internship_title"/>
+										<form:field name="internship_start"/>
+										<form:field name="internship_end"/>
+										<form:field name="executive_committee_presentation"/>
+									</form:group>
+								</div>	
+
+							</form:column>
+							<form:column index="2">
+								<form:group title="{string:'title_manage_recruitment'}">
+									<form:field name="manager_oid"/>
+									<form:field name="cand_channel"/>
+									{=email_field}
+								</form:group>
+								<form:group title="{string:'title_poste_affectation'}">
+									<form:field name="client_oid" />
+									<form:field name="subsidiary_oid"/>
+									<form:field name="establishment"/>
+									<form:field name="pole"/>
+									<form:field name="direction"/>
+									<form:field name="service_oid"/>
+									<form:field name="duty_station_oid"/>
+								</form:group>
+								<form:group title="{string:'title_vacancy_dashboard'}">
+									{=vacancy_dashboard}
+								</form:group>
+								{=selected_candidates}
+
+							</form:column>
+						</form:columns>
+					</form:panel>
+				</form:panels>
+			</form:tab>
+			<form:tab id="requirements" title="{string:'title_requirements'}">
+				<form:panels>
+					<form:panel title="{string:'title_vacancy_identity_section'}">
+						<form:columns>
+							<form:column index="1">
+								<form:group title="{string:'title_sought_after_profile_section'}">
+									<form:field name="recruitment_reasons"/>
+									<form:field name="suited_diplomas"/>
+									<form:field name="years_of_practice"/>
+								</form:group>
+								<form:group title="{string:'title_vacancy_requirement_section'}">
+									<form:field name="technical_qualifications"/>
+									<form:field name="behavioral_qualifications"/>
+									
+								</form:group>
+
+							</form:column>
+							<form:column index="2">
+								<form:group title="">
+									<form:field name="work_schedule"/>
+									<form:field name="companies_having_same_profile"/>
+
+								</form:group>
+								<form:group title="{string:'title_mission_definitions_means'}">
+									<form:field  name="mission_definitions"/>
+									<form:field  name="mission_means"/>
+								</form:group>
+							</form:column>
+						</form:columns>
+					</form:panel>
+				</form:panels>
+			</form:tab>
+			<form:tab id="attached_files" title="{string:'title_files_notes'}">
+				<form:panels>
+					<form:panel title="{string:'title_associated_files'}">
+						<form:columns>
+							<form:column index="1">
+								<form:group title="{string:'title_associated_files'}">
+									{=attached_files}
+								</form:group>
+							</form:column>	
+							<form:column index="2">
+								<form:group title="{string:'title_notes'}">
+									{=comments}
+								</form:group>
+							</form:column>	
+						</form:columns>	
+					</form:panel>
+				</form:panels>
+			</form:tab>
+		 
+		</form:tabs>
+
+		<form:toolbar>
+			{=buttons}
+		</form:toolbar>
+
+	</form:main>
+</form:record>

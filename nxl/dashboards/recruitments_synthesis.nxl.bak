@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<nxl 
+	version				= "1.0" 
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl"
+	package				= "recruitment">
+
+	<include file = "../datamodel/all.data.nxl"/>
+	<include file = "components/dashboard.comp.nxl"/>
+
+	<main 
+	
+		xmlns					= "http://www.presencemedia.com/recruitment/dashboards/components/dashboard.comp"
+	
+		name					= "recruitments_synthesis"
+		path					= "/recruitment/dashboards/"
+		strings					= "recruitment.dashboards.recruitments_synthesis"
+		skin					= "#global:SALESFORCE_SKIN:generis#"
+
+		ds_search				= "rct_vacancy.dashboards.recruitments_synthesis.search"
+		ds_list					= "rct_vacancy.dashboards.recruitments_synthesis.list"
+		ds_export_list			= "rct_vacancy.dashboards.recruitments_synthesis.list"
+		ds_list_stats			= "rct_vacancy.dashboards.recruitments_synthesis.list"
+
+		template_list			= "recruitment.dashboards.list"
+		template_xls_export		= "recruitment.dashboards.list_excel"
+		template_stat			= "recruitment.dashboards.stat"
+		>
+
+		<i8n:strings 
+			name		= "recruitment.dashboards.recruitments_synthesis"
+			lang		= "fr" 
+			xmlns		= "http://www.w3.org/1999/xhtml"
+			xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+			<i8n:string id="page_title_list" value="Synthèse des dossiers de recrutement" />
+					
+			<i8n:string id="dlg_wait_title" value="Veuillez patienter ..." />
+			<i8n:string id="dlg_wait_content" value="Enregistrement des informations est en cours" />
+			<i8n:string id="dlg_edit_wait_title" value="Veuillez patienter ..." />
+			<i8n:string id="dlg_edit_wait_content" value="Enregistrement des informations est en cours" />
+			<i8n:string id="dlg_success_title" value="Enregistrement réussi" />
+			<i8n:string id="dlg_success_content" value="L'enregistrement des informations a été effectué avec succès" />
+	
+			<i8n:string id="dlg_edit_success_title" value="Modification réussie" />
+			<i8n:string id="dlg_edit_success_content" value="La modification des informations a été effectuée avec succès" />
+	
+			<i8n:string id="dlg_back_title" value="Annulation de la saisie en cours" />
+			<i8n:string id="dlg_back_content" value="Toute votre saisie va être perdue. Souhaitez-vous continuer ?" />
+			<i8n:string id="dlg_failure_title" value="Erreur" />
+			<i8n:string id="dlg_delete_title" value="Suppression du montant" />
+			<i8n:string id="dlg_delete_content" value="Etes vous sûr de vouloir supprimer cette entrée ?" />
+	
+			<i8n:string id="dlg_success" value="Valider" />
+			<i8n:string id="dlg_cancel" value="Annuler" />
+			<i8n:string id="dlg_ok" value="Ok" />
+	
+			<i8n:string id="empty_list" value="La base de données des ventes est vide" />
+			
+			<i8n:string id="details" value="Détails" />
+			<i8n:string id="edit" value="Modifier" />
+			<i8n:string id="delete" value="Supprimer" />
+	
+			<i8n:string id="Next"		value="Suivant" />
+			<i8n:string id="Previous"	value="Précédent" />
+			<i8n:string id="Results"	value="Résultats" />
+			
+			<i8n:string id="items_search" value="dossier(s)" />
+			
+			<i8n:string id="list"				value="Grille des montants" />
+			<i8n:string id="refresh"			value="Rafraîchir la liste" />
+			<i8n:string id="search"				value="Rechercher" />
+			<i8n:string id="add"				value="Ajouter" />
+			<i8n:string id="back"				value="Retour" />
+			<i8n:string id="accept"				value="Accepter" />
+			<i8n:string id="refuse"				value="Refuser" />
+			<i8n:string id="submit"				value="Envoyer" />
+			<i8n:string id="xls_export"			value="Exporter au format Excel" />
+			<i8n:string id="all_letters"		value="Tous" />
+			<i8n:string id="cancel"				value="Annuler"/>
+	
+			<i8n:string id="edit_helper"		value="Modifier le montant" />
+			<i8n:string id="delete_helper"		value="Supprimer le montant"/>
+			
+			<i8n:string id="field:name" 	value="Dossier"  />
+			<i8n:string id="field:number" 	value="Nombre"  />
+			<i8n:string id="field:service_name" 	value="Service"  />
+			<i8n:string id="field:years_of_practice" 	value="Expérience"  />
+			<i8n:string id="field:suited_diplomas" 	value="Diplômes souhaités"  />
+			<i8n:string id="field:opening_date" 	value="Lancement"  />
+			<i8n:string id="field:providers" 	value="Fournisseurs"  />
+			<i8n:string id="field:application_type" 	value="Recrutement"  />
+			<i8n:string id="field:progress_level_meta" 	value="Progression"  />
+			<i8n:string id="items_search" value="Dossier(s)" />
+			
+			
+			
+			
+			
+			
+			
+			<i8n:string id="field:service_oid" value="Service" />
+			<i8n:string id="field.prompt:service_oid" value="Sélectionnez un service ..." />
+			<i8n:string id="field:opening_date_start" value="Lancement (Début)" />
+			<i8n:string id="field:opening_date_end" value="Lancement (Fin)" />
+			<i8n:string id="field.prompt:application_type" value="Sélectionnez la méthode de recrutement ..." />
+			<i8n:string id="field:current_step" value="Etat" />
+			<i8n:string id="field.prompt:current_step" value="Sélectionnez l'état du dossier ..." />
+			<i8n:string id="field:progress_level" value="Progression" />
+			<i8n:string id="field.prompt:progress_level" value="Sélectionnez la progression ..." />
+
+
+			<i8n:string id="provider_statistics"				value="Pourcentage Fournisseurs" />
+			<i8n:string id="type_statistics"				value="Pourcentage Sources de Recrutement" />
+			<i8n:string id="statistics"				value="Statistiques" />
+			<i8n:string id="list"				value="Liste" />
+			
+
+		</i8n:strings>
+		
+	</main>
+</nxl>

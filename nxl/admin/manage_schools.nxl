@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../data_model/all.data.nxl"/>
+<include file = "components/table.comp.nxl"/>
+
+<composant 
+	xmlns				= "http://www.nxfrontier.com/admin/table.comp" 
+
+	name				= "manage_schools"
+	path				= "/recruitment/admin/"
+	skin				= "#global:RECRUITMENT_SKIN:generis#"
+	strings				= "recruitment_manage_schools"
+
+	ds_search			= "rct_school.search"
+	ds_list				= "rct_school.list"
+	ds_edit				= "rct_school.record"
+	ds_view				= "rct_school.record"
+	ds_add				= "rct_school.record"
+	ds_add_process		= "rct_school.record"
+	ds_delete			= "rct_school.record"
+	
+	template_list			= "configuration.list"
+	template_add_record		= "configuration.add"
+	template_edit_record	= "configuration.edit"
+	template_email			= "directory.configuration.directory_mail"
+	template_view_record	= "directory.configuration.directory_config_view">
+	
+	<i8n:strings 
+		name		= "recruitment_manage_schools" 
+		lang		= "fr" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Gestion des écoles" />
+		
+		<i8n:string id="add" value="Ajouter une école" />
+		<i8n:string id="search" value="Rechercher une école" />
+		<i8n:string id="page_title_list" value="Gestion des écoles" />
+		<i8n:string id="page_title_add" value="Ajout d'une nouvelle école" />
+		<i8n:string id="page_title_edit" value="Edition du nom de l'école selectionnée" />
+		<i8n:string id="page_title_view" value="Informations sur l'école sélectionnée" />
+		<i8n:string id="page_title_validation" value="Validation de l'école selectionnée" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des écoles" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d'ajouter une nouvelle école dans la base de données" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier l'école sélectionnée" />
+		<i8n:string id="page_message_view" value="Ville sélectionnée" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Cliquer sur une école pour modifier son nom" />
+		<i8n:string id="page_message_add_details" 
+		value="Après avoir rempli le formulaire, cliquez sur le bouton 'Enregistrer' afin de valider et d'enregistrer le nom de l'école" />
+		<i8n:string id="page_message_edit_details" 
+		value="Cliquer sur 'Enregistrer' pour valider les modifications et revenir à la liste des écoles, ou sur \'Liste des écoles\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" 
+		value="Cliquer sur 'Liste des écoles' pour revenir à la liste" />
+		
+		<i8n:string id="field:code" value ="Code ou Accronyme" />
+		<i8n:string id="field:label" value ="Libellé" />
+
+		<i8n:string id="legend" value="Légende" />
+		<i8n:string id="empty_list" value="Aucune école n'est référencée dans la base de données" />
+
+		<i8n:string id="edit_helper" value="Modifier le nom de l'école" />
+		<i8n:string id="delete_helper" value="Supprimer l'école" />
+
+		<i8n:string id="back" value="Liste des écoles" />
+		<i8n:string id="items_search" value="Ecole(s) trouvée(s)" />
+
+	</i8n:strings>
+
+</composant>
+
+</nxl>

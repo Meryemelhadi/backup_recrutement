@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../datamodel/all.data.nxl"/>
+<include file = "components/table.comp.nxl"/>
+
+<composant 
+	xmlns				= "http://www.nxfrontier.com/admin/table.comp" 
+
+	name				= "manage_duty_stations"
+	path				= "/recruitment/admin/"
+	skin				= "#global:RECRUITMENT_SKIN:generis#"
+	strings				= "recruitment_manage_duty_stations"
+
+	ds_search			= "rct_duty_station.search"
+	ds_list				= "rct_duty_station.list"
+	ds_edit				= "rct_duty_station.record"
+	ds_view				= "rct_duty_station.record"
+	ds_add				= "rct_duty_station.record"
+	ds_add_process		= "rct_duty_station.record"
+	ds_delete			= "rct_duty_station.record"
+	
+	template_list			= "configuration.list"
+	template_add_record		= "configuration.add"
+	template_edit_record	= "configuration.edit"
+	template_email			= "directory.configuration.directory_mail"
+	template_view_record	= "directory.configuration.directory_config_view">
+	
+	<i8n:strings 
+		name		= "recruitment_manage_duty_stations" 
+		lang		= "fr" 
+		inherit		= "recruitment_default_strings"
+		xmlns		= "http://www.w3.org/1999/xhtml"
+		xmlns:i8n	= "http://www.nxfrontier.com/nxl/i8n">
+
+		<!--<strings xmlns="http://www.generis.com/crud/strings" />-->
+
+		<i8n:string id="page_title" value="Gestion des lieux d'affectation" />
+		
+		<i8n:string id="add" value="Ajouter un lieu d'affectation" />
+		<i8n:string id="search" value="Rechercher un lieu d'affectation" />
+		<i8n:string id="page_title_list" value="Gestion des lieux d'affectation" />
+		<i8n:string id="page_title_add" value="Ajout d'un nouveau lieu d'affectation" />
+		<i8n:string id="page_title_edit" value="Edition du lieu d'affectation sélectionné" />
+		<i8n:string id="page_title_view" value="Informations sur le lieu d'affectation sélectionné" />
+		<i8n:string id="page_title_validation" value="Validation du lieu d'affectation sélectionné" />
+
+		<i8n:string id="page_message_list" value="Voici la liste des lieux d'affectation" />
+		<i8n:string id="page_message_add" value="Ce formulaire vous permet d'ajouter un nouveau lieu d'affectation dans la base de données" />
+		<i8n:string id="page_message_edit" value="Ce formulaire vous permet de modifier l'intitulé du lieu d'affectation sélectionné" />
+		<i8n:string id="page_message_view" value="Intitulé du lieu d'affectation sélectionné" />
+		
+		<i8n:string id="page_message_list_details" 
+		value="Cliquer sur un lieu d'affectation pour modifier son intitulé" />
+		<i8n:string id="page_message_add_details" 
+		value="Après avoir rempli le formulaire, cliquer sur le bouton 'Enregistrer' afin de valider et d'enregistrer l'intitulé du lieu d'affectation" />
+		<i8n:string id="page_message_edit_details" 
+		value="Cliquer sur 'Enregistrer' pour valider les modifications et revenir à la liste des lieux d'affectation, ou sur \'Liste des lieux d'affectations\' pour annuler les modifications" />
+		<i8n:string id="page_message_view_details" 
+		value="Cliquer sur 'Liste des lieux d'affectations' pour revenir à la liste des lieux d'affectation" />
+		
+		<i8n:string id="field:name" value ="Intitulé" />
+
+		<i8n:string id="legend" value="Légende" />
+		<i8n:string id="empty_list" value="Aucun lieu d'affectation n'est référencé dans la base de données" />
+
+		<i8n:string id="edit_helper" value="Modifier l'intitulé du lieu d'affectation" />
+		<i8n:string id="delete_helper" value="Supprimer ce lieu d'affectation" />
+
+		<i8n:string id="back" value="Liste des lieux d'affectations" />
+		<i8n:string id="items_search" value="Lieu(s) trouvé(s)" />
+
+	</i8n:strings>
+
+</composant>
+
+</nxl>

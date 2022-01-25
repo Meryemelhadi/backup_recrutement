@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<nxl 
+	version	= "1.0" 
+	xmlns	= "http://www.nxfrontier.com/nxl/nxl" 
+	package	= "recruitment">
+
+<include file = "../datamodel/all.data.nxl"/>
+
+<include file = "/strings/candidates/directory.nxl"/>
+<include file = "/strings/candidates/directory.en.nxl"/>
+
+</nxl>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_creation_date FROM _rct_email WHERE _candidate_oid='".$props->getProperty("candidate_oid","",true)."' ORDER BY _date DESC "; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_number,_workflow_state,_request_date,_requested_by FROM _rct_vacancy_readonly WHERE (_workflow_state='1') "; ?>

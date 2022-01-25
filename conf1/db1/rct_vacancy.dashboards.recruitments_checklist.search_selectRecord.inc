@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _name,_recruitment_motivation,_instant_feedback,_delayed_feedback,_opening_date_start,_opening_date_end,_closing_date_start,_closing_date_end,_announcement,_contract_type_oid,_category_oid,_application_type,_current_step FROM _rct_vacancy"; ?>

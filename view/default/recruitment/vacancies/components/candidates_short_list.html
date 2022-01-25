@@ -1,0 +1,69 @@
+{records:page.records}
+{record}
+
+<?php 
+	$currentGroup = uniqid('sub_form_');
+	$short_list_oid = $_nx_record->getProperty('parentRecord')->oid->object;
+	$etat_color = $_nx_record->etat_color->object;
+
+?>
+<table class="directory-grid">
+	<tr class="directory-grid-row columns-layout columns-layout-3 width-padding">
+
+		{if:#var:disableCheckbox# != 'yes'}
+		<td class="selection-checkbox-wrapper" style="{if:%var:etat_color%}background-color:{var:etat_color} !important;background-image:none !important;{/if}">
+			<div class="dg-cell-wrapper"><input type="checkbox" class="selection-checkbox" name="selection-checkbox-{field.object:oid}" value="{field.object:oid}" /></div>
+		</td>
+		{/if}
+
+		{include:recruitment/vacancies/components/candidate_data}
+		
+		<td class="dg-operations rating-operation">
+			<div id="candidate-rating-{$currentGroup}-{record.index}"></div>
+			<script>
+				if (typeof ajax_require != "undefined")
+				{
+					ajax_require("/nx/controls/starry/rating-stars.js","starry");
+
+					ajax_onload(function(){
+						new Starry('candidate-rating-{$currentGroup}-{record.index}', {showNull:true, startAt:{field:rating}, cb: function(cfg) {
+							if( cfg.value == cfg.oValue ) return;
+							ajax_navigate(cfg.event,'{=rate_candidate.url}{record.url_key}&amp;rating_value='+cfg.value,'content');
+						}});
+					},"starry");
+				}
+			</script>
+		</td>
+		
+		<td class="dg-operations dg-5-operations">
+			{include:recruitment/vacancies/components/candidates_list_actions}
+		</td>
+	</tr>
+	<tr class="slidingDiv_{field:oid}" id="slidingDiv_{field:oid}" style="padding:20px; margin-top:10px; display:none; ">
+        <td colspan="7" class="viewers">
+            <div class="candidate-history clear-both">
+                <div class="column-1">
+                    <div class="column-inner">
+                        <div class="candidate-history-title title-first">{string:'viewer_list'}</div>
+                        {field:viewers}
+                    </div>
+                </div>
+                <div class="column-2">
+                    <div class="column-inner">
+                        <div class="candidate-history-title title-first">{string:'comments'}</div>
+                        {field:comment}
+                    </div>
+                </div>
+        </td>
+    </tr>
+</table>
+
+<div class="candidate-history-wrapper" id="candidate_history_{$currentGroup}_{record.index}" style="display:none;">
+
+</div>
+
+{/record}
+{/records}
+{no_record}
+<div class="empty-records">{string:"empty_short_list"}</div>
+{/no_record}

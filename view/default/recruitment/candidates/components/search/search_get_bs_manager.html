@@ -1,0 +1,23 @@
+<?php 
+	$_prevFormMethod = $this->getProperty('submit.form.method','POST'); 
+	$this->setProperty('submit.form.method','GET'); 
+?>
+<script> 
+	window.ajax_submit_method = 'get'; 
+	window.ajax_submit_mode = 'page'; 
+</script>
+
+{include:common/search_condition}
+
+
+
+<div class="search-panel" id="search-panel" style="border:0">{include:recruitment/candidates/components/search/search_inner_bs_accordion_manager}</div>
+{include:recruitment/candidates/components/saved_search_bs}
+
+
+<?php 
+	$this->setProperty('submit.form.method',$_prevFormMethod); 
+?>
+<script type="text/javascript">
+	window.ajax_load('/nx/skins/default/js/recruitment/form_candidate_search.js','form_candidate_search_js');
+</script>

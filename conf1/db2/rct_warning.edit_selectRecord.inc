@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_date,_subject,_notification_content,_concerned_people FROM _rct_warning WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

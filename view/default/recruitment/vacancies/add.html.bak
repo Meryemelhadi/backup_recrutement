@@ -1,0 +1,374 @@
+{content:buttons}
+<a 
+	class="pm-button btn-with-icon" 
+	href="javascript:void(0);" 
+	onclick="PMFormSubmit.validate(this, dlg_backConfig, event); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+<a 
+	class="pm-button btn-with-icon" 
+	href="javascript:void(0);" 
+	onclick="PMFormSubmit.submit(this, dlg_submitConfig, dlg_successConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-disk">{string:"submit"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+<a 
+	class="pm-button btn-with-icon" 
+	href="javascript:void(0);" 
+	onclick="PMFormSubmit.submit(this, dlg_submitContinueConfig, dlg_successContinueConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-disk">{string:"submit_continue"}</span></span>
+</a>
+{/content}
+
+{form:page.record}
+<script>
+	window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+
+	window.dlg_submitConfig = { title : "{string:'dlg_wait_title'}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+	
+	window.dlg_submitContinueConfig = { title : "{string:'dlg_wait_title'}", url:"{=submit_continue.url}", message : "{string:'dlg_wait_content'}", viewMode : "wait", evalconfig: true };
+
+	window.dlg_successConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+	
+	window.dlg_successContinueConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", url : "{=list.url}", target : "content", evalConfig: true, labels : { ok : "{string:'dlg_success'}" } };
+
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_add"}</div>
+	</div>
+</div>
+
+<div class="directory-card-wrapper">
+<div class="directory-card clear-both">
+	<table class="directory-card-table">
+		<tr>
+			<td class="directory-card-main-column">
+			
+				<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+					{=buttons}
+				</div>
+			
+				<div class="directory-card-main-content clear-both">
+					<div class="directory-card-column-1">
+						<div class="directory-card-column-w">
+					
+							<div class="pm-bxm-box-wrapper">
+								<div class="pm-bxm-box">
+
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"title_general_infos_section"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+																				
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:name}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:name}</div>
+														</div>
+													</div>
+											
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:code}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control width-66">{field:code}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:number}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control width-66">{field:number}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:category_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:category_oid}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:contract_type_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:contract_type_oid}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:mission_start_date}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:mission_start_date}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:suited_recruitment_date}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:suited_recruitment_date}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:taking_office_date}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:taking_office_date}</div>
+														</div>
+													</div>
+													
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:manager_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:manager_oid}</div>
+														</div>
+													</div>
+													
+																
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:client_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:client_oid}</div>
+														</div>
+													</div>
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:pole}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:pole}</div>
+														</div>
+													</div>
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:direction}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:direction}</div>
+														</div>
+													</div>
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:subsidiary_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:subsidiary_oid}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:service_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:service_oid}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:duty_station_oid}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:duty_station_oid}</div>
+														</div>
+													</div>							
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							
+							<div class="pm-bxm-box-wrapper  pm-bxm-box-last">
+								<div class="pm-bxm-box">
+				
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"title_internship_section"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+																				
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+				
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:internship_title}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:internship_title}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:internship_start}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control width-66">{field:internship_start}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:internship_end}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control width-66">{field:internship_end}</div>
+														</div>
+													</div>
+					
+													
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					<div class="directory-card-column-2">
+						<div class="directory-card-column-w">
+						
+							<div class="pm-bxm-box-wrapper ">
+								<div class="pm-bxm-box">
+									
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"title_v_state"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">
+									
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:current_step}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:current_step}</div>
+														</div>
+													</div>
+													
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{field.label:progress_level}</div>
+														</div>
+														<div class="control-wrapper">
+															<div class="control">{field:progress_level}</div>
+														</div>
+													</div>
+													
+												</div>
+											</div>
+										</div>
+									
+									</div>
+								</div>
+							</div>
+							<div class="pm-bxm-box-wrapper  pm-bxm-box-last">
+								<div class="pm-bxm-box">
+				
+									<div class="box-simple-title">
+										<h3 class="double-padding">{string:"permissions"}</h3>
+									</div>
+									
+									<div class="pm-bxm-box-content">			
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+				
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{string:"readOnly"}</div>
+														</div>
+														<div style="float:left; width:100%;"}>
+															<div class="control">{field:groups_user_readonly}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="pm-bx-form">
+											<div class="record_wrapper">
+												<div class="record">
+				
+													<div class="control-main-wrapper">
+														<div class="control-label-wrapper">
+															<div class="control-label">{string:"total_control"}</div>
+														</div>
+														<div style="float:left; width:100%;"}>
+															<div class="control">{field:groups_user_total_control}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
+				<div class="pm-button-wrapper align-left clear-both pm-bxm-bottom-button-wrapper">					
+					{=buttons}
+				</div>
+			
+			</td>
+			<td class="directory-card-side-column">
+				
+				<div class="dcs-menu-outer-wrapper">
+					<div class="dcs-menu-wrapper">
+						<ul class="dcs-menu">
+							<li class="active last disable"><a href="javascript:void(0);"><span>{string:"title_general_infos"}</span></a></li>
+						</ul>
+					</div>
+				</div>
+			
+			</td>
+		</tr>
+	</table>
+</div>
+</div>
+{/form}

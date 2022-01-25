@@ -1,0 +1,19 @@
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{=previous_op_label}</span></span>
+</a>
+{/content}
+
+<div class="pm-button-wrapper clear-both pm-bxm-top-button-wrapper">					
+	{=buttons}
+</div>
+
+{record:page.record}
+{include:recruitment/candidates/components/panel_general}
+{include:recruitment/candidates/components/panel_education}
+{include:recruitment/candidates/components/panel_experience}
+{/record}
+
+<div class="pm-button-wrapper clear-both pm-bxm-bottom-button-wrapper">					
+	{=buttons}
+</div>

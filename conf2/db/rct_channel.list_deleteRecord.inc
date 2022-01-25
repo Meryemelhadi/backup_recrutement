@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_channel WHERE ".$this->getWhereClause("_name",$this->getFieldParam("name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false')." AND ".$this->getWhereClause("_establishment",$this->getFieldParam("establishment","null","|",$record,""),'=','OR','','',true,false,'|','false'); ?>

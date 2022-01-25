@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_email WHERE _oid='".$props->getProperty("email_oid","",true)."'"; ?>

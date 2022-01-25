@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_vacancy_provider WHERE (_from_email='".$props->getProperty("email","",true)."' OR _to_email='".$props->getProperty("email","",true)."') "; ?>

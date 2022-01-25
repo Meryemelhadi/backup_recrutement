@@ -1,0 +1,390 @@
+{content:page.content}
+<!--! {require:css/recruitment/recruitment.css:skin} -->
+
+
+{content:buttons}
+<a 
+	class="pm-button btn-with-icon" 
+	href="javascript:void(0);" 
+	onclick="PMFormSubmit.validate(this, dlg_backConfig, event); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+<a 
+	class="pm-button btn-with-icon" 
+	href="javascript:void(0);" 
+	onclick="PMFormSubmit.submit(this, window.dlg_validateSubmitConfig, dlg_validateSuccessConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-tick">{string:"validate_demand"}</span></span>
+</a>
+<span class="pm-button-sep"></span>
+<a 
+	class="pm-button btn-with-icon" 
+	href="javascript:void(0);" 
+	onclick="PMFormSubmit.submit(this, window.dlg_refuseSubmitConfig, dlg_refuseSuccessConfig, dlg_failureConfig); this.blur(); return false;">
+	<span class="btn-bg"><span class="s-icon si-delete">{string:"refuse_demand"}</span></span>
+</a>
+{/content}
+
+
+{record:page.record}
+<script>
+	window.dlg_backConfig = { title : "{string:'dlg_back_title'}", message : "{string:'dlg_back_content'}", viewMode : "okCancel", url : "{=list.url}", target : "content", labels : { ok : "{string:'dlg_ok'}", cancel : "{string:'dlg_cancel'}" } };
+	window.dlg_validateSubmitConfig = { title : "{string:'dlg_wait_title'}", url:"{=validate_demand.url}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+	window.dlg_refuseSubmitConfig = { title : "{string:'dlg_wait_title'}", url:"{=refuse_demand.url}", message : "{string:'dlg_wait_content'}", viewMode : "wait" };
+	window.dlg_validateSuccessConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok",  target : "content", labels : { ok : "{string:'dlg_success'}" } };
+	window.dlg_refuseSuccessConfig = { title : "{string:'dlg_success_title'}", message : "{string:'dlg_success_content'}", viewMode : "ok", target : "content", labels : { ok : "{string:'dlg_success'}" } };
+	window.dlg_failureConfig = { title : "{string:'dlg_failure_title'}", message : "{string:'dlg_failure_content'}", viewMode : "cancel", target : "content", labels : { cancel : "{string:'dlg_cancel'}" } };
+</script>
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"page_title_add"}</div>
+	</div>
+</div>
+<br>
+<div class="directory-card-wrapper">
+<div class="directory-card clear-both">
+	<table class="directory-card-table">
+		<tr>
+			<td class="directory-card-main-column">
+			
+				<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+					{=buttons}
+				</div>
+			
+				<div class="directory-card-main-content clear-both">
+					<div class="directory-card-column-1">
+							<div class="directory-card-column-w">
+						
+								<div class="pm-bxm-box-wrapper">
+									<div class="pm-bxm-box">
+						
+										<div class="box-simple-title">
+											<h3 class="double-padding">{string:"title_vacancy_identity_section"}</h3>
+										</div>
+										
+										<div class="pm-bxm-box-content">
+																					
+											<div class="pm-bx-form">
+												<div class="record_wrapper">
+													<div class="record">
+													
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:requested_by}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:requested_by}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:request_date}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:request_date}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:name}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:name}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:number}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:number}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:category_oid}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:category_oid}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:contract_type_oid}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:contract_type_oid}</div>
+															</div>
+														</div>
+													
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:mission_start_date}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:mission_start_date}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:suited_recruitment_date}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:suited_recruitment_date}</div>
+															</div>
+														</div>												
+					
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:subsidiary_oid}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:subsidiary_oid}</div>
+															</div>
+														</div>
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:establishment}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:establishment}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:service_oid}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:service_oid}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:duty_station_oid}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:duty_station_oid}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:work_schedule}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:work_schedule}</div>
+															</div>
+														</div>			
+														
+													</div>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+	
+								<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+									<div class="pm-bxm-box">
+					
+										<div class="box-simple-title">
+											<h3 class="double-padding">{string:"title_vacancy_requirement_section"}</h3>
+										</div>
+										
+										<div class="pm-bxm-box-content">
+																					
+											<div class="pm-bx-form">
+												<div class="record_wrapper">
+													<div class="record">
+													
+														<div class="control-main-wrapper normal-layout-control">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:technical_qualifications}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:technical_qualifications}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper normal-layout-control">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:behavioral_qualifications}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:behavioral_qualifications}</div>
+															</div>
+														</div>	
+														
+													</div>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+								
+								
+							</div>
+						</div>
+						
+						<div class="directory-card-column-2">
+							<div class="directory-card-column-w">
+
+								<div class="pm-bxm-box-wrapper">
+									<div class="pm-bxm-box">
+					
+										<div class="box-simple-title">
+											<h3 class="double-padding">{string:"title_sought_after_profile_section"}</h3>
+										</div>
+										
+										<div class="pm-bxm-box-content">
+																					
+											<div class="pm-bx-form">
+												<div class="record_wrapper">
+													<div class="record">
+					
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:years_of_practice}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:years_of_practice}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:suited_diplomas}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:suited_diplomas}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:companies_having_same_profile}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:companies_having_same_profile}</div>
+															</div>
+														</div>
+														
+														<div class="control-main-wrapper">
+															<div class="control-label-wrapper">
+																<div class="control-label">{field.label:recruitment_reasons}</div>
+															</div>
+															<div class="control-wrapper">
+																<div class="control">{field.html:recruitment_reasons}</div>
+															</div>
+														</div>										
+														
+													</div>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+								
+								
+								
+								<div class="pm-bxm-box-wrapper">
+									<div class="pm-bxm-box">
+					
+										<div class="box-simple-title">
+											<h3 class="double-padding">{string:"title_mission_definitions_section"}</h3>
+										</div>
+										
+										<div class="pm-bxm-box-content">
+																					
+											<div class="pm-bx-form">
+												<div class="record_wrapper">
+													<div class="record">
+					
+														<div class="control-main-wrapper normal-layout-control">
+															<div class="control-wrapper">
+																<div class="control">{field.html:mission_definitions}</div>
+															</div>
+														</div>
+														
+													</div>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+									<div class="pm-bxm-box">
+						
+										<div class="box-simple-title">
+											<h3 class="double-padding">{string:"title_mission_means_section"}</h3>
+										</div>
+										
+										<div class="pm-bxm-box-content">
+																					
+											<div class="pm-bx-form">
+												<div class="record_wrapper">
+													<div class="record">
+						
+														<div class="control-main-wrapper normal-layout-control">
+															<div class="control-wrapper">
+																<div class="control">{field.html:mission_means}</div>
+															</div>
+														</div>			
+														
+													</div>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+								
+								
+								
+								
+							</div>
+						</div>
+				</div>
+				
+				<div class="pm-button-wrapper align-left clear-both pm-bxm-bottom-button-wrapper">					
+					{=buttons}
+				</div>
+			
+			</td>
+			<td class="directory-card-side-column">
+				
+				<div class="dcs-menu-outer-wrapper">
+					<div class="dcs-menu-wrapper">
+						<ul class="dcs-menu">
+							<li class="active last disable"><a href="javascript:void(0);"><span>{string:"title_general_infos"}</span></a></li>
+						</ul>
+					</div>
+				</div>
+			
+			</td>
+		</tr>
+	</table>
+</div>
+</div>
+{/record}
+{/content}
+
+<script language="php">
+if(isset($_REQUEST['mode']) && $_REQUEST['mode']=='ajax') {
+</script>
+{=page.content}
+{else}
+{include:page_bs}
+{/if}

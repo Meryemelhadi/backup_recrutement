@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_code,_contact_name,_email,_web,_color,_adress,_notes FROM _rct_provider ORDER BY _name ASC "; ?>

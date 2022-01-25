@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_warning_concerned_people SET _oid=".$record->getFieldValue("oid","DB","NULL").",_key=".$record->getFieldValue("key","DB","NULL").",_val=".$record->getFieldValue("val","DB","NULL")." WHERE _key='".$props->getProperty("key","",true)."'"; ?>

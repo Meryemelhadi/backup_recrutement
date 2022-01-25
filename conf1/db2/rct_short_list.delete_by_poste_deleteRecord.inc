@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_short_list WHERE _vacancy_oid='".$props->getProperty("oid","",true)."'"; ?>

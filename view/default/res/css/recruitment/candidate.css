@@ -1,0 +1,238 @@
+input.s-icon {
+    width: 15px;
+    height: 15px;
+}
+
+.pm-bxm-box {
+    background-color: #f0f0f0;
+}
+
+.tab .pm-bxm-box-content-panel
+{
+    min-height: 500px;
+}
+
+#historique_div .pm-bxm-box-content-panel
+{
+    min-height: 0px !important;
+}
+
+#general_infos_div .pm-bxm-box-content-panel
+{
+    min-height: 100px;
+}
+
+#group_test_cand fieldset {
+    background-color:#E0EEF5;
+}
+
+#panel_title-green .box-title-wrapper{
+    background: url(/nx/skins/lightsky/img/rct/green-bg-left.png) no-repeat 0 0 !important;
+}
+#panel_title-green .box-title {
+    background: url(/nx/skins/lightsky/img/rct/green-bg-right.png) no-repeat 100% 0;
+}
+#panel_title-green .box-title h3 {
+    background: url(/nx/skins/lightsky/img/rct/green-bg.png) repeat-x 0 0;
+}
+#page_title br{
+    margin-bottom:5px;
+}
+#panel_toolbox{
+    position: absolute;
+    top: 30px;
+    width: 280px;
+    padding: 0px 0px 0px 12px;
+}
+#content_form{
+    width: 100%;
+    position: relative;
+}
+#content{
+    overflow:hidden;
+    min-height:700px !important;
+}
+.btns_row{
+    padding:5px !important;
+    border-radius: 8px 8px 0px 0px;
+}
+.btns_row a{
+    margin-bottom:5px;
+}
+#vacancies_div table tr:nth-child(2) td:first-child{
+    border-radius: 0px 0px 0px 8px;
+}
+#vacancies_div table tr:nth-child(2) td:last-child{
+    border-radius: 0px 0px 8px 0px;
+}
+#vacancies_div table{
+    border:none !important;
+}
+#vacancies_div .directory-grid{
+    margin:0 0 10px;
+}
+#field_available_delai , #field_salary_min , #field_available_from{
+    width: 115px;
+    float: left;
+}
+#field_available_from{
+    margin-top: 20px;
+}
+#field_available_delai .datepicker_wrapper , input[name="salary_max"]{
+    position: relative;
+    margin: 26px 0px !important;
+}
+#salary_min-control-wrapper{
+    margin:0px;
+}
+#field_available_delai .datepicker_wrapper input, #field_salary_min input{
+    width: 80px !important;
+    padding-right: 0px;
+}
+#field_available_delai .control-label , #field_salary_min .control-label, #field_salary_min input{
+    width:80px;
+}
+#field_salary_min{
+    width: 92px;
+    float: left;
+}
+#field_profile .control-label-wrapper{
+    width : 110px;
+}
+
+#field_category_oid .control-label-wrapper{
+    float:none;
+}
+#field_category_oid .control-wrapper select {
+    width:250px;
+}
+
+#profile-control{
+    width:250px;
+}
+#vacancies_div .section-title-wrapper:first-child{
+    display:none;
+}
+#vacancies_div .pm-bx-form{
+    border: 1px solid rgba(128, 128, 128, 0.24);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: rgba(128, 128, 128, 0.03);
+
+}
+.test_fieldset{
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 255, 0.03);
+    padding-right: 10px;
+    padding-left: 10px;
+}
+#field_hr_manager  .control-label , #field_etat_oid .control-label , #field_available_from .control-label,  #field_salary_max .control-label{
+    display:none;
+}
+#available-tests-control{
+    float: left;
+    margin-right: 10px;
+}
+#field_category_oid .control-label{
+    width:160px;
+}
+#field_years_of_practice .control-label{
+    width: 130px;
+}
+#years_of_practice-control-wrapper{
+    float: right;
+    margin-left: 0px;
+    margin-right: 40px;
+}
+
+#association_button {
+    float:left;
+}
+
+#add_vacancy_wrapper {
+    height: 30px;
+}
+#add_vacancy_wrapper2 {
+    height: 30px;
+    float: right;
+}
+
+#field_available_vacancies{
+    float:left;
+    margin-left:10px;
+}
+
+#field_available_vacancies .control-label-wrapper {
+    width:90px;
+}
+
+#field_available_vacancies select{
+    width:200px !important;
+}
+.td-toolbox{
+    width: 280px;
+    position: relative;
+}
+.table-edit{
+    width:100%;
+}
+
+#vacancies_div .vancancies_wrapper {
+    background-color:white;
+    margin:5px;
+}
+
+.directory-grid tr.row_odd td {
+    background-color: #ddd;
+    width:20% !important;
+}
+
+#available_from-control input{
+    width:85px !important;
+}
+#association_button{
+    visibility:hidden;
+}
+
+/*	.control-wrapper input,
+	.control-wrapper select {
+		border-radius: 3px;
+		border:solid 1px #ccc;
+	}
+
+	.control-wrapper select {
+		border-radius: 7px;
+		background-color: #3792BA;
+		color: white;
+		height: 27px;
+	}
+*/
+
+#general_infos_div .pm-bx-form textarea {
+    height:auto !important;
+    border-radius: 4px;
+}
+
+.pm-bxm-box .pm-bx-subform-wrapper {
+    border-radius: 8px;
+    background-color: #E8E8E8;
+    margin: 15px 0;
+}
+
+.pm-bxm-box .pm-bx-subform-wrapper .record-actions {
+    border-top: #E3E8EE 0px solid;
+    padding: 0px 0 4px 0;
+    text-align: right;
+}
+.section-title-wrapper h3.section-title{
+    background:#F0F0F0 !important;
+}
+a.pm-button{
+    padding-right:8px;
+}
+.log-table{
+    background-color: #FFF;
+    padding: 5px 20px;
+    border-radius: 10px;
+}

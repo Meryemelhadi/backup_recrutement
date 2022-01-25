@@ -1,0 +1,287 @@
+a#search-plus {
+    background: none repeat scroll 0 0 #76a42e;
+    border: medium none rgb(76, 158, 217);
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    float: right;
+    font-weight: normal;
+    margin-left: 1px;
+    margin-top: -6px;
+	width:6px;
+	height: 27px;
+}
+
+a#search-plus span{
+	float: right;
+    padding-right: 5px;
+    padding-top: 3px;
+}
+
+.screen_1024 a#search-plus {
+	margin-right: 0;
+}
+
+.screen_1024 a#search-plus input.text {
+	width: 120px;
+}
+
+a#search-plus.search-plus_close {
+}
+
+#search_cv {
+	float:right;
+	display:inline-block;
+	margin-top: -6px !important;
+}
+
+#search_cv form input{
+	font-size: 11px;
+	font-weight: normal;
+}
+
+#search_cv.hidden {
+	display:none;
+}
+
+a#add_button
+{
+	background: none repeat scroll 0 0 rgb(76, 158, 217);
+    border: medium none rgb(76, 158, 217);
+    border-radius: 5px;
+    margin-top: -8px;
+    padding: 7px;
+    display: inline;
+	color: #fff;
+	font-size: 11px;
+	font-weight: bold;
+	
+}
+
+a#add_button span {
+	color: rgb(255, 255, 255);
+	text-decoration: none;
+	cursor: pointer;
+	border: none;
+}
+
+#add_cv
+{
+	display: inline-block; 
+	margin-right:10px;
+}
+
+#add_cv #cv_submit
+{
+	color: rgb(255, 255, 255);
+	font-size: 11px !important;
+	font-weight: normal;
+}
+
+.generis-toolbar-wrapper {
+  margin-bottom: -1px;
+}
+.generis-toolbar
+{
+  background: url(/nx/skins/lightsky/img/generis-toolbar-bg.png) repeat-x 0 0;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  border: #E8EAEC 1px solid;
+  padding-left: 10px;
+  margin-bottom: 2px;
+}
+.notice-message{
+	font-size: 12px;
+}
+#form_rct_candidate_search2{
+	font-size:13px;
+}
+.form-control{
+	height:30px !important;
+}
+
+form .facebook-list ul.holder , #salary-control input , #years_of_practice-control input , #current_salary-control input{
+	display: block;
+    width: 100%;
+    height: 30px !important;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+#salary-control input , #years_of_practice-control input , #current_salary-control input{ 
+	float:left;
+	width:45%;
+	margin-right: 3px;
+}
+.pm-pagination .items-count {
+    padding: 6px 10px 6px 0;
+    font-size: 13px;
+}
+.pm-grid-outer-wrapper .pm-pagination {
+    border-bottom: none;
+}
+.block{
+	display:block !important;
+}
+table td {
+	border-top: none !important;
+}
+.directory-grid tr td{
+	background:rgba(238, 238, 238, 0.44) !important;
+}
+.row{
+	font-size: 12px;
+	line-height: 18px;
+}
+.row .field-label {
+    font-weight: normal;
+    color: #999;
+}
+.row strong{
+	font-size: 14px;
+}
+.directory-grid .dg-3-operations {
+    width: 100px !important;
+}
+.ulviewers strong{
+	font-size: 12px !important;
+}
+.cvtq-toolbar{
+	background: rgb(249, 250, 251); 
+	border: rgba(232, 234, 236, 0.32) 1px solid; 
+	border-radius: 5px; 
+	margin-bottom: 2px;
+}
+.cvtq-toolbar .stats{
+	float:left ; 
+	padding-left: 0px;
+}
+.cvtq-toolbar .stats span , #add_button span{
+	margin-right: 5px;
+}
+#search_cv{
+	float:right; 
+	margin-top:-3px
+}
+#search_cv  input{
+	border: solid 1px #999; 
+	border-radius: 5px; 
+	padding:3px;
+	height: 28px;
+}
+#search_cv button{
+	background: none repeat scroll 0% 0% #76A42E; 
+	border: medium none rgb(76, 158, 217); 
+	border-radius: 5px; 
+	color: rgb(255, 255, 255);
+	float:right;
+	font-size: 11px;
+	margin-left: 2px;
+}
+.selection-list{
+	float:left; 
+	margin-right:3px;
+}
+.relevance-color{
+	vertical-align: middle !important;
+	text-align: center;
+}
+.flag-class{
+	padding: 5px; 
+	cursor:pointer;
+}
+.slidingDivRow{
+	padding:10px; 
+	margin:5px 0px; 
+	background: rgba(245, 222, 179, 0.37);
+}
+.stat-block{
+	clear: both;
+    padding: 13px;
+    margin: 0px;
+    margin-bottom: 5px;    
+	background-color: #F6F6F6;
+    border: 1px solid #dedede;     
+	border-radius: 4px;
+    line-height: 18px;
+}
+.details{
+	color: #888;
+	font-size: 13px;
+}
+.details span{
+	float: left;
+    margin-right: 10px;
+    color: #82a7e9;
+    font-size: 25px;
+}
+.boot_legend{
+	clear: both;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    padding: 0px;
+    -webkit-box-shadow1: 0 1px 4px rgba(0, 0, 0, 0.07);
+    box-shadow1: 0 1px 4px rgba(0, 0, 0, 0.07);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.boot_legend .portlet-title{
+	background-color: #eee;
+    border-radius: 4px 4px 0 0;
+    padding: 8px;
+    height: 35px; 
+    border-bottom: 1px solid #ddd;
+}
+
+.boot_legend .caption{
+	color: #333;
+    float: left;
+    display: inline-block;
+    font-size: 15px;
+    line-height: 16px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    margin-top: 1px;
+}
+.boot_legend i{
+	float: left;
+    margin-top: 2px;
+    display: inline-block !important;
+    font-size: 13px;
+    margin-right: 5px;
+    color: #666;
+}
+.boot_legend .portlet-body{
+	clear: both;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 0px 0px 4px 4px;
+}
+.slimScrollDiv{
+	position: relative; 
+	overflow: hidden; 
+	width: auto; 
+}
+.slimScrollDiv .scroller{
+	overflow: hidden; 
+	width: auto; 
+	height: auto;
+}
+.slimScrollDiv .task-list{
+	list-style: none;
+    padding: 0;
+    margin: 0; 
+	font-size: 12px;
+}
+

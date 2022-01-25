@@ -1,0 +1,58 @@
+<?php
+/*
+COPYRIGHT NxFrontier Ltd
+www.nxfrontier.com
+This code may not be copied, modified or redistributed without the written consent of NxFrontier Limited, UK company number 04462961. 
+*/
+
+require_once(NX_LIB.'framework.inc');
+require_once(NX_LIB.'plugins/NxPlug_FileSys.inc');
+include_once(NX_LIB.'ds/email/NxMail_MIME.inc');
+include_once(GENERIS_PACKAGES.'recruitment/lib/email/NxRecruitment_Email.inc');
+
+require_once(NX_LIB.'module/NxPage.inc');
+
+class Workflow_Task_add_interview extends NxPage
+{
+	function __construct($ctxt,$params,$taskID)
+	{
+		$this->NxPage($params,$ctxt,null);
+	}
+
+	function run($workflow, $user)
+	{
+		if((isset($_REQUEST["candidate_oid"])?$_REQUEST["candidate_oid"]:""))
+		{
+			$this->setProperty("candidate_oid",(isset($_REQUEST["candidate_oid"])?$_REQUEST["candidate_oid"]:""));
+		}
+
+		$this->setProperty("vacancy_oid",(isset($_REQUEST["oid"])?$_REQUEST["oid"]:""));
+		
+		$record = $this->getRecord('rct_interview.add_to_candidate@recruitment','page.record','empty',false,null,null);
+		
+		$this->setProperty("previous_op_label",$this->getString("back_to_candidate"));
+		$this->setProperty('get_email_sample.url',$_SERVER["PHP_SELF"].'?nxo=get_email_sample&amp;nxs=');
+
+        $this->setProperty('previous_operation.url',$_SERVER["PHP_SELF"].'?nxo=edit&amp;nxs=&amp;oid='.(isset($_REQUEST["candidate_oid"])?$_REQUEST["candidate_oid"]:""));
+
+		$this->setProperty("user_oid",$GLOBALS["_NX_user"]->getProperty("oid",""));
+		
+		$this->setProperty('preview_cv.url',$_SERVER["PHP_SELF"].'?nxo=preview&amp;nxs=&amp;type=cv&amp;candidate_oid='.(isset($_REQUEST["candidate_oid"])?$_REQUEST["candidate_oid"]:""));
+		
+		$this->setProperty("candidate_oid",(isset($_REQUEST["candidate_oid"])?$_REQUEST["candidate_oid"]:""));
+		
+		$this->getRecord('rct_candidate.manage_cv_etat','candidate.record','db',false,null,null);
+
+		$this->getRecords('rct_interview.by_user_day_now','interviews.records','db',false,null,null);
+		
+		$this->setProperty('submit.url',$_SERVER["PHP_SELF"].'?nxo=interview@recruitment:add_interview_process&amp;nxs=');
+		
+		$this->runView('recruitment.candidates.components.interview_add',array(
+			'fmethod' => 'toHTML',
+
+			),null);
+		
+		return true;
+	}
+}
+?>

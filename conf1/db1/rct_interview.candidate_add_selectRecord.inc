@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _candidate_oid,_vacancy_oid,_created_by,_validated_by,_interview_by,_creation_date,_validation_date,_date,_time_start,_time_end,_email_title,_email_content,_user_email_title,_user_email_content,_candidate_email_not,_interviewer_email_not,_validation_state FROM _rct_interview"; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_interview_comment,_rct_interview_by WHERE (_rct_interview_by._key=_rct_interview._oid AND _rct_interview_by._val='".$this->getParamValue("interview_by_oid","","request",",")."')  AND _rct_interview_comment._date='".$this->getParamValue("date","","request",",")."'"; ?>

@@ -1,0 +1,158 @@
+<?xml version="1.0"?> 
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+
+			<!-- emails reçus du candidat avec sa LM -->
+	
+			<table name="rct_candidate_email">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+
+				<key mode="by_candidate">
+					<field name="candidate_oid" type="ref-oid" value="%{property:candidate_oid}"/>
+				</key>
+
+
+				<key mode="by_lm_key">
+					<field name="lmkey" type="text" size="50" value="%{property:lm_key}"/>
+				</key>
+
+				<key mode="by_cv_key">
+					<field name="cvkey" type="text" size="50" value="%{property:cv_key}"/>
+				</key>
+
+				<key mode="by_cv_and_lm_keys">
+					<field name="lmkey" type="text" size="50" value="%{property:lm_key}"/>
+					<field name="cvkey" type="text" size="50" value="%{property:cv_key}"/>
+				</key>
+
+				<key mode="by_cv_or_lm_keys">
+					<or>
+						<field name="lmkey" type="text" size="50" value="%{property:lm_key}"/>
+						<field name="cvkey" type="text" size="50" value="%{property:cv_key}"/>
+					</or>
+				</key>
+
+
+				<pages mode="list" alias="page" pageOffset="%{get:page}" recordsPerPage="50" />
+				<key mode="list">
+					<field name="candidate_oid" label="candidate" type="ref-oid" isKey="primary" isEdit="no" show="hidden" value="%{request:oid}"/>
+				</key>
+				<sort mode="list">
+					<field name="date" label="date" type="datetime" default="now" direction="desc"/>
+				</sort>
+				<fields mode="list">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="candidate_oid" label="candidate" type="ref-oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="date" label="date" type="datetime" default="now"/>
+					<field name="email_from_name" label="email_from_name" size="500" type="line" csslayout="normal-layout" />
+					<field name="email_from" label="email_from" size="500" type="line" csslayout="normal-layout" />
+					<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />				
+					<field name="cv" label="cv" type="file" />
+					<field name="lm" label="lm" type="file" />
+				</fields>
+				
+				<key mode="get_email_content">
+					<field name="oid" label="oid" isKey="primary" value="%{request:oid}"/>
+				</key>
+				<fields mode="get_email_content">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />				
+				</fields>
+
+				<fields mode="add">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="candidate_oid" label="candidate" type="ref-oid" isKey="primary" isEdit="no" show="hidden" />
+						
+					<field name="date" label="date" type="datetime" default="now"/>
+					
+					<field name="email_from_name" label="email_from_name" size="500" type="line" csslayout="normal-layout" />
+					<field name="email_from" label="email_from" size="500" type="line" csslayout="normal-layout" />
+
+					<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />				
+					<field name="email_content_html" label="email_content_html" type="rich-text" csslayout="normal-layout" />	
+					<field name="lmkey" label="lmkey" type="text" size="50" show="hidden"/>
+					<field name="lm" label="file" type="file" />
+
+					<field name="cvkey" label="cvkey" type="text" size="50" show="hidden"/>
+					<field name="cv" label="cv" type="file" />
+
+					<!-- <field 
+							name		= "attached_files"
+							type		= "records" 
+							ds			= "db:rct_email_attached_files.list"
+							ds_record	= "db:rct_email_attached_files.record"
+							key			= "oid"
+							fkey		= "email_oid"
+							edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+							edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+							insert_new  = "bottom"
+						/> -->
+
+				</fields>
+
+				<key mode="query_lm_path">
+                    <field name="candidate_oid" type="candidate_oid" relation="GTE" value="%{property:dvs}" />
+                </key>
+                <fields mode="query_lm_path">
+                    <field name="candidate_oid" label="candidate" type="ref-oid" isKey="primary" isEdit="no" show="hidden" />
+                    <field name="oid" alias="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+                    <field name="lm" label="lm" type="file" />
+                </fields>
+
+                <key mode="update_lm_path">
+                    <field name="oid" type="oid" value="%{property:oid}" />
+                </key>
+                <fields mode="update_lm_path">
+                    <field name="lm" label="lm" type="file" />
+                </fields>
+
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="candidate_oid" label="candidate" type="ref-oid" isKey="primary" isEdit="no" show="hidden" />
+					
+					<field name="date" label="date" type="datetime"  default="now"/>
+
+					<field name="email_from_name" label="email_from_name" size="500" type="line" csslayout="normal-layout" />
+					<field name="email_from" label="email_from" size="500" type="line" csslayout="normal-layout" />
+					
+					<field name="email_title" label="email_title" size="500" type="line" csslayout="normal-layout" />
+					<field name="email_content" label="email_content" type="rich-text" csslayout="normal-layout" />				
+					<field name="email_content_html" label="email_content_html" type="rich-text" csslayout="normal-layout" />	
+
+					<field name="cvkey" label="cvkey" type="text" size="50" show="hidden"/>
+					<field name="cv" label="cv" type="file" />
+
+					<field name="lmkey" label="lmkey" type="text" size="50" show="hidden"/>
+					<field name="lm" label="lm" type="file" />
+					<!-- <field 
+							name		= "attached_files"
+							type		= "records" 
+							ds			= "db:rct_email_attached_files.list"
+							ds_record	= "db:rct_email_attached_files.record"
+							key			= "oid"
+							fkey		= "email_oid"
+							edit_view_list	= "workflow.subforms.sf_attachedfiles@workflow"
+							edit_view	= "workflow.subforms.sf_attachedfiles@workflow"
+							insert_new  = "bottom"
+						/> -->
+
+				</fields>
+			</table>
+			
+		
+		</tables>
+	</data>
+</nxl>

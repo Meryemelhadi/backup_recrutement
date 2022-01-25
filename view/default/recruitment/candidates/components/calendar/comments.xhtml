@@ -1,0 +1,26 @@
+{records:comments.records}
+<table style="width:100%">
+	{record}
+	<style type="text/css">
+	#group_comments{
+		display:block;
+	}
+	</style>
+		<tr>
+			<td style="width:98%">
+				<div class="comment"><span class="comment_author">{field:user_oid}</span>: {field:comment}</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="comment_date">{field:date}</div>
+			</td>
+		</tr>
+	{/record}
+</table>
+{/records}
+
+
+
+
+

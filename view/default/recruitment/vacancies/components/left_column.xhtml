@@ -1,0 +1,38 @@
+﻿<script language="php">
+	$current_operation = $this->getProperty('current_operation');
+</script>
+<td class="directory-card-side-column left_side">
+	<div class="dcs-menu-outer-wrapper">
+		<div class="dcs-menu-wrapper">
+			<ul class="dcs-menu">
+				<li class="back-btn">
+					<a
+						href="{var:backList}&mode=page"
+					   ><span>{string:"back_to_vacancies"}</span>
+					</a>
+				</li>
+				<li class="<?php if($current_operation == 'edit'){?>active<?php } ?>"><a
+						href=" {=edit.url}&mode=page"><span>{string:"title_general_infos"}</span></a></li>
+				<li class="{if:#var:current_operation# == 'candidates'}active{/if}"><a
+						href="{=candidates.url}&from_vac=1&mode=page"><span>{string:"title_candidates"}</span></a></li>
+
+				<li class="<?php if($current_operation == 'calendar'){?>active<?php } ?>"><a
+						href="{=calendar.url}&mode=page"
+					   ><span>{string:"title_calendar"}</span></a></li>
+
+				<li class="<?php if($current_operation == 'recruitment_providers'){?>active<?php } ?>"><a
+						href="{=feedback.url}&mode=page"
+						><span>{string:"title_evaluation"}</span></a></li>
+
+				<li class="<?php if($current_operation == 'warning'){?>active<?php } ?>"><a
+						href="{=warning.url}&mode=page"
+						><span>{string:"title_warnings"}</span></a></li>
+
+				<li class="<?php if($current_operation == 'history'){?>active<?php } ?>"><a
+						href="{=history.url}&mode=page"
+						><span>{string:"title_history"}</span></a></li>
+
+			</ul>
+		</div>
+	</div>
+</td>

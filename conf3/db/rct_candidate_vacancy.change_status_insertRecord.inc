@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_candidate_vacancy(_status) VALUES('".$props->getProperty("status_value","",true)."')"; ?>

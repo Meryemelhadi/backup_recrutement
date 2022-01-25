@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_to_email,_establishment FROM _rct_channel WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

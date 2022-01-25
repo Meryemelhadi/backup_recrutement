@@ -1,0 +1,21 @@
+<div id="upload_file" style="display:none">
+    <div class="ged_miniform ged_add_files">
+        <br/>
+        <br/>
+		
+        <form id="" method="post" action="{=add_attached_files.url}" enctype="multipart/form-data" >
+			
+            <input type="hidden" value="100000000" name="MAX_FILE_SIZE" />
+            <input type="hidden" value="POST" name="_form_method_" />
+            <input type="file" name="file" id="file" value="" class="form-control"/>
+            <br/>
+            <br/>
+            <button class="btn btn-default right">{string:'add file'}</button>
+			<button type="button" class="btn btn-default button_back right marginRight" onclick="PMModalbox.hide(); this.blur(); return false;">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;&nbsp; {string:"cancel"} 
+			</button>
+        </form>
+        <br/>
+        <br/>
+    </div>
+</div>

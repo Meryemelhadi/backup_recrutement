@@ -1,0 +1,58 @@
+<p:page
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://www.presencemedia.ma/views/page2"
+        xmlns:form1="http://www.presencemedia.ma/views/form"
+        xmlns:form="http://www.presencemedia.ma/views/form2_bs"
+        xmlns:record="http://www.presencemedia.ma/views/record#skin"
+        enveloppe="page_bs"
+        >
+    <script language="php"><![CDATA[
+		$workflow = $this->getProperty('workflow');
+		]]></script>
+
+    <p:head>
+        <p:title>
+        </p:title>
+        <p:resources>
+
+        </p:resources>
+
+    </p:head>
+	<script language="php">
+		$current_operation = "edit";
+		$linkText = 'title_general_infos';
+		$linkText = addslashes(__($linkText));
+		$backList = preg_replace('%void-[0-9]+/%','',$this->getProperty('list.url'));
+		$mode_readonly = $this->getProperty('mode_readonly');
+	</script>
+	{content:vacancy_title}
+		{include:recruitment/vacancies/components/vacancy_title}
+	{/content}
+	{content:left_column}
+		{include:recruitment/vacancies/components/left_column_bs}
+	{/content}
+	{content:vacancy_history}
+		{include:recruitment/vacancies/components/panel_vacancy_history}
+	{/content}
+	{content:log}
+		{include:recruitment/vacancies/components/panel_log}
+	{/content}
+    <p:body>
+	{=vacancy_title}
+
+	<table class="directory-card-table">
+		<tr>
+			{=left_column}
+			<td class="directory-card-main-column">
+				
+				{if:%var:mode_readonly% == true}
+				{include:recruitment/vacancies/readonly}
+				{else}
+				{include:recruitment/vacancies/edit}
+				{/if}
+			</td>
+		</tr>
+	</table>
+
+    </p:body>
+</p:page>

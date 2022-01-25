@@ -1,0 +1,12 @@
+{records:page.records}
+<ul class="candidate-history-content">
+<li>{string:"action_title_all_vacancies_associated_to"}
+{record}
+	<br/><span class="log-author">{field:provider}</span> {field:ref}
+{/record}
+</li>
+</ul>
+{/records}
+{no_record}
+<div class="empty-records">{string:"empty_offer_list"}</div>
+{/no_record}

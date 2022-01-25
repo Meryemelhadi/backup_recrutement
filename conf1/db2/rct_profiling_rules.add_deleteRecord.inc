@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_profiling_rules WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

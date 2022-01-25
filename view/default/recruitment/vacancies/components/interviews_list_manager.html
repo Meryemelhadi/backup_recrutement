@@ -1,0 +1,26 @@
+{
+handlers : {
+	clickHandler : function(ev) {		
+		var event = this.pmCalendarEvent;
+		
+		document.location.href = '{=edit_interview.url}&oid='+event.id;
+	}
+},
+events:	[
+<!--! {records:page.records} -->
+	<!--! {record} -->
+	{
+	id:"{field:oid}",	
+	title:"<u>{field.label:candidate_oid}</u>: {field.html:candidate_oid}  <!--, <u>{field.label:interview_by}</u>: {field.html:interview_by} -->",
+	startDate:"{field:date:short}",
+	endDate:"{field:date:short}",
+	startHour:"{field:time_start}",
+	endHour:"{field:time_end}",
+	status:"{field.object:validation_state}",
+	className:"class-status-{field.object:validation_state}"
+	}
+		<!--! {if:! record.is_last} --> , <!--! {/if} -->
+	<!--! {/record} -->
+<!--! {/records} -->
+	]
+}

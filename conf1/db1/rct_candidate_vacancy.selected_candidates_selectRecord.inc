@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_vacancy_oid,_contrat_signing,_integration_plan,_integration_note,_hire_date FROM _rct_candidate_vacancy"; ?>

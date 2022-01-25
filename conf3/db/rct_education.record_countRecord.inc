@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_education WHERE _oid=".$this->getFieldParam("oid","null",",",$record,"")." GROUP BY _diploma,_date,_diploma_type "; ?>

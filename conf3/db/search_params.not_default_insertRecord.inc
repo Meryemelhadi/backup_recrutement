@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_search_params(_is_default) VALUES('0')"; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_contract_type SET _name=".$record->getFieldValue("name","DB","NULL"); ?>

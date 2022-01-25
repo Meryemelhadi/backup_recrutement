@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="rct_client">
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="10" />	
+				<key  mode="list">
+					<field name="nom_societe" label="nom_societe"  type="line"  relation="LIKE" value="%{request:nom_societe}"/>
+					<field name="site_web" label="site_web"  type="line" relation="LIKE" value="%{request:site_web}" />
+					<field name="rep_first_name" label="rep_first_name" type="line" relation="LIKE" value="%{request:rep_first_name}"/>
+					<field name="rep_last_name" label="rep_last_name" type="line" relation="LIKE" value="%{request:rep_last_name}"/>
+					<field name="rep_fonction" label="rep_fonction" type="line"  relation="LIKE" value="%{request:rep_fonction}"/>
+					<or>
+						<field name="nom_societe" label="nom_societe" type="text" value="%{request:ltr}" pattern_match_left="" relation="LIKE" />	
+					</or>
+
+				</key>
+				<sort mode="list">				
+					<field name="nom_societe" type="line"  direction="asc" />
+				</sort>
+				<fields mode="list">	
+				
+					<field name="oid" label="oid" alias="oid" type="oid" isKey="primary" isEdit="no" show="hidden"/>
+					<field name="ltr" label="ltr" type="text" show="hidden" is_transient="true" />
+					<field name="logo" label="logo" type="image" maxSize="200000" imageSize="30x30" imageSizes="original,170x120,30x30" />
+					<field name="nom_societe" label="nom_societe" type="line" />
+					<field name="site_web" label="site_web"  type="line" value="%{property:site_web}"/>
+					<field name="tel" label="tel" type="line" />
+					<field name="rep_first_name" label="rep_first_name" type="line" />
+					<field name="rep_last_name" label="rep_last_name" type="line" />
+					<field name="rep_fonction" label="rep_fonction" type="line" />
+					<field name="rep_tel_mobile" label="rep_tel_mobile" type="line" />
+					<field name="rep_email" label="rep_email" type="line" />
+					<field name="ville" label="ville" type="line" />
+					
+				</fields>
+				<key  mode="excel">
+					<or>
+						<field name="nom_societe" label="nom_societe" type="text" value="%{request:ltr}" pattern_match_left="" relation="LIKE" />	
+					</or>
+
+				</key>
+				<sort mode="excel">				
+					<field name="nom_societe" type="line"  direction="asc" />
+				</sort>
+				<fields mode="excel">	
+				
+					<field name="oid" label="oid" alias="oid" type="oid" isKey="primary" isEdit="no" show="hidden"/>
+					<field name="ltr" label="ltr" type="text" show="hidden" is_transient="true" />
+					<field name="nom_societe" label="nom_societe" type="line" />
+					<field name="tel" label="tel" type="line" />
+					<field name="fax" label="fax" type="line" />
+					<field name="email" label="email" type="line" />
+					<field name="adresse" label="adresse" type="line" />
+					<field name="ville" label="ville" type="line" />
+					<field name="site_web" label="site_web" type="line" />
+					<field name="rep_first_name" label="rep_first_name" type="line" />
+					<field name="rep_last_name" label="rep_last_name" type="line" />
+					<field name="rep_fonction" label="rep_fonction" type="line" />
+					<field name="rep_tel_fixe" label="rep_tel_fixe" type="line" />
+					<field name="rep_tel_mobile" label="rep_tel_mobile" type="line" />
+					<field name="rep_fax" label="rep_fax" type="line" />
+					<field name="rep_email" label="rep_email" type="line" />
+					
+				</fields>
+
+
+				<key mode="search">
+					<field name="nom_societe" label="nom_societe"  type="line"  relation="LIKE" value="%{request:nom_societe}"/>
+					<field name="site_web" label="site_web"  type="line" relation="LIKE" value="%{request:site_web}" />
+					<field name="rep_first_name" label="rep_first_name" type="line" relation="LIKE" value="%{request:rep_first_name}"/>
+					<field name="rep_last_name" label="rep_last_name" type="line" relation="LIKE" value="%{request:rep_last_name}"/>
+					<field name="rep_fonction" label="rep_fonction" type="line"  relation="LIKE" value="%{request:rep_fonction}"/>
+				</key>
+
+				<fields mode="search">
+					<field name="oid" alias="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="nom_societe" label="nom_societe" type="line" />
+					<field name="rep_first_name" label="rep_first_name" type="line" />
+					<field name="rep_last_name" label="rep_last_name" type="line" />
+					<field name="rep_fonction" label="rep_fonction" type="line" />	
+					<field name="ville" label="ville" type="line" />
+					<field name="site_web" label="site_web" type="line" />
+				</fields>
+
+				<key mode="view">
+					<field name="oid" alias="oid" type="oid" isKey="primary" value="%{request:oid}"/>					
+				</key>
+				<fields  mode="view">
+					<field name="oid" label="oid" alias="oid" type="oid" isKey="primary" isEdit="no" show="hidden"/>
+					<field name="logo" label="logo" type="image" maxSize="200000" imageSize="100x120" imageSizes="original,100x120,80x96" />
+					<field name="nom_societe" label="nom_societe" type="line" />
+					<field name="tel" label="tel" type="line" />
+					<field name="fax" label="fax" type="line" />
+					<field name="email" label="email" type="line" />
+					<field name="site_web" label="site_web" type="line" />
+					<field name="rep_first_name" label="rep_first_name" type="line" />
+					<field name="rep_last_name" label="rep_last_name" type="line" />
+					<field name="rep_fonction" label="rep_fonction" type="line" />
+					<field name="rep_tel_fixe" label="rep_tel_fixe" type="line" />
+					<field name="rep_tel_mobile" label="rep_tel_mobile" type="line" />
+					<field name="rep_fax" label="rep_fax" type="line" />
+					<field name="rep_email" label="rep_email" type="line" />
+					<field name="adresse" label="adresse" type="line" />
+					<field name="ville" label="ville" type="line" />
+				</fields>
+
+				<key mode="edit">
+					<field name="oid" type="oid" value="%{request:oid}"/>
+				</key>
+
+				<key mode="delete">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" value="%{request:oid}" />
+				</key>
+				<fields mode="delete">
+					<field name="oid" label="oid" type="oid" isKey="primary" show="hidden" />
+				</fields>
+
+				<fields>
+					<field name="oid" alias="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="nom_societe" label="nom_societe" type="line" />
+					<field name="tel" label="tel" type="line" />
+					<field name="fax" label="fax" type="line" />
+					<field name="email" label="email" type="line" />
+					<field name="adresse" label="adresse" type="line" />
+					<field name="ville" label="ville" type="line" />
+					<field name="site_web" label="site_web" type="line" />
+					<field name="rep_first_name" label="rep_first_name" type="line" />
+					<field name="rep_last_name" label="rep_last_name" type="line" />
+					<field name="rep_fonction" label="rep_fonction" type="line" />
+					<field name="rep_tel_fixe" label="rep_tel_fixe" type="line" />
+					<field name="rep_tel_mobile" label="rep_tel_mobile" type="line" />
+					<field name="rep_fax" label="rep_fax" type="line" />
+					<field name="rep_email" label="rep_email" type="line" />
+					<field name="logo" label="logo" type="image" maxSize="200000" imageSize="100x120" imageSizes="original,100x120,80x96" />
+				</fields>
+
+			</table>
+		
+		</tables>
+	</data>
+</nxl>

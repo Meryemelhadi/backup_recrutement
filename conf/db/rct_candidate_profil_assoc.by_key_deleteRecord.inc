@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_candidate_profil_assoc WHERE _key='".$props->getProperty("key","",true)."'"; ?>

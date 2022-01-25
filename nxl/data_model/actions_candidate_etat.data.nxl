@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+	<!-- tables definitions -->
+	<tables  init="create">
+		<table name="rct_actions_candidate_etat">
+			<fields>
+			
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="service_web" label="service_web" type="text-choice" control="select" multiple="false" ds="db:services_web.dslist@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+				<field name="etat_candidate" label="etat_candidate" type="text-choice" control="checkbox" multiple="true" ds="db:rct_candidate_etat.ds_list@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" controlLayout="table" columns="3" />
+				<field name="actif" label="actif" type="boolean" control="checkbox_boolean" />
+				<field name="notification_text" label="notification_text"  type="line" size="200" />
+			</fields>
+		</table>
+
+	</tables>
+		
+	<!-- DML Views (gernerating SQL requests)-->
+	<views>
+		<view name="actions_candidate_etat.list" table="rct_actions_candidate_etat">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+			</key>
+
+			<pages alias="page" pageOffset="%{get:page}" recordsPerPage="15" />				
+		
+			<sort>
+				<field name="name" label="name"  type="line" size="200" />
+			</sort>
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="service_web" label="service_web" type="text-choice" control="select" multiple="false" ds="db:services_web.dslist@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+				<field name="actif" label="actif" type="boolean" control="select" list="recruitment.boolean_list@recruitment"/>
+				<field name="etat_candidate" label="etat_candidate" type="text-choice" control="checkbox" multiple="true" ds="db:rct_candidate_etat.ds_list@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" controlLayout="table" columns="3"  />
+				
+			</fields>		
+		</view>
+
+		<view name="actions_candidate_etat.excel" table="rct_actions_candidate_etat">
+			<key>
+				<field name="name" label="name"  type="line" size="200" relation="like"/>
+			</key>
+			<sort>
+				<field name="name" direction="asc"/>
+			</sort>
+			<fields>
+				<field name="oid" label="object_id" type="oid" isKey="primary" show="hidden" isEdit="no" />
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="service_web" label="service_web" type="text-choice" control="select" multiple="false" ds="db:services_web.dslist@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+				<field name="actif" label="actif" type="boolean" control="checkbox_boolean" />
+				<field name="etat_candidate" label="etat_candidate" type="text-choice" control="checkbox" multiple="true" ds="db:rct_candidate_etat.ds_list@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" controlLayout="table" columns="3"  />
+				
+			</fields>		
+		</view>
+		
+		<view name="actions_candidate_etat.search" table="rct_actions_candidate_etat">
+			<fields>
+				<field name="name" label="name"  type="line" size="200" />
+			</fields>
+		</view>
+
+		<view name="actions_candidate_etat.record" table="rct_actions_candidate_etat">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="service_web" label="service_web" type="text-choice" control="select" multiple="false" ds="db:services_web.dslist@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+				<field name="actif" label="actif" type="boolean" control="checkbox_boolean" />
+				<field name="etat_candidate" label="etat_candidate" type="text-choice" control="checkbox" multiple="true" ds="db:rct_candidate_etat.ds_list@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" controlLayout="table" columns="3"  />
+				<field name="notification_text" label="notification_text"  type="line" size="200" />
+			</fields>		
+		</view>				
+
+		<view name="actions_candidate_etat.add" table="rct_actions_candidate_etat">
+			<key>
+				<field name="oid"  value="%{request:oid}"/>
+			</key>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="service_web" label="service_web" type="text-choice" control="select" multiple="false" ds="db:services_web.dslist@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+				<field name="actif" label="actif" type="boolean" control="checkbox_boolean" />
+				<field name="etat_candidate" label="etat_candidate" type="text-choice" control="checkbox" multiple="true" ds="db:rct_candidate_etat.ds_list@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" controlLayout="table" columns="3" />
+				<field name="notification_text" label="notification_text"  type="line" size="200" />
+			</fields>		
+		</view>		
+			
+		<view name="actions_candidate_etat.by_etat" table="rct_actions_candidate_etat">
+			<query>
+				SELECT * FROM _rct_actions_candidate_etat
+				where _etat_candidate like '%|".$_REQUEST['etat_oid']."|%' and _actif = 1
+			</query>
+
+			<fields>
+				<field name="oid" label="oid" type="oid" isKey="primary"/>
+				<field name="name" label="name"  type="line" size="200" />
+				<field name="service_web" label="service_web" type="text-choice" control="select" multiple="false" ds="db:services_web.dslist@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" />
+				<field name="actif" label="actif" type="boolean" control="checkbox_boolean" />
+				<field name="etat_candidate" label="etat_candidate" type="text-choice" control="checkbox" multiple="true" ds="db:rct_candidate_etat.ds_list@recruitment" ds_format="{field:name}" ds_field_value="oid" sqlType="varchar(255)" controlLayout="table" columns="3" />
+				<field name="notification_text" label="notification_text"  type="line" size="200" />
+			</fields>		
+		</view>		
+		
+	</views>
+	
+</data>
+</nxl>

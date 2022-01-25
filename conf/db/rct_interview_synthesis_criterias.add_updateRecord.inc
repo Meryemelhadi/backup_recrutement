@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_interview_synthesis_criterias SET _oid=".$record->getFieldValue("oid","DB","NULL").",_interview_synthesis_oid=".$record->getFieldValue("interview_synthesis_oid","DB","NULL").",_name=".$record->getFieldValue("name","DB","NULL").",_level=".$record->getFieldValue("level","DB","NULL"); ?>

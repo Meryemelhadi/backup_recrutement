@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_created_by,_validated_by,_candidate_oid,_interview_by,_date,_time_start,_time_end FROM _rct_interview WHERE _oid='".$props->getProperty("interview_oid","",true)."'"; ?>

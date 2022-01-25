@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy_total_control SET _oid=".$record->getFieldValue("oid","DB","NULL").",_key=".$record->getFieldValue("key","DB","NULL").",_val=".$record->getFieldValue("val","DB","NULL")." WHERE _key='".$props->getProperty("vacancy_id","",true)."' AND _val='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."'"; ?>

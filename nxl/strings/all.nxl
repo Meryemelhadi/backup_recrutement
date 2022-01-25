@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<nxl version="1.0" xmlns="http://www.nxfrontier.com/nxl/nxl" package="recruitment">
+
+<!-- Strings génériques -->
+<include_once file="default.strings.nxl" />
+
+<include_once file = "/strings/candidates/all.nxl"/>
+<include_once file = "/strings/vacancies/all.nxl"/>
+<include_once file = "/strings/dashboard/all.nxl"/>
+
+<include_once file="/strings/recruitment_channel.strings.nxl" />
+<include_once file="/strings/candidate_etats.strings.nxl" />
+
+<include_once file="/strings/profiling_rules.strings.nxl" />
+<include_once file="/strings/dashboard_interviews.strings.nxl" />
+<include_once file="/strings/emails.strings.nxl" />
+<include_once file="/strings/attached_files.strings.nxl" />
+<include_once file="/strings/email_docs.strings.nxl" />
+<include_once file="/strings/meeting_rooms.strings.nxl" />
+<include_once file="/strings/search_params.strings.nxl" />
+<include_once file="/strings/manager_candidates.strings.nxl" />
+<include_once file="/strings/manage_providers.strings.nxl" />
+<include_once file="/strings/app_connected.strings.nxl" />
+<include_once file="/strings/vacancy_project.strings.nxl" />
+<include_once file="/strings/saved_search.strings.nxl" />
+<include_once file="/strings/interview.strings.nxl" />
+
+<include_once file="/strings/actions_candidate_etat.strings.nxl" />
+<include_once file="/strings/services_web.strings.nxl" />
+<include_once file="/strings/candidate_tags.strings.nxl" />
+</nxl>

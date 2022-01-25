@@ -1,0 +1,20 @@
+<?php 
+	$this->setProperty('short_list_oid', $_nx_record->getField('oid'));
+?>
+
+<div class="directory-card-main-content short-list {if:#record.is_last#}last-short-list{/if} clear-both">
+	<div class="short-list-wrapper">
+		<div class="short-list-header clear-both">
+			<div class="short-list-title"><strong>{field:name}</strong> ({string:"proposed_by"} <u>{field:proposed_by}</u> {string:"date_prefix_lc"} {field:proposal_date}){if:trim(#field:comment#) != ''}<br/><strong>{string:"user_notes"}</strong>: <span style="color:#333">{field:comment}</span>{/if}</div>
+			<div class="short-list-operations">
+				<a 
+					class="action s-icon si-application-split" 
+					onclick="PMDH.toggle('short-list-content-{record.index}', 'appear'); return false;" 
+					href="javascript:void(0);"><span>{string:"Afficher/Masquer"}</span></a>
+			</div>
+		</div>
+		<div class="short-list-content" {if:record.is_first != true}style="display:none"{/if} id="short-list-content-{record.index}">
+			{field:candidates_list}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,175 @@
+<?xml version="1.0"?> 
+
+<xo:taglib 
+	uri					= "http://www.presencemedia.com/recruitment/vacancies/components/feedback_lib.comp"
+	xmlns:this			= "http://www.presencemedia.com/recruitment/vacancies/components/feedback_lib.comp"
+	xmlns:xo			= "http://www.nxfrontier.com/xo/core"
+	xmlns:xsl			= "http://www.w3.org/1999/XSL/Transform"
+	xmlns:nxl			= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:tpl			= "http://www.nxfrontier.com/tpl/tpml"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl"
+	xmlns:ds			= "http://www.nxfrontier.com/nxl/ds"
+	xmlns:button		= "http://www.nxfrontier.com/nxl/button"
+	xmlns:tags_library	= "http://www.presencemedia.ma/tags_library"
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config">
+
+
+	<xo:tag name="list">
+		<xo:param name="vacancy_oid_param" value="#request:oid#" />
+		<xo:param name="ds_instant_list" value="rct_instant_feedback.admin_list@recruitment"/>
+		<xo:param name="ds_delayed_list" value="rct_delayed_feedback.admin_list@recruitment"/>
+		<xo:param name="property_instant_records" value="instant_feedback.records" />
+		<xo:param name="property_delayed_records" value="delayed_feedback.records" />
+		<block>
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<button:set name="schedule_instant_feedback" operation="schedule_instant_feedback">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>
+			<button:set name="schedule_delayed_feedback" operation="schedule_delayed_feedback">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>
+			
+			<button:set name="delete_instant_feedback" operation="delete_instant_feedback">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>			
+			
+			<button:set name="delete_delayed_feedback" operation="delete_delayed_feedback">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>
+			
+			<button:set name="complete_instant_feedback" operation="complete_instant_feedback">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>
+			
+			<button:set name="complete_delayed_feedback" operation="complete_delayed_feedback">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>
+			
+			
+			
+			<button:set name="view_instant_feedback" operation="view_instant_feedback">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>
+			
+			<button:set name="view_delayed_feedback" operation="view_delayed_feedback">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>
+			
+			<ds:load media="db" ds="#{$ds_instant_list}#" property="#{$property_instant_records}#" multiple="yes" addProperties="no" />
+			<ds:load media="db" ds="#{$ds_delayed_list}#" property="#{$property_delayed_records}#" multiple="yes" addProperties="no" />
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="schedule">
+		<xo:param name="ds_schedule" value="rct_instant_feedback.schedule@recruitment"/>
+		<xo:param name="property_record" value="page.record"/>
+		<xo:param name="submit_operation" value="schedule_instant_feedback_process" />
+		<xo:param name="previous_operation" value="feedback" />
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		<block>
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<ds:load media="empty" ds="#{$ds_schedule}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="oid" value="#property:vacancy_oid#" />
+			</button:set>
+			<button:set name="submit" operation="#{$submit_operation}#">
+				<button:param name="vacancy_oid" value="#property:vacancy_oid#" />
+			</button:set>			
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="schedule_process">
+		<xo:param name="ds_schedule" value="rct_instant_feedback.schedule@recruitment"/>
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		
+		<xo:param name="template_email" value="recruitment.emails.tpl_instant_feedback" />
+		
+		<block>
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<ds:store ds="#{$ds_schedule}#" media="db" mode="insert">
+				<ds:load media="post" ds="#{$ds_schedule}#" multiple="no" addProperties="no"/>
+			</ds:store>
+			
+			<set name="var:ds" value="#{$ds_schedule}#" />
+			<if condition="preg_match('/instant/', #var:ds#)">
+				
+				<set name="var:objectOid">
+					<ds:insert_id media="db" />
+				</set>
+				
+				<tpl:screen 
+					xmlns		= "http://www.nxfrontier.com/tpl/tpml"  
+					xmlns:tpl	= "http://www.nxfrontier.com/tpl/tpml"
+					name		= "instant_feedback_email_view" 
+					trace		= "yes">
+					<load view="#{$template_email}#" />
+				</tpl:screen>
+				
+				<bean:call
+					xmlns:bean	= "http://www.nxfrontier.com/nxl/bean" 
+					class		= "lib.recruitment.vacancies.services.message"
+					method		= "sendInstantFeedackEmail"
+					params		= "#var:objectOid#"
+				/>
+				
+			</if>
+			
+			
+			
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="delete">
+		<xo:param name="ds_delete" value="rct_instant_feedback.record@recruitment"/>
+		<block>
+			<ds:delete ds="#{$ds_delete}#" media="db" />
+		</block>
+	</xo:tag>
+	
+	
+	
+	
+	<xo:tag name="view">
+		<xo:param name="ds_view" value="rct_delayed_feedback.view@recruitment"/>
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		<xo:param name="property_record" value="page.record"/>
+		<xo:param name="previous_operation" value="feedback" />
+		<block>
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="oid" value="#property:vacancy_oid#" />
+			</button:set>
+			<ds:load media="db" ds="#{$ds_view}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="complete">
+		<xo:param name="ds_complete" value="rct_instant_feedback.complete@recruitment"/>
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		<xo:param name="property_record" value="page.record"/>
+		<xo:param name="previous_operation" value="feedback" />
+		<xo:param name="submit_operation" value="complete_instant_feedback_process" />
+		<block>
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<button:set name="previous_operation" operation="#{$previous_operation}#">
+				<button:param name="oid" value="#property:vacancy_oid#" />
+			</button:set>
+			<button:set name="submit" operation="#{$submit_operation}#" />
+			<ds:load media="db" ds="#{$ds_complete}#" property="#{$property_record}#" multiple="no" addProperties="no"/>
+		</block>
+	</xo:tag>
+	
+	<xo:tag name="complete_process">
+		<xo:param name="ds_complete" value="rct_instant_feedback.complete@recruitment"/>
+		<xo:param name="ds_complete_process" value="rct_instant_feedback.complete_process@recruitment"/>
+		<xo:param name="vacancy_oid_param" value="#request:vacancy_oid#" />
+		<block>
+			<set name="property:vacancy_oid" value="#{$vacancy_oid_param}#" />
+			<ds:store ds="#{$ds_complete_process}#" media="db" mode="update">
+				<ds:load media="post" ds="#{$ds_complete}#" multiple="no" addProperties="no"/>
+			</ds:store>	
+		</block>
+	</xo:tag>
+	
+
+</xo:taglib>

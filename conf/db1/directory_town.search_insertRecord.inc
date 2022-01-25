@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _directory_town(_town_name) VALUES(".$record->getFieldValue("town_name","DB","NULL").")"; ?>

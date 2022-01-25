@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _article_id,_file_name FROM _journal_file_attachements"; ?>

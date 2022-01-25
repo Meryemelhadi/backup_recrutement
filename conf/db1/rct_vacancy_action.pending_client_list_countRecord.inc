@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_vacancy_action WHERE ((_workflow_state='1' AND _requested_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."')  OR (_workflow_state='3' AND _requested_by='".$GLOBALS["_NX_user"]->getProperty("oid","",true)."') ) "; ?>

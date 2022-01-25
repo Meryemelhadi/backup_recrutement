@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_vacancy_readonly WHERE _workflow_state='2' AND _archive_state<>'1'"; ?>

@@ -1,0 +1,38 @@
+<script language="php">
+	$evaluation = new PersistentCollection('interview_evaluation.all_list@recruitement2','handler');
+	$this->setProperty('evaluation.records',$evaluation->records);
+	$etat = '';
+	$PORTAL_URL_PREFIX = PORTAL_URL_PREFIX;
+</script>
+
+{records:evaluation.records}
+<div class="homepage-box box-theme-blue">
+    <h4 class="homepage-box-title">{string:"Mes Derniers Entretiens"}</h4>
+    <div class="homepage-box-articles-list">
+
+        {record}
+     
+        <script language="php">
+	        $editUrl = PORTAL_URL_PREFIX.'/recruitment/manager_candidates/coid-'.$_nx_record->candidate_oid->object.'/index.php?nxo=edit&mode=page&oid='.$_nx_record->candidate_oid->object.'&from_home=1';
+        </script>
+
+        <div class="article {if:record.is_first}first{/if} clear-both">
+            <div><a href="{var:PORTAL_URL_PREFIX}/recruitement2/interview_manager.php?nxo=interview_evaluation:edit_by_interview&oid={field:interview_oid}&mode=page">
+                <span>Evaluation pour le candidat <b>{field:first_name} {field:last_name}</b>. <br> <b>Date de création</b>: {field:date}, <b>Mise à jour</b>: {field:update_date}, <b>Date d'entretien</b>: {field:date_interview}   </span></a></div>
+
+            <a href="{var:PORTAL_URL_PREFIX}/recruitement2/interview_manager.php?nxo=interview_evaluation:edit_by_interview&oid={field:interview_oid}&mode=page" style="background: #5382F5 none repeat scroll 0% 0%; border: medium none rgb(76, 158, 217); margin-left: 10px; border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;float:right">Voir fiche d'évaluation</a>
+
+            <a  href="{var:editUrl}" id={field:interview_oid}&mode=page" style="background: none repeat scroll 0% 0% #76A42E; border: medium none rgb(76, 158, 217); border-radius: 5px; color: rgb(255, 255, 255);padding:3px 7px;float:right">Voir fiche candidat</a>
+
+        </div>
+        {/record}
+        {no_record}
+        <div class="article {if:record.is_first}first{/if} clear-both">
+            <div class="article-title">{string:"Vous n'avez aucune évaluation"}.</div>
+        </div>
+        {/no_record}
+
+    </div>
+
+</div>
+{/records}

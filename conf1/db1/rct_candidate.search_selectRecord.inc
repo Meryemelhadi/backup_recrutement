@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _first_name,_last_name,_gender,_town_oid,_diploma,_school,_studies_level,_years_of_practice,_profile,_relevance,_category_oid,_archive_state,_sort_by,_update_date_min,_update_date_max FROM _rct_candidate"; ?>

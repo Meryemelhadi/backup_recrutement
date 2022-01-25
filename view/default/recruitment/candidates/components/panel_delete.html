@@ -1,0 +1,24 @@
+<!--<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="PMModalbox.display(window.window.dlg_massiveDeleteCfg, event); return false;" style="float:right">
+    <span class="btn-bg"><span class="s-icon si-delete">{string:"delete"}</span></span>
+</a>-->
+<!--<a href="#" class="button_bs button_bs_right" >
+	<span class="icon-remove icon-2" style="margin-right: 5px;"></span> {string:"delete"}
+</a>-->
+<button type="button" class="btn btn-default button_bs_right" onclick="PMModalbox.display(window.window.dlg_massiveDeleteCfg, event); return false;">
+	<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>&nbsp;&nbsp;{string:"delete"}
+</button>
+
+
+<script>
+    window.dlg_massiveDeleteCfg = {
+        title 		: "{string:'dlg_delete_title'}",
+        message 	: "{string:'dlg_delete_content'}",
+        viewMode 	: "okCancel",
+        url 		: "{=delete.url}",
+        target 		: "content",
+        labels	 	: {
+            ok 		: "{string:'dlg_ok'}",
+            cancel 	: "{string:'dlg_cancel'}"
+        }
+    };
+</script>

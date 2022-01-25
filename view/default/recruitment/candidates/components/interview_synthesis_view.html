@@ -1,0 +1,43 @@
+{content:buttons}
+<a class="pm-button btn-with-icon" href="javascript:void(0);" onclick="ajax_navigate(event,'{=previous_operation.url}','content'); return false;">
+	<span class="btn-bg"><span class="s-icon si-application-side-contract">{string:"back_to_interview"}</span></span>
+</a>
+{/content}
+
+{content:candidate_id}{record:candidate.record}{field:first_name} {field:last_name}{/record}{/content}
+
+{record:page.record}
+<div class="pm-page-title-wrapper">
+	<div class="pm-page-title-inner-wrapper">
+		<div class="pm-title">{string:"title_interview_synthesis"} : {=candidate_id}</div>
+	</div>
+</div>
+
+<table class="columns-viewer">
+	<tr>
+		<td class="left-column">
+			<div class="pm-grid-outer-wrapper"  id="add-interview-wrapper">
+				
+				<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+					{=buttons}
+				</div>
+				
+				<h2 class="pm-title-2">{string:"title_interview_synthesis"} ({string:"by"} <strong>{field.html:user_oid}</strong> {string:"date_prefix_lc"} {field.html:date})</h2>
+				
+				{include:recruitment/candidates/components/interview_synthesis_data}
+				
+				<div class="pm-button-wrapper align-left clear-both pm-bxm-bottom-button-wrapper">				
+					{=buttons}
+				</div>
+				
+			</div>
+		</td>
+		<td class="right-column">
+			<div class="notice-message notice-message-with-icon png_bg">
+				<p>{string:"page_message_interview_synthesis_view"}</p>
+			</div>
+		</td>
+	</tr>
+</table>
+{/record}
+

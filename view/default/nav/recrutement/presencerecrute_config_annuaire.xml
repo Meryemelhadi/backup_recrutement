@@ -1,0 +1,71 @@
+<cont:permission permission="$isRH || $isAdmin">
+	<cont:nav_branch 
+		title		= "Configuration Application"
+		app-title	= "Configuration Application"
+		iconCls		= "icon-config">
+		<cont:nav_link
+			title="Annuaire"
+			app-title="Annuaires &gt; Utilisateurs"
+			url="/admin/users_directory_limited.php?pagemode=minimal"
+			icon-class="icon-addressbook"
+			qtip-title="Annuaire des utilisateurs"
+			qtip-text="Annuaire des utilisateurs"
+		/>			
+		<cont:nav_link 
+			title="Diplômes"
+			app-title="Administration &gt; Diplômes"
+			url="/admin/directory_diploma.php?pagemode=minimal"
+			iconCls="icon-categ"
+			qtip-title="Gestion des diplômes"
+			qtip-text="Gestion des diplômes" 	
+		/> 
+		<cont:nav_link 
+			title="Rôles"
+			app-title="Administration &gt; Rôles"
+			url="/admin/directory_role.php?pagemode=minimal"
+			iconCls="icon-categ"
+			qtip-title="Gestion des rôles"
+			qtip-text="Gestion des rôles"
+		/> 
+		<cont:nav_link 
+			title="Contrats collaborateurs"
+			app-title="Administration &gt; Contrats Collaborateurs"
+			url="/admin/directory_contract.php?pagemode=minimal"
+			iconCls="icon-categ"
+			qtip-title="Gestion des contrats collaborateurs"
+			qtip-text="Gestion des contrats collaborateurs"
+		/> 
+		<cont:nav_link 
+			title="Villes"
+			app-title="Administration &gt; Villes"
+			url="/admin/directory_town.php?pagemode=minimal"
+			iconCls="icon-categ"
+			qtip-title="Gestion des villes"
+			qtip-text="Gestion des villes" 	
+		/> 
+		<cont:nav_link 
+			title="Pays"
+			app-title="Administration &gt; Pays"
+			url="/recruitment/admin/manage_countries.php?pagemode=minimal"
+			iconCls="icon-categ"
+			qtip-title="Gestion des pays"
+			qtip-text="Gestion des pays" 	
+		/> 
+		<cont:nav_link 
+			title="CSP"
+			app-title="Administration &gt; CSP"
+			url="/admin/directory_csp.php?pagemode=minimal"
+			iconCls="icon-categ"
+			qtip-title="Gestion des CSP"
+			qtip-text="Gestion des Catégories Socio Professionnelles"
+		/> 
+		<cont:nav_link 
+			title="Localisations"
+			app-title="Administration &gt; Localisations"
+			url="/admin/directory_localisation.php?pagemode=minimal"
+			iconCls="icon-categ"
+			qtip-title="Gestion des localisations"
+			qtip-text="Gestion des localisations" 	
+		/>	
+	</cont:nav_branch>
+</cont:permission>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_services_web SET _name=".$record->getFieldValue("name","DB","NULL").",_url=".$record->getFieldValue("url","DB","NULL").",_key=".$record->getFieldValue("key","DB","NULL"); ?>

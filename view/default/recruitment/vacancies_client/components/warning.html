@@ -1,0 +1,70 @@
+<script>
+	window.dlg_scheduleInstantFeedbackCfg = { title:"{string:'schedule_instant_feedback_title'}", url: "{=schedule_instant_feedback.url}", width:550 }
+</script>
+
+<div class="directory-card-main-content clear-both">
+	<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+		<div class="pm-bxm-box">
+			<div class="box-simple-title">
+				<h3 class="double-padding">{string:"title_warnings"}</h3>
+			</div>		
+			<div class="pm-bxm-box-content">
+				<div class="grid-links-toolbar">
+					<a 
+						class="action s-icon si-add" 
+						onclick="ajax_navigate(event,'{=schedule.url}','content'); this.blur(); return false;" 
+						href="javascript:void(0);"><span>{string:"schedule_warning"}</span></a>
+				</div>
+				<!--! {records:page.records} -->
+				<!--! {record} -->
+				<script>
+					window.dlg_deleteConfig{record.index} = { 
+						title : "{string:'dlg_delete_title_warning'}",
+						message : "{string:'dlg_delete_content_warning'}", 
+						viewMode : "okCancel", 
+						url : "{=delete.url}{record.url_key}", 
+						target : "content", 
+						labels : { 
+							ok : "{string:'dlg_ok'}", 
+							cancel : "{string:'dlg_cancel'}" 
+					} };
+				</script>
+				
+				<div class="feedback-entry-wrapper">
+					<div class="feedback-entry">
+						<div class="feedback-entry-infos">
+							<strong>{field:subject}</strong>, {string:"date_prefix_lc"} {field:date}
+						</div>
+						<div class="feedback-entry-infos">
+							{field:notification_content}
+						</div>
+						<div class="feedback-entry-infos">
+							<strong>{field.label:concerned_people}</strong>: {field:concerned_people}
+						</div>
+						<div class="feedback-entry-meta">
+							{field.label:scheduled_by} <u>{field:scheduled_by}</u>, {string:"date_prefix_lc"} {field:scheduled_on}
+						</div>						
+						<div class="feedback-entry-toolbar">
+							<a 
+								class="action s-icon si-page-white-edit" 
+								onclick="ajax_navigate(event,'{=edit.url}{record.url_key}','content'); this.blur(); return false;" 
+								href="javascript:void(0);"><span>{string:"edit"}</span></a>
+							</a>&nbsp;
+							<a 
+								class="action s-icon si-delete" 
+								onclick="PMModalbox.display(dlg_deleteConfig{record.index}, event);" 
+								href="javascript:void(0);"><span>{string:"delete"}</span></a>
+							</a>							
+						</div>
+					</div>
+				</div>
+				
+				<!--! {/record} -->
+				<!--! {/records} -->
+				{no_record}
+				<div class="empty-records">{string:"empty_warnings_list"}</div>
+				{/no_record}
+			</div>
+		</div>
+	</div>
+</div>

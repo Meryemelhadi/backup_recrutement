@@ -1,0 +1,1844 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//kigkonsult.se//NONSGML kigkonsult.se iCalcreator 2.16.6//
+METHOD:PUBLISH
+X-WR-CALNAME:tiCalFile 3.2 (Kjell-Inge Gustafsson\, kigkonsult.se) test cal
+ endar file
+X-WR-CALDESC:A test calendar file created (2013-05-12 13:09:48) by tiCalFil
+ e 3.2 (Kjell-Inge Gustafsson\, kigkonsult.se) utilizing iCalcreator 2.16.6
+X-WR-TIMEZONE:Europe/Stockholm
+X-PROP2:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum ut\
+ , ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpis.
+BEGIN:VTIMEZONE
+TZID:Europe/Stockholm
+BEGIN:STANDARD
+DTSTART:20131027T040000
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:20140330T030000
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:20130512T130948CEST-8303lVT4VX@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:DaanNayak@org.org
+CATEGORIES:Category #9
+COMMENT:Fusce id nisl ut enim consectetur pulvinar. Ut auctor elit at lorem
+ . Maecenas purus arcu\, faucibus eu\, iaculis quis\, pretium quis\, velit.
+CONTACT:Sophie.Vincent@org.org
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART;VALUE=DATE:20130511
+GEO:-00.625995;+145.91963
+LOCATION:Location #2
+PRIORITY:8
+RELATED-TO:20130512T130948CEST-8303lVT4VX@kigkonsult.se
+RECURRENCE-ID:20130512T050000Z
+RESOURCES:Resource R6
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Event #2. Nulla sapien pede\, dapibus sed.
+TRANSP:TRANSPARENT
+URL:http://kigkonsult.se/info/index.php?event=2
+X-PROP1:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8368iecJwN@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:ARoux@kigkonsult.se
+ATTENDEE:MAILTO:MilanBernard@siteOnThe.net
+CATEGORIES:Category #10
+CATEGORIES:Category #A2
+CONTACT:Jing.Martin@org.org
+CLASS:CONFIDENTIAL
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+DTSTART;VALUE=DATE:20130512
+GEO:-59.54196;-59.165977
+RELATED-TO:20130512T130948CEST-8317uKENIV@kigkonsult.se
+RECURRENCE-ID;VALUE=DATE:20130512
+RESOURCES:Resource R5
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Event #7. Mauris vulputate.
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8395XlzvRF@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:Nalda.Vincent@kigkonsult.se
+ATTENDEE:MAILTO:Jing.Chandra@org.org
+CATEGORIES:Category #7
+CONTACT:L.Martin@org.org
+CREATED:20130511T110000Z
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART;VALUE=DATE:20130512
+GEO:-84.41;-119.3153
+LAST-MODIFIED:20130512T120000Z
+LOCATION:Location #8
+ORGANIZER:MAILTO:LucasRichard@org.org
+PRIORITY:8
+RRULE:FREQ=WEEKLY;UNTIL=20130603;BYDAY=MO,TU,WE,TH,FR
+RESOURCES:Resource R1
+RESOURCES:Resource #P1
+SUMMARY:Event #8. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim 
+ nibh mollis odio.
+X-PROP1:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget fel
+ is. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis ligula 
+ non est.
+X-PROP2:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero accu
+ msan turpis\, et egestas nunc purus et erat.
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8418lTNUVv@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:SemBernard@siteOnThe.net
+ATTENDEE:MAILTO:T.Vincent@siteOnThe.net
+CATEGORIES:Category #10
+CONTACT:JThomas@siteOnThe.net
+CLASS:CONFIDENTIAL
+CREATED:20130511T130000Z
+DESCRIPTION:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel faci
+ lisis accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at
+  odio.
+DTSTART;VALUE=DATE:20130512
+EXDATE;VALUE=DATE:20130513
+GEO:+56;-42.4609
+LOCATION:Location #10
+RRULE:FREQ=WEEKLY;UNTIL=20130610;BYDAY=MO
+RESOURCES:Resource R9
+RESOURCES:Resource #P5\,Resource #XP1
+STATUS:TENTATIVE
+SUMMARY:Event #10. Nulla sapien pede\, dapibus sed.
+TRANSP:OPAQUE
+X-PROP2:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero accu
+ msan turpis\, et egestas nunc purus et erat.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel faci
+ lisis accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at
+  odio.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-83442O5F1V@kigkonsult.se
+DTSTAMP:20130512T110948Z
+CATEGORIES:Category #7
+COMMENT:Vestibulum ante ipsum primis in faucibus orci luctus et ultrices po
+ suere cubilia Curae\; Curabitur tempor sodales ante.
+COMMENT:Vestibulum ante ipsum primis in faucibus orci luctus et ultrices po
+ suere cubilia Curae\; Curabitur tempor sodales ante.
+CLASS:PUBLIC
+CREATED:20130511T080000Z
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART;VALUE=DATE:20130512
+LAST-MODIFIED:20130512T090000Z
+LOCATION:Location #6
+PRIORITY:6
+RELATED-TO:20130512T130948CEST-8317uKENIV@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID:20130512T160000Z
+RESOURCES:Resource R9
+RESOURCES:Resource #P2\,Resource #XP1
+SEQUENCE:2
+STATUS:TENTATIVE
+SUMMARY:Event #6. Mauris vulputate.
+TRANSP:TRANSPARENT
+URL:http://kigkonsult.se/info/index.php?event=6
+X-PROP1:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8368iecJwN@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+CATEGORIES:Category #3
+CREATED:20130511T130000Z
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART;VALUE=DATE:20130512
+LAST-MODIFIED:20130512T140000Z
+LOCATION:Location #9
+PRIORITY:8
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130512
+RESOURCES:Resource R4
+SEQUENCE:2
+SUMMARY:Event #9. Duis ac dui sit amet ante auctor euismod.
+TRANSP:OPAQUE
+URL:http://kigkonsult.se/info/index.php?event=9
+X-PROP1:Sed varius dignissim est. Integer venenatis\, odio vel imperdiet ti
+ ncidunt\, felis mi consectetur quam\, at consequat justo dui eu ante. Nam 
+ nec lectus.
+X-PROP2:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget fel
+ is. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis ligula 
+ non est.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8303lVT4VX@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:SMichel@kigkonsult.se
+CATEGORIES:Category #4
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+COMMENT:Fusce id nisl ut enim consectetur pulvinar. Ut auctor elit at lorem
+ . Maecenas purus arcu\, faucibus eu\, iaculis quis\, pretium quis\, velit.
+CONTACT:Sophie.Martin@kigkonsult.se
+CLASS:PRIVATE
+DESCRIPTION:Sed varius dignissim est. Integer venenatis\, odio vel imperdie
+ t tincidunt\, felis mi consectetur quam\, at consequat justo dui eu ante. 
+ Nam nec lectus.
+DTSTART:20130512T050000Z
+DTEND:20130513T140000Z
+LOCATION:Location #1
+ORGANIZER:MAILTO:NFournier@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RESOURCES:Resource R6
+SUMMARY:Event #1. Duis ac dui sit amet ante auctor euismod.
+TRANSP:OPAQUE
+URL:http://kigkonsult.se/info/index.php?event=1
+X-PROP1:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum ut\
+ , ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpis.
+X-PROP2:Sed varius dignissim est. Integer venenatis\, odio vel imperdiet ti
+ ncidunt\, felis mi consectetur quam\, at consequat justo dui eu ante. Nam 
+ nec lectus.
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:L.Diaz@kigkonsult.se
+ATTENDEE:MAILTO:D.Chandra@org.org
+DESCRIPTION:Sed varius dignissim est. Integer venenatis\, odio vel imperdie
+ t tincidunt\, felis mi consectetur quam\, at consequat justo dui eu ante. 
+ Nam nec lectus.
+SUMMARY:Event #1. Duis ac dui sit amet ante auctor euismod.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-83442O5F1V@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:L.Singh@org.org
+CATEGORIES:Category #1
+CATEGORIES:Category #A1
+COMMENT:Vestibulum ante ipsum primis in faucibus orci luctus et ultrices po
+ suere cubilia Curae\; Curabitur tempor sodales ante.
+CLASS:CONFIDENTIAL
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART:20130512T070000Z
+DTEND:20130513T160000Z
+ORGANIZER:MAILTO:Sanne.Kim@kigkonsult.se
+PRIORITY:1
+RELATED-TO:20130512T130948CEST-83442O5F1V@kigkonsult.se
+RECURRENCE-ID:20130512T160000Z
+RESOURCES:Resource R7
+SEQUENCE:1
+SUMMARY:Event #5. Suspendisse_pellentesque_velit_in_tortor.
+TRANSP:OPAQUE
+X-PROP1:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero accu
+ msan turpis\, et egestas nunc purus et erat.
+X-PROP2:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8317uKENIV@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+CATEGORIES:Category #1
+CATEGORIES:Category #A8\,Category #XB8
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+DESCRIPTION:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel faci
+ lisis accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at
+  odio.
+DTSTART:20130512T150000Z
+DTEND:20130514T010000Z
+LAST-MODIFIED:20130511T160000Z
+LOCATION:Location #3
+RELATED-TO:20130512T130948CEST-8317uKENIV@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130511
+RESOURCES:Resource R1
+SEQUENCE:1
+SUMMARY:Event #3. Duis ac dui sit amet ante auctor euismod.
+URL:http://kigkonsult.se/info/index.php?event=3
+X-PROP2:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel faci
+ lisis accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at
+  odio.
+TRIGGER:-PT4H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTENDEE:MAILTO:LucasThomas@kigkonsult.se
+ATTENDEE:MAILTO:Nalda.Singh@kigkonsult.se
+SUMMARY:Event #3. Duis ac dui sit amet ante auctor euismod.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-83442O5F1V@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:T.Chandra@org.org
+ATTENDEE:MAILTO:HFournier@siteOnThe.net
+CATEGORIES:Category #3
+CATEGORIES:Category #A4
+COMMENT:Fusce vel sem quis felis dictum venenatis. Sed ipsum. Fusce vel dia
+ m sit amet sapien pretium pretium.
+CLASS:PRIVATE
+CREATED:20130510T160000Z
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+DTSTART:20130512T160000Z
+EXDATE:20130512T160000Z
+GEO:-87.988;+170
+LAST-MODIFIED:20130511T170000Z
+LOCATION:Location #4
+ORGANIZER:MAILTO:W.Garcia@siteOnThe.net
+RRULE:FREQ=WEEKLY;UNTIL=20130602T160000Z;BYDAY=SA,SU
+RESOURCES:Resource R6
+SUMMARY:Event #4. Mauris vulputate.
+X-PROP2:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero accu
+ msan turpis\, et egestas nunc purus et erat.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8317uKENIV@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+CATEGORIES:Category #5
+CATEGORIES:Category #A6
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+DTSTART;VALUE=DATE:20130513
+GEO:-20.85179;+62.0589
+LOCATION:Location #15
+ORGANIZER:MAILTO:Emma.Garcia@siteOnThe.net
+PRIORITY:1
+RELATED-TO:20130512T130948CEST-83442O5F1V@kigkonsult.se
+RECURRENCE-ID;VALUE=DATE:20130511
+RESOURCES:Resource R3
+RESOURCES:Resource #P1
+SEQUENCE:3
+STATUS:TENTATIVE
+SUMMARY:Event #15. Duis ac dui sit amet ante auctor euismod.
+TRANSP:OPAQUE
+X-PROP1:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:Hussain.Garcia@org.org
+ATTENDEE:MAILTO:NRichard@org.org
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+SUMMARY:Event #15. Duis ac dui sit amet ante auctor euismod.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8468lhBDdP@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:J.Singh@kigkonsult.se
+ATTENDEE:MAILTO:SNayak@kigkonsult.se
+CATEGORIES:Category #2
+CREATED:20130512T100000Z
+DESCRIPTION:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel faci
+ lisis accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at
+  odio.
+DTSTART;VALUE=DATE:20130513
+LAST-MODIFIED:20130513T110000Z
+LOCATION:Location #14
+PRIORITY:6
+RESOURCES:Resource R5
+RESOURCES:Resource #P7
+SUMMARY:Event #14. Nulla sapien pede\, dapibus sed.
+URL:http://kigkonsult.se/info/index.php?event=14
+X-PROP1:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget fel
+ is. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis ligula 
+ non est.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8446bStXu5@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+CATEGORIES:Category #1
+CATEGORIES:Category #A2
+COMMENT:Fusce vel sem quis felis dictum venenatis. Sed ipsum. Fusce vel dia
+ m sit amet sapien pretium pretium.
+CONTACT:MilanBernard@siteOnThe.net
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+DTSTART;VALUE=DATE:20130513
+GEO:+58;-51.109
+LAST-MODIFIED:20130513T070000Z
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RESOURCES:Resource R6
+STATUS:CONFIRMED
+SUMMARY:Event #12. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8317uKENIV@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:NBernard@org.org
+ATTENDEE:MAILTO:AThomas@org.org
+CATEGORIES:Category #5
+CATEGORIES:Category #A5\,Category #XB4
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART;VALUE=DATE:20130513
+GEO:-78.963734;+68.865
+ORGANIZER:MAILTO:Sanne.Kim@kigkonsult.se
+PRIORITY:6
+RELATED-TO:20130512T130948CEST-8368iecJwN@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130511
+RESOURCES:Resource R5
+SEQUENCE:2
+STATUS:TENTATIVE
+SUMMARY:Event #11. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+URL:http://kigkonsult.se/info/index.php?event=11
+X-PROP1:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget fel
+ is. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis ligula 
+ non est.
+X-PROP2:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8327TZSzh1@kigkonsult.se
+DTSTAMP:20130512T110948Z
+CATEGORIES:Category #7
+CATEGORIES:Category #A1
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+CLASS:CONFIDENTIAL
+CREATED:20130513T100000Z
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+DTSTART;VALUE=DATE:20130514
+GEO:+45.7;-102
+ORGANIZER:MAILTO:L.Martin@org.org
+PRIORITY:2
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID:20130512T150000Z
+RESOURCES:Resource R9
+SEQUENCE:1
+SUMMARY:Event #17. Nulla sapien pede\, dapibus sed.
+TRANSP:TRANSPARENT
+X-PROP2:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum ut\
+ , ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpis.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+TRIGGER:-PT4H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:ERichard@org.org
+ATTENDEE:MAILTO:NRichard@org.org
+SUMMARY:Event #17. Nulla sapien pede\, dapibus sed.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8418lTNUVv@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:LuukNayak@org.org
+CATEGORIES:Category #1
+CATEGORIES:Category #A8
+COMMENT:Fusce id nisl ut enim consectetur pulvinar. Ut auctor elit at lorem
+ . Maecenas purus arcu\, faucibus eu\, iaculis quis\, pretium quis\, velit.
+CONTACT:Sanne.Singh@org.org
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART;VALUE=DATE:20130514
+LOCATION:Location #19
+ORGANIZER:MAILTO:LuukBernard@org.org
+RELATED-TO:20130512T130948CEST-8510MtWSWl@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130512
+RESOURCES:Resource R2
+RESOURCES:Resource #P2
+SEQUENCE:2
+SUMMARY:Event #19. Nulla sapien pede\, dapibus sed.
+URL:http://kigkonsult.se/info/index.php?event=19
+X-PROP1:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8479xVBchf@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:Riel.Bertrand@siteOnThe.net
+CATEGORIES:Category #1
+CATEGORIES:Category #A10\,Category #XB4
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+CONTACT:ENayak@siteOnThe.net
+CLASS:CONFIDENTIAL
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART;VALUE=DATE:20130514
+GEO:-32;-100
+LOCATION:Location #16
+ORGANIZER:MAILTO:ThijsFournier@kigkonsult.se
+PRIORITY:5
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130513
+RESOURCES:Resource R8
+RESOURCES:Resource #P3
+SEQUENCE:1
+SUMMARY:Event #16. Mauris vulputate.
+URL:http://kigkonsult.se/info/index.php?event=16
+X-PROP1:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum ut\
+ , ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpis.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+TRIGGER:-PT4H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:Julia.Diaz@kigkonsult.se
+ATTENDEE:MAILTO:Sophie.Kim@kigkonsult.se
+SUMMARY:Event #16. Mauris vulputate.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8418lTNUVv@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:Hussain.Singh@siteOnThe.net
+CATEGORIES:Category #5
+COMMENT:Fusce vel sem quis felis dictum venenatis. Sed ipsum. Fusce vel dia
+ m sit amet sapien pretium pretium.
+CREATED:20130512T110000Z
+DESCRIPTION:Sed varius dignissim est. Integer venenatis\, odio vel imperdie
+ t tincidunt\, felis mi consectetur quam\, at consequat justo dui eu ante. 
+ Nam nec lectus.
+DTSTART:20130514T110000Z
+DTEND:20130515T180000Z
+GEO:+72.226;+101.67048
+LOCATION:Location #13
+ORGANIZER:MAILTO:LiRoux@siteOnThe.net
+PRIORITY:6
+RELATED-TO:20130512T130948CEST-83442O5F1V@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130512
+RESOURCES:Resource R5
+RESOURCES:Resource #P1\,Resource #XP2
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Event #13. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+TRANSP:OPAQUE
+URL:http://kigkonsult.se/info/index.php?event=13
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8545DI61ZV@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+CATEGORIES:Category #9
+CONTACT:NCastillo@kigkonsult.se
+CREATED:20130514T050000Z
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+DTSTART;VALUE=DATE:20130515
+GEO:+84.1;-117.95664
+LOCATION:Location #24
+ORGANIZER:MAILTO:Jing.Chandra@org.org
+PRIORITY:6
+RECURRENCE-ID;VALUE=DATE:20130514
+RESOURCES:Resource R7
+SEQUENCE:1
+SUMMARY:Event #24. Suspendisse_pellentesque_velit_in_tortor.
+X-PROP2:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget fel
+ is. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis ligula 
+ non est.
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:JCastillo@kigkonsult.se
+ATTENDEE:MAILTO:Emma.Martin@kigkonsult.se
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+SUMMARY:Event #24. Suspendisse_pellentesque_velit_in_tortor.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-85711jlGZD@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:NNayak@org.org
+ATTENDEE:MAILTO:ERichard@org.org
+CATEGORIES:Category #7
+CATEGORIES:Category #A4\,Category #XB1
+CLASS:PUBLIC
+DESCRIPTION:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel faci
+ lisis accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at
+  odio.
+DTSTART;VALUE=DATE:20130515
+EXDATE;VALUE=DATE:20130516
+LAST-MODIFIED:20130515T130000Z
+PRIORITY:6
+RDATE;VALUE=DATE:20130523
+RESOURCES:Resource R4
+RESOURCES:Resource #P9
+STATUS:TENTATIVE
+SUMMARY:Event #21. Suspendisse_pellentesque_velit_in_tortor.
+URL:http://kigkonsult.se/info/index.php?event=21
+X-PROP1:Sed varius dignissim est. Integer venenatis\, odio vel imperdiet ti
+ ncidunt\, felis mi consectetur quam\, at consequat justo dui eu ante. Nam 
+ nec lectus.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel faci
+ lisis accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at
+  odio.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8381wuZTc3@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:Hussain.Garcia@org.org
+ATTENDEE:MAILTO:SFournier@org.org
+CATEGORIES:Category #1
+CONTACT:SRichard@kigkonsult.se
+DESCRIPTION:Sed varius dignissim est. Integer venenatis\, odio vel imperdie
+ t tincidunt\, felis mi consectetur quam\, at consequat justo dui eu ante. 
+ Nam nec lectus.
+DTSTART;VALUE=DATE:20130515
+LOCATION:Location #22
+ORGANIZER:MAILTO:Julia.Chandra@siteOnThe.net
+PRIORITY:7
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130512
+RESOURCES:Resource R3
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Event #22. Mauris vulputate.
+URL:http://kigkonsult.se/info/index.php?event=22
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8418lTNUVv@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:Sophie.Diaz@siteOnThe.net
+ATTENDEE:MAILTO:ThijsRoux@siteOnThe.net
+CATEGORIES:Category #4
+CATEGORIES:Category #A10\,Category #XB2
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+COMMENT:Fusce id nisl ut enim consectetur pulvinar. Ut auctor elit at lorem
+ . Maecenas purus arcu\, faucibus eu\, iaculis quis\, pretium quis\, velit.
+CLASS:PUBLIC
+CREATED:20130513T090000Z
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART:20130515T090000Z
+DTEND:20130515T110000Z
+RELATED-TO:20130512T130948CEST-8303lVT4VX@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130512
+RESOURCES:Resource R6
+SEQUENCE:3
+STATUS:CANCELLED
+SUMMARY:Event #20. Nulla sapien pede\, dapibus sed.
+URL:http://kigkonsult.se/info/index.php?event=20
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8510MtWSWl@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:LucasCastillo@siteOnThe.net
+ATTENDEE:MAILTO:D.Vincent@org.org
+CATEGORIES:Category #7
+CATEGORIES:Category #A8
+CONTACT:L.Kim@siteOnThe.net
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+DTSTART:20130515T150000Z
+DTEND:20130516T190000Z
+GEO:+44.762;-0.50601
+LOCATION:Location #18
+ORGANIZER:MAILTO:M.Martin@kigkonsult.se
+PRIORITY:5
+RELATED-TO:20130512T130948CEST-8317uKENIV@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130514
+RESOURCES:Resource R8
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Event #18. Nulla sapien pede\, dapibus sed.
+X-PROP1:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget fel
+ is. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis ligula 
+ non est.
+X-PROP2:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTENDEE:MAILTO:Sophie.Dubois@siteOnThe.net
+ATTENDEE:MAILTO:JThomas@org.org
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+SUMMARY:Event #18. Nulla sapien pede\, dapibus sed.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8545DI61ZV@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:Emma.Chandra@org.org
+CATEGORIES:Category #4
+CATEGORIES:Category #A6\,Category #XB3
+COMMENT:Fusce vel sem quis felis dictum venenatis. Sed ipsum. Fusce vel dia
+ m sit amet sapien pretium pretium.
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+CONTACT:T.Vincent@siteOnThe.net
+CREATED:20130515T050000Z
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART;VALUE=DATE:20130516
+GEO:-43;-69.4
+LOCATION:Location #26
+PRIORITY:4
+RELATED-TO:20130512T130948CEST-8545DI61ZV@kigkonsult.se
+RECURRENCE-ID;VALUE=DATE:20130514
+RESOURCES:Resource R2
+RESOURCES:Resource #P1\,Resource #XP2
+SEQUENCE:2
+STATUS:TENTATIVE
+SUMMARY:Event #26. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+X-PROP1:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+X-PROP2:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+BEGIN:VALARM
+ACTION:EMAIL
+ATTENDEE:MAILTO:NThomas@org.org
+ATTENDEE:MAILTO:NRichard@kigkonsult.se
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+SUMMARY:Event #26. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8661c61kmp@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:L.Vincent@org.org
+CATEGORIES:Category #1
+COMMENT:Fusce id nisl ut enim consectetur pulvinar. Ut auctor elit at lorem
+ . Maecenas purus arcu\, faucibus eu\, iaculis quis\, pretium quis\, velit.
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART;VALUE=DATE:20130516
+EXDATE;VALUE=DATE:20130517
+GEO:+19.0359;+16.53418
+LAST-MODIFIED:20130516T090000Z
+RDATE;VALUE=DATE:20130524
+RRULE:FREQ=WEEKLY;UNTIL=20130616
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RESOURCES:Resource R7
+SUMMARY:Event #28. Lorem ipsum dolor sit amet\, consectetuerAdipiscingElit.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8623fUIJ9T@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:SRoux@siteOnThe.net
+CATEGORIES:Category #6
+CATEGORIES:Category #A1
+CONTACT:Julia.Diaz@kigkonsult.se
+CLASS:PUBLIC
+CREATED:20130514T090000Z
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART:20130516T090000Z
+DTEND:20130517T090000Z
+EXDATE:20130516T090000Z
+ORGANIZER:MAILTO:LucasFournier@siteOnThe.net
+PRIORITY:1
+RDATE:20130523T090000Z
+RELATED-TO:20130512T130948CEST-8510MtWSWl@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RESOURCES:Resource R9
+RESOURCES:Resource #P5\,Resource #XP3
+SUMMARY:Event #25. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+X-PROP1:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero accu
+ msan turpis\, et egestas nunc purus et erat.
+X-PROP2:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero accu
+ msan turpis\, et egestas nunc purus et erat.
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8446bStXu5@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:ThijsFournier@kigkonsult.se
+CATEGORIES:Category #3
+CONTACT:Riel.Singh@siteOnThe.net
+CLASS:PUBLIC
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART:20130516T130000Z
+DURATION:PT10H0M0S
+ORGANIZER:MAILTO:JRichard@org.org
+RELATED-TO:20130512T130948CEST-8327TZSzh1@kigkonsult.se
+RECURRENCE-ID;VALUE=DATE:20130513
+RESOURCES:Resource R5
+RESOURCES:Resource #P10
+SEQUENCE:1
+SUMMARY:Event #23. Mauris vulputate.
+URL:http://kigkonsult.se/info/index.php?event=23
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+TRIGGER:-PT4H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:Emma.Kim@org.org
+ATTENDEE:MAILTO:T.Bertrand@siteOnThe.net
+SUMMARY:Event #23. Mauris vulputate.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8767D6FruW@kigkonsult.se
+DTSTAMP:20130512T110948Z
+CATEGORIES:Category #3
+CATEGORIES:Category #A8\,Category #XB10
+COMMENT:Vestibulum ante ipsum primis in faucibus orci luctus et ultrices po
+ suere cubilia Curae\; Curabitur tempor sodales ante.
+CONTACT:Sophie.Martin@kigkonsult.se
+CREATED:20130516T070000Z
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART;VALUE=DATE:20130517
+EXDATE;VALUE=DATE:20130518
+GEO:-28.3817;-173.7
+LAST-MODIFIED:20130517T080000Z
+LOCATION:Location #35
+ORGANIZER:MAILTO:SKhan@org.org
+PRIORITY:3
+RDATE;VALUE=DATE:20130525
+RESOURCES:Resource R9
+STATUS:CONFIRMED
+SUMMARY:Event #35. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+URL:http://kigkonsult.se/info/index.php?event=35
+X-PROP1:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8558vrczGB@kigkonsult.se
+DTSTAMP:20130512T110948Z
+CATEGORIES:Category #5
+CATEGORIES:Category #A6\,Category #XB7
+COMMENT:Vestibulum ante ipsum primis in faucibus orci luctus et ultrices po
+ suere cubilia Curae\; Curabitur tempor sodales ante.
+COMMENT:Fusce id nisl ut enim consectetur pulvinar. Ut auctor elit at lorem
+ . Maecenas purus arcu\, faucibus eu\, iaculis quis\, pretium quis\, velit.
+CONTACT:J.Diaz@org.org
+CREATED:20130516T120000Z
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART;VALUE=DATE:20130517
+LAST-MODIFIED:20130517T130000Z
+ORGANIZER:MAILTO:JesseRichard@kigkonsult.se
+RELATED-TO:20130512T130948CEST-8317uKENIV@kigkonsult.se
+RECURRENCE-ID:20130515T090000Z
+RESOURCES:Resource R7
+SEQUENCE:1
+STATUS:CANCELLED
+SUMMARY:Event #31. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+TRANSP:TRANSPARENT
+X-PROP2:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum ut\
+ , ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpis.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8661c61kmp@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:LuukBernard@org.org
+ATTENDEE:MAILTO:Noa.Dubois@kigkonsult.se
+CATEGORIES:Category #10
+CATEGORIES:Category #A4\,Category #XB3
+COMMENT:Vestibulum ante ipsum primis in faucibus orci luctus et ultrices po
+ suere cubilia Curae\; Curabitur tempor sodales ante.
+CONTACT:C.Martin@kigkonsult.se
+CREATED:20130515T050000Z
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+DTSTART:20130517T050000Z
+GEO:-28.057971;-12.40322
+LAST-MODIFIED:20130516T060000Z
+LOCATION:Location #30
+ORGANIZER:MAILTO:L.Kim@siteOnThe.net
+PRIORITY:3
+RELATED-TO:20130512T130948CEST-8317uKENIV@kigkonsult.se
+RECURRENCE-ID;VALUE=DATE:20130516
+RESOURCES:Resource R2
+SEQUENCE:1
+SUMMARY:Event #30. Suspendisse_pellentesque_velit_in_tortor.
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:EMAIL
+ATTENDEE:MAILTO:Sophie.Chandra@siteOnThe.net
+ATTENDEE:MAILTO:T.Bertrand@siteOnThe.net
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+SUMMARY:Event #30. Suspendisse_pellentesque_velit_in_tortor.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8676tLBiIK@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:JRichard@org.org
+CATEGORIES:Category #3
+CATEGORIES:Category #A1\,Category #XB8
+CONTACT:ECastillo@siteOnThe.net
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART:20130517T070000Z
+DTEND:20130517T130000Z
+EXDATE:20130517T070000Z
+GEO:-39.76;+119.061453
+LAST-MODIFIED:20130516T080000Z
+LOCATION:Location #29
+ORGANIZER:MAILTO:J.Robert@org.org
+PRIORITY:9
+RDATE:20130524T070000Z
+RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=MO,TU,WE,TH,FR
+RELATED-TO:20130512T130948CEST-8327TZSzh1@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RESOURCES:Resource R3
+RESOURCES:Resource #P4
+STATUS:CANCELLED
+SUMMARY:Event #29. Duis ac dui sit amet ante auctor euismod.
+URL:http://kigkonsult.se/info/index.php?event=29
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8648KEUUEg@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:WeiKhan@siteOnThe.net
+CATEGORIES:Category #7
+CATEGORIES:Category #A3\,Category #XB10
+CREATED:20130515T110000Z
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART:20130517T110000Z
+DURATION:P1DT11H0M0S
+EXDATE:20130517T110000Z
+LAST-MODIFIED:20130516T120000Z
+RDATE:20130524T110000Z
+RESOURCES:Resource R3
+STATUS:TENTATIVE
+SUMMARY:Event #27. Nulla sapien pede\, dapibus sed.
+TRANSP:OPAQUE
+URL:http://kigkonsult.se/info/index.php?event=27
+X-PROP2:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8586uBVVzD@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:L.Martin@siteOnThe.net
+CATEGORIES:Category #6
+COMMENT:Fusce vel sem quis felis dictum venenatis. Sed ipsum. Fusce vel dia
+ m sit amet sapien pretium pretium.
+CONTACT:LiRichard@kigkonsult.se
+CLASS:PUBLIC
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+DTSTART;VALUE=DATE:20130518
+LAST-MODIFIED:20130518T120000Z
+RECURRENCE-ID;VALUE=DATE:20130515
+RESOURCES:Resource R7
+RESOURCES:Resource #P6\,Resource #XP2
+SEQUENCE:1
+STATUS:CANCELLED
+SUMMARY:Event #36. Lorem ipsum dolor sit amet\, consectetuerAdipiscingElit.
+X-PROP1:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+TRIGGER:-PT4H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTENDEE:MAILTO:Riel.Martin@siteOnThe.net
+ATTENDEE:MAILTO:L.Singh@org.org
+SUMMARY:Event #36. Lorem ipsum dolor sit amet\, consectetuerAdipiscingElit.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8813KAkjEk@kigkonsult.se
+DTSTAMP:20130512T110948Z
+CATEGORIES:Category #2
+CATEGORIES:Category #A3\,Category #XB4
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART;VALUE=DATE:20130518
+GEO:-63.023;-139.717026
+LOCATION:Location #39
+RECURRENCE-ID:20130519T160000Z
+RESOURCES:Resource R7
+RESOURCES:Resource #P4
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Event #39. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+TRANSP:TRANSPARENT
+X-PROP1:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8796flVLuI@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:W.Kim@kigkonsult.se
+CATEGORIES:Category #7
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+CREATED:20130517T070000Z
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART;VALUE=DATE:20130518
+EXDATE;VALUE=DATE:20130519
+GEO:+09.51499;-99.202
+LOCATION:Location #37
+RDATE;VALUE=DATE:20130526
+RRULE:FREQ=MONTHLY;COUNT=4;BYDAY=SU
+RESOURCES:Resource R2
+RESOURCES:Resource #P6\,Resource #XP9
+SUMMARY:Event #37. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+X-PROP1:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8395XlzvRF@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:Jing.Vincent@kigkonsult.se
+ATTENDEE:MAILTO:JRoux@kigkonsult.se
+CATEGORIES:Category #6
+CATEGORIES:Category #A6
+CREATED:20130516T090000Z
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+DTSTART:20130518T090000Z
+DTEND:20130519T010000Z
+LAST-MODIFIED:20130517T100000Z
+ORGANIZER:MAILTO:T.Chandra@siteOnThe.net
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130512
+RESOURCES:Resource R3
+SEQUENCE:1
+STATUS:CANCELLED
+SUMMARY:Event #32. Lorem ipsum dolor sit amet\, consectetuerAdipiscingElit.
+URL:http://kigkonsult.se/info/index.php?event=32
+X-PROP2:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero accu
+ msan turpis\, et egestas nunc purus et erat.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTENDEE:MAILTO:T.Martin@kigkonsult.se
+ATTENDEE:MAILTO:DaanDavid@kigkonsult.se
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+SUMMARY:Event #32. Lorem ipsum dolor sit amet\, consectetuerAdipiscingElit.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8749BFFAnk@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:SDavid@kigkonsult.se
+CATEGORIES:Category #4
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+COMMENT:Fusce id nisl ut enim consectetur pulvinar. Ut auctor elit at lorem
+ . Maecenas purus arcu\, faucibus eu\, iaculis quis\, pretium quis\, velit.
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART:20130518T140000Z
+DURATION:PT19H0M0S
+EXDATE:20130518T140000Z
+GEO:+47.5;+96.79
+LAST-MODIFIED:20130517T150000Z
+LOCATION:Location #34
+PRIORITY:9
+RDATE:20130525T140000Z
+RRULE:FREQ=WEEKLY;UNTIL=20130616T140000Z;BYDAY=TU,TH
+RELATED-TO:20130512T130948CEST-8446bStXu5@kigkonsult.se
+RESOURCES:Resource R9
+RESOURCES:Resource #P10
+SUMMARY:Event #34. Nulla sapien pede\, dapibus sed.
+X-PROP1:Sed varius dignissim est. Integer venenatis\, odio vel imperdiet ti
+ ncidunt\, felis mi consectetur quam\, at consequat justo dui eu ante. Nam 
+ nec lectus.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:L.Robert@siteOnThe.net
+ATTENDEE:MAILTO:L.Garcia@org.org
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+SUMMARY:Event #34. Nulla sapien pede\, dapibus sed.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8736vUH2dP@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+CATEGORIES:Category #5
+CATEGORIES:Category #A6\,Category #XB7
+COMMENT:Fusce vel sem quis felis dictum venenatis. Sed ipsum. Fusce vel dia
+ m sit amet sapien pretium pretium.
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+CONTACT:LiThomas@org.org
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+DTSTART:20130518T150000Z
+DTEND:20130518T200000Z
+EXDATE:20130518T150000Z
+LAST-MODIFIED:20130517T160000Z
+LOCATION:Location #33
+PRIORITY:8
+RRULE:FREQ=MONTHLY;COUNT=4;BYDAY=MO,WE,FR
+RELATED-TO:20130512T130948CEST-8446bStXu5@kigkonsult.se
+RESOURCES:Resource R6
+STATUS:CANCELLED
+SUMMARY:Event #33. Nulla sapien pede\, dapibus sed.
+X-PROP1:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget fel
+ is. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis ligula 
+ non est.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8888fWgLjm@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:Jing.Kim@org.org
+CATEGORIES:Category #9
+CATEGORIES:Category #A2\,Category #XB6
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+CLASS:CONFIDENTIAL
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART;VALUE=DATE:20130519
+LAST-MODIFIED:20130519T120000Z
+ORGANIZER:MAILTO:WeiThomas@kigkonsult.se
+RELATED-TO:20130512T130948CEST-8545DI61ZV@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RESOURCES:Resource R4
+RESOURCES:Resource #P1
+SUMMARY:Event #43. Mauris vulputate.
+X-PROP2:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-89016kzBH6@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+CATEGORIES:Category #9
+CATEGORIES:Category #A9\,Category #XB3
+COMMENT:Fusce id nisl ut enim consectetur pulvinar. Ut auctor elit at lorem
+ . Maecenas purus arcu\, faucibus eu\, iaculis quis\, pretium quis\, velit.
+CREATED:20130518T060000Z
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+DTSTART;VALUE=DATE:20130519
+LAST-MODIFIED:20130519T070000Z
+PRIORITY:3
+RDATE;VALUE=DATE:20130527
+RELATED-TO:20130512T130948CEST-8303lVT4VX@kigkonsult.se
+RESOURCES:Resource R4
+RESOURCES:Resource #P3\,Resource #XP3
+STATUS:TENTATIVE
+SUMMARY:Event #44. Duis ac dui sit amet ante auctor euismod.
+TRANSP:OPAQUE
+URL:http://kigkonsult.se/info/index.php?event=44
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget
+  felis. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis lig
+ ula non est.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-85711jlGZD@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+CATEGORIES:Category #5
+CATEGORIES:Category #A5
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+CLASS:PRIVATE
+CREATED:20130517T090000Z
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART:20130519T090000Z
+DURATION:PT5H0M0S
+GEO:+12.867;-121.5
+ORGANIZER:MAILTO:Anna.Martin@kigkonsult.se
+PRIORITY:8
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130515
+RESOURCES:Resource R4
+SEQUENCE:1
+SUMMARY:Event #40. Duis ac dui sit amet ante auctor euismod.
+X-PROP1:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+X-PROP2:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:Noa.Singh@org.org
+ATTENDEE:MAILTO:WeiNayak@siteOnThe.net
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+SUMMARY:Event #40. Duis ac dui sit amet ante auctor euismod.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8395XlzvRF@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:T.Dubois@kigkonsult.se
+CATEGORIES:Category #10
+CONTACT:SFournier@org.org
+CLASS:PRIVATE
+CREATED:20130517T160000Z
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+DTSTART:20130519T160000Z
+ORGANIZER:MAILTO:Noa.Singh@org.org
+RELATED-TO:20130512T130948CEST-8586uBVVzD@kigkonsult.se
+RECURRENCE-ID;VALUE=DATE:20130512
+RESOURCES:Resource R10
+SEQUENCE:2
+STATUS:CANCELLED
+SUMMARY:Event #38. Mauris vulputate.
+TRANSP:OPAQUE
+X-PROP1:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:NFournier@kigkonsult.se
+ATTENDEE:MAILTO:JCastillo@kigkonsult.se
+DESCRIPTION:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero 
+ accumsan turpis\, et egestas nunc purus et erat.
+SUMMARY:Event #38. Mauris vulputate.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8947Nrbzre@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:Julia.Kim@kigkonsult.se
+ATTENDEE:MAILTO:HMichel@kigkonsult.se
+CATEGORIES:Category #3
+CATEGORIES:Category #A8\,Category #XB9
+COMMENT:Vestibulum ante ipsum primis in faucibus orci luctus et ultrices po
+ suere cubilia Curae\; Curabitur tempor sodales ante.
+CONTACT:NCastillo@kigkonsult.se
+CREATED:20130519T120000Z
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART;VALUE=DATE:20130520
+GEO:+06.22602;-5.692063
+LAST-MODIFIED:20130520T130000Z
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RESOURCES:Resource R7
+SUMMARY:Event #47. Nulla sapien pede\, dapibus sed.
+BEGIN:VALARM
+ACTION:EMAIL
+ATTENDEE:MAILTO:SemNayak@org.org
+ATTENDEE:MAILTO:MilanKhan@kigkonsult.se
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+SUMMARY:Event #47. Nulla sapien pede\, dapibus sed.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8961REiUSu@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:LiMichel@siteOnThe.net
+ATTENDEE:MAILTO:D.Martin@siteOnThe.net
+CATEGORIES:Category #10
+CATEGORIES:Category #A6
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+CONTACT:L.Singh@org.org
+CREATED:20130519T160000Z
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART;VALUE=DATE:20130520
+EXDATE;VALUE=DATE:20130521
+PRIORITY:7
+RDATE;VALUE=DATE:20130528
+RELATED-TO:20130512T130948CEST-8446bStXu5@kigkonsult.se
+RESOURCES:Resource R3
+RESOURCES:Resource #P7
+SUMMARY:Event #48. Maecenas tristique\, pede_id_sollicitudin_posuere\, enim
+  nibh mollis odio.
+X-PROP1:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero accu
+ msan turpis\, et egestas nunc purus et erat.
+X-PROP2:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8856I4tsrV@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:Jing.Diaz@siteOnThe.net
+ATTENDEE:MAILTO:L.Singh@kigkonsult.se
+CATEGORIES:Category #2
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+CLASS:CONFIDENTIAL
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+DTSTART:20130520T100000Z
+DTEND:20130521T050000Z
+EXDATE:20130520T100000Z
+GEO:-48;-7.11452
+LAST-MODIFIED:20130519T110000Z
+ORGANIZER:MAILTO:RThomas@siteOnThe.net
+PRIORITY:8
+RRULE:FREQ=MONTHLY;COUNT=5;BYDAY=MO,TU,WE,TH,FR
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RESOURCES:Resource R10
+RESOURCES:Resource #P9\,Resource #XP6
+STATUS:CANCELLED
+SUMMARY:Event #41. Nulla sapien pede\, dapibus sed.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTENDEE:MAILTO:Sophie.Garcia@org.org
+ATTENDEE:MAILTO:Jing.Bertrand@org.org
+DESCRIPTION:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivam
+ us tempus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\
+ , egestas vel\, massa.
+SUMMARY:Event #41. Nulla sapien pede\, dapibus sed.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8689fa3XWO@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:LuukKhan@siteOnThe.net
+CATEGORIES:Category #2
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+CLASS:CONFIDENTIAL
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART:20130520T140000Z
+DTEND:20130520T220000Z
+GEO:+12.128906;+141.1766
+LAST-MODIFIED:20130519T150000Z
+LOCATION:Location #45
+RELATED-TO:20130512T130948CEST-8327TZSzh1@kigkonsult.se
+RECURRENCE-ID:20130517T050000Z
+RESOURCES:Resource R6
+RESOURCES:Resource #P9\,Resource #XP10
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Event #45. Mauris vulputate.
+URL:http://kigkonsult.se/info/index.php?event=45
+X-PROP1:Pellentesque bibendum\, ipsum et rutrum volutpat\, arcu libero accu
+ msan turpis\, et egestas nunc purus et erat.
+X-PROP2:Lorem ipsum dolor sit amet\, consectetur adipiscing elit. Vivamus t
+ empus erat vel risus. Aenean augue velit\, bibendum ac\, porttitor ut\, eg
+ estas vel\, massa.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+TRIGGER:-PT4H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:EMAIL
+ATTENDEE:MAILTO:JCastillo@org.org
+ATTENDEE:MAILTO:T.Dubois@org.org
+SUMMARY:Event #45. Mauris vulputate.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8874uVa87l@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+CATEGORIES:Category #10
+COMMENT:Fusce vel sem quis felis dictum venenatis. Sed ipsum. Fusce vel dia
+ m sit amet sapien pretium pretium.
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+CLASS:CONFIDENTIAL
+CREATED:20130518T160000Z
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART:20130520T160000Z
+DTEND:20130521T020000Z
+GEO:-55.177;-146.6969
+PRIORITY:2
+RELATED-TO:20130512T130948CEST-8510MtWSWl@kigkonsult.se
+RESOURCES:Resource R4
+SUMMARY:Event #42. Suspendisse_pellentesque_velit_in_tortor.
+X-PROP1:Phasellus tempor dui nec velit. Quisque viverra\, nunc vel facilisi
+ s accumsan\, lorem lacus consequat libero\, sed lobortis justo nisl at odi
+ o.
+BEGIN:VALARM
+ACTION:AUDIO
+ATTACH;FMTTYPE=audio/basic:ftp://kigkonsult.se/sounds/bell-01.aud
+DURATION:PT1H0M0S
+REPEAT:2
+TRIGGER:-PT1H0M0S
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8933ufgUwB@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:DaanNayak@org.org
+CATEGORIES:Category #9
+COMMENT:Praesent eros nibh\, posuere at\, hendrerit non\, aliquam a\, sapie
+ n. Curabitur commodo orci eget neque. Vivamus tempor posuere sapien.
+CONTACT:LiBernard@kigkonsult.se
+CREATED:20130519T050000Z
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART:20130521T050000Z
+DTEND:20130521T140000Z
+GEO:-15.87;-16.376
+LAST-MODIFIED:20130520T060000Z
+RRULE:FREQ=WEEKLY;UNTIL=20130614T050000Z;BYDAY=MO,WE,FR
+RESOURCES:Resource R4
+SUMMARY:Event #46. Suspendisse_pellentesque_velit_in_tortor.
+URL:http://kigkonsult.se/info/index.php?event=46
+X-PROP2:Aenean vel lorem sed tortor venenatis scelerisque. Integer eget fel
+ is. Sed id justo. Sed ullamcorper mauris nec eros. Praesent mattis ligula 
+ non est.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+TRIGGER:-PT4H0M0S
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8992FufTzZ@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.rtf
+ATTENDEE:MAILTO:JBernard@org.org
+CATEGORIES:Category #2
+CATEGORIES:Category #A6\,Category #XB1
+CONTACT:NRoux@siteOnThe.net
+DESCRIPTION:Sed varius dignissim est. Integer venenatis\, odio vel imperdie
+ t tincidunt\, felis mi consectetur quam\, at consequat justo dui eu ante. 
+ Nam nec lectus.
+DTSTART:20130521T060000Z
+DTEND:20130521T080000Z
+EXDATE:20130521T060000Z
+GEO:-02.000698;+15.025
+LOCATION:Location #50
+ORGANIZER:MAILTO:Hussain.Kim@siteOnThe.net
+PRIORITY:3
+RRULE:FREQ=WEEKLY;UNTIL=20130616T060000Z;BYDAY=SA,SU
+RELATED-TO:20130512T130948CEST-8303lVT4VX@kigkonsult.se
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RESOURCES:Resource R2
+RESOURCES:Resource #P6
+SUMMARY:Event #50. Mauris vulputate.
+X-PROP2:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum ut\
+ , ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpis.
+END:VEVENT
+BEGIN:VEVENT
+UID:20130512T130948CEST-8492WSj09R@kigkonsult.se
+DTSTAMP:20130512T110948Z
+ATTENDEE:MAILTO:SemRoux@kigkonsult.se
+CATEGORIES:Category #6
+CATEGORIES:Category #A5
+COMMENT:Fusce vel sem quis felis dictum venenatis. Sed ipsum. Fusce vel dia
+ m sit amet sapien pretium pretium.
+COMMENT:Sed nunc ligula\, consequat vel\, facilisis eu\, vulputate sed\, li
+ bero. Maecenas vel augue mattis risus elementum mattis.
+CLASS:PUBLIC
+CREATED:20130519T110000Z
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+DTSTART:20130521T110000Z
+DURATION:PT18H0M0S
+GEO:+62.32;+89.62
+REQUEST-STATUS:3.11;REQUEST-STATUS text
+RECURRENCE-ID;VALUE=DATE:20130514
+RESOURCES:Resource R8
+RESOURCES:Resource #P10\,Resource #XP5
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Event #49. Mauris vulputate.
+TRANSP:OPAQUE
+URL:http://kigkonsult.se/info/index.php?event=49
+X-PROP1:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum ut\
+ , ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpis.
+BEGIN:VALARM
+ACTION:EMAIL
+ATTACH;FMTTYPE=application/binary:http://kigkonsult.se/info/info.doc
+ATTENDEE:MAILTO:Noa.Chandra@org.org
+ATTENDEE:MAILTO:L.Bertrand@kigkonsult.se
+DESCRIPTION:Donec libero dolor\, tincidunt vel\, fermentum at\, condimentum
+  ut\, ante. Nam mi. Aliquam lobortis enim at mi. Donec ornare varius turpi
+ s.
+SUMMARY:Event #49. Mauris vulputate.
+TRIGGER:-PT24H0M0S
+END:VALARM
+END:VEVENT
+END:VCALENDAR

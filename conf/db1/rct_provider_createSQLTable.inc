@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_provider(_oid INT AUTO_INCREMENT NOT NULL,_name TEXT,_code TEXT,_contact_name TEXT,_email TEXT,_adress VARCHAR(255),_notes VARCHAR(255),PRIMARY KEY(_oid))"; ?>

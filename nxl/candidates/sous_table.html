@@ -1,0 +1,36 @@
+<div class="pm-grid-outer-wrapper">
+
+	<div class="generis-toolbar-wrapper">
+		<div class="generis-toolbar">
+			{include:common/list_buttons}
+		</div>
+	</div>
+
+	{records:page.records}
+	{if:records.count>0}
+		<div class="pm-grid-wrapper">
+			<table id="table-{var:tab}" class="pm-grid">
+			{record}
+				{content:operations}
+					{include:common/list_record_buttons}
+				{/content}
+
+				{include:common/grid_header}
+
+				<tr class="row-{record.index} grid-row row_{record.even_odd}"
+					onclick="ajax_navigate(event,'{var:edit_url}{record.url_key}&mode=ajax','content')">
+				{fields}
+					<td class="cell-{field.index} cell-{field.name}"><div class="simple-wrapper">{field}</div></td>
+				{/fields}
+
+				<td class="operations operations-2" onclick="window.event.cancelBubble = true;if(event.stopPropagation) event.stopPropagation();return false;"><div class="simple-wrapper">{=operations}</div></td>
+
+				</tr>
+			{/record}
+			</table>
+		</div>
+	{/if}
+	{/records}
+
+	{include:common/grid_empty}
+</div>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_name,_url,_key,_login,_password,_type,_active_app,_auth_type,_data_type,_notification,_comment FROM _rct_services_web WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_candidate_email WHERE _cvkey='".$props->getProperty("cv_key","",true)."'"; ?>

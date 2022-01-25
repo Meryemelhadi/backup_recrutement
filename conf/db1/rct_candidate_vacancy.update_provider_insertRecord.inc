@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_candidate_vacancy(_cv_source_oid) VALUES('".$props->getProperty("provider_oid","",true)."')"; ?>

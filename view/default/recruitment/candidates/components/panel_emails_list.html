@@ -1,0 +1,77 @@
+<script language="php">
+		$emails = new PersistentCollection('rct_email_cand.list','db',array('candidate_oid',$_REQUEST['oid']));
+		if($emails->isOk())
+			$this->setProperty('page.records',$emails->records);
+
+		$actions = array(
+			'add_email' => array('name'=>('add_email'),'iconCls'=>'si-email-go','dialog'=> array('nxo' => 'emails:add','target'=>'content-emails')),
+			// 'add_sms'=>array('nxo'=>'emails:add','iconCls'=>'si-add','id'=>'content-emails')
+		);
+		$listOperations = array(
+			'edit'=>array('nxo'=>'emails:display','iconCls'=>'si-page-white','id'=>'content-emails'),
+			//'delete'=>array('nxo'=>'emails:delete','iconCls'=>'si-delete','confirm'=>true)
+		);
+		$tabId='emails';
+		$opPar='nxo';
+		$this->setProperty('nxo','nxo');
+		$title = "Emails envoyés au candidat";
+		
+	</script>
+
+	
+			{records:page.records}
+			{if:records.count>0}
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+						
+						{record}
+						{if:record.index == 0}
+							{fields}
+								<th>{field.label}</th>
+							{/fields}
+						{/if}
+						{/record}
+						</tr>
+					 </thead>
+					{record}
+						<tr class="row-{record.index} grid-row row_{record.even_odd}">
+						{fields}
+							{if:#field.name != 'email_content'}
+								<td class="cell-{field.index} cell-{field.name}"><div class="simple-wrapper">{field}</div></td>
+							{/if}
+						{/fields}
+
+						<td class="operations operations-2">
+							<div class="simple-wrapper">
+								<a href="javascript:void(0);" class="s-icon si-page-white" title="Modifier" onclick="ajax_navigate(event,'?nxo=emails:display&amp;oid={field:oid}&amp;mode=ajax','content-emails')"><span class="x-hidden">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+							</div>
+						</td>
+
+						</tr>
+					{/record}
+				</table>
+			</div>
+			{/if}
+			{/records}
+
+			<div class="pm-grid-outer-wrapper">
+
+				{no_record}
+				<div class="tab_empty"><?php
+					$msg = $this->getProperty('tab_empty_list_msg');
+					if(!$msg)
+						$msg = __('emails_empty_list');
+					echo $msg;
+				?>
+				</div>
+				{/no_record}
+			</div>		
+					
+		
+
+
+
+
+

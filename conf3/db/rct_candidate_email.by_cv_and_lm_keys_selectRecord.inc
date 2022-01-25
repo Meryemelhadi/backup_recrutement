@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid,_candidate_oid,_date,_email_from_name,_email_from,_email_title,_email_content,_email_content_html,_cvkey,_cv,_lmkey,_lm FROM _rct_candidate_email WHERE _lmkey='".$props->getProperty("lm_key","",true)."' AND _cvkey='".$props->getProperty("cv_key","",true)."'"; ?>

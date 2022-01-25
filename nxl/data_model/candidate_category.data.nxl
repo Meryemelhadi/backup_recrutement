@@ -1,0 +1,85 @@
+<?xml version="1.0"?> 
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="rct_candidate_category">
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>
+	
+				<fields mode="search">
+					<field name="name" label="name" type="line" />
+				</fields>
+				
+				<key mode="by_value">
+					<field name="name" label="name" type="line" value="%{property:value}" />
+				</key>
+				
+				<key mode="ds_list"></key>
+				<sort mode="ds_list">
+					<field name="name" direction="asc" />
+				</sort>
+
+				<key mode="ds_list_all">
+					<field name="oid" label="oid" type="oid" relation="in" value="%{property:cat.enum}"/>
+				</key>				
+				<sort mode="ds_list_all">
+					<field name="name" direction="asc" />
+				</sort>
+								
+				<pages mode="list" alias="page" pageOffset="%{get:page}" recordsPerPage="50" />
+				<key mode="list">
+					<or>
+						<field name="name" label="name" type="line" relation="LIKE" />
+						<field name="name" label="input" type="line" relation="LIKE" value="%{property:input}"/>
+						<field name="name" label="input1" type="line" relation="LIKE" value="%{property:input2}"/>
+					</or>
+				</key>
+				<sort mode="list">
+					<field name="name" direction="asc" />
+				</sort>
+				<fields mode="list">
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+				</fields>
+
+				<sort>
+					<field name="name" direction="asc" />
+				</sort>
+				<fields>
+					<field name="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+					<field name="name" label="name" type="line" />
+				</fields>
+			</table>
+
+			<table name="rct_candidate_category_assoc">
+				<key mode="by_key">
+					<field name="key" type="ref-oid" value="%{property:key}"/>   
+				</key>
+
+				<key>
+					<field name="key"  type="ref-oid" value="%{property:key}"/>
+				</key>
+
+				<fields>
+					<field name="oid"  label="oid" type="oid" isKey="primary" show="hidden" isEdit="no"/>
+					<field name="key"  type="ref-oid" />
+					<field name="val"  type="ref-oid" />
+				</fields>
+			</table>	
+		</tables>
+	</data>
+</nxl>

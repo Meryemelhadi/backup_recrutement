@@ -1,0 +1,40 @@
+<div class="pm-button-wrapper align-left clear-both pm-bxm-top-button-wrapper">					
+
+</div>
+<div class="directory-card-main-content clear-both">
+
+	<div id="interviews-calendar"></div>
+	
+	<div class="calendar-legend"></div>
+</div>
+
+<script>
+	ajax_require('/nx/controls/pm/pm-calendar.js','calendar');
+	ajax_load_css('/nx/skins/lightsky/css/calendar.css');
+
+	ajax_onload(
+	function() {
+		window.interviewsCalendar = new PMCalendar(new Date(), 'interviews-calendar', 'interviewsCalendar', '{=interviews_list.url}');
+		window.interviewsCalendar.getCalendarHTML(0);
+
+		},'calendar');
+
+</script>
+
+<?php
+	require_once(NX_LIB."login/NxLogin_key.inc");
+	$login=new NxLogin_key($_NX_site);
+	$pKey='&amp;'.$login->getCurrentParamKey(true);
+
+	$startdate = date('Y/01/01 00:00:00');
+	$enddate = date('Y/01/01 00:00:00',strtotime("now + 1 year"));
+	$timepar="&amp;start_date=$startdate&amp;end_date=$enddate";
+?>
+
+<!-- <div class="bottom-toolbar">
+	<a target="_blank" href="{=ics_export.url}{$pKey}{$timepar}" class="action s-icon si-calendar"><span>{string:"ics_export"}</span></a>
+</div>
+ -->
+<div class="bottom-toolbar">
+    <a href="{=ics_export.url}" class="action s-icon si-calendar"><span>{string:"ics_export"}</span></a>
+</div>

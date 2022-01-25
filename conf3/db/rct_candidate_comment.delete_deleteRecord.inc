@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_candidate_comment WHERE _oid='".$this->getParamValue("oid","","request",",")."'"; ?>

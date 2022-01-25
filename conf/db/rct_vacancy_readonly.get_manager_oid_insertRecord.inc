@@ -1,0 +1,2 @@
+<?php $properties["query"]="INSERT INTO _rct_vacancy_readonly(_manager_oid,_establishment) VALUES(".$record->getFieldValue("manager_oid","DB","NULL").",".
+$record->getFieldValue("establishment","DB","NULL").")"; ?>

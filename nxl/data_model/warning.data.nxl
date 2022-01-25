@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<tables>
+	
+			<table name="rct_warning">
+
+			
+
+			
+
+			
+
+			
+
+				<query type="select" mode="email_data">
+
+					SELECT
+
+						_vc._name AS vacancy_name,
+
+						_w._subject AS _notification_subject,
+
+						_w._notification_content AS _notification_content,
+
+						_w._concerned_people AS _concerned_people
+
+					FROM _rct_warning _w
+
+					LEFT JOIN _rct_vacancy _vc ON _vc._oid = _w._vacancy_oid
+
+					WHERE
+
+						_w._notification_state = '0'
+
+					AND
+
+						_w._date <= NOW()
+
+				</query>
+
+			
+
+				<fields mode="email_data">
+
+					<field name="vacancy_name" label="vacancy_name" type="line" is_transient="true" />
+
+					<field name="notification_subject" label="notification_subject" type="line" is_transient="true" />
+
+					<field name="notification_content" label="notification_content" type="line" is_transient="true" />
+
+					<field name="concerned_people" label="concerned_people" type="line" is_transient="true" />
+
+					
+
+					<field name="to" label="to" type="line" is_transient="true" />
+
+					<field name="subject" label="subject" type="line" is_transient="true" />
+
+					<field name="body" label="body" type="line" is_transient="true" />
+
+				</fields>
+
+				
+
+				
+
+				
+
+				<key mode="change_notification_state">
+
+					<field name="notification_state" type="integer" value="0" />
+
+					<field name="date" type="date" relation="LTE" value="now" />
+
+				</key>			
+
+				<fields mode="change_notification_state">
+
+					<field name="notification_state"  type="integer" value="1" />
+
+				</fields>
+
+				
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+
+			
+				<key mode="record">
+					<field name="oid" type="oid" />
+				</key>	
+				
+				<key mode="list">
+
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" value="%{request:oid}" />
+
+				</key>
+
+				<query mode="list" type="select">
+
+					SELECT
+
+						_rct_warning._oid as _oid,
+
+						_rct_warning._vacancy_oid as _vacancy_oid,
+
+						CONCAT_WS(' ',_user2._first_name, _user2._last_name) as _scheduled_by,
+
+						_rct_warning._scheduled_on as _scheduled_on,
+
+						_rct_warning._date as _date,
+
+						_rct_warning._subject as _subject,
+
+						_rct_warning._notification_content as _notification_content,
+
+						GROUP_CONCAT(CONCAT_WS(' ',_user._first_name, _user._last_name) SEPARATOR ', ') as _concerned_people
+
+					FROM
+
+						_rct_warning
+
+					LEFT JOIN
+
+						_rct_warning_concerned_people ON _rct_warning._oid = _rct_warning_concerned_people._key
+
+					LEFT JOIN
+
+						_user ON _rct_warning_concerned_people._val = _user._oid
+
+					LEFT JOIN _user as _user2 ON _user2._oid = _rct_warning._scheduled_by
+
+					WHERE
+
+						_rct_warning._vacancy_oid = '".$_REQUEST['oid']."'
+
+					GROUP BY
+
+						_rct_warning._oid
+
+				</query>
+
+				<fields mode="list">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />	
+
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" />
+
+					<field name="scheduled_by" label="scheduled_by" type="line" />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+
+					<field name="date" label="date" type="date" format="%d %B %Y" />
+
+					<field name="subject" label="subject" type="text" />
+
+					<field name="notification_content" label="notification_content" type="text" multiLines="auto" size="255" />
+
+					<field name="concerned_people" label="concerned_people" type="line" />
+
+				</fields>
+
+				
+
+				<fields mode="schedule">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" value="%{property:vacancy_oid}" show="hidden" />
+
+					<field name="scheduled_by" label="scheduled_by" type="ref-oid" value="%{user:oid}" show="hidden" />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" value="now" show="hidden" />
+
+					<field name="date" label="date" type="date" default="now+5 days" />
+
+					<field name="subject" label="subject" type="text" />
+
+					<field name="notification_content" label="notification_content" type="text" multiLines="auto" size="255" />
+
+					<field 
+
+						name			= "concerned_people"
+
+						label			= "concerned_people" 
+
+						type			= "text-choice-table" 
+
+						list			= "concerned_people"
+
+						prompt			= "concerned_people..."
+
+						multiple		= "yes"
+
+						control			= "facebook_list"
+
+						ds				= "db:user.ds_list_all@recruitment"
+
+						ds_link			= "rct_warning_concerned_people"
+
+						ds_format		= "{field:first_name} {field:last_name}"
+
+						ds_field_value	= "oid" />
+
+					<field name="notification_state" label="notification_state" type="integer" show="hidden" value="0" />
+
+				</fields>
+
+				
+
+				<key mode="edit">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+				</key>
+
+				<fields mode="edit">
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />
+
+					<field name="date" label="date" type="date" />
+
+					<field name="subject" label="subject" type="text" />
+
+					<field name="notification_content" label="notification_content" type="text" multiLines="auto" size="255" />
+
+					<field 
+
+						name			= "concerned_people"
+
+						label			= "concerned_people" 
+
+						type			= "text-choice-table" 
+
+						list			= "concerned_people"
+
+						prompt			= "concerned_people..."
+
+						multiple		= "yes"
+
+						control			= "facebook_list"
+
+						ds				= "db:user.ds_list_all@recruitment"
+
+						ds_link			= "rct_warning_concerned_people"
+
+						ds_format		= "{field:first_name} {field:last_name}"
+
+						ds_field_value	= "oid" />
+
+				</fields>
+
+				
+
+				<fields>
+
+					<field name="oid" label="oid" type="oid" isKey="primary" />	
+
+					<field name="vacancy_oid" label="vacancy_oid" type="ref-oid" sqlType="integer" />
+
+					<field name="scheduled_by" label="scheduled_by" type="text-choice" control="select" multiple="false" ds="db:user.ds_list" ds_format="{field:first_name} {field:last_name}" ds_field_value="oid" prompt="select a user..." />
+
+					<field name="scheduled_on" label="scheduled_on" type="timestamp" format="%d %B %Y &amp;agrave; %H:%M" />
+
+					<field name="date" label="date" type="date" />
+
+					<field 
+
+						name			= "concerned_people"
+
+						label			= "concerned_people" 
+
+						type			= "text-choice-table" 
+
+						list			= "concerned_people"
+
+						prompt			= "concerned_people..."
+
+						multiple		= "yes"
+
+						control			= "facebook_list"
+
+						ds				= "db:user.ds_list_all@recruitment"
+
+						ds_link			= "rct_warning_concerned_people"
+
+						ds_format		= "{field:first_name} {field:last_name}"
+
+						ds_field_value	= "oid" />
+
+					<field name="subject" label="subject" type="line" />
+
+					<field name="notification_content" label="notification_content" type="text" />
+
+					<field name="notification_state" label="notification_state" type="integer" />				
+
+				</fields>
+				
+
+				
+
+			</table>
+
+			
+
+			
+
+			
+
+			<table name="rct_warning_concerned_people">
+
+				<key mode="by_key_to_delete">
+
+					<field name="key" type="ref-oid" value="%{request:oid}"/>   
+
+				</key>
+
+				<key mode="by_key">
+
+					<field name="key" type="ref-oid" value="%{property:key}"/>   
+
+				</key>
+
+				<key>
+
+					<field name="key"  type="ref-oid" value="%{property:key}"/>
+
+				</key>
+
+				<fields>
+
+					<field name="oid"  label="oid" type="oid" isKey="primary" show="hidden" isEdit="no"/>
+
+					<field name="key"  type="ref-oid" />
+
+					<field name="val"  type="ref-oid" />
+
+				</fields>
+
+			</table>
+
+			
+
+		
+		
+		</tables>
+
+
+
+		
+	</data>
+
+</nxl>

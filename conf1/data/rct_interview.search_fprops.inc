@@ -1,0 +1,7 @@
+<?php $properties["fprops"]=array(
+array('name'=>'candidate_oid','label'=>'candidate_oid','type'=>'text_choice','control'=>'select','multiple'=>false,'class'=>'test','ds'=>'db:rct_candidate.clist','ds_format'=>'{field:first_name} {field:last_name}','ds_field_value'=>'oid','sqltype'=>'integer','srcName'=>'candidate_oid','ufname'=>'_candidate_oid','qname'=>'rct_interview_candidate_oid','list'=>'candidate_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'vacancy_oid','label'=>'vacancy_oid','type'=>'text_choice','control'=>'select','multiple'=>false,'ds'=>'handler:recruitment.vacancy.list.interview@recruitment','ds_format'=>'{field:name} ({field:code})','ds_field_value'=>'oid','sqltype'=>'integer','srcName'=>'vacancy_oid','ufname'=>'_vacancy_oid','qname'=>'rct_interview_vacancy_oid','list'=>'vacancy_oid','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),);
+$properties["falias"]=array('candidate_oid'=>'candidate_oid','_candidate_oid'=>'candidate_oid','vacancy_oid'=>'vacancy_oid','_vacancy_oid'=>'vacancy_oid',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_interview.search','table'=>'_rct_interview');
+ ?>

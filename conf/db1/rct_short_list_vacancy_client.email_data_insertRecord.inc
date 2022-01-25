@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _rct_short_list_vacancy_client() VALUES("..")"; ?>

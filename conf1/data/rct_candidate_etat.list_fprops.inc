@@ -1,0 +1,12 @@
+<?php $properties["fprops"]=array(
+array('name'=>'oid','label'=>'oid','type'=>'text','isKey'=>'primary','isEdit'=>false,'show'=>false,'srcName'=>'oid','ufname'=>'_oid','qname'=>'rct_candidate_etat_oid','onInput'=>"keypress_number(event)",'size'=>'8','maxLength'=>'10','multiLines'=>false,),
+array('name'=>'index','type'=>'text','label'=>'index','srcName'=>'index','ufname'=>'_index','qname'=>'rct_candidate_etat_index','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'name','label'=>'name','type'=>'text','srcName'=>'name','ufname'=>'_name','qname'=>'rct_candidate_etat_name','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),
+array('name'=>'taskType','type'=>'text_choice','list'=>'recruitment.workflow_task@recruitment','default'=>'0','label'=>'taskType','srcName'=>'taskType','ufname'=>'_taskType','qname'=>'rct_candidate_etat_taskType','control'=>'select','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'in_home','type'=>'text_choice','list'=>'recrute.boolean@recruitment','default'=>'1','sqltype'=>'CHAR(2) NULL DEFAULT 1','label'=>'in_home','srcName'=>'in_home','ufname'=>'_in_home','qname'=>'rct_candidate_etat_in_home','control'=>'select','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'vacancy_status','prompt'=>'Action candidat dans poste...','label'=>'status','type'=>'text_choice','list'=>'recruitment.candidate_vacancy_action','control'=>'select','sqltype'=>'integer','srcName'=>'vacancy_status','ufname'=>'_vacancy_status','qname'=>'rct_candidate_etat_vacancy_status','onSubmitCheck'=>"checkSelect('%3\$s',(%1\$s.%2\$s||%1\$s['%2\$s[]']),%4\$s)",),
+array('name'=>'color','label'=>'color','type'=>'text','size'=>'20','control'=>'colorpicker','show'=>true,'srcName'=>'color','ufname'=>'_color','qname'=>'rct_candidate_etat_color','multiLines'=>false,'onSubmitCheck'=>"checkText('%3\$s',%1\$s.%2\$s,%4\$s)",),);
+$properties["falias"]=array('oid'=>'oid','_oid'=>'oid','index'=>'index','_index'=>'index','name'=>'name','_name'=>'name','taskType'=>'taskType','_taskType'=>'taskType','in_home'=>'in_home','_in_home'=>'in_home','vacancy_status'=>'vacancy_status','_vacancy_status'=>'vacancy_status','color'=>'color','_color'=>'color',);
+$properties['frole']=array();
+$properties['rprops']=array('name'=>'rct_candidate_etat.list','table'=>'_rct_candidate_etat');
+ ?>

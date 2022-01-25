@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE nxl [
+<!ENTITY eacute "&#233;"> 
+<!ENTITY agrave "&#192;">
+]>
+<nxl 
+	version				= "1.0"
+	xmlns				= "http://www.nxfrontier.com/nxl/nxl" 
+	xmlns:site_config	= "http://www.nxfrontier.com/site_config"
+	config				= "site_config"
+	package				= "recruitment">
+
+	<!-- data -->
+	<data xmlns="http://www.nxfrontier.com/dml/dml">
+	
+		<views>
+		
+			<view 
+				name	= "rct_vacancy.dashboards.recruitments_synthesis.search"
+				table	= "rct_vacancy">
+				<fields>
+					
+					<field name="name" label="name" type="line" />
+					<field name="service_oid" label="service_oid" type="text-choice" control="select" multiple="false" ds="db:rct_service.ds_list" ds_format="{field:name}" ds_field_value="oid" sqlType="integer" prompt="service_oid..." />
+					<field name="opening_date_start" label="opening_date_start" type="date" />
+					<field name="opening_date_end" label="opening_date_end" type="date" />
+					<field name="application_type" label="application_type" type="text-choice" list="recruitment.application_type" control="select" sqlType="integer" prompt="application_type..." />
+					<field name="current_step" label="current_step" type="text-choice" list="recruitment.vacancy_step" control="select" sqlType="integer" prompt="current_step ..." />
+					<field name="progress_level" label="progress_level"  type="text-choice" list="recruitment.vacancy_progress_level" control="select" prompt="progress_level ..." />
+								
+				</fields>
+			</view>
+			
+			
+			
+			<view 
+				name	= "rct_vacancy.dashboards.recruitments_synthesis.list"
+				table	= "rct_vacancy" 
+				handler	= "lib.recruitment.dashboards.records.recruitments_synthesis">
+				<fields>
+						
+					<field name="oid" label="oid" type="oid" />
+					<field name="name" label="name" type="line" />
+					<field name="number" label="number" type="line" />
+					<field name="service_name" label="service_name" type="line" />
+					<field name="years_of_practice" label="years_of_practice" type="line"  />
+					<field name="suited_diplomas" label="suited_diplomas" type="line" />
+					<field name="mission_start_date" label="mission_start_date" type="date" format="%d %B %Y" />
+					
+					<field name="application_type" label="application_type" type="text-choice" list="recruitment.application_type" control="select" sqlType="integer" default="0" is_transient="true" />
+					
+					<field name="application_type" label="application_type" type="text-choice" list="recruitment.application_type" control="select" sqlType="integer" default="0" />
+					<field name="providers" label="providers" type="line" />
+					<field name="current_step" type="integer" show="hidden" />
+					<field name="nb_candidates" type="integer" show="show" />
+
+					<field 
+						name			= "manager_oid"
+						label			= "manager_oid" 
+						type			= "text-choice" 
+						prompt			= "manager_oid..."
+						multiple		= "false"
+						control			= "select"
+						ds				= "db:user.ds_list_all@recruitment"
+						ds_format		= "{field:first_name} {field:last_name}"					
+						ds_field_value="oid" sqlType="integer"/>
+
+					<field name="progress_level" label="progress_level"  type="text-choice" list="recruitment.vacancy_progress_level" control="select" show="hidden" />
+					<field name="progress_level_meta" label="progress_level_meta" type="expression" field="progress_level" key="oid" control_html="progress_level" />
+									
+				</fields>
+			</view>
+			
+		</views>
+
+	</data>
+
+</nxl>

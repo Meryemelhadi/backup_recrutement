@@ -1,0 +1,1 @@
+<?php $properties["query"]="UPDATE _rct_vacancy SET _workflow_state='".$this->getParamValue("validation_key","","request",",")."',_opening_date=NOW(),_progress_level='0',_current_step='0' WHERE _oid=".$this->getFieldParam("oid","null",",",$record,""); ?>

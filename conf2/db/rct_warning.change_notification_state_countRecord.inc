@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT COUNT(*) as nbrecords FROM _rct_warning WHERE _notification_state='0' AND _date<=NOW()"; ?>

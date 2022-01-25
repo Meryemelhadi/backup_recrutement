@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _directory_country WHERE ".$this->getWhereClause("_country_name",$this->getFieldParam("country_name","null","|",$record,""),'LIKE','OR','%','%',true,false,'|','false'); ?>

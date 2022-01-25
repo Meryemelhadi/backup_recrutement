@@ -1,0 +1,31 @@
+{records:page.records}
+{if:records.count>0}
+<div class="pm-bxm-box-wrapper pm-bxm-box-last">
+	<div class="pm-bxm-box">
+	
+		<div class="box-title-wrapper box-title-blue">
+			<div class="box-title">
+				<h3>{var:title}</h3>
+			</div>
+		</div>
+		
+		<div class="pm-bxm-box-content" id="received-emails">
+
+			<div class="pm-grid-outer-wrapper">
+				<div class="pm-grid-wrapper">
+					<table id="table-{var:tabId}" class="pm-grid">
+					{record}
+						<tr class="row-{record.index} grid-row row_{record.even_odd}">
+						{fields}
+							<td class="cell-{field.index} cell-{field.name}"><div class="simple-wrapper">{field}</div></td>
+						{/fields}
+						</tr>
+					{/record}
+					</table>
+				</div>
+			</div>		
+		</div>
+	</div>
+</div>
+{/if}
+{/records}

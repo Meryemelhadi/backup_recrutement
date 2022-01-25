@@ -1,0 +1,1 @@
+<?php $properties["query"]="INSERT INTO _directory_country(_country_name) VALUES(".$record->getFieldValue("country_name","DB","NULL").")"; ?>

@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _rct_interview WHERE _candidate_oid='".$props->getProperty("candidate_oid","",true)."' AND _date>=NOW()"; ?>

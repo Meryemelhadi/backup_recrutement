@@ -1,0 +1,1 @@
+<?php $properties["query"]="CREATE TABLE IF NOT EXISTS _rct_entreprise_description_rekrute(_oid INT AUTO_INCREMENT NOT NULL,_name_description TEXT,_entreprise TEXT,_identifiant TEXT,_descriptionEntreprise TEXT,PRIMARY KEY(_oid))"; ?>

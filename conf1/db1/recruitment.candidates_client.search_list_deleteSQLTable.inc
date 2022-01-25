@@ -1,0 +1,1 @@
+<?php $properties["query"]="DROP TABLE IF EXISTS _recruitment_candidates_client_search_list";?>

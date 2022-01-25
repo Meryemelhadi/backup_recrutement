@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _interview_oid,_user_oid,_date,_comment FROM _rct_interview_comment WHERE _interview_oid='".$props->getProperty("interview_oid","",true)."'"; ?>

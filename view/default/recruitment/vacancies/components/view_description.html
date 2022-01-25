@@ -1,0 +1,32 @@
+<!--! {require:js/forms.js:skin} -->
+
+<!--! {record:page.record} -->
+<div class="pm-page-title-wrapper">
+	<h1 class="pm-title">{string:"page_title_view"}</h1>
+	<span class="pm-droiteH1">&nbsp;</span>
+</div>
+	
+	<div class="pm-button-wrapper clearBoth">
+		<a class="pm-button" href="#" onclick="ajax_navigate(event,'{=back.url}','content'); this.blur(); return false;">
+			<span class="pm-button-background">
+				<span class="pm-button-content pm-button-icon pm-button-cancel">{string:"back"}</span>
+			</span>
+		</a>
+	</div>
+<!--! {/record} -->
+
+{include:common/page_message_view}
+{include:common/record}
+<!--! {record:page.record} -->
+
+<div class="pm-page-title-wrapper_footer">
+		<div class="pm-button-wrapper_footer">
+		<a class="pm-button" href="#" onclick="ajax_navigate(event,'{=back.url}','content'); this.blur(); return false;">
+			<span class="pm-button-background">
+				<span class="pm-button-content pm-button-icon pm-button-cancel">{string:"back"}</span>
+			</span>
+		</a>
+	</div>
+</div>
+
+<!--! {/record} -->

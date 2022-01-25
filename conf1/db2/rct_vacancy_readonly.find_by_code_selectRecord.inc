@@ -1,0 +1,1 @@
+<?php $properties["query"]="SELECT _oid FROM _rct_vacancy_readonly WHERE ".$this->getWhereClause("_code","'".$props->getProperty("vacancy_code","",true)."'",'LIKE','OR','%','%',true,false,'|','false'); ?>

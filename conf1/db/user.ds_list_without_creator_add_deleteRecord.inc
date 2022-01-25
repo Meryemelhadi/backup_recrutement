@@ -1,0 +1,1 @@
+<?php $properties["query"]="DELETE FROM _user WHERE _oid<>'".$GLOBALS["_NX_user"]->getProperty("oid","",true)."'"; ?>
