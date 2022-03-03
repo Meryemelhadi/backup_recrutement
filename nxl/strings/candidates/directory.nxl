@@ -548,6 +548,8 @@
 	<i8n:string id="evaluation" value="Evaluation" />
 	<i8n:string id="go_to_evaluation" value="Voir Evaluation" />
 	<i8n:string id="field:interview_feedback" value="Résultat entretien" />
+	<i8n:string id="field:last_position" value="Dernier poste occupé" />
+	<i8n:string id="field:last_company" value="Dernière entreprise" />
 
 	<i8n:string id="page_message_interview_synthesis_add" value="Ce formulaire vous permet de saisir un nouveau compte rendu d'entretien" />
 

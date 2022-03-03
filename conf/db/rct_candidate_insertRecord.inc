@@ -1,4 +1,4 @@
-<?php $properties["query"]="INSERT INTO _rct_candidate(_oid,_first_name,_last_name,_name,_civility,_gender,_date_of_birth,_nationality,_email,_phone_1,_phone_2,_mobile,_address,_zip,_country_oid,_town_oid,_mobility_town_oid,_cand_channel,_hr_manager,_etat_oid,_category_oid,_establishment,_years_of_practice,_application_type,_keywords,_keyword_oid,_src_text,_profile,_tag,_bachelor_title,_bachelor_school,_bachelor_year,_cv_path,_cl_path,_available_from,_available_delai,_salary_min,_salary_max,_salary_current,_salary_package,_add_date,_studies_level,_creation_date,_update_date,_update_info_date,_reading_state,_archive_state,_relevance,_diploma_type,_institution,_diploma,_provider,_vacancies_oid,_last_employment_start_date,_last_employment_end_date,_last_employment,_last_training_start_date,_last_training_end_date,_last_training,_age,_integration_date,_comments_cache,_contact,_md5_cv_ori,_md5_cv_pdf) VALUES(".$record->getFieldValue("oid","DB","NULL").",".
+<?php $properties["query"]="INSERT INTO _rct_candidate(_oid,_first_name,_last_name,_name,_civility,_gender,_date_of_birth,_nationality,_email,_phone_1,_phone_2,_mobile,_address,_zip,_country_oid,_town_oid,_mobility_town_oid,_cand_channel,_hr_manager,_etat_oid,_category_oid,_establishment,_years_of_practice,_application_type,_keywords,_keyword_oid,_src_text,_profile,_tag,_bachelor_title,_bachelor_school,_bachelor_year,_cv_path,_cl_path,_available_from,_available_delai,_salary_min,_salary_max,_salary_current,_salary_package,_add_date,_studies_level,_creation_date,_update_date,_update_info_date,_reading_state,_archive_state,_relevance,_diploma_type,_institution,_diploma,_provider,_vacancies_oid,_last_employment_start_date,_last_employment_end_date,_last_employment,_last_training_start_date,_last_training_end_date,_last_training,_age,_integration_date,_comments_cache,_contact,_md5_cv_ori,_md5_cv_pdf,_last_position,_last_company) VALUES(".$record->getFieldValue("oid","DB","NULL").",".
 $record->getFieldValue("first_name","DB","NULL").",".
 $record->getFieldValue("last_name","DB","NULL").",".
 $record->getFieldValue("name","DB","NULL").",".
@@ -62,4 +62,6 @@ $record->getFieldValue("integration_date","DB","NOW()").",".
 $record->getFieldValue("comments_cache","DB","NULL").",".
 $record->getFieldValue("contact","DB","NULL").",".
 $record->getFieldValue("md5_cv_ori","DB","NULL").",".
-$record->getFieldValue("md5_cv_pdf","DB","NULL").")"; ?>
+$record->getFieldValue("md5_cv_pdf","DB","NULL").",".
+$record->getFieldValue("last_position","DB","NULL").",".
+$record->getFieldValue("last_company","DB","NULL").")"; ?>

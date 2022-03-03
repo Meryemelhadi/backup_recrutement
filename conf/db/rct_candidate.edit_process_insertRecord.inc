@@ -1,4 +1,4 @@
-<?php $properties["query"]="INSERT INTO _rct_candidate(_oid,_first_name,_last_name,_civility,_gender,_cand_channel,_date_of_birth,_nationality,_email,_phone_1,_phone_2,_mobile,_address,_zip,_studies_level,_country_oid,_etat_oid,_town_oid,_mobility_town_oid,_hr_manager,_category_oid,_establishment,_years_of_practice,_available_from,_available_delai,_salary_min,_salary_max,_salary_package,_application_type,_profile,_tag,_bachelor_title,_bachelor_school,_bachelor_year,_update_info_date,_archive_state,_relevance,_integration_date,_contact) VALUES(".$record->getFieldValue("oid","DB","NULL").",".
+<?php $properties["query"]="INSERT INTO _rct_candidate(_oid,_first_name,_last_name,_civility,_gender,_cand_channel,_date_of_birth,_nationality,_email,_phone_1,_phone_2,_mobile,_address,_zip,_studies_level,_country_oid,_etat_oid,_town_oid,_mobility_town_oid,_hr_manager,_category_oid,_establishment,_years_of_practice,_available_from,_available_delai,_salary_min,_salary_max,_salary_package,_application_type,_profile,_tag,_bachelor_title,_bachelor_school,_bachelor_year,_update_info_date,_archive_state,_relevance,_integration_date,_contact,_last_position,_last_company) VALUES(".$record->getFieldValue("oid","DB","NULL").",".
 $record->getFieldValue("first_name","DB","NULL").",".
 $record->getFieldValue("last_name","DB","NULL").",".
 $record->getFieldValue("civility","DB","NULL").",".
@@ -36,4 +36,6 @@ $record->getFieldValue("bachelor_year","DB","NOW()").",".
 $record->getFieldValue("archive_state","DB","0").",".
 $record->getFieldValue("relevance","DB","NULL").",".
 $record->getFieldValue("integration_date","DB","NOW()").",".
-$record->getFieldValue("contact","DB","NULL").")"; ?>
+$record->getFieldValue("contact","DB","NULL").",".
+$record->getFieldValue("last_position","DB","NULL").",".
+$record->getFieldValue("last_company","DB","NULL").")"; ?>

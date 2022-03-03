@@ -2138,6 +2138,14 @@ nxLog('Apply Rules $candidate_oid = '.$candidate_oid,'rules');
 		//Use available_delai retrieved from candidate form if it exists
 		if(isset($oCV->message->form) && isset($oCV->message->form->available_delai))
 			$cvRec->available_delai =  $oCV->message->form->available_delai;
+			
+		//Use last_company retrieved from candidate form if it exists
+		if(isset($oCV->message->form) && isset($oCV->message->form->last_company))
+			$cvRec->last_company =  $oCV->message->form->last_company;
+			
+		//Use last_position retrieved from candidate form if it exists
+		if(isset($oCV->message->form) && isset($oCV->message->form->last_position))
+			$cvRec->last_position =  $oCV->message->form->last_position;
 		
 		$cvRec->src_text->db = $this->replaceAccents($oCV->person->firstName.' '.$oCV->person->lastName.' '.$oCV->src_text);
 

@@ -1725,7 +1725,7 @@ $tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : $firstTab;
 
 //]]>
 </script></td>
-														<td class="td-toolbox">
+														<td class="td-toolbox" style="line-height:1">
 														<div id="panel_toolbox" class="form-panel-bs">
 															<div class="">
 																	<div class="box-title-wrapper box-title-red">
@@ -1819,7 +1819,19 @@ $tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : $firstTab;
 																					<label for="{field.name}" class="control-label-bs control-label">{field.label:mobility_town_oid}{if:field.isRequired}
 																	<span class="required-field">*</span>{/if} :
 																					</label></div>
-																			<div class="form-control-bs" id="{field.name}-control">{field:mobility_town_oid}</div></div>{get_field:archive_state}{/get_field}
+																			<div class="form-control-bs" id="{field.name}-control">{field:mobility_town_oid}</div></div>{get_field:last_position}{/get_field}
+																<div id="field_{field.name}" class="form-group form-group-bs field-type-{field.type} {if:field.is_last} last_field{/if}">
+																				<div class="control-label-wrapper-bs">
+																					<label for="{field.name}" class="control-label-bs control-label">{field.label:last_position}{if:field.isRequired}
+																	<span class="required-field">*</span>{/if} :
+																					</label></div>
+																			<div class="form-control-bs" id="{field.name}-control">{field:last_position}</div></div>{get_field:last_company}{/get_field}
+																<div id="field_{field.name}" class="form-group form-group-bs field-type-{field.type} {if:field.is_last} last_field{/if}">
+																				<div class="control-label-wrapper-bs">
+																					<label for="{field.name}" class="control-label-bs control-label">{field.label:last_company}{if:field.isRequired}
+																	<span class="required-field">*</span>{/if} :
+																					</label></div>
+																			<div class="form-control-bs" id="{field.name}-control">{field:last_company}</div></div>{get_field:archive_state}{/get_field}
 																<div id="field_{field.name}" class="form-group form-group-bs field-type-{field.type} {if:field.is_last} last_field{/if}">
 																				<div class="control-label-wrapper-bs">
 																					<label for="{field.name}" class="control-label-bs control-label">{field.label:archive_state}{if:field.isRequired}

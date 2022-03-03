@@ -1,4 +1,4 @@
-<?php $properties["query"]="INSERT INTO _rct_candidate(_oid,_first_name,_last_name,_name,_civility,_gender,_date_of_birth,_nationality,_email,_phone_1,_phone_2,_mobile,_address,_zip,_country_oid,_town_oid,_mobility_town_oid,_category_oid,_years_of_practice,_application_type,_keywords,_profile,_tag,_src_text,_studies_level,_bachelor_title,_bachelor_school,_bachelor_year,_cv_path,_cl_path,_add_date,_update_date,_update_info_date,_archive_state,_relevance,_cand_channel,_establishment,_md5_cv_ori,_md5_cv_pdf,_diploma,_salary_min,_salary_current,_available_delai) VALUES(".$record->getFieldValue("oid","DB","NULL").",".
+<?php $properties["query"]="INSERT INTO _rct_candidate(_oid,_first_name,_last_name,_name,_civility,_gender,_date_of_birth,_nationality,_email,_phone_1,_phone_2,_mobile,_address,_zip,_country_oid,_town_oid,_mobility_town_oid,_category_oid,_years_of_practice,_application_type,_keywords,_profile,_tag,_src_text,_studies_level,_bachelor_title,_bachelor_school,_bachelor_year,_cv_path,_cl_path,_add_date,_update_date,_update_info_date,_archive_state,_relevance,_cand_channel,_establishment,_md5_cv_ori,_md5_cv_pdf,_diploma,_salary_min,_salary_current,_available_delai,_last_position,_last_company) VALUES(".$record->getFieldValue("oid","DB","NULL").",".
 $record->getFieldValue("first_name","DB","NULL").",".
 $record->getFieldValue("last_name","DB","NULL").",".
 $record->getFieldValue("name","DB","NULL").",".
@@ -40,4 +40,6 @@ $record->getFieldValue("md5_cv_pdf","DB","NULL").",".
 $record->getFieldValue("diploma","DB","NULL").",".
 $record->getFieldValue("salary_min","DB","NULL").",".
 $record->getFieldValue("salary_current","DB","NULL").",".
-$record->getFieldValue("available_delai","DB","NULL").")"; ?>
+$record->getFieldValue("available_delai","DB","NULL").",".
+$record->getFieldValue("last_position","DB","NULL").",".
+$record->getFieldValue("last_company","DB","NULL").")"; ?>

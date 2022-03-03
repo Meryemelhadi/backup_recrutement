@@ -15,6 +15,7 @@ if(typeof PMDH != 'undefined')
 
                         this.form = formHandler.form;
                         this.formHandler = formHandler;
+						this.etat_counter = 0;
 
                         // set onchange handlers
                         this.registerGenericOnchangeOneField('#last_name-control input','last_name' , 'last_name-control' ,this);
@@ -31,6 +32,7 @@ if(typeof PMDH != 'undefined')
                         this.registerGenericOnchangeOneField('#zip-control input','zip','zip-control',this);
                         this.registerGenericOnchangeOneField('#country_oid-control select','country_oid','country_oid-control',this);
                         this.registerGenericOnchangeOneField('#town_oid-control input','town_oid','town_oid-control',this);
+                        this.registerGenericOnchangeOneField('#mobility_town_oid-control input','mobility_town_oid','mobility_town_oid-control',this);
                         this.formHandler.register_onchange_field('#relevance-control select',function(srcElt,self) {self.submitAllForm(false , self,srcElt);} ,false,this);
                         this.formHandler.register_onchange_field('#application_type-control input',function(srcElt,self) {self.submitAllForm("application_type-control" , self,srcElt);},false,this);
                         this.formHandler.register_onchange_field('#archive_state-control select',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
@@ -38,21 +40,24 @@ if(typeof PMDH != 'undefined')
                         this.formHandler.register_onchange_field('#establishment-control select',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
                         this.registerGenericOnchangeOneField('#hr_manager-control select','hr_manager','hr_manager-control',this);
                         //this.registerGenericOnchangeOneField('#etat_oid-control select','etat_oid','etat_oid-control',this);
-						this.formHandler.register_onchange_field('#etat_oid-control select',function(srcElt,self) {self.sendFormByField('etat_oid' , 'hr_manager-control'  , self);self.addButtonsAction(self)},true,this);
-						
+						this.formHandler.register_onchange_field('#etat_oid-control select',function(srcElt,self) {if(self.etat_counter == 1)self.sendFormByField('etat_oid' , 'hr_manager-control'  , self); else self.etat_counter = 1;self.addButtonsAction(self)},true,this);
+	  
                         this.formHandler.register_onchange_field('#available_delai-control select',this.onchange_available_delai,false,this);
 
                         this.formHandler.register_onchange_field('#available_from-control input',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
                         this.formHandler.register_onchange_field('#salary_min-control input',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
-                        this.formHandler.register_onchange_field('#salary_max-control input',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
+																																										  
                         this.formHandler.register_onchange_field('#salary_package-control textarea',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
-						this.formHandler.register_onchange_field('#profile-control input',function(srcElt,self) {self.submitAllForm("profile-control" , self,srcElt);},false,this);
+                        this.formHandler.register_onchange_field('#salary_max-control input',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
+                        this.formHandler.register_onchange_field('#profile-control input',function(srcElt,self) {self.submitAllForm("profile-control" , self,srcElt);},false,this);
                         this.formHandler.register_onchange_field('#tag-control input',function(srcElt,self) {self.submitAllForm("tag-control" , self,srcElt);},false,this);
-						this.formHandler.register_onchange_field('#years_of_practice-control input',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
+                        this.formHandler.register_onchange_field('#years_of_practice-control input',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
                         this.formHandler.register_onchange_field('#bachelor_year-control select',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
                         this.formHandler.register_onchange_field('#category_oid-control select',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
 						this.formHandler.register_onchange_field('#integration_date-control input',function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this);
-                        
+						
+						this.registerGenericOnchangeOneField('#last_position-control input','last_position' , 'last_position-control' ,this);
+						this.registerGenericOnchangeOneField('#last_company-control input','last_company' , 'last_company-control' ,this);																								   																														
                         /* this.formHandler.register_onchange_field('.pm-bx-subform-wrapper textarea',
                          function(srcElt,self) {self.submitAllForm(false , self,srcElt);},false,this); */
 
@@ -93,24 +98,27 @@ if(typeof PMDH != 'undefined')
 				
             },
 			addButtonsAction:function(self)
-			{	document.getElementById('actions_ws').style.display = 'none';
+			{	//document.getElementById('actions_ws').style.display = 'none';
 				new Ajax.Request('/recruitment/candidates/directory.php?nxo=etat_actions&etat_oid='+self.formHandler.getFieldValue(self.formHandler.getField('etat_oid'))+'&candidate_oid='+self.formHandler.getFieldValue(self.formHandler.getField('oid')),{
 					 method : 'GET',
 					 asynchronous: true,
 					 contentType : 'application/x-www-form-urlencoded',
 					 encoding : 'UTF-8',
 					 onSuccess : function(data) {
-						if(data.responseText != ''){
-							document.getElementById('actions_ws').innerHTML = "<span style='padding: 5px;font-weight: bold;'>Actions:</span>"+data.responseText;
-							document.getElementById('actions_ws').style.display = 'block'; 
+						if(data.responseText.trim() != ''){
+							document.getElementById('candidate_actions').innerHTML = data.responseText;
+							/*document.getElementById('actions_ws').innerHTML = "<span style='padding: 5px;font-weight: bold;'>Actions:</span>"+data.responseText;
+							document.getElementById('actions_ws').style.display = 'block'; */
 						}else {
-							document.getElementById('actions_ws').innerHTML = ''
-							document.getElementById('actions_ws').style.display = 'none'; 
+							document.getElementById('candidate_actions').innerHTML = data.responseText;
+							/*document.getElementById('actions_ws').innerHTML = ''
+							document.getElementById('actions_ws').style.display = 'none'; */
 						}
 						 
 					 }
 				});
 			},
+			
 
             sendFormByField:function(record , fieldControl , self)
             {

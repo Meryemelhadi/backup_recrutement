@@ -399,6 +399,9 @@
 					<field name="salary_min" label="salary_min" type="line" size="15" prompt="Min"/>
 					<field name="salary_current" label="income" type="line" size="20" sqlType="varchar(20)"/>
 					<field name="available_delai" type="text-choice" control="select" list="available_delai"/>
+					<field name="last_position" label="last_position"  type="line" />
+					<field name="last_company" label="last_company"  type="line" />
+
 				</fields>
 
 			<!-- /FY -->
@@ -1713,6 +1716,8 @@
 						ds_format		= "{field:first_name} {field:last_name}"
 						ds_field_value="oid" sqlType="integer"/>
 					<field name="src_text" label="src_text" type="line" sqlType="text" />
+					<field name="last_position" label="last_position" type="line" />
+					<field name="last_company" label="last_company" type="line" />
 				</fields>
 
 				<key mode="edit_comments_cache">
@@ -1924,6 +1929,9 @@
 						ds				= "db:rct_contact.list@recruitment3"
 						ds_format		= "{field:first_name} {field:last_name}"
 						ds_field_value="oid" sqlType="integer"/>
+					
+					<field name="last_position" label="last_position" type="line" />
+					<field name="last_company" label="last_company" type="line" />
 				</fields>
 
 				<key mode="edit_process_last_name">
@@ -2065,6 +2073,14 @@
                   <fields mode="edit_process_mobility_town_oid">
                        <field name="oid" alias="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
                        <field name="mobility_town_oid" label="mobility_town_oid" type="line" />
+                  </fields>
+				  <fields mode="edit_process_last_position">
+                       <field name="oid" alias="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+                       <field name="last_position" label="last_position" type="line" />
+                  </fields>
+				  <fields mode="edit_process_last_company">
+                       <field name="oid" alias="oid" label="oid" type="oid" isKey="primary" isEdit="no" show="hidden" />
+                       <field name="last_company" label="last_company" type="line" />
                   </fields>
 
 				<key mode="details">
@@ -2689,36 +2705,38 @@
 					Le cache
 				-->
 
-				<field name="diploma_type" label="diploma_type" type="text" />
-				<field name="institution" label="institution" type="text" />
-				<field name="diploma" label="diploma" type="text" />
-				<field name="provider" type="text-choice" ds="rct_candidate_provider.list" control="select" sqlType="integer" multiple="false"/>
-				
-				<field name="vacancies_oid" label="vacancies_oid" type="text-choice-table"  multiple="yes" ds="rct_vacancy.ds_list_all" ds_link= "db:rct_candidate_vacancy@recruitment" ds_format="{field:name} (N {field:code})" ds_field_value="oid"  />
+					<field name="diploma_type" label="diploma_type" type="text" />
+					<field name="institution" label="institution" type="text" />
+					<field name="diploma" label="diploma" type="text" />
+					<field name="provider" type="text-choice" ds="rct_candidate_provider.list" control="select" sqlType="integer" multiple="false"/>
+					
+					<field name="vacancies_oid" label="vacancies_oid" type="text-choice-table"  multiple="yes" ds="rct_vacancy.ds_list_all" ds_link= "db:rct_candidate_vacancy@recruitment" ds_format="{field:name} (N {field:code})" ds_field_value="oid"  />
 
-           		<field name="last_employment_start_date" label="last_employment_start_date" type="date" />
-				<field name="last_employment_end_date" label="last_employment_end_date" type="date" />
-				<field name="last_employment" label="last_employment" type="text" />
-				<field name="last_training_start_date" label="last_training_start_date" type="date" />
-				<field name="last_training_end_date" label="last_training_end_date" type="date" />
-				<field name="last_training" label="last_training" type="text" />
-				<field name="age" label="age" type="integer" />
-				<field name="integration_date" label="integration_date" type="date" />
-				<field name="comments_cache" label="comments_cache" type="text" />
-				<field
-						name			= "contact"
-						label			= "contact"
-						type			= "text-choice"
-						prompt			= "contact..."
-						multiple		= "false"
-						control			= "select"
-						ds				= "db:rct_contact.list@recruitment3"
-						ds_format		= "{field:first_name} {field:last_name}"
-						ds_field_value="oid" sqlType="integer"/>
-						
-				
-				<field name="md5_cv_ori" label="md5_cv_ori" type="line" size="40" sqlType="varchar(40)"/>
-				<field name="md5_cv_pdf" label="md5_cv_pdf" type="line" size="40" sqlType="varchar(40)"/>
+					<field name="last_employment_start_date" label="last_employment_start_date" type="date" />
+					<field name="last_employment_end_date" label="last_employment_end_date" type="date" />
+					<field name="last_employment" label="last_employment" type="text" />
+					<field name="last_training_start_date" label="last_training_start_date" type="date" />
+					<field name="last_training_end_date" label="last_training_end_date" type="date" />
+					<field name="last_training" label="last_training" type="text" />
+					<field name="age" label="age" type="integer" />
+					<field name="integration_date" label="integration_date" type="date" />
+					<field name="comments_cache" label="comments_cache" type="text" />
+					<field
+							name			= "contact"
+							label			= "contact"
+							type			= "text-choice"
+							prompt			= "contact..."
+							multiple		= "false"
+							control			= "select"
+							ds				= "db:rct_contact.list@recruitment3"
+							ds_format		= "{field:first_name} {field:last_name}"
+							ds_field_value="oid" sqlType="integer"/>
+							
+					
+					<field name="md5_cv_ori" label="md5_cv_ori" type="line" size="40" sqlType="varchar(40)"/>
+					<field name="md5_cv_pdf" label="md5_cv_pdf" type="line" size="40" sqlType="varchar(40)"/>
+					<field name="last_position" label="last_position" type="line" />
+					<field name="last_company" label="last_company" type="line" />
 				</fields>
 				
 				<query mode="get_doublons">

@@ -443,6 +443,8 @@
 'evaluation' => 'Evaluation',
 'go_to_evaluation' => 'Voir Evaluation',
 'field:interview_feedback' => 'Résultat entretien',
+'field:last_position' => 'Dernier poste occupé',
+'field:last_company' => 'Dernière entreprise',
 'page_message_interview_synthesis_add' => 'Ce formulaire vous permet de saisir un nouveau compte rendu d\'entretien',
 'page_message_interview_synthesis_edit' => 'Ce formulaire vous permet d\'éditer un nouveau compte rendu d\'entretien sélectionné',
 'page_message_interview_synthesis_view' => 'Ce formulaire vous permet de visualiser un nouveau compte rendu d\'entretien sélectionné',
